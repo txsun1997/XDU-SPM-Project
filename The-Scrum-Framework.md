@@ -34,6 +34,8 @@ Scrum框架是基于团队的(team based)的迭代开发方法，并且定义了
 
 > 这里的Iteration我觉得就是Sprint
 
+## Scrum过程
+
 ![Scrum Framework](https://github.com/txsun1997/XDU-SPM-Project/blob/master/Scrum.jpg)
 
 1. 首先，一个Scrum Project有一个Project Backlog，这个Project Backlog中包含了一系列需求，按照上课的时候老师的意思，这些需求应该包含functions和features，functions是指这个软件的功能或目的，而features是指该软件要完成对应的功能所使用的工具或方法，例如实现微信登录这是一个function，而通过输入账号密码登录还是扫描二维码登录就是两个不同的features。按照定义，User Stories就是features，也就是说，在Project Backlog中，不仅要声明软件需要完成的功能需求，还要声明对应需求的特性。
