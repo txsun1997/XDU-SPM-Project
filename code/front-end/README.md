@@ -4,7 +4,7 @@
 * Profile管理
 * 修改密码
 * librarian, reader, books展示
-* 注册librarian（系统自动分配ID）
+* 注册librarian（系统自动分配ID，密码默认置为123456）
 
 ## Librarian
 
