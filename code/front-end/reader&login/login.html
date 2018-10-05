@@ -14,6 +14,7 @@
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
 <script>
+
 	var socket = io("http://139.199.112.88:2761");
 
 	function loginServer() {
@@ -25,10 +26,10 @@
 
 	socket.on("LoginSuccess", function (data) {
 		if (data.type == "reader")
-			location.href = data.type + "-index.html?" + "username=" + $("#username").val() + "&type=" + data.type;
+			location.href = data.type + "-index.html?" + "username=" + $("#username").val() + "&type=" + data.type + "&session=" + data.session;
 		else {
 			var cur_href = location.href;
-			location.href = cur_href.replace("reader&login/login.html", "admin&librarian/" + data.type + "-index.html?" + "username=" + $("#username").val() + "&type=" + data.type);
+			location.href = cur_href.replace("reader&login/login.html", "admin&librarian/" + data.type + "-index.html?" + "username=" + $("#username").val() + "&type=" + data.type + "&session=" + data.session);
 		}
 	});
 
