@@ -1,142 +1,233 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8" />
-		<link rel="stylesheet" href="css/amazeui.min.css">
-		<link rel="stylesheet" href="css/admin.css">
-		<link rel="stylesheet" href="css/app.css">
-		
-		 <style>
-		 	.admin-main{
+<script src="../socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+	var socket = io("http://139.199.112.88:2761");
+
+	//cookie
+	var href = location.href;
+	var auth_data = {};
+	var username = "";
+	var type = "";
+	var session = "";
+	for (var i = 0; i < href.length; i++) {
+		if (href[i] == '?') {
+			for (var j = i + 10; j < href.length; j++) {
+				if (href[j] == "&") {
+					for (var k = j + 6; k < href.length; k++) {
+						if (href[k] == "&") {
+							for (var h = k + 9; h < href.length; h++) {
+								session += href[h];
+							}
+							break;
+						}
+						type += href[k];
+					}
+					break;
+				}
+				username += href[j];
+			}
+			break;
+		}
+	}
+	auth_data.username = username;
+	auth_data.session = session;
+	auth_data.type = type;
+
+	//session auth failed
+	socket.on("noSession", function (data) {
+		window.alert("登录已过期，请重新登录！");
+		location.href = replace(location.href, "reader&login/login.html", "admin&librarian");
+	});
+
+	//session auth failed
+	socket.on("sessionFailed", function (data) {
+		window.alert("用户名类型不一致，请重新登录！");
+		location.href = replace(location.href, "reader&login/login.html", "admin&librarian");
+	});
+
+	//session auth Success
+	socket.on("sessionSuccess", function (data) {
+
+	});
+
+	//replace with pattern
+	function replace(str1, str2, pattern) {
+		var final = "";
+		var finded = true;
+		for (var i = 0; i < str1.length; i++) {
+			finded = true;
+			for (var j = 0; j < pattern.length; j++) {
+				if (str1[i + j] != pattern[j]) {
+					finded = false;
+					break;
+				}
+			}
+			if (finded) {
+				for (var j = 0; j < str2.length; j++)final += str2[j];
+				break;
+			}
+			final += str1[i];
+		}
+		return final;
+	}
+
+	//louOut request
+	function logOut() {
+		socket.emit("logOut", auth_data);
+		location.href = replace(location.href, "reader&login/login.html", "admin&librarian");
+	}
+
+	socket.emit("sessionAuth", auth_data);
+
+
+
+</script>
+
+
+<head>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="css/amazeui.min.css">
+	<link rel="stylesheet" href="css/admin.css">
+	<link rel="stylesheet" href="css/app.css">
+
+	<style>
+		.admin-main{
 		 		padding-top: 0px;	
 		 	}
 		 </style>
-	</head>
+</head>
+
+<body>
+
 	<body>
-		<body>
-			<header class="am-topbar am-topbar-inverse admin-header">
-				<div class="am-topbar-brand">
-					<img src="img/logo/logo黑字.png" width="140" height="52">
-				</div>
-				<button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}">
-			<span class="am-sr-only"> Switch Navigation</span> <span class="am-icon-bars"></span>
-		</button>
-				<div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+		<header class="am-topbar am-topbar-inverse admin-header">
+			<div class="am-topbar-brand">
+				<img src="img/logo/logo黑字.png" width="140" height="52">
+			</div>
+			<button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}">
+				<span class="am-sr-only"> Switch Navigation</span> <span class="am-icon-bars"></span>
+			</button>
+			<div class="am-collapse am-topbar-collapse" id="topbar-collapse">
 
-					<ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-						<li>
-							<a href="message.html"><span class="am-icon-envelope-o"></span> Message</span> </a>
-						</li>
-						
-						<li>
-							<a href="admin-info.html" target="right"><span class="am-icon-briefcase"></span> Profile</a>
-						</li>
-						<li>
-							<a href="account/logOut.action"><span class="am-icon-power-off"></span> Logout
-							</a>
-						</li>
-					</ul>
-				</div>
-			</header>
+				<ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+					<li>
+						<a href="admin-message.html"><span class="am-icon-envelope-o"></span> Message</span> </a>
+					</li>
 
-			<div class="am-cf admin-main">
-				<!-- sidebar start -->
-				<div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
-					<div class="am-offcanvas-bar admin-offcanvas-bar">
-						<ul class="am-list admin-sidebar-list">
-							<li>
-								<a href="admin-index.html"><span class="am-icon-home">Home</span>
-									<li class="admin-parent">
-										<a class="am-cf"  href="librarian-list.html" target="right"  ><span class="am-icon-users"></span> Librarian Management<span class="am-icon-angle-right am-fr am-margin-right"></span> </a>
-										
-									</li>
-									<li class="admin-parent">
-										<a class="am-cf" href="book-list.html"  target="right" ><span class="am-icon-book"></span> Books Management<span class="am-icon-angle-right am-fr am-margin-right"></span> </a>
-										
-									</li>
-									
-									<li class="admin-parent">
-										<a class="am-cf"  href="reader-list.html" target="right"><span class="am-icon-list"></span> Readers Management<span class="am-icon-angle-right am-fr am-margin-right"></span> </a>
-										
-									</li>
-									
-									<!--
+					<li>
+						<a href="admin-info.html" target="right"><span class="am-icon-briefcase"></span> Profile</a>
+					</li>
+					<li>
+						<a onclick="logOut()"><span class="am-icon-power-off"></span> Logout
+						</a>
+					</li>
+				</ul>
+			</div>
+		</header>
+
+		<div class="am-cf admin-main">
+			<!-- sidebar start -->
+			<div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+				<div class="am-offcanvas-bar admin-offcanvas-bar">
+					<ul class="am-list admin-sidebar-list">
+						<li>
+							<a href="admin-index.html"><span class="am-icon-home">Home</span>
+						<li class="admin-parent">
+							<a class="am-cf" href="librarian-list.html" target="right"><span class="am-icon-users"></span> Librarian
+								Management<span class="am-icon-angle-right am-fr am-margin-right"></span> </a>
+						</li>
+						<li class="admin-parent">
+							<a class="am-cf" href="book-list.html" target="right"><span class="am-icon-book"></span> Books Management<span
+								 class="am-icon-angle-right am-fr am-margin-right"></span> </a>
+
+						</li>
+
+						<li class="admin-parent">
+							<a class="am-cf" href="reader-list.html" target="right"><span class="am-icon-list"></span> Readers Management<span
+								 class="am-icon-angle-right am-fr am-margin-right"></span> </a>
+
+						</li>
+
+						<!--
 									<li class="admin-parent">
 										<a class="am-cf"  href="schedule.html"   target="right"><span class="am-icon-file"></span> 日程管理<span class="am-icon-angle-right am-fr am-margin-right"></span> </a>
 										
 									</li>
 									-->
-									
-									
-									<!--
+
+
+						<!--
 									<li class="admin-parent">
 										<a class="am-cf" href="charts-1.html"  target="right"><span class="am-icon-file"></span> 统计报表<span class="am-icon-angle-right am-fr am-margin-right"></span> </a>
 										
 									</li>
 									-->
-									
-									<li class="admin-parent">
-										<a class="am-cf" href="updatePwd.html" target="right" ><span class="am-icon-cog"></span> Change Password<span class="am-icon-angle-right am-fr am-margin-right"></span> </a>
-										
-									</li>
-									
-						</ul>
-<div class="am-panel am-panel-default admin-sidebar-panel">
-							<div class="am-panel-bd">
-								<p>
-									<span class="am-icon-bookmark"></span> Notice
-								</p>
-								<p>Welcome to Bibliosoft!</p>
-							</div>
+
+						<li class="admin-parent">
+							<a class="am-cf" href="updatePwd.html" target="right"><span class="am-icon-cog"></span> Change Password<span
+								 class="am-icon-angle-right am-fr am-margin-right"></span> </a>
+
+						</li>
+
+					</ul>
+					<div class="am-panel am-panel-default admin-sidebar-panel">
+						<div class="am-panel-bd">
+							<p>
+								<span class="am-icon-bookmark"></span> Notice
+							</p>
+							<p>Welcome to Bibliosoft!</p>
 						</div>
-						
-						
 					</div>
-				</div>
-				<!-- sidebar end -->
 
-				<!-- content start -->
-				<div class="admin-content">
-					<div class="admin-content-body">
-						<iframe src="librarian-list.html" width="100%" height="1100" name="right" style="border: none;"></iframe>
-					</div>
+
 				</div>
-			
 			</div>
-			<!-- content end -->
+			<!-- sidebar end -->
 
+			<!-- content start -->
+			<div class="admin-content">
+				<div class="admin-content-body">
+					<iframe src="librarian-list.html" width="100%" height="1100" name="right" style="border: none;"></iframe>
+				</div>
 			</div>
 
-			<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+		</div>
+		<!-- content end -->
 
-			<footer>
-				<hr>
-				<p class="am-padding-left">© 2018 XDU-SPM-B2.</p>
-			</footer>
+		</div>
 
-			<!--[if lt IE 9]>
+		<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+		<footer>
+			<hr>
+			<p class="am-padding-left">© 2018 XDU-SPM-B2.</p>
+		</footer>
+
+		<!--[if lt IE 9]>
 <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
 <script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 <![endif]-->
 
-			<!--[if (gte IE 9)|!(IE)]><!-->
-			<script src="js/jquery-1.11.3.min.js"></script>
-			<!--<![endif]-->
-			<script src="js/amazeui.min.js"></script>
-			<script src="js/app.js"></script>
-			<script type="text/javascript" src="myplugs/js/plugs.js"></script>
-			<script type="text/javascript">
-				//添加编辑弹出层
-				function updatePwd(title, id) {
-					$.jq_Panel({
-						title: title,
-						iframeWidth: 500,
-						iframeHeight: 300,
-						url: "updatePwd.html"
-					});
-				}
-			</script>
+		<!--[if (gte IE 9)|!(IE)]><!-->
+		<script src="js/jquery-1.11.3.min.js"></script>
+		<!--<![endif]-->
+		<script src="js/amazeui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript" src="myplugs/js/plugs.js"></script>
+		<script type="text/javascript">
+			//添加编辑弹出层
+			function updatePwd(title, id) {
+				$.jq_Panel({
+					title: title,
+					iframeWidth: 500,
+					iframeHeight: 300,
+					url: "updatePwd.html"
+				});
+			}
+		</script>
 
 </html>
