@@ -24,25 +24,41 @@
 							<input value="504" name="roleId" type="hidden">
 							<div class="am-form-group">
 								<label for="user-name" class="am-u-sm-3 am-form-label">
-									角色名称
+									Name
 								</label>
 								<div class="am-u-sm-9">
-									<input id="roleName" required="" placeholder="请输入角色名称" value="" name="roleName" type="text">
-									<small id="helpRole">输入角色名称。</small>
+									<input id="roleName" required="" placeholder="Enter librarian's name." value="" name="roleName" type="text">
 								</div>
 							</div>
 							<div class="am-form-group">
 								<label for="user-name" class="am-u-sm-3 am-form-label">
-									角色描述
+									Gender
 								</label>
 								<div class="am-u-sm-9">
-									<textarea rows="" cols="50" placeholder="请输入角色描述" name="roleDesc"></textarea>
-									<small>输入角色描述。</small>
+										<input type="radio" name="sex" value="male" checked> Male
+										<br/>
+										<input type="radio" name="sex" value="female"> Female
+								</div>
+							</div>
+							<div class="am-form-group">
+								<label for="user-name" class="am-u-sm-3 am-form-label">
+									Phone
+								</label>
+								<div class="am-u-sm-9">
+									<input id="phone" required="" placeholder="Enter librarian's phone." value="" name="userPhone" type="text">
+								</div>
+							</div>
+							<div class="am-form-group">
+								<label for="user-name" class="am-u-sm-3 am-form-label">
+									Email
+								</label>
+								<div class="am-u-sm-9">
+									<input id="email" required="" placeholder="Enter librarian's email." value="" name="userEmail" type="text">
 								</div>
 							</div>
 							<div class="am-form-group">
 								<div class="am-u-sm-9 am-u-sm-push-3">
-									<input id="addRole" class="am-btn am-btn-success" value="编辑角色" type="button">
+									<input id="addRole" class="am-btn am-btn-success" value="ADD" type="button">
 								</div>
 							</div>
 						</form>
