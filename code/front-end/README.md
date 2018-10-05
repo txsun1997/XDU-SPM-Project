@@ -8,6 +8,7 @@
 
 ## Librarian
 
+* Add readers
 * Add books
 
 ## Reader
