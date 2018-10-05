@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login - Bibliosoft</title>
+	<link rel="stylesheet" href="css/reset.css" />
+	<link rel="stylesheet" href="css/login.css" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+</head>
+
+<script src="socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+<style>
+	.button {
+		background-color: #4CAF50;
+		border: none;
+		color: white;
+		padding: 10px 32px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 16px 2px;
+		cursor: pointer;
+		border-radius: 8px;
+		-webkit-transition-duration: 0.4s; /* Safari */
+    	transition-duration: 0.4s;
+	}
+
+	.button:hover {
+		background-color: rgb(6, 119, 44); /* Green */
+		color: white;
+	}	
+</style>
+
+<body>
+<div class="page">
+	<div class="loginwarrp">
+		<div class="logo">
+			<img src="images/logo/logo黑字.png" width="140" height="52" />
+		</div>
+        <div class="login_form">
+			<form id="Login" name="Login" method="post" onsubmit="" action="">
+				<li class="login-item">
+					<span>Username: </span>
+					<input type="text" id="username" name="UserName" class="login_input" >
+                    <span id="count-msg" class="error"></span>
+				</li>
+				<li class="login-item">
+					<span>Password : </span>
+					<input type="password" id="password" name="password" class="login_input" >
+                    <span id="password-msg" class="error"></span>
+				</li>
+
+				<li class="login-sub">
+					<button class="button" type="button" onclick = "loginServer()">LOGIN</button>
+				</li>                      
+           </form>
+		</div>
+	</div>
+</div>
+
+<script>
+	var socket = io("http://139.199.112.88:2761");
+
+	function loginServer() {
+		var login_data = {};
+		login_data["username"] = $("#username").val();
+		login_data["password"] = $("#password").val();
+		socket.emit("login", login_data);
+	}
+
+	socket.on("LoginSuccess", function(data){
+		location.href =  data.type +  "-index.html";
+	});
+
+	socket.on("noUser", function(data){
+		window.alert("The username is unregistered!");
+	});
+
+	socket.on("wrongPassword", function(data){
+		window.alert("Wrong password!");
+	});
+</script>
+
+<script type="text/javascript">
+		window.onload = function() {
+			var config = {
+				vx : 4,
+				vy : 4,
+				height : 2,
+				width : 2,
+				count : 100,
+				color : "121, 162, 185",
+				stroke : "100, 200, 180",
+				dist : 6000,
+				e_dist : 20000,
+				max_conn : 10
+			}
+			CanvasParticle(config);
+		}
+</script>
+<script type="text/javascript" src="js/canvas-particle.js"></script>
+</body>
+</html>
