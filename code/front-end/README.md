@@ -1,17 +1,24 @@
-## Admin
+# Release 1
 
-* 登入登出（cookie）
-* Profile管理
-* 修改密码
-* librarian, reader, books展示
-* 注册librarian（系统自动分配ID，密码默认置为123456）
+## Admin
+- [x] 登入
+- [x] 登出
+- [ ] 个人信息管理+修改密码
+- [ ] 添加librarian（系统自动分配ID，密码默认置为123456）
+- [ ] 列表展示librarian, reader, book
+- [ ] 编辑Librarian信息（可选）
 
 ## Librarian
-
-* Add readers（系统自动分配ID）
-* Add books（支持打印条形码Bar-Code）
+- [x] 登入
+- [ ] 登出
+- [ ] 个人信息管理+修改密码
+- [ ] 添加reader（系统自动分配ID，密码默认置为123456）
+- [ ] 添加图书（支持打印条形码）
+- [ ] 列表展示reader
 
 ## Reader
-
-* Search（模糊匹配、作者、书名）
-* 点击搜索结果列表中任意item显示该书的detail，须包含位置、剩余数量
+- [ ] 登入
+- [ ] 登出
+- [ ] 个人信息管理+修改密码
+- [ ] 根据书名、作者查找图书
+- [ ] 查看某本书的位置和详细信息

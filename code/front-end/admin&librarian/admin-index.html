@@ -38,13 +38,13 @@
 
 	//session auth failed
 	socket.on("noSession", function (data) {
-		window.alert("登录已过期，请重新登录！");
+		window.alert("Login has expired, please login again!");
 		location.href = replace(location.href, "reader&login/login.html", "admin&librarian");
 	});
 
 	//session auth failed
 	socket.on("sessionFailed", function (data) {
-		window.alert("用户名类型不一致，请重新登录！");
+		window.alert("User name type is inconsistent, please login again!");
 		location.href = replace(location.href, "reader&login/login.html", "admin&librarian");
 	});
 
