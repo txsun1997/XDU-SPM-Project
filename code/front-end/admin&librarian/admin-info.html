@@ -83,7 +83,7 @@
 						</div>
 						<div class="am-form-group">
 							<div class="am-u-sm-9 am-u-sm-push-3">
-								<input id="submit" class="am-btn am-btn-success" value="SUBMIT" type="button" onclick="updateInfo()">
+								<input id="submit" class="am-btn am-btn-success" value="SUBMIT" type="button" onclick="updateAdminInfo()">
 								<!--
 									<button class="button" type="button" onclick="updateInfo()">SUBMIT</button>
 								-->
@@ -122,8 +122,12 @@
 		socket.emit("getAdminInfo", auth_data);
 
 
-		function updateInfo() {
-			window.alert("OK!");
+		function updateAdminInfo() {
+			var data = {};
+			data.username = $("#account").val();
+			data.phone =  $("#phone").val();
+			data.email =  $("#email").val();
+			socket.emit("updateAdminInfo", data);
 		}
 	</script>
 
