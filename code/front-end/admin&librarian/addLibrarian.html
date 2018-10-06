@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="css/amazeui.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/app.css">
+    <style>
+        .admin-main{
+				padding-top: 0px;
+			}
+		</style>
+</head>
+
+
+
+
+<body>
+
+    <div class="am-cf admin-main">
+        <!-- content start -->
+        <div class="admin-content">
+            <div class="admin-content-body">
+                <div class="am-g">
+                    <form class="am-form am-form-horizontal" style="padding-top: 30px;">
+                        <input value="504" name="roleId" type="hidden">
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">
+                                Name
+                            </label>
+                            <div class="am-u-sm-9">
+                                <input id="roleName" required="" placeholder="Enter librarian's name." value="" name="roleName"
+                                    type="text">
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">
+                                Gender
+                            </label>
+                            <div class="am-u-sm-9">
+                                <input id="male"  type="radio" name="sex" value="male" checked> Male
+                                <br />
+                                <input id="female" type="radio" name="sex" value="female"> Female
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">
+                                Phone
+                            </label>
+                            <div class="am-u-sm-9">
+                                <input id="phone" required="" placeholder="Enter librarian's phone." value="" name="userPhone"
+                                    type="text">
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">
+                                Email
+                            </label>
+                            <div class="am-u-sm-9">
+                                <input id="email" required="" placeholder="Enter librarian's email." value="" name="userEmail"
+                                    type="text">
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <div class="am-u-sm-9 am-u-sm-push-3">
+                                <button onclick="addRole()" class="am-btn am-btn-success">ADD</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="../cookie.js"></script>
+<script src="../socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    var socket = io("http://139.199.112.88:2761");
+    var auth_data = {};
+    auth_data.username = Cookies.get("username");
+    auth_data.session = Cookies.get("session");
+    auth_data.type = Cookies.get("type");
+
+    socket.on("addLibrarianRoleSuccess", function () {
+        window.alert("Successfully add role.");
+    });
+
+    function addRole() {
+        var data = {};
+        data.name = $("#roleName").val();
+        if (document.getElementById("male").checked) data.gender = "Male";
+        else data.gender = "Female";
+        data.phone = $("#phone").val();
+        data.email = $("#email").val();
+
+        socket.emit("addLibrarianRole", data);
+    }
+
+</script>
+
+</html>
