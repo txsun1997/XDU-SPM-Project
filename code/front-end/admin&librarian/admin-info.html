@@ -97,9 +97,6 @@
 	</div>
 
 
-
-
-
 	<script src="../cookie.js"></script>
 	<script src="../socket.io.js"></script>
 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -121,20 +118,27 @@
 
 		socket.emit("getAdminInfo", auth_data);
 
+		socket.on("updateAdminInfoSuccess", function () {
+			window.alert("Successfully Updated.");
+		});
 
 		function updateAdminInfo() {
 			var data = {};
 			data.username = $("#account").val();
-			data.phone =  $("#phone").val();
-			data.email =  $("#email").val();
+			data.phone = $("#phone").val();
+			data.email = $("#email").val();
 			socket.emit("updateAdminInfo", data);
 		}
 	</script>
 
 	<script type="text/javascript" src="assets/js/libs/jquery-1.10.2.min.js">
 
+
+
 	</script>
 	<script type="text/javascript" src="myplugs/js/plugs.js">
+
+
 
 	</script>
 </body>
