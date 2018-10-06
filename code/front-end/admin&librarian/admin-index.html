@@ -1,90 +1,6 @@
 <!DOCTYPE html>
 <html>
 
-<script src="../socket.io.js"></script>
-<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-<script>
-	var socket = io("http://139.199.112.88:2761");
-
-	//cookie
-	var href = location.href;
-	var auth_data = {};
-	var username = "";
-	var type = "";
-	var session = "";
-	for (var i = 0; i < href.length; i++) {
-		if (href[i] == '?') {
-			for (var j = i + 10; j < href.length; j++) {
-				if (href[j] == "&") {
-					for (var k = j + 6; k < href.length; k++) {
-						if (href[k] == "&") {
-							for (var h = k + 9; h < href.length; h++) {
-								session += href[h];
-							}
-							break;
-						}
-						type += href[k];
-					}
-					break;
-				}
-				username += href[j];
-			}
-			break;
-		}
-	}
-	auth_data.username = username;
-	auth_data.session = session;
-	auth_data.type = type;
-
-	//session auth failed
-	socket.on("noSession", function (data) {
-		window.alert("Login has expired, please login again!");
-		location.href = replace(location.href, "reader&login/login.html", "admin&librarian");
-	});
-
-	//session auth failed
-	socket.on("sessionFailed", function (data) {
-		window.alert("User name type is inconsistent, please login again!");
-		location.href = replace(location.href, "reader&login/login.html", "admin&librarian");
-	});
-
-	//session auth Success
-	socket.on("sessionSuccess", function (data) {
-
-	});
-
-	//replace with pattern
-	function replace(str1, str2, pattern) {
-		var final = "";
-		var finded = true;
-		for (var i = 0; i < str1.length; i++) {
-			finded = true;
-			for (var j = 0; j < pattern.length; j++) {
-				if (str1[i + j] != pattern[j]) {
-					finded = false;
-					break;
-				}
-			}
-			if (finded) {
-				for (var j = 0; j < str2.length; j++)final += str2[j];
-				break;
-			}
-			final += str1[i];
-		}
-		return final;
-	}
-
-	//louOut request
-	function logOut() {
-		socket.emit("logOut", auth_data);
-		location.href = replace(location.href, "reader&login/login.html", "admin&librarian");
-	}
-
-	socket.emit("sessionAuth", auth_data);
-
-
-
-</script>
 
 
 <head>
@@ -118,7 +34,7 @@
 					</li>
 
 					<li>
-						<a href="admin-info.html" target="right"><span class="am-icon-briefcase"></span> Profile</a>
+						<a id="admin-info" href="admin-info.html" target="right"><span class="am-icon-briefcase"></span> Profile</a>
 					</li>
 					<li>
 						<a onclick="logOut()"><span class="am-icon-power-off"></span> Logout
@@ -228,6 +144,98 @@
 					url: "updatePwd.html"
 				});
 			}
+		</script>
+
+
+		<script src="../socket.io.js"></script>
+		<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+		<script>
+			var socket = io("http://139.199.112.88:2761");
+
+			//cookie
+			var href = location.href;
+			var auth_data = {};
+			var username = "";
+			var type = "";
+			var session = "";
+			for (var i = 0; i < href.length; i++) {
+				if (href[i] == '?') {
+					for (var j = i + 10; j < href.length; j++) {
+						if (href[j] == "&") {
+							for (var k = j + 6; k < href.length; k++) {
+								if (href[k] == "&") {
+									for (var h = k + 9; h < href.length; h++) {
+										session += href[h];
+									}
+									break;
+								}
+								type += href[k];
+							}
+							break;
+						}
+						username += href[j];
+					}
+					break;
+				}
+			}
+			auth_data.username = username;
+			auth_data.session = session;
+			auth_data.type = type;
+
+			//session auth failed
+			socket.on("noSession", function (data) {
+				window.alert("Login has expired, please login again!");
+				location.href = replace(location.href, "reader&login/login.html", "admin&librarian");
+			});
+
+			//session auth failed
+			socket.on("sessionFailed", function (data) {
+				window.alert("User name type is inconsistent, please login again!");
+				location.href = replace(location.href, "reader&login/login.html", "admin&librarian");
+			});
+
+			//session auth Success
+			socket.on("sessionSuccess", function (data) {
+
+			});
+
+			//replace with pattern
+			function replace(str1, str2, pattern) {
+				var final = "";
+				var finded = true;
+				for (var i = 0; i < str1.length; i++) {
+					finded = true;
+					for (var j = 0; j < pattern.length; j++) {
+						if (str1[i + j] != pattern[j]) {
+							finded = false;
+							break;
+						}
+					}
+					if (finded) {
+						for (var j = 0; j < str2.length; j++)final += str2[j];
+						break;
+					}
+					final += str1[i];
+				}
+				return final;
+			}
+
+			//louOut request
+			function logOut() {
+				socket.emit("logOut", auth_data);
+				location.href = replace(location.href, "reader&login/login.html", "admin&librarian");
+			}
+
+
+			$("#admin-info").attr("href", replace(location.href, "admin-info.html?" + "username=" + username + "&type=" + type + "&session=" + session, "admin-index.html"));
+			//replace(location.href, "admin-info.html?" + "username=" + username + "&type=" + type + "&session=" + session),
+
+			//auth session and username and type
+			socket.emit("sessionAuth", auth_data);
+
+
+
+
 		</script>
 
 </html>
