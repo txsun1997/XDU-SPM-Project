@@ -10,8 +10,11 @@
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/login.js"></script>
 </head>
+
 <script src="../socket.io.js"></script>
+<script src="../cookie.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
 
 <script>
 
@@ -25,11 +28,14 @@
 	}
 
 	socket.on("LoginSuccess", function (data) {
+		Cookies.set("username", $("#username").val(), { expires: 1 });
+		Cookies.set("type", data.type, { expires: 1 });
+		Cookies.set("session", data.session, { expires: 1 });
 		if (data.type == "reader")
-			location.href = data.type + "-index.html?" + "username=" + $("#username").val() + "&type=" + data.type + "&session=" + data.session;
+			location.href = data.type + "-index.html";
 		else {
 			var cur_href = location.href;
-			location.href = cur_href.replace("reader&login/login.html", "admin&librarian/" + data.type + "-index.html?" + "username=" + $("#username").val() + "&type=" + data.type + "&session=" + data.session);
+			location.href = cur_href.replace("reader&login/login.html", "admin&librarian/" + data.type + "-index.html");
 		}
 	});
 
