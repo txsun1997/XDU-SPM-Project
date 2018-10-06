@@ -1,140 +1,142 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
 
-		<link rel="stylesheet" href="css/amazeui.min.css">
-		<link rel="stylesheet" href="css/admin.css">
-		<link rel="stylesheet" href="css/app.css">
-	</head>
+	<link rel="stylesheet" href="css/amazeui.min.css">
+	<link rel="stylesheet" href="css/admin.css">
+	<link rel="stylesheet" href="css/app.css">
+</head>
 
-	<body>
+<body>
 
-		<div class="am-cf admin-main" >
-			<!-- content start -->
-			<div class="admin-content">
-				<div class="admin-content-body">
-				
-					<div class="container" style="padding: 50px 10px 0px 10px">
-						<div class="am-g">
-							<div class="am-u-sm-12 am-u-md-6">
-								<div class="am-btn-toolbar">
-									<div class="am-btn-group am-btn-group-xs">
-							
+	<div class="am-cf admin-main">
+		<!-- content start -->
+		<div class="admin-content">
+			<div class="admin-content-body">
+
+				<div class="container" style="padding: 50px 10px 0px 10px">
+					<div class="am-g">
+						<div class="am-u-sm-12 am-u-md-6">
+							<div class="am-btn-toolbar">
+								<div class="am-btn-group am-btn-group-xs">
+
 									<button type="button" class="am-btn am-btn-primary btnAdd">
 										<span class="am-icon-plus"></span> ADD
 									</button>
-                               
-									</div>
-								</div>
-							</div>
-							<div class="am-u-sm-12 am-u-md-3">
-								<div class="am-input-group am-input-group-sm">
-									<input id="roleName" class="am-form-field" placeholder="Enter ID/name" type="text">
-									<span class="am-input-group-btn">
-									<button class="am-btn am-btn-primary" type="button" id="btnsearch">
-											<span class="am-icon-search"></span>
-									</button> </span>
+
 								</div>
 							</div>
 						</div>
+						<div class="am-u-sm-12 am-u-md-3">
+							<div class="am-input-group am-input-group-sm">
+								<input id="roleName" class="am-form-field" placeholder="Enter ID/name" type="text">
+								<span class="am-input-group-btn">
+									<button class="am-btn am-btn-primary" type="button" id="btnsearch">
+										<span class="am-icon-search"></span>
+									</button> </span>
+							</div>
+						</div>
+					</div>
 
-						<div class="am-g" style="margin-top: 5px;">
-							<div class="am-u-sm-12">
-								<form class="am-form">
-									<table class="am-table am-table-striped am-table-hover table-main">
-										<thead>
-											<tr>
-												<!--
+					<div class="am-g" style="margin-top: 5px;">
+						<div class="am-u-sm-12">
+							<form class="am-form">
+								<table class="am-table am-table-striped am-table-hover table-main">
+									<thead>
+										<tr>
+											<!--
 													<th class="table-id">
 													<input id="chkAll" type="checkbox">
 													</th>
 												-->
 
-												<th>
-													ID
-												</th>
-												<th class="table-title">
-													NAME
-												</th>
+											<th>
+												ID
+											</th>
+											<th class="table-title">
+												NAME
+											</th>
 
-												<th class="table-title">
-													GENDER
-												</th>
+											<th class="table-title">
+												GENDER
+											</th>
 
-												<th class="table-title">
-													REGISTER DATE
-												</th>
+											<th class="table-title">
+												REGISTER DATE
+											</th>
 
-												<th class="table-title">
-													PHONE
-												</th>
-												<th class="table-set">
-													OPERATION
-												</th>
-											</tr>
-										</thead>
-										<tbody id="tUser">
-											<tr>
+											<th class="table-title">
+												PHONE
+											</th>
+											<th class="table-set">
+												OPERATION
+											</th>
+										</tr>
+									</thead>
+									<tbody id="tUser">
+										<tr>
 
-												<td>
-													<a href="javascript:void(0)">L001</a>
-												</td>
-												<td>SUN Tianxiang</td>
-												<td>Male</td>
-												<td>2018-10-05</td>
-												<td>18292020841</td>
-												<td>
-													<div class="am-btn-toolbar">
-														<div class="am-btn-group am-btn-group-xs"><button type="button" id="role_701" class="am-btn am-btn-default am-btn-xs am-text-secondary btnedit"><span class="am-icon-pencil-square-o"></span> EDIT</button><button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick="delUser(701,1)"><span class="am-icon-trash-o"></span> DELETE</button></div>
-													</div>
-												</td>
-											</tr>
-											
-										</tbody>
-									</table>
-									
-								</form>
-							</div>
+											<td>
+												<a href="javascript:void(0)">L001</a>
+											</td>
+											<td>SUN Tianxiang</td>
+											<td>Male</td>
+											<td>2018-10-05</td>
+											<td>18292020841</td>
+											<td>
+												<div class="am-btn-toolbar">
+													<div class="am-btn-group am-btn-group-xs"><button type="button" id="role_701" class="am-btn am-btn-default am-btn-xs am-text-secondary btnedit"><span
+															 class="am-icon-pencil-square-o"></span> EDIT</button><button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"
+														 onclick="delUser(701,1)"><span class="am-icon-trash-o"></span> DELETE</button></div>
+												</div>
+											</td>
+										</tr>
+
+									</tbody>
+								</table>
+
+							</form>
 						</div>
 					</div>
-
 				</div>
-				<!-- content end -->
+
 			</div>
+			<!-- content end -->
 		</div>
+	</div>
 
-		<!--[if (gte IE 9)|!(IE)]><!-->
-		<script src="js/jquery-1.11.3.min.js"></script>
-		<!--<![endif]-->
-		<script type="text/javascript" src="myplugs/js/plugs.js"></script>
-		<script>
-			$(function() {
+	<!--[if (gte IE 9)|!(IE)]><!-->
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<!--<![endif]-->
+	<script type="text/javascript" src="myplugs/js/plugs.js"></script>
+	<script>
+		$(function () {
 
-						$(".btnedit").click(function() {
+			$(".btnedit").click(function () {
 
-							$.jq_Panel({
-								title: "EDIT LIBRARIAN",
-								iframeWidth: 500,
-								iframeHeight: 300,
-								url: "editLibrarian.html"
-							});
-						});
-						
-						 $(".btnAdd").click(function(){
-						 	
-						 	$.jq_Panel({
-								title: "ADD LIBRARIAN",
-								iframeWidth: 500,
-								iframeHeight: 300,
-								url: "editLibrarian.html"
-							});
-						 	
-						});						
+				$.jq_Panel({
+					title: "EDIT LIBRARIAN",
+					iframeWidth: 500,
+					iframeHeight: 300,
+					url: "editLibrarian.html"
+				});
 			});
-		</script>
-	</body>
+
+			$(".btnAdd").click(function () {
+
+				$.jq_Panel({
+					title: "ADD LIBRARIAN",
+					iframeWidth: 500,
+					iframeHeight: 300,
+					url: "addLibrarian.html"
+				});
+
+			});
+		});
+	</script>
+</body>
 
 </html>

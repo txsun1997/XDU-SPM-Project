@@ -1,152 +1,161 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
 
-		<link rel="stylesheet" href="css/amazeui.min.css">
-		<link rel="stylesheet" href="css/admin.css">
-		<link rel="stylesheet" href="css/app.css">
-		<link rel="stylesheet" href="css/amazeui.cropper.css">
-		<link rel="stylesheet" href="css/custom_up_img.css">
-		<style>
-			.admin-main {
-				padding-top: 0px;
-			}
-		</style>
-		<style type="text/css">
-			.up-img-cover {width: 210px; height: 279px;}
-			.up-img-cover img{width: 100%;}
-		</style>
-	</head>
+	<link rel="stylesheet" href="css/amazeui.min.css">
+	<link rel="stylesheet" href="css/admin.css">
+	<link rel="stylesheet" href="css/app.css">
+	<link rel="stylesheet" href="css/amazeui.cropper.css">
+	<link rel="stylesheet" href="css/custom_up_img.css">
+	<style>
+		.admin-main {
+			padding-top: 0px;
+		}
+	</style>
+	<style type="text/css">
+		.up-img-cover {
+			width: 210px;
+			height: 279px;
+		}
 
-	<body>
+		.up-img-cover img {
+			width: 100%;
+		}
+	</style>
+</head>
 
-		<div class="am-cf admin-main">
-			<!-- content start -->
-			<div class="admin-content">
-				<div class="admin-content-body">
-					<div class="am-g">
-						<form class="am-form am-form-horizontal" action="role/addroleSubmit.action" method="post" style="padding-top: 30px;">
-							<input value="504" name="roleId" type="hidden">
-							<div class="am-form-group">
-								<label for="title" class="am-u-sm-3 am-form-label">
+<body>
+
+	<div class="am-cf admin-main">
+		<!-- content start -->
+		<div class="admin-content">
+			<div class="admin-content-body">
+				<div class="am-g">
+					<form class="am-form am-form-horizontal" action="role/addroleSubmit.action" method="post" style="padding-top: 30px;">
+						<input value="504" name="roleId" type="hidden">
+						<div class="am-form-group">
+							<label for="title" class="am-u-sm-3 am-form-label">
 								Book Title
-								</label>
-								<div class="am-u-sm-9">
-									<input id="title" required="" placeholder="Enter book title" value="" name="book-title" type="text">
-									<small id="helpRole">Please enter book name, e.g. Deep Learning.</small>
-								</div>
+							</label>
+							<div class="am-u-sm-9">
+								<input id="title" required="" placeholder="Enter book title" value="" name="book-title" type="text">
+								<small id="helpRole">Please enter book name, e.g. Deep Learning.</small>
 							</div>
-							<div class="am-form-group">
-								<label for="authors" class="am-u-sm-3 am-form-label">
+						</div>
+						<div class="am-form-group">
+							<label for="authors" class="am-u-sm-3 am-form-label">
 								Authors
-								</label>
-								<div class="am-u-sm-9">
-									<input id="authors" required="" placeholder="Enter book authors" value="" name="book-authors" type="text">
-									<small id="helpRole">Please enter book authors, e.g. Ian Goodfellow.</small>
-								</div>
+							</label>
+							<div class="am-u-sm-9">
+								<input id="authors" required="" placeholder="Enter book authors" value="" name="book-authors" type="text">
+								<small id="helpRole">Please enter book authors, e.g. Ian Goodfellow.</small>
 							</div>
-							
-							<div class="am-form-group">
-								<label for="press" class="am-u-sm-3 am-form-label">
+						</div>
+
+						<div class="am-form-group">
+							<label for="press" class="am-u-sm-3 am-form-label">
 								Press
-								</label>
-								<div class="am-u-sm-9">
-									<input id="press" required="" placeholder="Enter publication press" value="" name="book-press" type="text">
-									<small id="helpRole">Please enter publication press, e.g. MIT Press.</small>
-								</div>
+							</label>
+							<div class="am-u-sm-9">
+								<input id="press" required="" placeholder="Enter publication press" value="" name="book-press" type="text">
+								<small id="helpRole">Please enter publication press, e.g. MIT Press.</small>
 							</div>
+						</div>
 
-							<div class="am-form-group">
-								<label for="year" class="am-u-sm-3 am-form-label">
+						<div class="am-form-group">
+							<label for="year" class="am-u-sm-3 am-form-label">
 								Year
-								</label>
-								<div class="am-u-sm-9">
-									<input id="year" required="" placeholder="Enter publication date" value="" name="publication-year" type="text">
-									<small id="helpRole">Please enter publication date (year), e.g. 2016.</small>
-								</div>
+							</label>
+							<div class="am-u-sm-9">
+								<input id="year" required="" placeholder="Enter publication date" value="" name="publication-year" type="text">
+								<small id="helpRole">Please enter publication date (year), e.g. 2016.</small>
 							</div>
+						</div>
 
-							<div class="am-form-group">
-								<label for="subject" class="am-u-sm-3 am-form-label">
+						<div class="am-form-group">
+							<label for="subject" class="am-u-sm-3 am-form-label">
 								Subject
-								</label>
-								<div class="am-u-sm-9">
-									<input id="subject" required="" placeholder="Enter a description about the book" value="" name="book-subject" type="text">
-									<small id="helpRole">Please briefly describe the book.</small>
-								</div>
+							</label>
+							<div class="am-u-sm-9">
+								<input id="subject" required="" placeholder="Enter a description about the book" value="" name="book-subject"
+								 type="text">
+								<small id="helpRole">Please briefly describe the book.</small>
 							</div>
+						</div>
 
-							<div class="am-form-group">
-								<label for="pages" class="am-u-sm-3 am-form-label">
+						<div class="am-form-group">
+							<label for="pages" class="am-u-sm-3 am-form-label">
 								Pages
-								</label>
-								<div class="am-u-sm-9">
-									<input id="pages" required="" placeholder="Enter the number of pages" value="" name="book-pages" type="text">
-									<small id="helpRole">How many pages does the book have?</small>
-								</div>
+							</label>
+							<div class="am-u-sm-9">
+								<input id="pages" required="" placeholder="Enter the number of pages" value="" name="book-pages" type="text">
+								<small id="helpRole">How many pages does the book have?</small>
 							</div>
-							
-							<div class="am-form-group">
-								<label for="type" class="am-u-sm-3 am-form-label">
-										Type
-									</label>
-								<div class="am-u-sm-9">
-									<select name="type" required>
-										<option value="">
-											Select a type
-										</option>
+						</div>
 
-										<option value="1">
-											art
-										</option>
+						<div class="am-form-group">
+							<label for="type" class="am-u-sm-3 am-form-label">
+								Type
+							</label>
+							<div class="am-u-sm-9">
+								<select name="type" required>
+									<option value="">
+										Select a type
+									</option>
 
-										<option value="2">
-											science
-										</option>
+									<option value="1">
+										art
+									</option>
 
-									</select>
-									<small>BookType</small>
-								</div>
+									<option value="2">
+										science
+									</option>
+
+								</select>
+								<small>BookType</small>
 							</div>
+						</div>
 
-							<div class="am-form-group">
-								<label for="number" class="am-u-sm-3 am-form-label">
+						<div class="am-form-group">
+							<label for="number" class="am-u-sm-3 am-form-label">
 								Number
-								</label>
-								<div class="am-u-sm-9">
-									<input id="number" required="" placeholder="Enter the number of the publication" value="" name="number-of-book" type="text">
-									<small id="helpRole">Please enter the number of the book.</small>
-								</div>
+							</label>
+							<div class="am-u-sm-9">
+								<input id="number" required="" placeholder="Enter the number of the publication" value="" name="number-of-book"
+								 type="text">
+								<small id="helpRole">Please enter the number of the book.</small>
 							</div>
+						</div>
 
-							<div class="am-form-group">
-								<label for="location" class="am-u-sm-3 am-form-label">
+						<div class="am-form-group">
+							<label for="location" class="am-u-sm-3 am-form-label">
 								Location
-								</label>
-								<div class="am-u-sm-9">
-									<input id="location" required="" placeholder="Enter the location of this book" value="" name="book-location" type="text">
-									<small id="helpRole">Describe exactly where the book is located.</small>
-								</div>
+							</label>
+							<div class="am-u-sm-9">
+								<input id="location" required="" placeholder="Enter the location of this book" value="" name="book-location"
+								 type="text">
+								<small id="helpRole">Describe exactly where the book is located.</small>
 							</div>
+						</div>
 
-							<div class="am-form-group">
-								<label for="location" class="am-u-sm-3 am-form-label">
+						<div class="am-form-group">
+							<label for="location" class="am-u-sm-3 am-form-label">
 								Picture
-								</label>
-								<div class="am-u-sm-9">
-									<form class="container" enctype="multipart/form-data" method="post" id='formBox' name="form"> 
-										<input type="file" id="chooseImage" name="file">
-										<!-- 保存用户自定义的背景图片 -->
-										<img id="cropedBigImg" value='custom' alt="No pictures" data-address='' title="cover of book"/>
-									</form>
-								</div>
+							</label>
+							<div class="am-u-sm-9">
+								<form class="container" enctype="multipart/form-data" method="post" id='formBox' name="form">
+									<input type="file" id="chooseImage" name="file">
+									<!-- 保存用户自定义的背景图片 -->
+									<img id="cropedBigImg" value='custom' alt="No pictures" data-address='' title="cover of book" />
+								</form>
 							</div>
-						
+						</div>
 
-							<!--
+
+						<!--
 								<div class="am-form-group">
 									<label for="location" class="am-u-sm-3 am-form-label">
 										Picture
@@ -214,27 +223,55 @@
 									</div>
 									</div>
 								</div>
-							-->	
-								<script src="js/jquery-1.11.3.min.js"></script>
-								<script src="js/amazeui.min.js" charset="utf-8"></script>
-								<script src="js/cropper.min.js" charset="utf-8"></script>
-								<script src="js/custom_up_img.js" charset="utf-8"></script>
-							
-							
-							
+							-->
+						<script src="js/jquery-1.11.3.min.js"></script>
+						<script src="js/amazeui.min.js" charset="utf-8"></script>
+						<script src="js/cropper.min.js" charset="utf-8"></script>
+						<script src="js/custom_up_img.js" charset="utf-8"></script>
 
-							<div class="am-form-group">
-								<div class="am-u-sm-9 am-u-sm-push-3">
-									<input id="printBarCode" class="am-btn am-btn-success" value="PRINT BAR-CODE" type="button">
-									<input id="addBook" class="am-btn am-btn-success" value="ADD THE BOOK" disabled type="button">
-								</div>
+
+
+
+						<div class="am-form-group">
+							<div class="am-u-sm-9 am-u-sm-push-3">
+								<input id="printBarCode" class="am-btn am-btn-success" value="PRINT BAR-CODE" type="button">
+								<input id="addBook" class="am-btn am-btn-success" value="ADD THE BOOK" disabled type="button">
 							</div>
+						</div>
 
-						</form>
-					</div>
+					</form>
 				</div>
 			</div>
 		</div>
-	</body>
+	</div>
+</body>
+
+
+<script src="../cookie.js"></script>
+<script src="../socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+	var socket = io("http://139.199.112.88:2761");
+	var auth_data = {};
+	auth_data.username = Cookies.get("username");
+	auth_data.session = Cookies.get("session");
+	auth_data.type = Cookies.get("type");
+
+	socket.on("addbookSuccess", function () {
+		window.alert("Successfully add role.");
+	});
+
+	function addbook() {
+		var data = {};
+		data.name = $("#roleName").val();
+		if (document.getElementById("male").checked) data.gender = "Male";
+		else data.gender = "Female";
+		data.phone = $("#phone").val();
+		data.email = $("#email").val();
+
+		socket.emit("addLibrarianRole", data);
+	}
+
+</script>
 
 </html>
