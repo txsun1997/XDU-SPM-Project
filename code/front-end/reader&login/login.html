@@ -1,15 +1,22 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Login - Bibliosoft</title>
-	<link rel="stylesheet" href="css/reset.css" />
-	<link rel="stylesheet" href="css/login.css" />
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/login.js"></script>
-</head>
+<title>Login - Bibliosoft</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<!-- -->
+<script>var __links = document.querySelectorAll('a');function __linkClick(e) { parent.window.postMessage(this.href, '*');} ;for (var i = 0, l = __links.length; i < l; i++) {if ( __links[i].getAttribute('data-t') == '_blank' ) { __links[i].addEventListener('click', __linkClick, false);}}</script>
+<script src="js/jquery.min.js"></script>
+<script>$(document).ready(function(c) {
+	$('.alert-close').on('click', function(c){
+		$('.message').fadeOut('slow', function(c){
+	  		$('.message').remove();
+		});
+	});	  
+});
+</script>
 
 <script src="../socket.io.js"></script>
 <script src="../cookie.js"></script>
@@ -50,77 +57,39 @@
 
 </script>
 
-
-
-<style>
-	.button {
-		background-color: #4CAF50;
-		border: none;
-		color: white;
-		padding: 10px 32px;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-		font-size: 16px;
-		margin: 16px 2px;
-		cursor: pointer;
-		border-radius: 8px;
-		-webkit-transition-duration: 0.4s; /* Safari */
-    	transition-duration: 0.4s;
-	}
-
-	.button:hover {
-		background-color: rgb(6, 119, 44); /* Green */
-		color: white;
-	}	
-</style>
-
+</head>
 <body>
-	<div class="page">
-		<div class="loginwarrp">
-			<div class="logo">
-				<img src="images/logo/logo黑字.png" width="140" height="52" />
-			</div>
-			<div class="login_form">
-				<form id="Login" name="Login" method="post" onsubmit="" action="">
-					<li class="login-item">
-						<span>Username: </span>
-						<input type="text" id="username" name="UserName" class="login_input">
-						<span id="count-msg" class="error"></span>
-					</li>
-					<li class="login-item">
-						<span>Password : </span>
-						<input type="password" id="password" name="password" class="login_input">
-						<span id="password-msg" class="error"></span>
-					</li>
-
-					<li class="login-sub">
-						<button class="button" type="button" onclick="loginServer()">LOGIN</button>
-					</li>
-				</form>
-			</div>
-		</div>
+<!-- contact-form -->	
+<div class="message warning">
+<div class="inset">
+	<div class="login-head">
+		<h1>Login</h1>
+		<div class="alert-close"> </div> 			
 	</div>
+		<form>
+			<li>
+				<input id="username" type="text" class="text" value="Username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Username';}"><a href="#" class=" icon user"></a>
+			</li>
+				<div class="clear"> </div>
+			<li>
+				<input id="password" type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}"> <a href="#" class="icon lock"></a>
+			</li>
+			<div class="clear"> </div>
+			<div class="submit">
+				<input type="submit" onclick="loginServer()" value="LOGIN" >
+				<h4><a href="#">Lost your Password ?</a></h4>
+						  <div class="clear">  </div>	
+			</div>
+				
+		</form>
+		</div>					
+	</div>
+	</div>
+	<div class="clear"> </div>
+<!--- footer --->
+<div class="footer">
+	<p>Copyright &copy; 2018 XDU.</p>
+</div>
 
-
-	<script type="text/javascript">
-		window.onload = function () {
-			var config = {
-				vx: 4,
-				vy: 4,
-				height: 2,
-				width: 2,
-				count: 100,
-				color: "121, 162, 185",
-				stroke: "100, 200, 180",
-				dist: 6000,
-				e_dist: 20000,
-				max_conn: 10
-			}
-			CanvasParticle(config);
-		}
-	</script>
-	<script type="text/javascript" src="js/canvas-particle.js"></script>
 </body>
-
 </html>
