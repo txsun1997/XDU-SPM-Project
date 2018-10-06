@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	    <link rel="stylesheet" href="css/amazeui.min.css">
-		<link rel="stylesheet" href="css/admin.css">
-		<link rel="stylesheet" href="css/app.css">
-		<style>
-			.admin-main{
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="css/amazeui.min.css">
+	<link rel="stylesheet" href="css/admin.css">
+	<link rel="stylesheet" href="css/app.css">
+	<style>
+		.admin-main{
 				padding-top: 0px;
 			}
 			.am-form-group{
@@ -35,58 +36,58 @@
 				color: white;
 			}	
 		</style>
-	</head>
-	<body>
-		<div class="am-cf admin-main" >
+</head>
+
+<body>
+	<div class="am-cf admin-main">
 		<!-- content start -->
 		<div class="admin-content">
-			<div class="admin-content-body" >
-				<div class="am-g" >
-					<form class="am-form am-form-horizontal" style="margin-left: -300px;margin-top: 80px;"
-						 method="post"
-						style="padding-top:30px;" data-am-validator>
+			<div class="admin-content-body">
+				<div class="am-g">
+					<form class="am-form am-form-horizontal" style="margin-left: -300px;margin-top: 80px;" method="post" style="padding-top:30px;"
+					 data-am-validator>
 						<div class="am-form-group">
 							<label for="account" class="am-u-sm-3 am-form-label">
-							Account </label>
+								Account </label>
 							<div class="am-u-sm-9">
-								<input type="text" id="gender" class="person-info"  required> 
+								<input type="text" id="account" class="person-info" readonly="readonly" required>
 							</div>
 						</div>
 						<div class="am-form-group">
 							<label for="user-name" class="am-u-sm-3 am-form-label">
 								Name</label>
 							<div class="am-u-sm-9">
-								<input type="text" id="name" class="person-info"  required> 
+								<input type="text" id="name" readonly="readonly" class="person-info" required>
 							</div>
 						</div>
 						<div class="am-form-group">
 							<label for="gender" class="am-u-sm-3 am-form-label">
 								Gender</label>
 							<div class="am-u-sm-9">
-								<input type="text" id="gender" class="person-info"  required> 
+								<input type="text" id="gender" readonly="readonly" class="person-info" required>
 							</div>
 						</div>
 						<div class="am-form-group">
 							<label for="register-date" class="am-u-sm-3 am-form-label">
 								Phone</label>
 							<div class="am-u-sm-9">
-								<input type="text" id="register-date" class="person-info"  required> 
+								<input type="text" id="phone" class="person-info" required>
 							</div>
 						</div>
 						<div class="am-form-group">
 							<label for="register-date" class="am-u-sm-3 am-form-label">
 								Email</label>
 							<div class="am-u-sm-9">
-								<input type="text" id="email" class="person-info"  required> 
+								<input type="text" id="email" class="person-info" required>
 							</div>
 						</div>
 						<div class="am-form-group">
 							<div class="am-u-sm-9 am-u-sm-push-3">
-								<input id="submit" class="am-btn am-btn-success" value="SUBMIT" type="button" onclick="updateInfo()">
+								<input id="submit" class="am-btn am-btn-success" value="SUBMIT" type="button" onclick="updateLibrarianInfo()">
 								<!--
 									<button class="button" type="button" onclick="updateInfo()">SUBMIT</button>
 								-->
-								
+
 							</div>
 						</div>
 					</form>
@@ -95,16 +96,50 @@
 		</div>
 	</div>
 
-	<script>
-		function updateInfo() {
-			window.alert("OK!");
-		}
-	</script>
-
-	<script type="text/javascript"
-		src="assets/js/libs/jquery-1.10.2.min.js">
+	<script type="text/javascript" src="assets/js/libs/jquery-1.10.2.min.js">
 	</script>
 	<script type="text/javascript" src="myplugs/js/plugs.js">
 	</script>
-	</body>
+
+
+	<script src="../cookie.js"></script>
+	<script src="../socket.io.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+		var auth_data = {};
+		auth_data.username = Cookies.get("username");
+		auth_data.session = Cookies.get("session");
+		auth_data.type = Cookies.get("type");
+
+		var socket = io("http://139.199.112.88:2761");
+
+		socket.on("librarianInfo", function (data) {
+			$("#account").attr("value", data.username);
+			$("#name").attr("value", data.name);
+			$("#gender").attr("value", data.gender);
+			$("#phone").attr("value", data.phone);
+			$("#email").attr("value", data.email);
+		});
+
+		socket.emit("getLibrarianInfo", auth_data);
+
+		socket.on("updateLibrarianInfoSuccess", function () {
+			window.alert("Successfully Updated.");
+		});
+
+		function updateLibrarianInfo() {
+			var data = {};
+			data.username = $("#account").val();
+			data.phone = $("#phone").val();
+			data.email = $("#email").val();
+			socket.emit("updateLibrarianInfo", data);
+		}
+	</script>
+
+
+</body>
+
+
+
+
 </html>
