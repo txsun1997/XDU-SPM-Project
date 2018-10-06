@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	    <link rel="stylesheet" href="css/amazeui.min.css">
-		<link rel="stylesheet" href="css/admin.css">
-		<link rel="stylesheet" href="css/app.css">
-		<style>
-			.admin-main{
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="css/amazeui.min.css">
+	<link rel="stylesheet" href="css/admin.css">
+	<link rel="stylesheet" href="css/app.css">
+	<style>
+		.admin-main{
 				padding-top: 0px;
 			}
 			.am-form-group{
@@ -35,49 +36,49 @@
 				color: white;
 			}	
 		</style>
-	</head>
-	<body>
-		<div class="am-cf admin-main" >
+</head>
+
+<body>
+	<div class="am-cf admin-main">
 		<!-- content start -->
 		<div class="admin-content">
-			<div class="admin-content-body" >
-				<div class="am-g" >
-					<form class="am-form am-form-horizontal" style="margin-left: -300px;margin-top: 80px;"
-						 method="post"
-						style="padding-top:30px;" data-am-validator>
+			<div class="admin-content-body">
+				<div class="am-g">
+					<form class="am-form am-form-horizontal" style="margin-left: -300px;margin-top: 80px;" method="post" style="padding-top:30px;"
+					 data-am-validator>
 						<div class="am-form-group">
 							<label for="account" class="am-u-sm-3 am-form-label">
-							Account </label>
+								Account </label>
 							<div class="am-u-sm-9">
-								<input type="text" id="gender" class="person-info"  required> 
+								<input type="text" id="account" readonly="readonly" class="person-info" value="" required>
 							</div>
 						</div>
 						<div class="am-form-group">
 							<label for="user-name" class="am-u-sm-3 am-form-label">
 								Name</label>
 							<div class="am-u-sm-9">
-								<input type="text" id="name" class="person-info"  required> 
+								<input type="text" id="name" readonly="readonly" class="person-info" value="" required>
 							</div>
 						</div>
 						<div class="am-form-group">
 							<label for="gender" class="am-u-sm-3 am-form-label">
 								Gender</label>
 							<div class="am-u-sm-9">
-								<input type="text" id="gender" class="person-info"  required> 
+								<input type="text" id="gender" readonly="readonly" class="person-info" value="" required>
 							</div>
 						</div>
 						<div class="am-form-group">
 							<label for="register-date" class="am-u-sm-3 am-form-label">
 								Phone</label>
 							<div class="am-u-sm-9">
-								<input type="text" id="register-date" class="person-info"  required> 
+								<input type="text" id="phone" class="person-info" value="" required>
 							</div>
 						</div>
 						<div class="am-form-group">
 							<label for="register-date" class="am-u-sm-3 am-form-label">
 								Email</label>
 							<div class="am-u-sm-9">
-								<input type="text" id="email" class="person-info"  required> 
+								<input type="text" id="email" class="person-info" value="" required>
 							</div>
 						</div>
 						<div class="am-form-group">
@@ -86,7 +87,7 @@
 								<!--
 									<button class="button" type="button" onclick="updateInfo()">SUBMIT</button>
 								-->
-								
+
 							</div>
 						</div>
 					</form>
@@ -95,16 +96,95 @@
 		</div>
 	</div>
 
+
+
+
+
+
+	<script src="../socket.io.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	<script>
+
+		var href = location.href;
+		var auth_data = {};
+		var username = "";
+		var type = "";
+		var session = "";
+		for (var i = 0; i < href.length; i++) {
+			if (href[i] == '?') {
+				for (var j = i + 10; j < href.length; j++) {
+					if (href[j] == "&") {
+						for (var k = j + 6; k < href.length; k++) {
+							if (href[k] == "&") {
+								for (var h = k + 9; h < href.length; h++) {
+									session += href[h];
+								}
+								break;
+							}
+							type += href[k];
+						}
+						break;
+					}
+					username += href[j];
+				}
+				break;
+			}
+		}
+		auth_data.username = username;
+		auth_data.session = session;
+		auth_data.type = type;
+
+
+
+		var socket = io("http://139.199.112.88:2761");
+
+		socket.on("AdminInfo", function (data) {
+			$("#account").attr("value", data.username);
+			$("#name").attr("value", data.name);
+			$("#gender").attr("value", data.gender);
+			$("#phone").attr("value", data.phone);
+			$("#email").attr("value", data.email);
+		});
+
+		socket.emit("getAdminInfo", auth_data);
+
+
+
 		function updateInfo() {
 			window.alert("OK!");
 		}
 	</script>
 
-	<script type="text/javascript"
-		src="assets/js/libs/jquery-1.10.2.min.js">
+
+
+
+
+
+
+
+
+
+
+
+
+	<script type="text/javascript" src="assets/js/libs/jquery-1.10.2.min.js">
+
+
+
+
+
+
+
 	</script>
 	<script type="text/javascript" src="myplugs/js/plugs.js">
+
+
+
+
+
+
+
 	</script>
-	</body>
+</body>
+
 </html>
