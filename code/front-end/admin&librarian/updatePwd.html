@@ -1,49 +1,48 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	    <link rel="stylesheet" href="css/amazeui.min.css">
-		<link rel="stylesheet" href="css/admin.css">
-		<link rel="stylesheet" href="css/app.css">
-		<style>
-			.admin-main{
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="css/amazeui.min.css">
+	<link rel="stylesheet" href="css/admin.css">
+	<link rel="stylesheet" href="css/app.css">
+	<style>
+		.admin-main{
 				padding-top: 0px;
 			}
 			.am-form-group{
 				margin-bottom: 1.7rem;
-				
 			}
 		</style>
-	</head>
-	<body>
-		<div class="am-cf admin-main" >
+</head>
+
+<body>
+	<div class="am-cf admin-main">
 		<!-- content start -->
 		<div class="admin-content">
-			<div class="admin-content-body" >
-				<div class="am-g" >
-					<form class="am-form am-form-horizontal" style="margin-left: -300px;margin-top: 80px;"
-						 method="post"
-						style="padding-top:30px;" data-am-validator>
+			<div class="admin-content-body">
+				<div class="am-g">
+					<form class="am-form am-form-horizontal" style="margin-left: -300px;margin-top: 80px;" method="post" style="padding-top:30px;"
+					 data-am-validator>
 						<div class="am-form-group">
 							<label for="user-name" class="am-u-sm-3 am-form-label">
-							New Password </label>
+								New Password </label>
 							<div class="am-u-sm-9">
-								<input type="password" id="doc-vld-pwd-1" required placeholder="Please enter your new password." 
-									name="password">
+								<input type="password" id="doc-vld-pwd-1" required placeholder="Please enter your new password." name="password">
 							</div>
 						</div>
 						<div class="am-form-group">
 							<label for="user-name" class="am-u-sm-3 am-form-label">
 								Repeat Password</label>
 							<div class="am-u-sm-9">
-								<input type="password" id="doc-vld-pwd-2" required placeholder="Please repeat your new password." 
-									name="pwd"  data-equal-to="#doc-vld-pwd-1"  required>
+								<input type="password" id="doc-vld-pwd-2" required placeholder="Please repeat your new password." name="pwd"
+								 data-equal-to="#doc-vld-pwd-1" required>
 							</div>
 						</div>
 						<div class="am-form-group">
 							<div class="am-u-sm-9 am-u-sm-push-3">
-								<input type="submit" class="am-btn am-btn-success" value="UPDATE" />
+								<input onclick="updateAdminPassword()" type="submit" class="am-btn am-btn-success" value="UPDATE" />
 							</div>
 						</div>
 					</form>
@@ -51,10 +50,44 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript"
-		src="assets/js/libs/jquery-1.10.2.min.js">
+	<script type="text/javascript" src="assets/js/libs/jquery-1.10.2.min.js">
+
 	</script>
 	<script type="text/javascript" src="myplugs/js/plugs.js">
+
 	</script>
-	</body>
+</body>
+
+<script src="../socket.io.js"></script>
+<script src="../cookie.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+<script>
+
+	var socket = io("http://139.199.112.88:2761");
+
+
+	socket.on("updateAdminPasswordSuccess", function () {
+		window.alert("Your password has been successfully updated.");
+	});
+	
+	function updateAdminPassword() {
+		var data = {};
+		data.username = Cookies.get("username");
+		if ($("#doc-vld-pwd-1").val() == $("#doc-vld-pwd-2").val()) {
+			data.password = $("#doc-vld-pwd-1").val();
+			socket.emit("updateAdminPassword", data);
+		} else {
+			window.alert("Your new password and repeat password is not consistent.");
+		}
+	}
+
+
+
+
+</script>
+
+
+
+
 </html>
