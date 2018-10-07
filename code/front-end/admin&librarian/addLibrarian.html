@@ -88,8 +88,8 @@
     auth_data.session = Cookies.get("session");
     auth_data.type = Cookies.get("type");
 
-    socket.on("addLibrarianRoleSuccess", function () {
-        window.alert("Successfully add role.");
+    socket.on("addLibrarianRoleSuccess", function (data) {
+        window.alert("Successfully add role.\nYour ID is "+data.librarian_id+"\n"+"Your password is 123456.");
     });
 
     function addRole() {
@@ -99,7 +99,6 @@
         else data.gender = "Female";
         data.phone = $("#phone").val();
         data.email = $("#email").val();
-
         socket.emit("addLibrarianRole", data);
     }
 

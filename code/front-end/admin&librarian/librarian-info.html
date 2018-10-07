@@ -108,13 +108,11 @@
 	<script>
 		var auth_data = {};
 		auth_data.username = Cookies.get("username");
-		auth_data.session = Cookies.get("session");
-		auth_data.type = Cookies.get("type");
 
 		var socket = io("http://139.199.112.88:2761");
 
 		socket.on("librarianInfo", function (data) {
-			$("#account").attr("value", data.username);
+			$("#account").attr("value", data.librarian_id);
 			$("#name").attr("value", data.name);
 			$("#gender").attr("value", data.gender);
 			$("#phone").attr("value", data.phone);
@@ -129,7 +127,7 @@
 
 		function updateLibrarianInfo() {
 			var data = {};
-			data.username = $("#account").val();
+			data.librarian_id = $("#account").val();
 			data.phone = $("#phone").val();
 			data.email = $("#email").val();
 			socket.emit("updateLibrarianInfo", data);

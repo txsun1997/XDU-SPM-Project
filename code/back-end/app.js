@@ -59,6 +59,10 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 
 		//if this session exits?
 		socket.on('sessionAuth', function (data) {
+			if (data.cur != data.type) {
+				socket.emit("sessionFailed");
+				return;
+			}
 			var auth_cursor = dbase.collection("session").find({ "session": data.session });
 			auth_cursor.toArray(function (err, doc) {
 				test.equal(null, err);
@@ -81,21 +85,15 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 
 		//about admin
 		socket.on("getAdminInfo", function (data) {
-			var auth_cursor = dbase.collection("session").find({ "session": data.session });
-			auth_cursor.toArray(function (err, doc) {
+			var admin_cursor = dbase.collection("admin").find({ "admin_id": data.username });
+			admin_cursor.toArray(function (err, doc) {
 				test.equal(null, err);
-				if (doc[0].username == data.username && doc[0].type == data.type) {
-					var admin_cursor = dbase.collection("admin").find({ "username": data.username });
-					admin_cursor.toArray(function (err, doc) {
-						test.equal(null, err);
-						socket.emit("adminInfo", doc[0]);
-					});
-				}
+				socket.emit("adminInfo", doc[0]);
 			});
 		});
 
 		socket.on("updateAdminInfo", function (data) {
-			dbase.collection("admin").updateOne({ "username": data.username }, { $set: { "phone": data.phone, "email": data.email } });
+			dbase.collection("admin").updateOne({ "admin_id": data.admin_id }, { $set: { "phone": data.phone, "email": data.email } });
 			socket.emit("updateAdminInfoSuccess");
 		});
 
@@ -106,21 +104,15 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 
 		//about librarian
 		socket.on("getLibrarianInfo", function (data) {
-			var auth_cursor = dbase.collection("session").find({ "session": data.session });
-			auth_cursor.toArray(function (err, doc) {
+			var cursor = dbase.collection("librarian").find({ "librarian_id": data.username });
+			cursor.toArray(function (err, doc) {
 				test.equal(null, err);
-				if (doc[0].username == data.username && doc[0].type == data.type) {
-					var cursor = dbase.collection("librarian").find({ "username": data.username });
-					cursor.toArray(function (err, doc) {
-						test.equal(null, err);
-						socket.emit("librarianInfo", doc[0]);
-					});
-				}
+				socket.emit("librarianInfo", doc[0]);
 			});
 		});
 
 		socket.on("updateLibrarianInfo", function (data) {
-			dbase.collection("librarian").updateOne({ "username": data.username }, { $set: { "phone": data.phone, "email": data.email } });
+			dbase.collection("librarian").updateOne({ "librarian_id": data.librarian_id }, { $set: { "phone": data.phone, "email": data.email } });
 			socket.emit("updateLibrarianInfoSuccess");
 		});
 
@@ -130,42 +122,63 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 		});
 
 		socket.on("addLibrarianRole", function (data) {
-			dbase.collection("librarian").insertOne(data, function (err, res) {
-				dbase.collection("librarian").updateOne({ "_id": res.insertedId }, { $set: { "username": res.insertedId } });
-				socket.emit("addLibrarianRoleSuccess");
-				var auth_data = {};
-				auth_data.username = res.insertedId;
-				auth_data.password = "123456";
-				auth_data.type = "librarian";
-				dbase.collection("accounts").insertOne(auth_data);
+			var addresult = {};
+			dbase.collection("globalVar").find({ "var_name": "librarian" }).toArray(function (err, doc) {
+				var cur = doc[0].librarian;
+				dbase.collection("globalVar").updateOne({ "var_name": "librarian" }, { $set: { "librarian": cur + 1 } });
+				data.librarian_id = "L" + cur.toString();
+				dbase.collection("librarian").insertOne(data, function (err, res) {
+					addresult.librarian_id = data.librarian_id;
+					socket.emit("addLibrarianRoleSuccess", addresult);
+					var auth_data = {};
+					auth_data.username = data.librarian_id;
+					auth_data.password = "123456";
+					auth_data.type = "librarian";
+					dbase.collection("accounts").insertOne(auth_data);
+				});
 			});
 		});
 
 		socket.on("addReaderRole", function (data) {
-			dbase.collection("reader").insertOne(data, function (err, res) {
-				dbase.collection("reader").updateOne({ "_id": res.insertedId }, { $set: { "username": res.insertedId } });
-				socket.emit("addReaderRoleSuccess");
-				var auth_data = {};
-				auth_data.username = res.insertedId;
-				auth_data.password = "123456";
-				auth_data.type = "reader";
-				dbase.collection("accounts").insertOne(auth_data);
+			var addresult = {};
+			dbase.collection("globalVar").find({ "var_name": "reader" }).toArray(function (err, doc) {
+				var cur = doc[0].reader;
+				dbase.collection("globalVar").updateOne({ "var_name": "reader" }, { $set: { "reader": cur + 1 } });
+				data.reader_id = "R" + cur.toString();
+				dbase.collection("reader").insertOne(data, function (err, res) {
+					addresult.reader_id = data.reader_id;
+					socket.emit("addReaderRoleSuccess", addresult);
+					var auth_data = {};
+					auth_data.username = data.reader_id;
+					auth_data.password = "123456";
+					auth_data.type = "reader";
+					dbase.collection("accounts").insertOne(auth_data);
+				});
 			});
 		});
-		/*
-				socket.on("editLibrarianRole",function(data){
-					dbase.collection("librarian").updateOne(data, function(res){
-						socket.emit("addLibrarianRoleSuccess");
-						var auth_data = {};
-						auth_data.username = res.insertedId;
-						auth_data.password = "123456";
-						auth_data.type = "librarian";
-						dbase.collection("accounts").insertOne(auth_data);
-					});
-				}); 
-		*/
 
+		socket.on("printBarcode", function (data) {
+			data.available_number = data.total_number;
+			dbase.collection("books").insertOne(data, function () {
+				var barcode_list = [];
+				var cur = 0;
+				dbase.collection("globalVar").find({ "var_name": "bar_code" }).toArray(function (err, doc) {
+					cur = doc[0].bar_code;
+					dbase.collection("globalVar").updateOne({ "var_name": "bar_code" }, { $set: { "bar_code": cur + data.total_number } });
+					var copy_datas = [];
+					for (var i = 0; i < data.total_number; i++) {
+						var copy_data = {};
+						copy_data.status = "available";
+						copy_data.isbn = data.isbn;
+						copy_data.bar_code = cur + i;
+						barcode_list.push(cur + i);
+						copy_datas.push(copy_data);
+					}
+					dbase.collection("copies").insertMany(copy_datas);
+					socket.emit("barcodeList", { "barcode_list": barcode_list });
+				});
+			});
+		});
 		//The scope which all bussiness defined in. end--------------------------------------------------------------
 	});
-
 });
