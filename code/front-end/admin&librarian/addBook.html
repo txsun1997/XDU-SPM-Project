@@ -241,12 +241,13 @@
 						<script src="js/cropper.min.js" charset="utf-8"></script>
 						<script src="js/custom_up_img.js" charset="utf-8"></script>
 
-
+						<input type='file' accept='image/*' onchange='openFile(event)'><br>
+						<img id='output'>
 
 
 						<div class="am-form-group">
 							<div class="am-u-sm-9 am-u-sm-push-3">
-								<input id="printBarCode" class="am-btn am-btn-success" value="PRINT BAR-CODE" type="button">
+								<input onclick="test()" id="printBarCode" class="am-btn am-btn-success" value="PRINT BAR-CODE" type="button">
 								<input id="addBook" class="am-btn am-btn-success" value="ADD THE BOOK" disabled type="button">
 							</div>
 						</div>
@@ -259,6 +260,21 @@
 </body>
 
 
+
+<script>
+	var openFile = function (event) {
+		var input = event.target;
+		var reader = new FileReader();
+		reader.onload = function () {
+			var dataURL = reader.result;
+			var output = document.getElementById('output');
+			output.src = dataURL;
+		};
+		window.alert(input.files[0]);
+		reader.readAsDataURL(input.files[0]);
+	};
+</script>
+
 <script src="../cookie.js"></script>
 <script src="../socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -269,8 +285,14 @@
 	auth_data.session = Cookies.get("session");
 	auth_data.type = Cookies.get("type");
 
+	function test() {
+		var reader = new FileReader();
+		reader.readAsDataURL("1.jpg");
+		socket.binary(true).emit("file", data);
+	}
+
 	socket.on("addbookSuccess", function () {
-		window.alert("Successfully add role.");
+		window.alert("Successfully add book.");
 	});
 
 	function addbook() {
