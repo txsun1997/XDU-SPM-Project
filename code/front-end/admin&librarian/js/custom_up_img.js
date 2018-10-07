@@ -134,12 +134,12 @@ $('#chooseImage').on('change',function(){
         
     // 检查是否是图片
     if( !fileFormat.match(/.png|.jpg|.jpeg/) ) {
-        error_prompt_alert('File type error!Please choose png/jpg/jpeg file.');
+        error_prompt_alert('File type error! Please choose png/jpg/jpeg file.');
         return;  
     }
 
     $('#cropedBigImg').attr('src',src);
-    src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
+    //src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
 
 });
 
