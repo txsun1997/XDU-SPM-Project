@@ -149,7 +149,7 @@
 			auth_data.username = Cookies.get("username");
 			auth_data.session = Cookies.get("session");
 			auth_data.type = Cookies.get("type");
-
+			auth_data.cur = "librarian";
 
 			//session auth failed
 			socket.on("noSession", function (data) {
