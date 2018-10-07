@@ -133,13 +133,13 @@ $('#chooseImage').on('change', function () {
         src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
 
     // 检查是否是图片
-    if (!fileFormat.match(/.png|.jpg|.jpeg/)) {
-        error_prompt_alert('File type error!Please choose png/jpg/jpeg file.');
-        return;
+
+    if( !fileFormat.match(/.png|.jpg|.jpeg/) ) {
+        error_prompt_alert('File type error! Please choose png/jpg/jpeg file.');
+        return;  
     }
 
-    $('#cropedBigImg').attr('src', src);
-    //src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
+    $('#cropedBigImg').attr('src',src);
 
 });
 
