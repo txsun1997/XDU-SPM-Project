@@ -206,37 +206,33 @@
 		}
 	}
 
+	socket.on("barcodeList", function (data) {
+		Cookies.set("barcode_list", data.barcode_list, { expires: 1 });
+		location.href = "bar-code.html";
+	});
+
 	function printBarcode() {
 		if (picture == "") {
 			alert("Please insert a picture.");
 			return;
 		}
 		var data = {};
-		
 		data.book_name = $("#title").val();
 		data.author = $("#authors").val();
 		data.isbn = $("#isbn").val();
 		data.press = $("#press").val();
 		data.publish_year = $("#year").val();
 		data.subject = $("#subject").val();
-		
 		data.page = parseInt($("#pages").val());
-
 		data.type = $("#typeSelect").find("option:selected").text();
-
-
 		data.total_number = parseInt($("#number").val());
-
 		data.location = $("#location").val();
-
-
 		data.figure = picture;
+
 		socket.emit("printBarcode", data);
 	}
 
-	socket.on("barcodeList", function (data) {
-		
-	});
+
 
 </script>
 
