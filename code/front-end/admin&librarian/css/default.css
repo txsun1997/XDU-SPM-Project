@@ -1,0 +1,15 @@
+body{
+	background: rgb(255, 255, 255);
+	color: #D5D6E2;
+	font-weight: 500;
+	font-size: 1.05em;
+	font-family: "Microsoft YaHei","宋体","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif, FreeSans, Arimo;
+}
+a{color: #2fa0ec;text-decoration: none;outline: none;}
+a:hover,a:focus{color:#74777b;}
+
+.zzsc{
+	margin: 50px auto;
+	text-align: left;
+	overflow: hidden;
+}
