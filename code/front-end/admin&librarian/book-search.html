@@ -94,9 +94,10 @@
 	<script>
 
 		var socket = io("http://139.199.112.88:2761");
-		var items = [];
+
 		function detail(index) {
-			Cookies.set("cur_book", items[index].isbn, { expires: 1 });
+			var books = Cookies.getJSON('bookList');
+			Cookies.set("cur_book", books[index].isbn, { expires: 1 });
 			$.jq_Panel({
 				title: "Details",
 				url: "../reader&login/book-detail.html",
@@ -114,10 +115,8 @@
 			});
 		}
 
-
 		function addBookItem(item, i) {
 			var obj = document.createElement('tr');
-
 			var bookname = document.createElement('td');
 			bookname.innerHTML = item.book_name;
 			var author = document.createElement('td');
@@ -165,24 +164,73 @@
 			parent.appendChild(obj);
 		}
 
-		function clearBooks() {
-			var obj = document.getElementById('tUser');
-			while (obj.childNodes.length > 0) {
-				obj.removeChild(obj.lastChild);
-			}
-		}
-
-		Cookies.set("show", 'false', { expires: 1 });
-
 		socket.on("bookList", function (data) {
-			clearBooks();
-			data = data.bookList;
-			items = data;
+			Cookies.set("bookList", data.bookList);
 			
-			for (var i = 0; i < data.length; i++) {
-				addBookItem(data[i], i);
-			}
+			Cookies.set("update", "true");
 		});
+
+		setInterval(function () {
+			if (Cookies.get("update") == "true") {
+				var books = Cookies.getJSON('bookList');
+				var obj = document.getElementById('tUser');
+				while (obj.childNodes.length > 0) {
+					obj.removeChild(obj.lastChild);
+				}
+				//alert(books);
+				for (var i = 0; i < books.length; i++) {
+					var item = books[i];
+					var obj = document.createElement('tr');
+					var bookname = document.createElement('td');
+					bookname.innerHTML = item.book_name;
+					var author = document.createElement('td');
+					author.innerHTML = item.author;
+					var press = document.createElement('td');
+					press.innerHTML = item.press;
+					var year = document.createElement('td');
+					year.innerHTML = item.publish_year;
+					var type = document.createElement('td');
+					type.innerHTML = item.type;
+					var avail = document.createElement('td');
+					avail.innerHTML = item.available_number + '/' + item.total_number;
+					var isbn = document.createElement('td');
+					isbn.innerHTML = item.isbn;
+
+					var span = document.createElement('span');
+					span.setAttribute('class', 'am-icon-pencil-square-o');
+					var btn = document.createElement('button');
+					btn.innerHTML = 'Detail';
+					btn.appendChild(span);
+					btn.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary btnEdit');
+					btn.setAttribute('id', i);
+					btn.setAttribute('onclick', 'detail(this.id)');
+					btn.setAttribute('type', 'button');
+
+					var div1 = document.createElement('div');
+					div1.setAttribute('class', 'am-btn-group am-btn-group-xs');
+					div1.appendChild(btn);
+					var div2 = document.createElement('div');
+					div2.setAttribute('class', 'am-btn-toolbar');
+					div2.appendChild(div1);
+					var detail = document.createElement('td');
+					detail.appendChild(div2);
+
+					obj.appendChild(bookname);
+					obj.appendChild(author);
+					obj.appendChild(press);
+					obj.appendChild(year);
+					obj.appendChild(type);
+					obj.appendChild(avail);
+					obj.appendChild(isbn);
+					obj.appendChild(detail);
+
+					var parent = document.getElementById('tUser');
+					parent.appendChild(obj);
+				}
+				Cookies.set("update", "false");
+			}
+		}, 1000);
+
 
 		socket.emit("getBookList");
 

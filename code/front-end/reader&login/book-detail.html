@@ -18,9 +18,8 @@
     </style>
 </head>
 
+
 <body>
-
-
     <div class="maincontent bg--white pt--80 pb--55">
         <div class="container">
             <div class="row">
@@ -80,13 +79,7 @@
 
         function showBookDetail(data) {
             if (data.figure != null) {
-                try {
-                    document.getElementById("imageContent").setAttribute("src", data.figure);
-
-                } catch (e) {
-                    alert(e);
-                }
-
+                document.getElementById("imageContent").setAttribute("src", data.figure);
             }
             if (data.book_name != null) {
                 var title = document.getElementById('title');
