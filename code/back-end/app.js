@@ -179,6 +179,56 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				});
 			});
 		});
+
+		socket.on("getLibrarianList", function (data) {
+			dbase.collection("librarian").find().toArray(function (err, doc) {
+				var data = {};
+				data.librarian_list = doc;
+				socket.emit("librarianList", data);
+			});
+		});
+
+		socket.on("deleteLibrarian", function (data) {
+			dbase.collection("librarian").remove({ "librarian_id": data.librarian_id }, function (err, res) {
+				test.equal(null, err);
+				socket.emit("deleteLibrarianSuccess");
+			});
+		});
+
+		socket.on("editLibrarianRole", function (data) {
+			dbase.collection("librarian").updateOne({ "librarian_id": data.librarian_id }, { $set: { "name": data.name, "gender": data.gender, "phone": data.phone, "email": data.email } }, function (err, res) {
+				test.equal(null, err);
+				socket.emit("editLibrarianSuccess");
+			});
+		});
+
+
+
+
+
+
+
+		socket.on("getReaderList", function (data) {
+			dbase.collection("reader").find().toArray(function (err, doc) {
+				var data = {};
+				data.reader_list = doc;
+				socket.emit("readerList", data);
+			});
+		});
+
+		socket.on("deleteReader", function (data) {
+			dbase.collection("reader").remove({ "reader_id": data.reader_id }, function (err, res) {
+				test.equal(null, err);
+				socket.emit("deleteReaderSuccess");
+			});
+		});
+
+		socket.on("editReaderRole", function (data) {
+			dbase.collection("reader").updateOne({ "reader_id": data.reader_id }, { $set: { "name": data.name, "gender": data.gender, "phone": data.phone, "email": data.email } }, function (err, res) {
+				test.equal(null, err);
+				socket.emit("editReaderSuccess");
+			});
+		});
 		//The scope which all bussiness defined in. end--------------------------------------------------------------
 	});
 });

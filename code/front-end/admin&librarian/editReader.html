@@ -81,31 +81,32 @@
 	auth_data.type = Cookies.get("type");
 	auth_data.cur = Cookies.get("cur");
 
-	socket.on("editLibrarianSuccess", function () {
+	socket.on("editReaderSuccess", function () {
 		window.alert("Successfully edit role.");
 	});
 
 	function editRole() {
 		var data = {};
-		data.librarian_id = Cookies.get("cur_librarian_id");
+		data.reader_id = Cookies.get("cur_reader_id");
 		data.name = $("#roleName").val();
 		if (document.getElementById("male").checked) data.gender = "Male";
 		else data.gender = "Female";
 		data.phone = $("#phone").val();
 		data.email = $("#email").val();
-		socket.emit("editLibrarianRole", data);
+		socket.emit("editReaderRole", data);
 	}
 
 	//session auth failed
 	socket.on("noSession", function (data) {
 		window.alert("Login has expired, please login again!");
-		location.href = "doNothing.html";
+        location.href = "doNothing.html";
 	});
 
 	//session auth failed
 	socket.on("sessionFailed", function (data) {
 		window.alert("User name type is inconsistent, please login again!");
-		location.href = "doNothing.html";
+        location.href = "doNothing.html";
+   
 	});
 
 	//auth session and username and type
