@@ -24,21 +24,21 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [x] 登入
 - [x] 登出
 - [x] 个人信息管理+修改密码
-- [ ] 添加librarian（系统自动分配ID，密码默认置为123456）
-- [ ] 列表展示librarian, reader, book
+- [x] 添加librarian（系统自动分配ID，密码默认置为123456）
+- [x] 列表展示librarian, reader, book
 - [ ] 编辑Librarian信息（可选）
 
 ## Librarian
 - [x] 登入
 - [x] 登出
 - [x] 个人信息管理+修改密码
-- [ ] 添加reader（系统自动分配ID，密码默认置为123456）
-- [ ] 添加图书（支持打印条形码）
-- [ ] 列表展示reader
+- [x] 添加reader（系统自动分配ID，密码默认置为123456）
+- [x] 添加图书（支持打印条形码）
+- [x] 列表展示reader
 
 ## Reader
 - [x] 登入
-- [ ] 登出
+- [x] 登出
 - [ ] 个人信息管理+修改密码
 - [ ] 根据书名、作者查找图书
 - [ ] 查看某本书的位置和详细信息
