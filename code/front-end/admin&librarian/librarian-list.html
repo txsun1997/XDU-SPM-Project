@@ -70,6 +70,9 @@
 											<th class="table-set">
 												EMAIL
 											</th>
+											<th class="table-set">
+												OPERATION
+											</th>
 										</tr>
 									</thead>
 									<tbody id="tUser">
@@ -140,7 +143,7 @@
 			delete_span.setAttribute("class", "am-icon-trash-o");
 
 			var edit_btn = document.createElement('button');
-			edit_btn.innerHTML = 'EDIT';
+			edit_btn.innerHTML = '';
 			edit_btn.appendChild(edit_span);
 			edit_btn.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary btnedit');
 			edit_btn.setAttribute('id', i);
@@ -148,8 +151,8 @@
 			edit_btn.setAttribute('type', 'button');
 
 			var delete_btn = document.createElement('button');
-			delete_btn.innerHTML = 'DELETE';
-			delete_btn.appendChild(edit_span);
+			delete_btn.innerHTML = '';
+			delete_btn.appendChild(delete_span);
 			delete_btn.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only');
 			delete_btn.setAttribute('id', i);
 			delete_btn.setAttribute('onclick', 'deleteItem(this.id)');
