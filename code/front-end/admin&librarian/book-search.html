@@ -59,6 +59,7 @@
 												ISBN
 											</th>
 											<th>
+												DETAILS
 											</th>
 										</tr>
 									</thead>
@@ -133,9 +134,9 @@
 			isbn.innerHTML = item.isbn;
 
 			var span = document.createElement('span');
-			span.setAttribute('class', 'am-icon-pencil-square-o');
+			span.setAttribute('class', 'am-icon-file-text-o');
 			var btn = document.createElement('button');
-			btn.innerHTML = 'Detail';
+			btn.innerHTML = '';
 			btn.appendChild(span);
 			btn.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary btnEdit');
 			btn.setAttribute('id', i);
