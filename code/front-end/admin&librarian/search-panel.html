@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+
+		<link rel="stylesheet" href="css/amazeui.min.css">
+		<link rel="stylesheet" href="css/admin.css">
+		<link rel="stylesheet" href="css/app.css">
+		<style>
+			.admin-main {
+				padding-top: 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="am-cf admin-main">
+			<!-- content start -->
+			<div class="admin-content">
+				<div class="admin-content-body">
+					<div class="am-g">
+						<form class="am-form am-form-horizontal" action="role/addroleSubmit.action" method="post" style="padding-top: 30px;">
+							<input value="504" name="roleId" type="hidden">
+							<div class="am-form-group">
+								<label for="title" class="am-u-sm-3 am-form-label">
+								Book Title
+								</label>
+								<div class="am-u-sm-9">
+									<input id="title" required="" placeholder="Enter book title" value="" name="book-title" type="text">
+								</div>
+							</div>
+							<div class="am-form-group">
+								<label for="authors" class="am-u-sm-3 am-form-label">
+								Authors
+								</label>
+								<div class="am-u-sm-9">
+									<input id="authors" required="" placeholder="Enter book authors" value="" name="book-authors" type="text">
+								</div>
+							</div>
+							
+							<div class="am-form-group">
+								<label for="press" class="am-u-sm-3 am-form-label">
+								Press
+								</label>
+								<div class="am-u-sm-9">
+									<input id="press" required="" placeholder="Enter publication press" value="" name="book-press" type="text">
+								</div>
+							</div>
+
+							<div class="am-form-group">
+								<label for="year" class="am-u-sm-3 am-form-label">
+								Year
+								</label>
+								<div class="am-u-sm-9">
+									<input id="year" required="" placeholder="Enter publication date" value="" name="publication-year" type="text">
+								</div>
+							</div>
+
+							<div class="am-form-group">
+								<label for="type" class="am-u-sm-3 am-form-label">
+										Type
+									</label>
+								<div class="am-u-sm-9">
+									<select name="type" id='type' required>
+										<option value="">
+											Select a type
+										</option>
+
+										<option value="1">
+											art
+										</option>
+
+										<option value="2">
+											science
+										</option>
+
+									</select>
+								</div>
+							</div>
+
+							<div class="am-form-group">
+								<label for="type" class="am-u-sm-3 am-form-label">
+										Avail
+									</label>
+								<div class="am-u-sm-9">
+									<select name="type" id='avail' required>
+										<option value="">
+											availabel books
+										</option>
+
+										<option value="1">
+											all books
+										</option>
+
+									</select>
+								</div>
+							</div>
+							
+							<div class="am-form-group">
+								<div class="am-u-sm-9 am-u-sm-push-3">
+									<input id="Search" class="am-btn am-btn-success" value="Start Seaching" type="button" onclick="search()">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script src="../socket.io.js"></script>
+	<script src="../cookie.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+	var socket = io("http://localhost:2761");
+	socket.on('show_book_searched',function(data){
+		Cookies.set("show", 'true', { expires: 1 });
+		data = JSON.stringify(data);
+		Cookies.set('books',data, { expires: 1 });
+	});
+	
+	function search(){
+		data = {};
+		data.book_name = $('#title').val();
+		data.author = $('#authors').val();
+		data.press = $('#press').val();
+		data.publish_year = $('#year').val();
+		if($('#year').val() == 1) data.type = 'art';
+		else if($('#year').val()==2) data.type = 'science';
+		else data.type='';
+		if($('#avail').val()=='')data.show_avail = true;
+		else data.show_avail=false;
+		socket.emit('reader_search_books',data);
+			
+		/*
+		window.opener=null;
+		window.open('','_self');
+		window.close();
+*/
+	}
+
+
+	</script>
+
+</html>

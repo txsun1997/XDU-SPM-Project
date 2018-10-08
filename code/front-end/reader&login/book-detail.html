@@ -1,0 +1,165 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>book-detail</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/plugins.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+
+    <div class="maincontent bg--white pt--80 pb--55">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-12">
+                    <div class="wn__single__product">
+                        <div class="row">
+
+                            <div class="col-lg-5 col-12">
+
+                                <div class="wn__fotorama__wrapper">
+                                    <img id="imageContent">
+                                </div>
+                            </div>
+                            <div class="col-lg-7 col-12">
+                                <div class="product__info__main">
+                                    <h1 id='title'>Advanced Maths</h1>
+                                    <div class="product-info-stock-sku d-flex">
+                                        <p>Availability:<span id='avail'> 5 books in stock</span></p>
+                                        <p>The number of borrowed:<span id='borrowed'> 10 books</span></p>
+                                    </div>
+                                    </br>
+                                    </br>
+                                    <div class="product-color-label">
+                                        <h1>BookInfomation</h1>
+                                        <ul class="pro__attribute">
+                                            <li id='isbn'>ISBN:ABCD1234</li>
+                                            <li id='location'>Location: </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="addtocart-btn">
+                                        <a href="#">Want to Read</a>
+                                    </div>
+                                    <div class="product__overview">
+                                        <p id='subject'>The sixth edition of Higher Mathematics is a book published by
+                                            the Higher Education Press in 2007. The author is the Department of
+                                            Mathematics of Tongji University.
+                                            The book is the sixth edition of the Higher Mathematics of the Department
+                                            of Mathematics of Tongji University. It is revised according to the latest
+                                            "Basic Requirements for the Teaching of Basic Mathematics Courses for
+                                            Engineering Undergraduate Courses" for students of engineering majors in
+                                            higher education institutions.</p>
+                                        <ul class="pro__attribute">
+
+                                            <li id='type'>• Type:education</li>
+                                            <li id='author'>• Author: </li>
+                                            <li id='press'>• Press: </li>
+                                            <li id='page'>• Page:</li>
+                                            <li id='year'>• publish_year: </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <script src="../cookie.js"></script>
+    <script src="../socket.io.js"></script>
+    <script src="js/vendor/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script>
+        var socket = io("http://139.199.112.88:2761");
+
+        function showBookDetail(data) {
+            if (data.figure != null) {
+                try {
+                    document.getElementById("imageContent").setAttribute("src", data.figure);
+
+                } catch (e) {
+                    alert(e);
+                }
+
+            }
+            if (data.book_name != null) {
+                var title = document.getElementById('title');
+                title.innerHTML = data.book_name;
+            }
+            if (data.author != null) {
+                var author = document.getElementById('author');
+                author.innerHTML = '• Author: ' + data.author;
+            }
+            if (data.type != null) {
+                var type = document.getElementById('type');
+                type.innerHTML = '• Type: ' + data.type;
+            }
+            if (data.press != null) {
+                var press = document.getElementById('press');
+                press.innerHTML = '• Press: ' + data.press;
+            }
+            if (data.page != null) {
+                var page = document.getElementById('page');
+                page.innerHTML = '• Page: ' + data.page;
+            }
+            if (data.publish_year != null) {
+                var year = document.getElementById('year');
+                year.innerHTML = '• publish_year: ' + data.publish_year;
+            }
+            if (data.isbn != null) {
+                var isbn = document.getElementById('isbn');
+                isbn.innerHTML = 'ISBN: ' + data.isbn;
+            }
+            if (data.location != null) {
+                var loc = document.getElementById('location');
+                loc.innerHTML = 'Location: ' + data.location;
+            }
+            if (data.subject != null) {
+                document.getElementById('subject').innerHTML = data.subject;
+            }
+            if (data.available_number != null) {
+                var avail = document.getElementById('avail');
+                avail.innerHTML = data.available_number + ' books in stock';
+            }
+            if (data.total_number != null && data.available_number != null) {
+                var left = document.getElementById('borrowed');
+                left.innerHTML = data.total_number - data.available_number + ' books';
+            }
+
+        }
+
+        var isbn = Cookies.get("cur_book");
+        var data = {};
+        data.isbn = isbn;
+
+        socket.on("bookDetail", function (data) {
+            showBookDetail(data.bookDetail);
+        });
+
+        socket.emit("getBookDetail", data);
+
+    </script>
+
+</body>
+
+</html>

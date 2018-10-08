@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+
+	<link rel="stylesheet" href="css/amazeui.min.css">
+	<link rel="stylesheet" href="css/admin.css">
+	<link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+
+	<div class="am-cf admin-main">
+		<!-- content start -->
+		<div class="admin-content">
+			<div class="admin-content-body">
+
+				<div class="container" style="padding: 50px 10px 0px 10px">
+					<div class="am-g">
+						<div class="am-u-sm-12 am-u-md-6">
+							<div class="am-btn-toolbar">
+								<div class="am-btn-group am-btn-group-xs">
+									<button type="button" class="am-btn am-btn-primary btnAdd" onclick="search_panel()">
+										<span class="am-icon-search"></span> SEARCH
+									</button>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="am-g" style="margin-top: -30px;">
+						<div class="am-u-sm-12">
+							<form class="am-form" action="user/delAll.action">
+								<table class="am-table am-table-striped am-table-hover table-main">
+									<thead>
+										<tr>
+											<th>
+												NAME
+											</th>
+											<th>
+												AUTHOR
+											</th>
+											<th class="table-title">
+												PRESS
+											</th>
+											<th>
+												YEAR
+											</th>
+											<th>
+												TYPE
+											</th>
+											<th>
+												AVAIL
+											</th>
+											<th>
+												ISBN
+											</th>
+											<th>
+											</th>
+										</tr>
+									</thead>
+									<tbody id="tUser">
+									</tbody>
+								</table>
+
+							</form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!-- content end -->
+		</div>
+	</div>
+
+	<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+	<!--[if (gte IE 9)|!(IE)]><!-->
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="../cookie.js"></script>>
+	<script src="../socket.io.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<!--<![endif]-->
+	<script type="text/javascript" src="myplugs/js/plugs.js"></script>
+	<script src="../cookie.js"></script>>
+	<script>
+
+		var socket = io("http://139.199.112.88:2761");
+		var items = [];
+		function detail(index) {
+			Cookies.set("cur_book", items[index].isbn, { expires: 1 });
+			$.jq_Panel({
+				title: "Details",
+				url: "../reader&login/book-detail.html",
+				iframeWidth: 1000,
+				iframeHeight: 700,
+			});
+		}
+
+		function search_panel() {
+			$.jq_Panel({
+				title: "SEARCH BOOK",
+				url: "search-panel.html",
+				iframeWidth: 600,
+				iframeHeight: 450,
+			});
+		}
+
+
+		function addBookItem(item, i) {
+			var obj = document.createElement('tr');
+
+			var bookname = document.createElement('td');
+			bookname.innerHTML = item.book_name;
+			var author = document.createElement('td');
+			author.innerHTML = item.author;
+			var press = document.createElement('td');
+			press.innerHTML = item.press;
+			var year = document.createElement('td');
+			year.innerHTML = item.publish_year;
+			var type = document.createElement('td');
+			type.innerHTML = item.type;
+			var avail = document.createElement('td');
+			avail.innerHTML = item.available_number + '/' + item.total_number;
+			var isbn = document.createElement('td');
+			isbn.innerHTML = item.isbn;
+
+			var span = document.createElement('span');
+			span.setAttribute('class', 'am-icon-pencil-square-o');
+			var btn = document.createElement('button');
+			btn.innerHTML = 'Detail';
+			btn.appendChild(span);
+			btn.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary btnEdit');
+			btn.setAttribute('id', i);
+			btn.setAttribute('onclick', 'detail(this.id)');
+			btn.setAttribute('type', 'button');
+
+			var div1 = document.createElement('div');
+			div1.setAttribute('class', 'am-btn-group am-btn-group-xs');
+			div1.appendChild(btn);
+			var div2 = document.createElement('div');
+			div2.setAttribute('class', 'am-btn-toolbar');
+			div2.appendChild(div1);
+			var detail = document.createElement('td');
+			detail.appendChild(div2);
+
+			obj.appendChild(bookname);
+			obj.appendChild(author);
+			obj.appendChild(press);
+			obj.appendChild(year);
+			obj.appendChild(type);
+			obj.appendChild(avail);
+			obj.appendChild(isbn);
+			obj.appendChild(detail);
+
+			var parent = document.getElementById('tUser');
+			parent.appendChild(obj);
+		}
+
+		function clearBooks() {
+			var obj = document.getElementById('tUser');
+			while (obj.childNodes.length > 0) {
+				obj.removeChild(obj.lastChild);
+			}
+		}
+
+		Cookies.set("show", 'false', { expires: 1 });
+
+		socket.on("bookList", function (data) {
+			clearBooks();
+			data = data.bookList;
+			items = data;
+			
+			for (var i = 0; i < data.length; i++) {
+				addBookItem(data[i], i);
+			}
+		});
+
+		socket.emit("getBookList");
+
+	</script>
+</body>
+
+</html>
