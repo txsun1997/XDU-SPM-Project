@@ -39,6 +39,6 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 ## Reader
 - [x] 登入
 - [x] 登出
-- [ ] 个人信息管理+修改密码
-- [ ] 根据书名、作者查找图书
-- [ ] 查看某本书的位置和详细信息
+- [x] 个人信息管理+修改密码
+- [x] 根据书名、作者查找图书
+- [x] 查看某本书的位置和详细信息
