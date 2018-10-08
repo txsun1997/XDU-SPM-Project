@@ -145,6 +145,7 @@
 <script>
 	var socket = io("http://139.199.112.88:2761");
 	var auth_data = {};
+	Cookies.set("cur","librarian");
 	auth_data.username = Cookies.get("username");
 	auth_data.session = Cookies.get("session");
 	auth_data.type = Cookies.get("type");

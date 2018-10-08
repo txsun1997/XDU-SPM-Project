@@ -22,7 +22,7 @@
 		<div class="admin-content">
 			<div class="admin-content-body">
 				<div class="am-g">
-					<form class="am-form am-form-horizontal" action="role/addroleSubmit.action" method="post" style="padding-top: 30px;">
+					<form class="am-form am-form-horizontal" style="padding-top: 30px;">
 						<input value="504" name="roleId" type="hidden">
 						<div class="am-form-group">
 							<label for="user-name" class="am-u-sm-3 am-form-label">
@@ -37,9 +37,9 @@
 								Gender
 							</label>
 							<div class="am-u-sm-9">
-								<input id="gender" type="radio" name="sex" value="male" checked> Male
+								<input id="male" type="radio" name="sex" value="male" checked> Male
 								<br />
-								<input type="radio" name="sex" value="female"> Female
+								<input if="female" type="radio" name="sex" value="female"> Female
 							</div>
 						</div>
 						<div class="am-form-group">
@@ -60,7 +60,7 @@
 						</div>
 						<div class="am-form-group">
 							<div class="am-u-sm-9 am-u-sm-push-3">
-								<input id="editRole" onclick="editRole()" class="am-btn am-btn-success" value="EDIT" type="button">
+								<button onclick="editRole()" class="am-btn am-btn-success">EDIT</button>
 							</div>
 						</div>
 					</form>
@@ -79,22 +79,22 @@
 	auth_data.username = Cookies.get("username");
 	auth_data.session = Cookies.get("session");
 	auth_data.type = Cookies.get("type");
+	auth_data.cur = Cookies.get("cur");
 
-	socket.on("editLibrarianRoleSuccess",function(){
+	socket.on("editLibrarianSuccess", function () {
 		window.alert("Successfully edit role.");
 	});
 
 	function editRole() {
 		var data = {};
+		data.librarian_id = Cookies.get("cur_librarian_id");
 		data.name = $("#roleName").val();
-		if ($("#gender").check) data.gender = male;
-		else data.gender = female;
+		if (document.getElementById("male").checked) data.gender = "Male";
+		else data.gender = "Female";
 		data.phone = $("#phone").val();
 		data.email = $("#email").val();
-		socket.emit("editLibrarianRole",data);
+		socket.emit("editLibrarianRole", data);
 	}
-
-
 
 	//session auth failed
 	socket.on("noSession", function (data) {
@@ -107,17 +107,6 @@
 		window.alert("User name type is inconsistent, please login again!");
 		location.href = location.href.replace("admin&librarian/admin-index.html", "reader&login/login.html");
 	});
-
-	//session auth Success
-	socket.on("sessionSuccess", function (data) {
-
-	});
-
-	//louOut request
-	function logOut() {
-		socket.emit("logOut", auth_data);
-		location.href = location.href.replace("admin&librarian/admin-index.html", "reader&login/login.html");
-	}
 
 	//auth session and username and type
 	socket.emit("sessionAuth", auth_data);
