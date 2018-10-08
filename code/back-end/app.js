@@ -189,10 +189,11 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 		});
 
 		socket.on("deleteLibrarian", function (data) {
-			dbase.collection("librarian").remove({ "librarian_id": data.librarian_id }, function (err, res) {
+			dbase.collection("librarian").deleteOne({ "librarian_id": data.librarian_id }, function (err, res) {
 				test.equal(null, err);
 				socket.emit("deleteLibrarianSuccess");
 			});
+			dbase.collection("accounts").deleteOne({ "username": data.librarian_id });
 		});
 
 		socket.on("editLibrarianRole", function (data) {
@@ -201,12 +202,6 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				socket.emit("editLibrarianSuccess");
 			});
 		});
-
-
-
-
-
-
 
 		socket.on("getReaderList", function (data) {
 			dbase.collection("reader").find().toArray(function (err, doc) {
@@ -221,12 +216,70 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				test.equal(null, err);
 				socket.emit("deleteReaderSuccess");
 			});
+			dbase.collection("accounts").deleteOne({ "username": data.reader_id });
 		});
 
 		socket.on("editReaderRole", function (data) {
 			dbase.collection("reader").updateOne({ "reader_id": data.reader_id }, { $set: { "name": data.name, "gender": data.gender, "phone": data.phone, "email": data.email } }, function (err, res) {
 				test.equal(null, err);
 				socket.emit("editReaderSuccess");
+			});
+		});
+		/////////////jc
+		socket.on('getReaderInfo', function (data) {
+			var cursor = dbase.collection("reader").find({ "reader_id": data.username });
+			cursor.toArray(function (err, doc) {
+				test.equal(null, err);
+				socket.emit("readerInfo", doc[0]);
+			});
+		});
+
+		socket.on("updateReaderInfo", function (data) {
+			dbase.collection("reader").updateOne({ "reader_id": data.reader_id }, { $set: { "phone": data.phone, "email": data.email } });
+			socket.emit("updateReaderInfoSuccess");
+		});
+
+		socket.on("getBookList", function (data) {
+			dbase.collection("books").find({})
+				.toArray(function (err, doc) {
+					test.equal(null, err);
+					var bookList = {};
+					for (var i = 0; i < doc.length; i++) {
+						delete doc[i].figure;
+					}
+					bookList.bookList = doc;
+					socket.emit("bookList", bookList);
+				});
+		});
+
+		socket.on("getBookDetail", function (data) {
+			dbase.collection("books").find({ "isbn": data.isbn }).toArray(function (err, res) {
+				test.equal(null, err);
+				var book = {};
+				book.bookDetail = res[0];
+				socket.emit("bookDetail", book);
+			});
+		});
+
+		socket.on('searchBooks', function (data) {
+			var whereStr = {};
+			if (data.book_name != '') whereStr['book_name'] = data.book_name;
+			if (data.author != '') whereStr['author'] = data.author;
+			if (data.press != '') whereStr['press'] = data.press;
+			if (data.publish_year != '') whereStr['publish_year'] = data.publish_year;
+			if (data.type != '') whereStr['type'] = data.type;
+
+			console.log(data.book_name + ' ' + data.author + " " + data.press + " " + data.publish_year + " " + data.type);
+			if (data.show_avail == true) whereStr['available_number'] = { $gt: 0 };
+			var search_books_cursor = dbase.collection("books").find(whereStr);
+			search_books_cursor.toArray(function (err, doc) {
+				test.equal(null, err);
+				var result = {};
+				for (var i = 0; i < doc.length; i++) {
+					delete doc[i].figure;
+				}
+				result.bookList = doc;
+				socket.emit('searchBooksResult', result);
 			});
 		});
 		//The scope which all bussiness defined in. end--------------------------------------------------------------
