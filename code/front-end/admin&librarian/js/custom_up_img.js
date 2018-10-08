@@ -138,7 +138,6 @@ $('#chooseImage').on('change', function () {
         error_prompt_alert('File type error! Please choose png/jpg/jpeg file.');
         return;  
     }
-
     $('#cropedBigImg').attr('src',src);
 
 });
