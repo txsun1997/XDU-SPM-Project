@@ -82,7 +82,7 @@
 	auth_data.session = Cookies.get("session");
 	auth_data.type = Cookies.get("type");
 
-	socket.on("addReaderRoleSuccess", function () {
+	socket.on("addReaderRoleSuccess", function (data) {
 		window.alert("Successfully add role.\nYour ID is "+data.reader_id+"\n"+"Your password is 123456.");
 	});
 
