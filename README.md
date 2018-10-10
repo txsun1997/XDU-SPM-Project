@@ -12,15 +12,92 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 
 提取密码：bes3
 
-网盘每次课后更新。
+# Backlog
 
-项目要求用Scrum框架管理，请大家了解一下。在上面资料里的Reading-E2中有一个关于Scrum的介绍，也可以看这篇介绍文档([The Scrum Framework](https://github.com/txsun1997/XDU-SPM-Project/blob/master/The-Scrum-Framework.md))。
+## Product Backlog
+
+### Admin
+- [x] 登入&登出
+- [x] 修改密码
+- [ ] 添加librarian，密码默认为00010001
+- [ ] 管理（编辑/删除）librarian
+- [ ] 修改书籍逾期罚金（默认为1元/天）
+- [ ] 修改书籍归还期限（默认为30天）
+- [ ] 修改读者注册时缴纳的保证金（默认为300元）
+- [ ] 搜索librarian，查看librarian列表
+- [ ] 帮助librarian找回密码
+
+### Librarian
+- [x] 登入&登出
+- [x] 修改密码
+- [ ] 注册reader，手机号为用户名，密码默认为12345678
+- [ ] 管理（编辑/删除）reader，删除时须确保罚金已还清&书已归还
+- [ ] 加书（位置和价格必需），生成条形码
+- [ ] 编辑书籍信息
+- [ ] 删除书籍，精确到书籍&副本，保存和浏览删除书籍的操作记录（包含操作人）
+- [ ] 搜书
+- [ ] 借书（一个账号最多同时借阅3本书）
+- [ ] 还书
+- [ ] 浏览reader的借书、还书、罚金记录
+- [ ] 浏览图书馆收入记录（按天/月/年），收入包含保证金和罚金
+- [ ] 添加/编辑/删除主页的公告
+- [ ] 添加/编辑书籍类别
+- [ ] 添加/编辑/删除位置
+- [ ] 在admin的帮助下找回密码
+
+### Reader
+- [x] 登入/登出
+- [x] 修改个人信息和密码
+- [x] 查书
+- [ ] 预约2小时
+- [ ] 浏览借书、还书、缴纳罚金记录和当前待支付罚金
+- [ ] 书籍到期前收到邮件提醒
+- [ ] 通过邮件找回密码
+
+## 其他
+
+* 须包含英文界面
+* 使用产品LOGO
+* 须有页眉页脚
+* 主页须有：搜索、登录、公告
+* 须测试所有输入的空值和错误值
+* 隐藏Admin登录界面
+
+## Release 2
+
+- [ ] 重构主页，合并登录界面
+
+### Admin
+- [ ] 删除图书管理、图书搜索、读者管理、修改个人信息功能
+- [ ] 修改添加librarian功能，默认密码改为00010001
+- [ ] 搜索librarian并查看librarian列表
+- [ ] 修改书籍逾期罚金（默认为1元/天）
+- [ ] 修改书籍归还期限（默认为30天）
+- [ ] 修改读者注册时缴纳的保证金（默认为300元）
+
+### Librarian
+- [ ] 修改添加reader功能，手机号做用户名，12345678做默认密码
+- [ ] 修改加书功能，位置改为楼层+房间+书架号（多个选择框），添加价格
+- [ ] 条形码应基于图书信息生成，改进条形码打印功能
+- [ ] 管理（编辑/删除）reader，删除时须确保罚金已还清&书已归还
+- [ ] 编辑书籍信息
+- [ ] 删除书籍，精确到书籍&副本，保存和浏览删除书籍的操作记录（包含操作人）
+- [ ] 搜书
+- [ ] 浏览reader的借书、还书、罚金记录
+- [ ] 借书（一个账号最多同时借阅3本书）
+- [ ] 还书
+
+### Reader
+- [ ] 改进搜书功能，要求能够根据任意关键词搜索
+- [ ] 浏览借书、还书、缴纳罚金记录和当前待支付罚金
+- [ ] 预约2小时
+- [ ] 通过邮件找回密码
 
 ----
 
-# Release 1
+## Release 1
 
-## Admin
+### Admin
 - [x] 登入
 - [x] 登出
 - [x] 个人信息管理+修改密码
@@ -28,7 +105,7 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [x] 列表展示librarian, reader, book
 - [x] 编辑Librarian信息（可选）
 
-## Librarian
+### Librarian
 - [x] 登入
 - [x] 登出
 - [x] 个人信息管理+修改密码
@@ -36,7 +113,7 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [x] 添加图书（支持打印条形码）
 - [x] 列表展示reader
 
-## Reader
+### Reader
 - [x] 登入
 - [x] 登出
 - [x] 个人信息管理+修改密码
