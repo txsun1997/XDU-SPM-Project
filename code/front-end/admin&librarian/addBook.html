@@ -25,6 +25,72 @@
 			width: 100%;
 		}
 	</style>
+	
+	<script type="text/javascript">
+		//价格约束
+		function amount(th,event) {
+			var event = event || window.event;
+			var code = event.keyCode;
+			if(navigator.userAgent.indexOf("Firefox")>-1){
+				code = event.which;
+			}
+			if(code == 37 || code ==39) return;
+			var regStrs = [
+				['^0(\\d+)$', '$1'], //禁止录入整数部分两位以上，但首位为0
+				['[^\\d\\.]+$', ''], //禁止录入任何非数字和点
+				['\\.(\\d?)\\.+', '.$1'], //禁止录入两个以上的点
+				['^(\\d+\\.\\d{2}).+', '$1'], //禁止录入小数点后两位以上
+				['^(\\.\\d+)','$1']//禁止输入情况下小数点出现在首位
+			];
+			for (i = 0; i < regStrs.length; i++) {
+				var reg = new RegExp(regStrs[i][0]);
+				th.value = th.value.replace(reg, regStrs[i][1]);
+		
+			}
+		}
+		
+		/**
+			* 录入完成后，输入模式失去焦点后对录入进行判断并强制更改，并对小数点进行0补全
+			* s
+			**/
+		function overFormat(th) {
+			var v = th.value;
+			if (v === '') {
+				v = '0.00';
+			} else if (v === '0') {
+				v = '0.00';
+			} else if (v === '0.') {
+				v = '0.00';
+			} else if (/^0+\d+\.?\d*.*$/.test(v)) {
+				v = v.replace(/^0+(\d+\.?\d*).*$/, '$1');
+				v = inp.getRightPriceFormat(v).val;
+			} else if (/^0\.\d$/.test(v)) {
+				v = v + '0';
+			} else if (!/^\d+\.\d{2}$/.test(v)) {
+				if (/^\d+\.\d{2}.+/.test(v)) {
+					v = v.replace(/^(\d+\.\d{2}).*$/, '$1');
+				} else if (/^\d+$/.test(v)) {
+					v = v + '.00';
+				} else if (/^\d+\.$/.test(v)) {
+					v = v + '00';
+				} else if (/^\d+\.\d$/.test(v)) {
+					v = v + '0';
+				} else if (/^[^\d]+\d+\.?\d*$/.test(v)) {
+					v = v.replace(/^[^\d]+(\d+\.?\d*)$/, '$1');
+				} else if (/\d+/.test(v)) {
+					v = v.replace(/^[^\d]*(\d+\.?\d*).*$/, '$1');
+					ty = false;
+				} else if (/^0+\d+\.?\d*$/.test(v)) {
+					v = v.replace(/^0+(\d+\.?\d*)$/, '$1');
+					ty = false;
+				} else {
+					v = '0.00';
+				}
+			}
+			th.value = v;
+		}
+	</script>
+
 </head>
 
 <body>
@@ -60,7 +126,7 @@
 									ISBN
 								</label>
 								<div class="am-u-sm-9">
-									<input id="isbn" required="" placeholder="Enter the ISBN" value="" name="book-ISBN" type="text">
+									<input id="isbn" required="" maxlength="13" oninput = "value=value.replace(/[^\d]/g,'')" placeholder="Enter the ISBN" value="" name="book-ISBN" type="text">
 									<small id="helpRole">Please enter the ISBN, e.g. 9780262035613.</small>
 								</div>
 							</div>
@@ -82,7 +148,7 @@
 								Year
 							</label>
 							<div class="am-u-sm-9">
-								<input id="year" required="" placeholder="Enter publication date" value="" name="publication-year" type="text">
+								<input id="year" required="" maxlength="4" oninput = "value=value.replace(/[^\d]/g,'')" placeholder="Enter publication date" value="" name="publication-year" type="text">
 								<small id="helpRole">Please enter publication date (year), e.g. 2016.</small>
 							</div>
 						</div>
@@ -103,8 +169,19 @@
 								Pages
 							</label>
 							<div class="am-u-sm-9">
-								<input id="pages" required="" placeholder="Enter the number of pages" value="" name="book-pages" type="text">
+								<input id="pages" required="" oninput = "value=value.replace(/[^\d]/g,'')" placeholder="Enter the number of pages" value="" name="book-pages" type="text">
 								<small id="helpRole">How many pages does the book have?</small>
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="price" class="am-u-sm-3 am-form-label">
+								Price
+							</label>
+							<div class="am-u-sm-9">
+								<input id="price" required="" onKeyUp="amount(this)" onBlur="overFormat(this)" placeholder="Enter the price of the book" value="" name="price-of-book"
+								 type="text">
+								<small id="helpRole">Please enter the price of the book.</small>
 							</div>
 						</div>
 
@@ -130,7 +207,7 @@
 								Number
 							</label>
 							<div class="am-u-sm-9">
-								<input id="number" required="" placeholder="Enter the number of the publication" value="" name="number-of-book"
+								<input id="number" required="" oninput = "value=value.replace(/[^\d]/g,'')" placeholder="Enter the number of the publication" value="" name="number-of-book"
 								 type="text">
 								<small id="helpRole">Please enter the number of the book.</small>
 							</div>
@@ -141,9 +218,16 @@
 								Location
 							</label>
 							<div class="am-u-sm-9">
-								<input id="location" required="" placeholder="Enter the location of this book" value="" name="book-location"
-								 type="text">
-								<small id="helpRole">Describe exactly where the book is located.</small>
+								<select id="locationSelect" name="type" required>
+									<option value="">Select a location</option>
+
+									<option value="1">1-01-01</option>
+									<option value="2">1-01-02</option>
+									<option value="3">1-01-03</option>
+									<option value="4">1-01-04</option>
+									<option value="5">1-02-01</option>
+								</select>
+								<small id="helpRole">Floor-Room-Bookcase, e.g. 2-01-02.</small>
 							</div>
 						</div>
 
