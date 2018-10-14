@@ -141,19 +141,15 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 
 		socket.on("addReaderRole", function (data) {
 			var addresult = {};
-			dbase.collection("globalVar").find({ "var_name": "reader" }).toArray(function (err, doc) {
-				var cur = doc[0].reader;
-				dbase.collection("globalVar").updateOne({ "var_name": "reader" }, { $set: { "reader": cur + 1 } });
-				data.reader_id = "R" + cur.toString();
-				dbase.collection("reader").insertOne(data, function (err, res) {
-					addresult.reader_id = data.reader_id;
-					socket.emit("addReaderRoleSuccess", addresult);
-					var auth_data = {};
-					auth_data.username = data.reader_id;
-					auth_data.password = "123456";
-					auth_data.type = "reader";
-					dbase.collection("accounts").insertOne(auth_data);
-				});
+			data.reader_id = data.phone;
+			dbase.collection("reader").insertOne(data, function (err, res) {
+				addresult.reader_id = data.reader_id;
+				socket.emit("addReaderRoleSuccess", addresult);
+				var auth_data = {};
+				auth_data.username = data.reader_id;
+				auth_data.password = "12345678";
+				auth_data.type = "reader";
+				dbase.collection("accounts").insertOne(auth_data);
 			});
 		});
 
