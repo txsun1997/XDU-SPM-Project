@@ -1,141 +1,225 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
 
-		<link rel="stylesheet" href="css/amazeui.min.css">
-		<link rel="stylesheet" href="css/admin.css">
-		<link rel="stylesheet" href="css/app.css">
-	</head>
+	<link rel="stylesheet" href="css/amazeui.min.css">
+	<link rel="stylesheet" href="css/admin.css">
+	<link rel="stylesheet" href="css/app.css">
+</head>
 
-	<body>
+<body>
 
-		<div class="am-cf admin-main" >
-			<!-- content start -->
-			<div class="admin-content">
-				<div class="admin-content-body">
-					
-					<div class="container" style="padding: 50px 10px 0px 10px">
-						<div class="am-g">
-							<div class="am-u-sm-12 am-u-md-6">
-								<div class="am-btn-toolbar">
-									<div class="am-btn-group am-btn-group-xs">
-										<button type="button" class="am-btn am-btn-primary btnAdd">
-											<span class="am-icon-plus"></span> ADD
-										</button>
+	<div class="am-cf admin-main">
+		<!-- content start -->
+		<div class="admin-content">
+			<div class="admin-content-body">
 
-										<button type="button" class="am-btn am-btn-danger" id="btnremove" onclick="delAll()">
-											<span class="am-icon-trash"></span> DELETE
-										</button>
-									</div>
-								</div>
-							</div>
+				<div class="container" style="padding: 50px 10px 0px 10px">
+					<div class="am-g">
+						<div class="am-u-sm-12 am-u-md-6">
+							<div class="am-btn-toolbar">
+								<div class="am-btn-group am-btn-group-xs">
+									<button type="button" class="am-btn am-btn-primary btnAdd">
+										<span class="am-icon-plus"></span> ADD
+									</button>
 
-							<div class="am-u-sm-12 am-u-md-3">
-								<div class="am-input-group am-input-group-sm">
-									<input class="am-form-field" placeholder="Enter title/author" id="keywords" type="text">
-									<span class="am-input-group-btn">
-										<button class="am-btn am-btn-primary" type="button" id="btnsearch">
-											<span class="am-icon-search"></span>
-										</button> </span>
+									<button type="button" class="am-btn am-btn-danger" id="btnremove" onclick="delAll()">
+										<span class="am-icon-trash"></span> DELETE
+									</button>
 								</div>
 							</div>
 						</div>
-						<div class="am-g" style="margin-top: -30px;">
-							<div class="am-u-sm-12">
-								<form class="am-form" action="user/delAll.action">
-									<table class="am-table am-table-striped am-table-hover table-main">
-										<thead>
-											<tr>
-												<th class="table-check">
-													<input id="chkAll" type="checkbox">
-												</th>
-												<th class="table-id">
-													NAME
-												</th>
-												<th>
-													AUTHOR
-												</th>
-												<th class="table-title">
-													PRESS
-												</th>
-												<th>
-													YEAR
-												</th>
-												<th>
-													TYPE
-												</th>
-												<th class="table-set">
-													OPERATION
-												</th>
-											</tr>
-										</thead>
-										<tbody id="tUser">
-											<tr>
-												<td><input name="ids" value="1" type="checkbox"></td>
-												<td>
-													<a href="javascript:void(0)">Deep Learning</a>
-												</td>
-												<td>Ian Goodfellow</td>
-												<td>MIT Press</td>
-												<td>2016</td>
-												<td>Unknown</td>
-												<td>
-													<div class="am-btn-toolbar">
-														<div class="am-btn-group am-btn-group-xs"><button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary btnEdit"><span class="am-icon-pencil-square-o"></span> EDIT</button><button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick="delUser(1,1)"><span class="am-icon-trash-o"></span> DELETE</button></div>
-													</div>
-												</td>
-											</tr>
-										
 
-										</tbody>
-									</table>
-
-								</form>
+						<div class="am-u-sm-12 am-u-md-3">
+							<div class="am-input-group am-input-group-sm">
+								<input class="am-form-field" placeholder="Enter title/author" id="keywords" type="text">
+								<span class="am-input-group-btn">
+									<button class="am-btn am-btn-primary" type="button" id="btnsearch">
+										<span class="am-icon-search"></span>
+									</button> </span>
 							</div>
 						</div>
 					</div>
+					<div class="am-g" style="margin-top: -30px;">
+						<div class="am-u-sm-12">
+							<form class="am-form" action="user/delAll.action">
+								<table class="am-table am-table-striped am-table-hover table-main">
+									<thead>
+										<tr>
+											<th>
+												NAME
+											</th>
+											<th>
+												AUTHOR
+											</th>
+											<th class="table-title">
+												PRESS
+											</th>
+											<th>
+												YEAR
+											</th>
+											<th>
+												TYPE
+											</th>
+											<th>
+												AVAIL
+											</th>
+											<th>
+												ISBN
+											</th>
+											<th>
+												OPERATIONS
+											</th>
+										</tr>
+									</thead>
+									<tbody id="tUser">
+									</tbody>
+								</table>
 
+							</form>
+						</div>
+					</div>
 				</div>
-				<!-- content end -->
-			</div>
-		</div>
 
-		<!--[if lt IE 9]>
+			</div>
+			<!-- content end -->
+		</div>
+	</div>
+
+	<!--[if lt IE 9]>
 <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
 <script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 <![endif]-->
 
-		<!--[if (gte IE 9)|!(IE)]><!-->
-		<script src="js/jquery-1.11.3.min.js"></script>
-		<!--<![endif]-->
-		<script type="text/javascript" src="myplugs/js/plugs.js"></script>
-		<script>
-			$(function() {
-				$(".btnAdd").click(function() {
-					$.jq_Panel({
-						title: "ADD BOOK",
-						url: "addBook.html",
-						iframeWidth: 800,
-						iframeHeight: 600,
-					});
-				});
+	<!--[if (gte IE 9)|!(IE)]><!-->
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="../cookie.js"></script>>
+	<script src="../socket.io.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<!--<![endif]-->
+	<script type="text/javascript" src="myplugs/js/plugs.js"></script>
+	<script>
 
-				$(".btnEdit").click(function() {
-					$.jq_Panel({
-						title: "EDIT BOOK",
-						url: "addBook.html",
-						iframeWidth: 800,
-						iframeHeight: 600,
-					});
+		var socket = io("http://139.199.112.88:2761");
 
-				});
-
+		function editBook(index) {
+			var books = Cookies.getJSON('bookList');
+			Cookies.set("cur_book", books[index].isbn, { expires: 1 });
+			$.jq_Panel({
+				title: "editBook",
+				url: "editBook.html",
+				iframeWidth: 1000,
+				iframeHeight: 700,
 			});
-		</script>
-	</body>
+		}
+
+		$(".btnAdd").click(function () {
+			$.jq_Panel({
+				title: "ADD BOOK",
+				url: "addBook.html",
+				iframeWidth: 800,
+				iframeHeight: 600,
+			});
+		});
+		socket.on("deleteBookSuccess", function () {
+			alert("Specified book has been successfully deleted.");
+			location.href = location.href;
+		})
+
+		function deleteBook(index) {
+			var books = Cookies.getJSON('bookList');
+			data = {};
+			data.isbn = books[index].isbn;
+			socket.emit("deleteBook", data);
+		}
+
+		function addBookItem(item, i) {
+			var obj = document.createElement('tr');
+			var bookname = document.createElement('td');
+			bookname.innerHTML = item.book_name;
+			var author = document.createElement('td');
+			author.innerHTML = item.author;
+			var press = document.createElement('td');
+			press.innerHTML = item.press;
+			var year = document.createElement('td');
+			year.innerHTML = item.publish_year;
+			var type = document.createElement('td');
+			type.innerHTML = item.type;
+			var avail = document.createElement('td');
+			avail.innerHTML = item.available_number + '/' + item.total_number;
+			var isbn = document.createElement('td');
+			isbn.innerHTML = item.isbn;
+
+			var btnEdit = document.createElement('button');
+			btnEdit.innerHTML = 'EDIT';
+			btnEdit.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary btnEdit');
+			btnEdit.setAttribute('id', i);
+			btnEdit.setAttribute('onclick', 'editBook(this.id)');
+			btnEdit.setAttribute('type', 'button');
+
+			var btnDelete = document.createElement('button');
+			btnDelete.innerHTML = 'DELETE';
+			btnDelete.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only');
+			btnDelete.setAttribute('id', i);
+			btnDelete.setAttribute('onclick', 'deleteBook(this.id)');
+			btnDelete.setAttribute('type', 'button');
+
+			var div1 = document.createElement('div');
+			div1.setAttribute('class', 'am-btn-group am-btn-group-xs');
+			div1.appendChild(btnEdit);
+			div1.appendChild(btnDelete);
+
+			var div2 = document.createElement('div');
+			div2.setAttribute('class', 'am-btn-toolbar');
+			div2.appendChild(div1);
+			var detail = document.createElement('td');
+			detail.appendChild(div2);
+
+			obj.appendChild(bookname);
+			obj.appendChild(author);
+			obj.appendChild(press);
+			obj.appendChild(year);
+			obj.appendChild(type);
+			obj.appendChild(avail);
+			obj.appendChild(isbn);
+			obj.appendChild(detail);
+
+			var parent = document.getElementById('tUser');
+			parent.appendChild(obj);
+		}
+
+		socket.on("bookList", function (data) {
+			Cookies.set("bookList", data.bookList);
+			Cookies.set("update", "true");
+		});
+
+		setInterval(function () {
+			if (Cookies.get("update") == "true") {
+				var books = Cookies.getJSON('bookList');
+				var obj = document.getElementById('tUser');
+				while (obj.childNodes.length > 0) {
+					obj.removeChild(obj.lastChild);
+				}
+				//alert(books);
+				for (var i = 0; i < books.length; i++) {
+					addBookItem(books[i], i);
+				}
+				Cookies.set("update", "false");
+			}
+		}, 1000);
+
+
+		socket.emit("getBookList");
+
+
+
+
+	</script>
+</body>
 
 </html>
