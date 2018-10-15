@@ -154,26 +154,52 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 		});
 
 		socket.on("printBarcode", function (data) {
-			data.available_number = data.total_number;
-			dbase.collection("books").insertOne(data, function () {
-				var barcode_list = [];
-				var cur = 0;
-				dbase.collection("globalVar").find({ "var_name": "bar_code" }).toArray(function (err, doc) {
-					cur = doc[0].bar_code;
-					dbase.collection("globalVar").updateOne({ "var_name": "bar_code" }, { $set: { "bar_code": cur + data.total_number } });
-					var copy_datas = [];
-					for (var i = 0; i < data.total_number; i++) {
-						var copy_data = {};
-						copy_data.status = "available";
-						copy_data.isbn = data.isbn;
-						copy_data.bar_code = cur + i;
-						barcode_list.push(cur + i);
-						copy_datas.push(copy_data);
-					}
-					dbase.collection("copies").insertMany(copy_datas);
-					socket.emit("barcodeList", { "barcode_list": barcode_list });
-				});
+			dbase.collection("books").find({ "isbn": data.isbn }).toArray(function (err, doc) {
+				if (doc.length == 0) {
+					data.available_number = data.total_number;
+					dbase.collection("books").insertOne(data, function () {
+						var barcode_list = [];
+						var cur = 0;
+						dbase.collection("globalVar").find({ "var_name": "bar_code" }).toArray(function (err, doc) {
+							cur = doc[0].bar_code;
+							dbase.collection("globalVar").updateOne({ "var_name": "bar_code" }, { $set: { "bar_code": cur + data.total_number } });
+							var copy_datas = [];
+							for (var i = 0; i < data.total_number; i++) {
+								var copy_data = {};
+								copy_data.status = "available";
+								copy_data.isbn = data.isbn;
+								copy_data.bar_code = cur + i;
+								barcode_list.push(cur + i);
+								copy_datas.push(copy_data);
+							}
+							dbase.collection("copies").insertMany(copy_datas);
+							socket.emit("barcodeList", { "barcode_list": barcode_list });
+						});
+					});
+				} else {
+					dbase.collection("books").updateOne({ "isbn": data.isbn }, { $set: { "total_number": doc[0].total_number + data.total_number } });
+					var barcode_list = [];
+					var cur = 0;
+					dbase.collection("globalVar").find({ "var_name": "bar_code" }).toArray(function (err, doc) {
+						cur = doc[0].bar_code;
+						dbase.collection("globalVar").updateOne({ "var_name": "bar_code" }, { $set: { "bar_code": cur + data.total_number } });
+						var copy_datas = [];
+						for (var i = 0; i < data.total_number; i++) {
+							var copy_data = {};
+							copy_data.status = "available";
+							copy_data.isbn = data.isbn;
+							copy_data.bar_code = cur + i;
+							barcode_list.push(cur + i);
+							copy_datas.push(copy_data);
+						}
+						dbase.collection("copies").insertMany(copy_datas);
+						socket.emit("barcodeList", { "barcode_list": barcode_list });
+					});
+				}
 			});
+
+
+
 		});
 
 		socket.on("getLibrarianList", function (data) {
@@ -206,6 +232,8 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				socket.emit("readerList", data);
 			});
 		});
+
+
 
 		socket.on("deleteReader", function (data) {
 			dbase.collection("reader").remove({ "reader_id": data.reader_id }, function (err, res) {
@@ -278,6 +306,20 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				socket.emit('searchBooksResult', result);
 			});
 		});
+
+		socket.on("deleteBook", function (data) {
+			dbase.collection("books").deleteMany({ "isbn": data.isbn });
+			dbase.collection("copies").deleteMany({ "isbn": data.isbn });
+			socket.emit("deleteBookSuccess");
+		});
+
+		socket.on("editBook", function (data) {
+			dbase.collection("books").updateOne({ "isbn": data.origin }, { $set: { "book_name": data.book_name, "price": data.price, "author": data.author, "isbn": data.isbn, "press": data.press, "publish_year": data.publish_year, "subject": data.subject, "page": data.page, "type": data.type, "total_number": data.total_number, "location": data.location, "figure": data.figure } });
+			dbase.collection("copies").updateOne({ "isbn": data.origin }, { $set: { "isbn": data.isbn } });
+			socket.emit("editBookSuccess");
+		});
+
+
 		//The scope which all bussiness defined in. end--------------------------------------------------------------
 	});
 });
