@@ -153,7 +153,7 @@
 			auth_data.type = Cookies.get("type");
 			auth_data.cur = "reader";
 
-			var socket = io("http://localhost:2761");
+			var socket = io("http://139.199.112.88:2761");
 
 			socket.on("noSession", function (data) {
 				window.alert("Login has expired, please login again!");

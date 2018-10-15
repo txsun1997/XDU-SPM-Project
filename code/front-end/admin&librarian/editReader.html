@@ -37,9 +37,9 @@
 								Gender
 							</label>
 							<div class="am-u-sm-9">
-								<input id="male" type="radio" name="sex" value="male" checked> Male
+								<input id="Male" type="radio" name="sex" value="Male" checked>Male
 								<br />
-								<input if="female" type="radio" name="sex" value="female"> Female
+								<input id="Female" type="radio" name="sex" value="Female">Female
 							</div>
 						</div>
 						<div class="am-form-group">
@@ -47,7 +47,7 @@
 								Phone
 							</label>
 							<div class="am-u-sm-9">
-								<input id="phone" required="" placeholder="Enter librarian's phone." value="" name="userPhone" type="text">
+								<input id="phone" readonly="readonly" required="" placeholder="Enter librarian's phone." value="" name="userPhone" type="text">
 							</div>
 						</div>
 						<div class="am-form-group">
@@ -85,11 +85,22 @@
 		window.alert("Successfully edit role.");
 	});
 
+	socket.on("readerInfo", function (data) {
+		$("#roleName").attr("value", data.name);
+		$("#phone").attr("value", data.phone);
+		$("#email").attr("value", data.email);
+		document.getElementById(data.gender).checked = true;
+	});
+
+	data = {};
+	data.username = Cookies.get("cur_reader_id");
+	socket.emit("getReaderInfo", data);
+
 	function editRole() {
 		var data = {};
 		data.reader_id = Cookies.get("cur_reader_id");
 		data.name = $("#roleName").val();
-		if (document.getElementById("male").checked) data.gender = "Male";
+		if (document.getElementById("Male").checked) data.gender = "Male";
 		else data.gender = "Female";
 		data.phone = $("#phone").val();
 		data.email = $("#email").val();
@@ -99,14 +110,14 @@
 	//session auth failed
 	socket.on("noSession", function (data) {
 		window.alert("Login has expired, please login again!");
-        location.href = "doNothing.html";
+		location.href = "doNothing.html";
 	});
 
 	//session auth failed
 	socket.on("sessionFailed", function (data) {
 		window.alert("User name type is inconsistent, please login again!");
-        location.href = "doNothing.html";
-   
+		location.href = "doNothing.html";
+
 	});
 
 	//auth session and username and type
