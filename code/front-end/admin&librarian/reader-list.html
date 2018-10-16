@@ -132,6 +132,17 @@
 			var delete_span = document.createElement('span');
 			delete_span.setAttribute("class", "am-icon-trash-o");
 
+			var view_span = document.createElement('span');
+			view_span.setAttribute("class", "am-icon-eye");
+
+			var view_btn = document.createElement('button');
+			view_btn.innerHTML = '';
+			view_btn.appendChild(view_span);
+			view_btn.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary');
+			view_btn.setAttribute('id', i);
+			view_btn.setAttribute('onclick', 'viewItem(this.id)');
+			view_btn.setAttribute('type', 'button');
+
 			var edit_btn = document.createElement('button');
 			edit_btn.innerHTML = '';
 			edit_btn.appendChild(edit_span);
@@ -150,6 +161,7 @@
 
 			var div1 = document.createElement('div');
 			div1.setAttribute('class', 'am-btn-group am-btn-group-xs');
+			div1.appendChild(view_btn);
 			div1.appendChild(edit_btn);
 			div1.appendChild(delete_btn);
 
