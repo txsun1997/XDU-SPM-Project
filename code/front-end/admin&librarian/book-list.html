@@ -113,8 +113,8 @@
 			$.jq_Panel({
 				title: "editBook",
 				url: "editBook.html",
-				iframeWidth: 1000,
-				iframeHeight: 700,
+				iframeWidth: 800,
+				iframeHeight: 500,
 			});
 		}
 
@@ -126,16 +126,20 @@
 				iframeHeight: 600,
 			});
 		});
-		socket.on("deleteBookSuccess", function () {
-			alert("Specified book has been successfully deleted.");
-			location.href = location.href;
-		})
 
 		function deleteBook(index) {
 			var books = Cookies.getJSON('bookList');
-			data = {};
-			data.isbn = books[index].isbn;
-			socket.emit("deleteBook", data);
+			Cookies.set("cur_book", books[index].isbn, { expires: 1 });
+			$.jq_Panel({
+				title: "DELETE BOOK",
+				url: "selectDelete.html",
+				iframeWidth: 1000,
+				iframeHeight: 800,
+			});
+			//var books = Cookies.getJSON('bookList');
+			//data = {};
+			//data.isbn = books[index].isbn;
+			//socket.emit("deleteBook", data);
 		}
 
 		function addBookItem(item, i) {
@@ -211,7 +215,7 @@
 				}
 				Cookies.set("update", "false");
 			}
-		}, 1000);
+		}, 100);
 
 
 		socket.emit("getBookList");
