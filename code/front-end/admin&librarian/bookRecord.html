@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+
+	<link rel="stylesheet" href="css/amazeui.min.css">
+	<link rel="stylesheet" href="css/admin.css">
+	<link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+
+	<div class="am-cf admin-main">
+		<!-- content start -->
+		<div class="admin-content">
+			<div class="admin-content-body">
+
+				<div class="container" style="padding: 50px 10px 0px 10px">
+					<div class="am-g">
+						<div class="am-u-sm-12 am-u-md-6">
+							<div class="am-btn-toolbar">
+								<div class="am-btn-group am-btn-group-xs">
+									<h1>Operation History</h1>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="am-g" style="margin-top: -30px;">
+						<div class="am-u-sm-12">
+							<form class="am-form" action="user/delAll.action">
+								<table class="am-table am-table-striped am-table-hover table-main">
+									<thead>
+										<tr>
+											<th>
+												TYPE
+											</th>
+											<th>
+												TITLE
+											</th>
+											<th>
+												OPERATOR
+											</th>
+											<th>
+												BARCODE
+											</th>
+											<th>
+												TIME
+											</th>
+                                        </tr>
+
+									</thead>
+									<tbody id="tUser">
+									</tbody>
+								</table>
+
+							</form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!-- content end -->
+		</div>
+	</div>
+
+	<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+	<!--[if (gte IE 9)|!(IE)]><!-->
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="../cookie.js"></script>>
+	<script src="../socket.io.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<!--<![endif]-->
+	<script type="text/javascript" src="myplugs/js/plugs.js"></script>
+	<script>
+
+		var socket = io("http://139.199.112.88:2761");
+
+        //to-do
+
+
+
+	</script>
+</body>
+
+</html>
