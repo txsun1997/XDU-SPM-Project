@@ -155,15 +155,34 @@
 			var isbn = document.createElement('td');
 			isbn.innerHTML = item.isbn;
 
+			var edit_span = document.createElement('span');
+			edit_span.setAttribute("class", "am-icon-pencil-square-o");
+
+			var delete_span = document.createElement('span');
+			delete_span.setAttribute("class", "am-icon-trash-o");
+
+			var view_span = document.createElement('span');
+			view_span.setAttribute("class", "am-icon-eye");
+
+			var btnView = document.createElement('button');
+			btnView.innerHTML = '';
+			btnView.appendChild(view_span);
+			btnView.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary');
+			btnView.setAttribute('id', i);
+			btnView.setAttribute('onclick', 'viewBook(this.id)');
+			btnView.setAttribute('type', 'button');
+
 			var btnEdit = document.createElement('button');
-			btnEdit.innerHTML = 'EDIT';
+			btnEdit.innerHTML = '';
+			btnEdit.appendChild(edit_span);
 			btnEdit.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary btnEdit');
 			btnEdit.setAttribute('id', i);
 			btnEdit.setAttribute('onclick', 'editBook(this.id)');
 			btnEdit.setAttribute('type', 'button');
 
 			var btnDelete = document.createElement('button');
-			btnDelete.innerHTML = 'DELETE';
+			btnDelete.innerHTML = '';
+			btnDelete.appendChild(delete_span);
 			btnDelete.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only');
 			btnDelete.setAttribute('id', i);
 			btnDelete.setAttribute('onclick', 'deleteBook(this.id)');
@@ -171,6 +190,7 @@
 
 			var div1 = document.createElement('div');
 			div1.setAttribute('class', 'am-btn-group am-btn-group-xs');
+			div1.appendChild(btnView);
 			div1.appendChild(btnEdit);
 			div1.appendChild(btnDelete);
 
