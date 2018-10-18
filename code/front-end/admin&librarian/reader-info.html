@@ -103,7 +103,7 @@
 		auth_data.username = Cookies.get("username");
 
 		var socket = io("http://139.199.112.88:2761");
-
+ 
 		socket.on("readerInfo", function (data) {
 			$("#account").attr("value", data.reader_id);
 			$("#name").attr("value", data.name);
