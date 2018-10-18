@@ -136,11 +136,20 @@
 				iframeWidth: 1000,
 				iframeHeight: 800,
 			});
-			//var books = Cookies.getJSON('bookList');
-			//data = {};
-			//data.isbn = books[index].isbn;
-			//socket.emit("deleteBook", data);
 		}
+
+		function viewBook(index){
+			var books = Cookies.getJSON('bookList');
+			Cookies.set("cur_book", books[index].isbn, { expires: 1 });
+			$.jq_Panel({
+				title: "VIEW RECORD",
+				url: "bookRecord.html",
+				iframeWidth: 1000,
+				iframeHeight: 800,
+			});
+		}
+
+
 
 		function addBookItem(item, i) {
 			var obj = document.createElement('tr');

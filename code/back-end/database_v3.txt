@@ -8,4 +8,4 @@ borrows(reader_id, bar_code, librarian_id, borrow_date, status) #»¹ÊéÖ®ºóstatus¸
 returns(reader_id, bar_code, librarian_id, return_date, fine)
 reserve(reader_id, isbn, reserve_time, status)
 session(username, session, type)
-librarianOperation(operation, time, librarian_id, isbn, bar_code(ÈôÊÇÉ¾³ı»ò±à¼­Õû±¾Êé£¬ÔòÎªALL))#operation°üÀ¨Delete, Edit
+librarianOperation(operation, time, librarian_id, isbn, bar_code(ÈôÊÇÉ¾³ı»ò±à¼­Õû±¾Êé£¬ÔòÎª0´ú±íËùÓĞ))#operation°üÀ¨Delete, Edit
