@@ -159,6 +159,10 @@
         }
 
         socket.on("copyList", function (data) {
+            var obj = document.getElementById('tUser');
+			while (obj.childNodes.length > 0) {
+				obj.removeChild(obj.lastChild);
+			}
             Cookies.set("copyList", data.copy_list);
             for (var i = 0; i < data.copy_list.length; i++) {
                 addCopyItem(data.copy_list[i], i);

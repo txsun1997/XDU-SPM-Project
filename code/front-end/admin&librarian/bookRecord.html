@@ -39,6 +39,13 @@
 											<th>
 												OPERATOR
 											</th>
+
+											<th>
+												BOOK NAME
+											</th>
+											<th>
+												ISBN
+											</th>
 											<th>
 												BARCODE
 											</th>
@@ -79,23 +86,18 @@
 	<script>
 
 		var socket = io("http://139.199.112.88:2761");
-		var isbn = Cookies.get("cur_book");
 
 
+		function addRecordItem(item) {
 
-
-
-		var data = {};
-		data.isbn = isbn;
-
-
-
-
-
-
-
-		function addRecordItem(item, i) {
 			var obj = document.createElement('tr');
+
+			var isbn = document.createElement('td');
+			isbn.innerHTML = item.isbn;
+
+			var bookname = document.createElement('td');
+
+			bookname.innerHTML = item.book_name;
 
 			var barcode = document.createElement('td');
 			if (item.bar_code == 0) {
@@ -115,6 +117,10 @@
 
 			obj.appendChild(operation);
 			obj.appendChild(librarian_id);
+			obj.appendChild(bookname);
+			obj.appendChild(isbn);
+
+
 			obj.appendChild(barcode);
 			obj.appendChild(time);
 
@@ -122,14 +128,17 @@
 			parent.appendChild(obj);
 		}
 
-
 		socket.on("librarianRecord", function (data) {
+			var obj = document.getElementById('tUser');
+			while (obj.childNodes.length > 0) {
+				obj.removeChild(obj.lastChild);
+			}
 			for (var i = 0; i < data.record.length; i++) {
-				addRecordItem(data.record[i], i);
+				addRecordItem(data.record[i]);
 			}
 		});
 
-		socket.emit("getLibrarianRecord", data);
+		socket.emit("getLibrarianRecord");
 
 
 
