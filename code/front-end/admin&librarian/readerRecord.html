@@ -8,6 +8,11 @@
 	<link rel="stylesheet" href="css/amazeui.min.css">
 	<link rel="stylesheet" href="css/admin.css">
 	<link rel="stylesheet" href="css/app.css">
+	<style>
+        .admin-main {
+            padding-top: 0px;
+        }
+    </style>
 </head>
 
 <body>
@@ -17,10 +22,10 @@
 		<div class="admin-content">
 			<div class="admin-content-body">
 
-				<div class="container" style="padding: 50px 10px 0px 10px">
+				<div class="container" style="padding: 10px 10px 0px 10px">
 					<div class="am-g">
 						<div class="am-u-sm-12 am-u-md-6">
-							<h1>Operation History</h1>
+							<h1>Borrow/Return History</h1>
 						</div>
 					</div>
 					<div class="am-g" style="margin-top: -30px;">
@@ -30,16 +35,19 @@
 									<thead>
 										<tr>
 											<th>
-												TYPE
-											</th>
-											<th>
-												OPERATOR
+												TITLE
 											</th>
 											<th>
 												BARCODE
 											</th>
 											<th>
-												TIME
+												BORROW TIME
+											</th>
+											<th>
+												RETURN TIME
+											</th>
+											<th>
+												FINE VALUE
 											</th>
 										</tr>
 
@@ -75,60 +83,7 @@
 	<script>
 
 		var socket = io("http://139.199.112.88:2761");
-		var isbn = Cookies.get("cur_book");
-
-
-
-
-
-		var data = {};
-		data.isbn = isbn;
-
-
-
-
-
-
-
-		function addRecordItem(item, i) {
-			var obj = document.createElement('tr');
-
-			var barcode = document.createElement('td');
-			if (item.bar_code == 0) {
-				barcode.innerHTML = "ALL COPIES";
-			} else {
-				barcode.innerHTML = item.bar_code;
-			}
-
-			var operation = document.createElement('td');
-			operation.innerHTML = item.operation;
-
-			var librarian_id = document.createElement('td');
-			librarian_id.innerHTML = item.librarian_id;
-
-			var time = document.createElement('td');
-			time.innerHTML = item.time;
-
-			obj.appendChild(operation);
-			obj.appendChild(librarian_id);
-			obj.appendChild(barcode);
-			obj.appendChild(time);
-
-			var parent = document.getElementById('tUser');
-			parent.appendChild(obj);
-		}
-
-
-		socket.on("librarianRecord", function (data) {
-			for (var i = 0; i < data.record.length; i++) {
-				addRecordItem(data.record[i], i);
-			}
-		});
-
-		socket.emit("getLibrarianRecord", data);
-
-
-
+		
 	</script>
 </body>
 
