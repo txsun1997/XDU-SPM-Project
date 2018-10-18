@@ -14,7 +14,7 @@
 		 </style>
 </head>
 
-<title>Librarian System</title>
+<title>Bibliosoft</title>
 
 <body>
 	<header class="am-topbar am-topbar-inverse admin-header">
@@ -81,8 +81,7 @@
 							 class="am-icon-angle-right am-fr am-margin-right"></span> </a>
 					</li>
 					<li class="admin-parent">
-						<a class="am-cf" href="bookRecord.html" target="right"><span class="am-icon-calendar-check-o"></span> Operation History<span
-							 class="am-icon-angle-right am-fr am-margin-right"></span> </a>
+						<a class="am-cf" href="bookRecord.html" target="right"><span class="am-icon-calendar-check-o"></span> Operation	History<span class="am-icon-angle-right am-fr am-margin-right"></span> </a>
 					</li>
 
 
@@ -106,19 +105,13 @@
 			<div class="admin-content-body">
 				<iframe src="book-list.html" width="100%" height="1100" name="right" style="border: none;"></iframe>
 			</div>
+			<footer class="admin-content-footer">
+				<hr>
+				<p class="am-padding-left">© 2018 SPM Bibliosoft B2, Xidian University. Contact: txsun1997@gmail.com</p>
+			</footer>
 		</div>
-
+		<!-- content end -->
 	</div>
-	<!-- content end -->
-
-	</div>
-
-	<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
-
-	<footer>
-		<hr>
-		<p class="am-padding-left">© 2018 XDU-SPM-B2.</p>
-	</footer>
 </body>
 <!--[if lt IE 9]>
 <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
@@ -150,7 +143,7 @@
 <script>
 	var socket = io("http://139.199.112.88:2761");
 	var auth_data = {};
-	Cookies.set("cur","librarian");
+	Cookies.set("cur", "librarian");
 	auth_data.username = Cookies.get("username");
 	auth_data.session = Cookies.get("session");
 	auth_data.type = Cookies.get("type");
