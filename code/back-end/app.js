@@ -307,17 +307,58 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 			});
 		});
 
-		socket.on("deleteBook", function (data) {
-			dbase.collection("books").deleteMany({ "isbn": data.isbn });
-			dbase.collection("copies").deleteMany({ "isbn": data.isbn });
-			socket.emit("deleteBookSuccess");
-		});
-
 		socket.on("editBook", function (data) {
 			dbase.collection("books").updateOne({ "isbn": data.origin }, { $set: { "book_name": data.book_name, "price": data.price, "author": data.author, "isbn": data.isbn, "press": data.press, "publish_year": data.publish_year, "subject": data.subject, "page": data.page, "type": data.type, "total_number": data.total_number, "location": data.location, "figure": data.figure } });
 			dbase.collection("copies").updateOne({ "isbn": data.origin }, { $set: { "isbn": data.isbn } });
 			socket.emit("editBookSuccess");
 		});
+
+		socket.on("getCopyList", function (data) {
+			dbase.collection("copies").find({ "isbn": data.isbn }).toArray(function (err, res) {
+				test.equal(null, err);
+				var copy_list = {};
+				copy_list.copy_list = res;
+				socket.emit("copyList", copy_list);
+			});
+		});
+
+		socket.on("deleteCopy", function (data) {
+			var deleted = false;
+			dbase.collection("copies").deleteOne({ "bar_code": data.bar_code });
+			data.time = new Date();
+			dbase.collection("librarianOperation").insertOne(data);
+			dbase.collection("books").find({ "isbn": data.isbn }).toArray(function (err, res) {
+				test.equal(null, err);
+				if (res[0].total_number == 1) {
+					dbase.collection("books").deleteOne({ "isbn": data.isbn });
+					deleted = true;
+				} else {
+					dbase.collection("books").updateOne({ "isbn": data.isbn }, { $set: { "available_number": res[0].available_number - 1, "total_number": res[0].total_number - 1 } });
+				}
+				var succ = {};
+				succ.deleted = deleted;
+				socket.emit("deleteCopySuccess", succ);
+			});
+		});
+
+		socket.on("deleteBook", function (data) {
+			dbase.collection("copies").deleteMany({ "isbn": data.isbn });
+			dbase.collection("books").deleteOne({ "isbn": data.isbn });
+			data.bar_code = 0;
+			dbase.collection("librarianOperation").insertOne(data);
+			socket.emit("deleteBookSuccess");
+		});
+
+		socket.on("getLibrarianRecord", function (data) {
+			dbase.collection("librarianOperation").find({ "isbn": data.isbn }).sort({ "time": -1 }).toArray(function (err, res) {
+				test.equal(null, err);
+				var record = {};
+				record.record = res;
+				socket.emit("librarianRecord", record);
+			});
+		});
+
+
 
 
 		//The scope which all bussiness defined in. end--------------------------------------------------------------
