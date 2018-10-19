@@ -28,7 +28,7 @@
 
 			<ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
 				<li>
-					<a href="librarian-info.html" target="right"><span class="am-icon-briefcase"></span> Profile</a>
+					<a id = "profile" href="librarian-info.html" target="right"><span class="am-icon-briefcase"></span>Profile</a>
 				</li>
 				<li>
 					<a onclick="logOut()"><span class="am-icon-power-off"></span> Logout
@@ -164,8 +164,8 @@
 	});
 
 	//session auth Success
-	socket.on("sessionSuccess", function (data) {
-
+	socket.on("sessionSuccess", function () {
+		document.getElementById("profile").innerHTML = auth_data.username;
 	});
 
 	//louOut request
