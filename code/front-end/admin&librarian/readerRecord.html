@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="css/admin.css">
 	<link rel="stylesheet" href="css/app.css">
 	<style>
-        .admin-main {
+		.admin-main {
             padding-top: 0px;
         }
     </style>
@@ -83,7 +83,59 @@
 	<script>
 
 		var socket = io("http://139.199.112.88:2761");
-		
+
+		data = {};
+		data.reader_id = Cookies.get("cur_reader_id");
+
+
+		function addReaderItem(item, i) {
+			var obj = document.createElement('tr');
+
+			var book_name = document.createElement('td');
+			book_name.innerHTML = item.book_name;
+
+			var bar_code = document.createElement('td');
+			bar_code.innerHTML = item.bar_code;
+
+			var btime = document.createElement('td');
+			btime.innerHTML = item.borrow_date.substring(0, 10);
+
+			var rtime = document.createElement('td');
+			rtime.innerHTML = item.return_date.substring(0, 10);
+
+			var fine = document.createElement('td');
+			fine.innerHTML = item.fine;
+
+			obj.appendChild(book_name);
+			obj.appendChild(bar_code);
+			obj.appendChild(btime);
+			obj.appendChild(rtime);
+			obj.appendChild(fine);
+
+			var parent = document.getElementById('tUser');
+			parent.appendChild(obj);
+		}
+
+		function clearItems() {
+			var obj = document.getElementById('tUser');
+			while (obj.childNodes.length > 0) {
+				obj.removeChild(obj.lastChild);
+			}
+		}
+
+		socket.on("borrowRecord", function (data) {
+			clearItems();
+			data = data.list;
+			for (var i = 0; i < data.length; i++) {
+				addReaderItem(data[i], i);
+			}
+		});
+
+
+
+		socket.emit("getBorrowRecord",data);
+
+
 	</script>
 </body>
 
