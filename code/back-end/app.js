@@ -348,15 +348,16 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 
 		socket.on("deleteBook", function (data) {
 			dbase.collection("copies").deleteMany({ "isbn": data.isbn });
-			dbase.collection("books").deleteOne({ "isbn": data.isbn });
 			data.bar_code = 0;
 			dbase.collection("books").find({ "isbn": data.isbn }).toArray(function (err, doc) {
 				test.equal(null, err);
 				data.book_name = doc[0].book_name;
 				data.time = new Date();
 				dbase.collection("librarianOperation").insertOne(data);
+				dbase.collection("books").deleteOne({ "isbn": data.isbn });
 				socket.emit("deleteBookSuccess");
 			});
+			
 		});
 
 		socket.on("getLibrarianRecord", function () {
@@ -432,14 +433,28 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 						dbase.collection("reader").updateOne({ "reader_id": data.phone }, { $set: { "borrowNum": res2[0].borrowNum + 1 } });
 
 						dbase.collection("copies").updateOne({ "bar_code": data.bar_code }, { $set: { "status": "borrowed" } });
-						var insert_data = {};
-						insert_data.reader_id = data.phone;
-						insert_data.bar_code = data.bar_code;
-						insert_data.librarian_id = data.librarian_id;
-						insert_data.status = false;
-						insert_data.borrow_date = new Date();
-						dbase.collection("borrows").insertOne(insert_data);
-						socket.emit("borrowSuccess");
+
+
+						dbase.collection("copies").find({ "bar_code": data.bar_code }).toArray(function (err, res) {
+							test.equal(null, err);
+							if (res.length == 0) return;
+							dbase.collection("books").find({ "isbn": res[0].isbn }).toArray(function (err, res) {
+								test.equal(null, err);
+								if (res.length == 0) return;
+								var insert_data = {};
+								insert_data.book_name = res[0].book_name;
+								insert_data.reader_id = data.phone;
+								insert_data.bar_code = data.bar_code;
+								insert_data.lend_librarian_id = data.lend_librarian_id;
+								insert_data.return_librarian_id = "-";
+								insert_data.borrow_date = new Date();
+								insert_data.return_date = "-";
+								insert_data.status = false;
+								insert_data.fine = 0;
+								dbase.collection("borrows").insertOne(insert_data);
+								socket.emit("borrowSuccess");
+							});
+						});
 					});
 				});
 			});
@@ -453,8 +468,6 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					return;
 				}
 				dbase.collection("config").find({ "varname": "config" }).toArray(function (err, res2) {
-
-
 					dbase.collection("copies").find({ "bar_code": data.bar_code }).toArray(function (err, copies) {
 						test.equal(null, err);
 						dbase.collection("books").find({ "isbn": copies[0].isbn }).toArray(function (err, books) {
@@ -466,32 +479,49 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					dbase.collection("reader").find({ "reader_id": data.phone }).toArray(function (err, reader) {
 						test.equal(null, err);
 						dbase.collection("reader").updateOne({ "reader_id": data.phone }, { $set: { "borrowNum": reader[0].borrowNum - 1 } });
+
 					});
 
 					dbase.collection("copies").updateOne({ "bar_code": data.bar_code }, { $set: { "status": "available" } });
 
-
-					dbase.collection("borrows").updateOne({ "reader_id": data.phone, "bar_code": data.bar_code, "status": false }, { $set: { "status": true } });
-
-					
-					var insert_data = {};
 					var cur = new Date();
-					insert_data.return_date = cur;
-					var interval = cur - res[0].borrow_date;
+					var interval = cur.getDate() - res[0].borrow_date.getDate();
 					if (interval > res2[0].limit) {
-						insert_data.fine = (interval - res2[0].limit) * res2[0].exceed;
+						var fine = (interval - res2[0].limit) * res2[0].exceed;
+					} else {
+						var fine = 0;
 					}
-					insert_data.reader_id = data.phone;
-					insert_data.librarian_id = data.librarian_id;
-					insert_data.bar_code = data.bar_code;
 
-					dbase.collection("returns").insertOne(insert_data);
+					dbase.collection("borrows").updateOne({ "reader_id": data.phone, "bar_code": data.bar_code, "status": false }, { $set: { "status": true, "return_librarian_id": data.return_librarian_id, "return_date": cur, "fine": fine } });
+
 					socket.emit("returnBookSuccess");
 				});
 			});
 		});
 
 
+		socket.on("getBorrowRecord", function (data) {
+			dbase.collection("borrows").find({ "reader_id": data.reader_id }).sort({ "borrow_date": -1 }).toArray(function (err, reader) {
+				test.equal(null, err);
+				if (reader.length == 0) return;
+				dbase.collection("config").find({ "varname": "config" }).toArray(function (err, res) {
+					var cur = new Date();
+					for (var i = 0; i < reader.length; i++) {
+						if (reader[i].status == false) {
+							var interval = cur.getDate() - reader[i].borrow_date.getDate();
+							if (interval > res[0].limit) {
+								reader[i].fine = (interval - res[0].limit) * res[0].exceed;
+							} else {
+								reader[i].fine = 0;
+							}
+						}
+					}
+					var push = {};
+					push.list = reader;
+					socket.emit("borrowRecord", push);
+				});
+			});
+		});
 		//The scope which all bussiness defined in. end--------------------------------------------------------------
 	});
 });

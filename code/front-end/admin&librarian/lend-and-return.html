@@ -188,28 +188,28 @@
 	});
 
 	function barcodeBlur() {
-		data = {};
+		var data = {};
 		data.bar_code = parseInt($("#barcode").val());
 		socket.emit("getBookInformation", data);
 	}
 
 	function borrowerBlur() {
-		data = {};
+		var data = {};
 		data.phone = $("#phone").val();
 		socket.emit("getBorrowerInformation", data);
 	}
 
 	function lendBook() {
-		data = {};
-		data.librarian_id = Cookies.get("username");
+		var data = {};
+		data.lend_librarian_id = Cookies.get("username");
 		data.bar_code = parseInt($("#barcode").val());
 		data.phone = $("#phone").val();
 		socket.emit("borrowBook", data);
 	}
 
 	function returnBook() {
-		data = {};
-		data.librarian_id = Cookies.get("username");
+		var data = {};
+		data.return_librarian_id = Cookies.get("username");
 		data.bar_code = parseInt($("#barcode").val());
 		data.phone = $("#phone").val();
 		socket.emit("returnBook", data);

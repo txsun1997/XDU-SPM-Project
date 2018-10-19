@@ -109,7 +109,7 @@
 			librarian_id.innerHTML = item.librarian_id;
 
 			var time = document.createElement('td');
-			time.innerHTML = item.time;
+			time.innerHTML = item.time.substring(0, 10);
 
 			obj.appendChild(operation);
 			obj.appendChild(librarian_id);
