@@ -43,13 +43,14 @@
 								<font color="#FF0000">BOOK</font>
 							</label>
 						</div>
-						
+
 						<div class="am-form-group">
 							<label for="title" class="am-u-sm-3 am-form-label">
 								BAR-CODE
 							</label>
 							<div class="am-u-sm-9">
-								<input id="barcode" required="" maxlength="13" oninput="value=value.replace(/[^\d]/g,'')" placeholder="Example: 517593457154" value="" name="bar-code" type="text">
+								<input onblur="barcodeBlur()" id="barcode" required="" maxlength="13" oninput="value=value.replace(/[^\d]/g,'')"
+								 placeholder="Example: 517593457154" value="" name="bar-code" type="text">
 								<small id="helpRole">Please enter book bar-code.</small>
 							</div>
 						</div>
@@ -59,7 +60,7 @@
 								Title
 							</label>
 							<div class="am-u-sm-9">
-								<input id="title" required=""  value="" name="book-title" type="text">
+								<input readonly="readonly" id="title" required="" value="" name="book-title" type="text">
 							</div>
 						</div>
 
@@ -68,7 +69,7 @@
 								Authors
 							</label>
 							<div class="am-u-sm-9">
-								<input id="authors" required="" value="" name="book-authors" type="text">
+								<input readonly="readonly" id="authors" required="" value="" name="book-authors" type="text">
 							</div>
 						</div>
 
@@ -78,7 +79,7 @@
 								ISBN
 							</label>
 							<div class="am-u-sm-9">
-								<input id="isbn" required=""   value="" name="book-ISBN" type="text">
+								<input readonly="readonly" id="isbn" required="" value="" name="book-ISBN" type="text">
 							</div>
 						</div>
 
@@ -87,7 +88,7 @@
 								Press
 							</label>
 							<div class="am-u-sm-9">
-								<input id="press" required="" value="" name="book-press" type="text">
+								<input readonly="readonly" id="press" required="" value="" name="book-press" type="text">
 							</div>
 						</div>
 
@@ -102,7 +103,8 @@
 								Phone
 							</label>
 							<div class="am-u-sm-9">
-								<input id="phone" required="" maxlength="11" oninput="value=value.replace(/[^\d]/g,'')" placeholder="Example: 18292020841" value="" name="borrower-phone" type="text">
+								<input id="phone" onblur="borrowerBlur()" required="" maxlength="11" oninput="value=value.replace(/[^\d]/g,'')"
+								 placeholder="Example: 18292020841" value="" name="borrower-phone" type="text">
 								<small id="helpRole">Please enter phone number of the borrower.</small>
 							</div>
 						</div>
@@ -112,7 +114,7 @@
 								Name
 							</label>
 							<div class="am-u-sm-9">
-								<input id="name" required="" value="" name="borrower-name" type="text">
+								<input readonly="readonly" id="name" required="" value="" name="borrower-name" type="text">
 							</div>
 						</div>
 
@@ -142,6 +144,77 @@
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
 	var socket = io("http://139.199.112.88:2761");
+
+	socket.on("bookInformation", function (data) {
+		data = data.book_info;
+		$("#title").attr("value", data.book_name);
+		$("#authors").attr("value", data.author);
+		$("#isbn").attr("value", data.isbn);
+		$("#press").attr("value", data.press);
+	});
+
+	socket.on("borrowerInformation", function (data) {
+		$("#name").attr("value", data.name);
+	});
+
+	socket.on("copyNotExist", function () {
+		alert("Specified copy is not exist.");
+		location.href = location.href;
+	});
+
+	socket.on("notAvailable", function () {
+		alert("Specified copy is not available.");
+		location.href = location.href;
+	});
+
+	socket.on("readerNotExist", function () {
+		alert("Specified reader is not exist.");
+		location.href = location.href;
+	});
+
+	socket.on("limitExceed", function () {
+		alert("Specified reader has borrowed 3 books.");
+		location.href = location.href;
+	});
+
+	socket.on("borrowSuccess", function () {
+		alert("Successfully Borrowed.");
+		location.href = location.href;
+	});
+
+	socket.on("returnBookSuccess", function () {
+		alert("Specified book has been successfully returned");
+		location.href = location.href;
+	});
+
+	function barcodeBlur() {
+		data = {};
+		data.bar_code = parseInt($("#barcode").val());
+		socket.emit("getBookInformation", data);
+	}
+
+	function borrowerBlur() {
+		data = {};
+		data.phone = $("#phone").val();
+		socket.emit("getBorrowerInformation", data);
+	}
+
+	function lendBook() {
+		data = {};
+		data.librarian_id = Cookies.get("username");
+		data.bar_code = parseInt($("#barcode").val());
+		data.phone = $("#phone").val();
+		socket.emit("borrowBook", data);
+	}
+
+	function returnBook() {
+		data = {};
+		data.librarian_id = Cookies.get("username");
+		data.bar_code = parseInt($("#barcode").val());
+		data.phone = $("#phone").val();
+		socket.emit("returnBook", data);
+	}
+
 
 </script>
 
