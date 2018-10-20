@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+
+	<link rel="stylesheet" href="css/amazeui.min.css">
+	<link rel="stylesheet" href="css/admin.css">
+	<link rel="stylesheet" href="css/app.css">
+	<link rel="stylesheet" href="css/amazeui.cropper.css">
+	<link rel="stylesheet" href="css/custom_up_img.css">
+	<style>
+		.admin-main {
+			padding-top: 30px;
+		}
+	</style>
+	<style type="text/css">
+		.up-img-cover {
+			width: 210px;
+			height: 279px;
+		}
+
+		.up-img-cover img {
+			width: 100%;
+		}
+	</style>
+
+	<script type="text/javascript">
+		//价格约束
+		function amount(th, event) {
+			var event = event || window.event;
+			var code = event.keyCode;
+			if (navigator.userAgent.indexOf("Firefox") > -1) {
+				code = event.which;
+			}
+			if (code == 37 || code == 39) return;
+			var regStrs = [
+				['^0(\\d+)$', '$1'], //禁止录入整数部分两位以上，但首位为0
+				['[^\\d\\.]+$', ''], //禁止录入任何非数字和点
+				['\\.(\\d?)\\.+', '.$1'], //禁止录入两个以上的点
+				['^(\\d+\\.\\d{2}).+', '$1'], //禁止录入小数点后两位以上
+				['^(\\.\\d+)', '$1']//禁止输入情况下小数点出现在首位
+			];
+			for (i = 0; i < regStrs.length; i++) {
+				var reg = new RegExp(regStrs[i][0]);
+				th.value = th.value.replace(reg, regStrs[i][1]);
+
+			}
+		}
+
+		/**
+			* 录入完成后，输入模式失去焦点后对录入进行判断并强制更改，并对小数点进行0补全
+			* s
+			**/
+		function overFormat(th) {
+			var v = th.value;
+			if (v === '') {
+				v = '0.00';
+			} else if (v === '0') {
+				v = '0.00';
+			} else if (v === '0.') {
+				v = '0.00';
+			} else if (/^0+\d+\.?\d*.*$/.test(v)) {
+				v = v.replace(/^0+(\d+\.?\d*).*$/, '$1');
+				v = inp.getRightPriceFormat(v).val;
+			} else if (/^0\.\d$/.test(v)) {
+				v = v + '0';
+			} else if (!/^\d+\.\d{2}$/.test(v)) {
+				if (/^\d+\.\d{2}.+/.test(v)) {
+					v = v.replace(/^(\d+\.\d{2}).*$/, '$1');
+				} else if (/^\d+$/.test(v)) {
+					v = v + '.00';
+				} else if (/^\d+\.$/.test(v)) {
+					v = v + '00';
+				} else if (/^\d+\.\d$/.test(v)) {
+					v = v + '0';
+				} else if (/^[^\d]+\d+\.?\d*$/.test(v)) {
+					v = v.replace(/^[^\d]+(\d+\.?\d*)$/, '$1');
+				} else if (/\d+/.test(v)) {
+					v = v.replace(/^[^\d]*(\d+\.?\d*).*$/, '$1');
+					ty = false;
+				} else if (/^0+\d+\.?\d*$/.test(v)) {
+					v = v.replace(/^0+(\d+\.?\d*)$/, '$1');
+					ty = false;
+				} else {
+					v = '0.00';
+				}
+			}
+			th.value = v;
+		}
+	</script>
+
+</head>
+
+<body>
+
+
+	<div class="am-cf admin-main">
+		<!-- content start -->
+		<div class="admin-content">
+			<div class="admin-content-body">
+				<div class="am-g">
+					<form class="am-form am-form-horizontal" action="role/addroleSubmit.action" method="post" style="padding-top: 80px;">
+						<div class="am-form-group">
+							<label for="fine-value" class="am-u-sm-3 am-form-label">
+								Book Fine Value
+							</label>
+							<div class="am-u-sm-7 am-u-end">
+								<input id="fine-value" required="" onKeyUp="amount(this)" onBlur="overFormat(this)" placeholder="1.00" value="" name="fine-value" type="text">
+								<small id="helpRole">You can set/modify book fine value (default is 1 yuan per day).</small>
+							</div>
+						</div>
+						<div class="am-form-group">
+							<label for="period" class="am-u-sm-3 am-form-label">
+								Book Return Period
+							</label>
+							<div class="am-u-sm-7 am-u-end">
+								<input id="period" required="" maxlength="3" oninput="value=value.replace(/[^\d]/g,'')" placeholder="30" value="" name="period" type="text">
+								<small id="helpRole">You can set/modify book return period, the unit is day (default: 30 days).</small>
+							</div>
+
+						<div class="am-form-group">
+							<label for="deposit" class="am-u-sm-3 am-form-label">
+								Reader Security Deposit
+							</label>
+							<div class="am-u-sm-7 am-u-end">
+								<input id="deposit" required="" onKeyUp="amount(this)" onBlur="overFormat(this)" placeholder="300.00" value="" name="deposit" type="text">
+								<small id="helpRole">You can set/modify reader security deposit (default is 300 yuan).</small>
+							</div>
+						</div>
+
+
+						<script src="js/jquery-1.11.3.min.js"></script>
+
+						<div class="am-form-group">
+							<div class="am-u-sm-9 am-u-sm-push-3">
+								<button onclick="setRules()" class="am-btn am-btn-success">UPDATE</button>
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="../cookie.js"></script>
+<script src="../socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+	var socket = io("http://139.199.112.88:2761");
+
+
+</script>
+
+</html>
