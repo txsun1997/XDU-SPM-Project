@@ -119,6 +119,11 @@
 			location.href = location.href;
 		});
 
+		socket.on("notAllReturned",function(){
+			alert("Specified reader has not-returned books.");
+			location.href = location.href;
+		});
+
 		function deleteItem(index) {
 			socket.emit("deleteReader", items[index]);
 		}
