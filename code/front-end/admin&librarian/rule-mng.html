@@ -101,13 +101,14 @@
 		<div class="admin-content">
 			<div class="admin-content-body">
 				<div class="am-g">
-					<form class="am-form am-form-horizontal" action="role/addroleSubmit.action" method="post" style="padding-top: 80px;">
+					<form class="am-form am-form-horizontal"  style="padding-top: 80px;">
 						<div class="am-form-group">
 							<label for="fine-value" class="am-u-sm-3 am-form-label">
 								Book Fine Value
 							</label>
 							<div class="am-u-sm-7 am-u-end">
-								<input id="fine-value" required="" onKeyUp="amount(this)" onBlur="overFormat(this)" placeholder="1.00" value="" name="fine-value" type="text">
+								<input id="fine-value" required="" onKeyUp="amount(this)" onBlur="overFormat(this)" value="" name="fine-value"
+								 type="text">
 								<small id="helpRole">You can set/modify book fine value (default is 1 yuan per day).</small>
 							</div>
 						</div>
@@ -116,49 +117,51 @@
 								Book Return Period
 							</label>
 							<div class="am-u-sm-7 am-u-end">
-								<input id="period" required="" maxlength="3" oninput="value=value.replace(/[^\d]/g,'')" placeholder="30" value="" name="period" type="text">
+								<input id="period" required="" maxlength="3" oninput="value=value.replace(/[^\d]/g,'')" value="" name="period"
+								 type="text">
 								<small id="helpRole">You can set/modify book return period, the unit is day (default: 30 days).</small>
 							</div>
 
-						<div class="am-form-group">
-							<label for="deposit" class="am-u-sm-3 am-form-label">
-								Security Deposit
-							</label>
-							<div class="am-u-sm-7 am-u-end">
-								<input id="deposit" required="" onKeyUp="amount(this)" onBlur="overFormat(this)" placeholder="300.00" value="" name="deposit" type="text">
-								<small id="helpRole">You can set/modify reader security deposit (default is 300 yuan).</small>
+							<div class="am-form-group">
+								<label for="deposit" class="am-u-sm-3 am-form-label">
+									Security Deposit
+								</label>
+								<div class="am-u-sm-7 am-u-end">
+									<input id="deposit" required="" onKeyUp="amount(this)" onBlur="overFormat(this)" value="" name="deposit" type="text">
+									<small id="helpRole">You can set/modify reader security deposit (default is 300 yuan).</small>
+								</div>
 							</div>
-						</div>
 
-						<div class="am-form-group">
-							<label for="maxnum" class="am-u-sm-3 am-form-label">
-								Max Number of Books
-							</label>
-							<div class="am-u-sm-7 am-u-end">
-								<input id="maxnum" required=""maxlength="1" oninput="value=value.replace(/[^\d]/g,'')" placeholder="3" value="" name="maxnum" type="text">
-								<small id="helpRole">Maximum number of books can be keep (default is 3).</small>
+							<div class="am-form-group">
+								<label for="maxnum" class="am-u-sm-3 am-form-label">
+									Max Number of Books
+								</label>
+								<div class="am-u-sm-7 am-u-end">
+									<input id="maxnum" required="" maxlength="1" oninput="value=value.replace(/[^\d]/g,'')" value="" name="maxnum"
+									 type="text">
+									<small id="helpRole">Maximum number of books can be keep (default is 3).</small>
+								</div>
 							</div>
-						</div>
 
-						<div class="am-form-group">
-							<label for="deposit" class="am-u-sm-3 am-form-label">
-								Reservation Hours
-							</label>
-							<div class="am-u-sm-7 am-u-end">
-								<input id="reservation" required="" onKeyUp="amount(this)" onBlur="overFormat(this)" placeholder="2.00 hours" value="" name="reservation" type="text">
-								<small id="helpRole">You can set/modify reader reservation time (default is 2 hours).</small>
+							<div class="am-form-group">
+								<label for="deposit" class="am-u-sm-3 am-form-label">
+									Reservation Hours
+								</label>
+								<div class="am-u-sm-7 am-u-end">
+									<input id="reservation" required="" onKeyUp="amount(this)" onBlur="overFormat(this)" value="" name="reservation"
+									 type="text">
+									<small id="helpRole">You can set/modify reader reservation time (default is 2 hours).</small>
+								</div>
 							</div>
-						</div>
 
 
-						<script src="js/jquery-1.11.3.min.js"></script>
+							<script src="js/jquery-1.11.3.min.js"></script>
 
-						<div class="am-form-group">
-							<div class="am-u-sm-9 am-u-sm-push-3">
-								<button onclick="setRules()" class="am-btn am-btn-success">UPDATE</button>
+							<div class="am-form-group">
+								<div class="am-u-sm-9 am-u-sm-push-3">
+									<button onclick="editRule()" class="am-btn am-btn-success">UPDATE</button>
+								</div>
 							</div>
-						</div>
-
 					</form>
 				</div>
 			</div>
@@ -172,6 +175,40 @@
 <script>
 	var socket = io("http://139.199.112.88:2761");
 
+
+	socket.on("ruleInfo", function (data) {
+		$("#period").attr("value", data.limit);
+		$("#deposit").attr("value", data.security);
+		$("#maxnum").attr("value", data.maxnum);
+		$("#reservation").attr("value", data.reserve);
+		$("#fine-value").attr("value", data.exceed);
+	});
+
+	function editRule() {
+		var data = {};
+		if ($("#period").val() != null) {
+			data.limit = parseInt($("#period").val());
+		}
+		if ($("#deposit").val() != null) {
+			data.security = parseInt($("#deposit").val());
+		}
+		if ($("#maxnum").val() != null) {
+			data.maxnum = parseInt($("#maxnum").val());
+		}
+		if ($("#reservation").val() != null) {
+			data.reserve = parseInt($("#reservation").val());
+		}
+		if ($("#fine-value").val() != null) {
+			data.exceed = parseInt($("#fine-value").val());
+		}
+		socket.emit("editRule", data);
+	}
+
+	socket.emit("getRuleInfo");
+
+	socket.on("editRuleSuccess", function (data) {
+		alert("Edit Rule Success.");
+	});
 
 </script>
 
