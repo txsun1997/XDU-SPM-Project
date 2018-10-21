@@ -122,11 +122,31 @@
 
 						<div class="am-form-group">
 							<label for="deposit" class="am-u-sm-3 am-form-label">
-								Reader Security Deposit
+								Security Deposit
 							</label>
 							<div class="am-u-sm-7 am-u-end">
 								<input id="deposit" required="" onKeyUp="amount(this)" onBlur="overFormat(this)" placeholder="300.00" value="" name="deposit" type="text">
 								<small id="helpRole">You can set/modify reader security deposit (default is 300 yuan).</small>
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="maxnum" class="am-u-sm-3 am-form-label">
+								Max Number of Books
+							</label>
+							<div class="am-u-sm-7 am-u-end">
+								<input id="maxnum" required=""maxlength="1" oninput="value=value.replace(/[^\d]/g,'')" placeholder="3" value="" name="maxnum" type="text">
+								<small id="helpRole">Maximum number of books can be keep (default is 3).</small>
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="deposit" class="am-u-sm-3 am-form-label">
+								Reservation Hours
+							</label>
+							<div class="am-u-sm-7 am-u-end">
+								<input id="reservation" required="" onKeyUp="amount(this)" onBlur="overFormat(this)" placeholder="2.00 hours" value="" name="reservation" type="text">
+								<small id="helpRole">You can set/modify reader reservation time (default is 2 hours).</small>
 							</div>
 						</div>
 
