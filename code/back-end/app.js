@@ -132,10 +132,21 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					socket.emit("addLibrarianRoleSuccess", addresult);
 					var auth_data = {};
 					auth_data.username = data.librarian_id;
-					auth_data.password = "123456";
+					auth_data.password = "00010001";
 					auth_data.type = "librarian";
 					dbase.collection("accounts").insertOne(auth_data);
 				});
+			});
+		});
+
+		socket.on("getLibrarianDetail", function (data) {
+			dbase.collection("librarian").find({ "librarian_id": data.librarian_id }).toArray(function (err, doc) {
+				test.equal(null, err);
+				if (doc.length != 0) {
+					var data = {};
+					data.data = doc[0];
+					socket.emit("librarianDetail", doc[0]);
+				}
 			});
 		});
 
@@ -198,9 +209,6 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					});
 				}
 			});
-
-
-
 		});
 
 		socket.on("getLibrarianList", function (data) {
@@ -223,6 +231,12 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 			dbase.collection("librarian").updateOne({ "librarian_id": data.librarian_id }, { $set: { "name": data.name, "gender": data.gender, "phone": data.phone, "email": data.email } }, function (err, res) {
 				test.equal(null, err);
 				socket.emit("editLibrarianSuccess");
+			});
+		});
+
+		socket.on("getRuleInfo", function () {
+			dbase.collection("config").find({ "varname": "config" }).toArray(function (err, doc) {
+				socket.emit("ruleInfo", doc[0]);
 			});
 		});
 
@@ -538,6 +552,11 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					socket.emit("CatLocList", push);
 				});
 			});
+		});
+
+		socket.on("editRule", function (data) {
+			dbase.collection("config").updateOne({ "varname": "config" }, { $set: { "security": data.security, "limit": data.limit, "exceed": data.exceed, "maxnum": data.maxnum, "reserve": data.reserve } });
+			socket.emit("editRuleSuccess");
 		});
 		//The scope which all bussiness defined in. end--------------------------------------------------------------
 	});

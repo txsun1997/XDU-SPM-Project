@@ -39,7 +39,7 @@
 							<div class="am-u-sm-9">
 								<input id="male" type="radio" name="sex" value="male" checked> Male
 								<br />
-								<input if="female" type="radio" name="sex" value="female"> Female
+								<input id="female" type="radio" name="sex" value="female"> Female
 							</div>
 						</div>
 						<div class="am-form-group">
@@ -96,6 +96,17 @@
 		socket.emit("editLibrarianRole", data);
 	}
 
+	socket.on("librarianDetail", function (data) {
+		if(data.gender == "Male"){
+			document.getElementById("male").checked = true;
+		}else if(data.gender == "Female"){
+			document.getElementById("female").checked = true;
+		}
+        $("#roleName").attr("value", data.name);
+		$("#phone").attr("value", data.phone);
+		$("#email").attr("value", data.email);
+    });
+
 	//session auth failed
 	socket.on("noSession", function (data) {
 		window.alert("Login has expired, please login again!");
@@ -110,6 +121,11 @@
 
 	//auth session and username and type
 	socket.emit("sessionAuth", auth_data);
+
+	var data = {};
+	data.librarian_id = Cookies.get("cur_librarian_id");
+
+	socket.emit("getLibrarianDetail", data);
 </script>
 
 </html>
