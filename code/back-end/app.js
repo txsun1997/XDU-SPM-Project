@@ -234,14 +234,20 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 			});
 		});
 
-
-
 		socket.on("deleteReader", function (data) {
-			dbase.collection("reader").remove({ "reader_id": data.reader_id }, function (err, res) {
-				test.equal(null, err);
-				socket.emit("deleteReaderSuccess");
+			dbase.collection("borrows").find({ "reader_id": data.reader_id }).toArray(function (err, doc) {
+				for (var i = 0; i < doc.length; i++) {
+					if (doc[i].status == false) {
+						socket.emit("notAllReturned");
+						return;
+					}
+				}
+				dbase.collection("reader").remove({ "reader_id": data.reader_id }, function (err, res) {
+					test.equal(null, err);
+					socket.emit("deleteReaderSuccess");
+				});
+				dbase.collection("accounts").deleteOne({ "username": data.reader_id });
 			});
-			dbase.collection("accounts").deleteOne({ "username": data.reader_id });
 		});
 
 		socket.on("editReaderRole", function (data) {
@@ -357,7 +363,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				dbase.collection("books").deleteOne({ "isbn": data.isbn });
 				socket.emit("deleteBookSuccess");
 			});
-			
+
 		});
 
 		socket.on("getLibrarianRecord", function () {
@@ -519,6 +525,17 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					var push = {};
 					push.list = reader;
 					socket.emit("borrowRecord", push);
+				});
+			});
+		});
+
+		socket.on("getCatLocList", function (data) {
+			dbase.collection("location").find({}).toArray(function (err, res) {
+				dbase.collection("type").find({}).toArray(function (err, res2) {
+					var push = {};
+					push.location = res;
+					push.type = res2;
+					socket.emit("CatLocList", push);
 				});
 			});
 		});
