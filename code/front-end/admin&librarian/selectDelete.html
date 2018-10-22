@@ -6,7 +6,7 @@
     <title></title>
     <link rel="stylesheet" href="css/amazeui.min.css">
     <link rel="stylesheet" href="css/admin.css">
-	<link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/app.css">
 </head>
 
 <body>
@@ -78,17 +78,25 @@
 
         var socket = io("http://139.199.112.88:2761");
         var isbn = Cookies.get("cur_book");
-        
+
         var data = {};
         data.isbn = isbn;
 
-        socket.on("deleteCopySuccess",function(data){
-            if(data.deleted == true)alert("The specified copy and book have been successfully deleted.");
+        socket.on("copyNotAvailable", function () {
+            alert("Specified copy is not available, Can't delete it.");
+        });
+
+        socket.on("bookNotAvailable", function () {
+            alert("Specified book is not available, Can't delete it.");
+        });
+
+        socket.on("deleteCopySuccess", function (data) {
+            if (data.deleted == true) alert("The specified copy and book have been successfully deleted.");
             else alert("The specified copy has been successfully deleted.");
             location.href = location.href;
         });
 
-        socket.on("deleteBookSuccess", function(){
+        socket.on("deleteBookSuccess", function () {
             alert("The specified book has been successfully deleted.");
             location.href = location.href;
         });
@@ -109,16 +117,12 @@
             data = {};
             data.operation = "Delete";
             data.bar_code = copies[index].bar_code;
-            if(copies[index].status != "available"){
-                alert("This book has not been returned.");
-                location.href = location.href;
-            }
             data.isbn = isbn;
             data.librarian_id = username;
             socket.emit("deleteCopy", data);
         }
 
-        function addCopyItem(item, i) { 
+        function addCopyItem(item, i) {
             var obj = document.createElement('tr');
 
             var barcode = document.createElement('td');
@@ -139,7 +143,7 @@
 
             var div1 = document.createElement('div');
             div1.setAttribute('class', 'am-btn-group am-btn-group-xs');
-  
+
             div1.appendChild(btnDelete);
 
             var div2 = document.createElement('div');
@@ -160,9 +164,9 @@
 
         socket.on("copyList", function (data) {
             var obj = document.getElementById('tUser');
-			while (obj.childNodes.length > 0) {
-				obj.removeChild(obj.lastChild);
-			}
+            while (obj.childNodes.length > 0) {
+                obj.removeChild(obj.lastChild);
+            }
             Cookies.set("copyList", data.copy_list);
             for (var i = 0; i < data.copy_list.length; i++) {
                 addCopyItem(data.copy_list[i], i);

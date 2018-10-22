@@ -187,6 +187,11 @@
 		location.href = location.href;
 	});
 
+	socket.on("allBorrows", function () {
+		alert("Specified book has been all borrowed");
+		location.href = location.href;
+	})
+
 	function barcodeBlur() {
 		var data = {};
 		data.bar_code = parseInt($("#barcode").val());
@@ -198,6 +203,7 @@
 		data.phone = $("#phone").val();
 		socket.emit("getBorrowerInformation", data);
 	}
+
 
 	function lendBook() {
 		var data = {};
@@ -214,6 +220,8 @@
 		data.phone = $("#phone").val();
 		socket.emit("returnBook", data);
 	}
+
+
 
 
 </script>

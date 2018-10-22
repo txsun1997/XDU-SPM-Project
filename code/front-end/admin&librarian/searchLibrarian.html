@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+
+	<link rel="stylesheet" href="css/amazeui.min.css">
+	<link rel="stylesheet" href="css/admin.css">
+	<link rel="stylesheet" href="css/app.css">
+	<style>
+		.admin-main {
+				padding-top: 0px;
+			}
+		</style>
+</head>
+
+<body>
+
+	<div class="am-cf admin-main">
+		<!-- content start -->
+		<div class="admin-content">
+			<div class="admin-content-body">
+				<div class="am-g">
+					<form class="am-form am-form-horizontal" action="role/addroleSubmit.action" method="post" style="padding-top: 30px;">
+						<input value="504" name="roleId" type="hidden">
+						<div class="am-form-group">
+							<label for="title" class="am-u-sm-3 am-form-label">
+								ID
+							</label>
+							<div class="am-u-sm-9">
+								<input id="id" required="" placeholder="Enter librarian ID" value="" name="book-title" type="text">
+							</div>
+						</div>
+						<div class="am-form-group">
+							<label for="authors" class="am-u-sm-3 am-form-label">
+								NAME
+							</label>
+							<div class="am-u-sm-9">
+								<input id="name" required="" placeholder="Enter book name" value="" name="book-authors" type="text">
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="press" class="am-u-sm-3 am-form-label">
+								PHONE
+							</label>
+							<div class="am-u-sm-9">
+								<input id="phone" required="" placeholder="Enter phone number" value="" name="book-press" type="text">
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="year" class="am-u-sm-3 am-form-label">
+								EMAIL 
+							</label>
+							<div class="am-u-sm-9">
+								<input id="email" required="" placeholder="Enter email" value="" name="publication-year" type="text">
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<div class="am-u-sm-9 am-u-sm-push-3">
+								<input id="Search" class="am-btn am-btn-success" value="Start Seaching" type="button" onclick="search()">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="../socket.io.js"></script>
+<script src="../cookie.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+	var socket = io("http://139.199.112.88:2761");
+
+	socket.on('searchLibrariansResult', function (data) {
+		if (data.librarianList.length <= 0) data.librarianList = [];
+		Cookies.set("librarianList", data.librarianList);
+		Cookies.set("update", "true");
+	});
+
+	function search() {
+		var data = {};
+		data.librarian_id = $('#id').val();
+		data.name = $('#name').val();
+		data.phone = $('#phone').val();
+		data.email = $('#email').val();
+		socket.emit('searchLibrarians', data);
+	}
+
+
+
+
+
+
+</script>
+
+</html>

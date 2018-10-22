@@ -30,15 +30,17 @@
 								</div>
 							</div>
 						</div>
-						<div class="am-u-sm-12 am-u-md-3">
-							<div class="am-input-group am-input-group-sm">
-								<input id="roleName" class="am-form-field" placeholder="Enter ID/name" type="text">
-								<span class="am-input-group-btn">
-									<button class="am-btn am-btn-primary" type="button" id="btnsearch">
-										<span class="am-icon-search"></span>
-									</button> </span>
+
+						<div class="am-u-sm-12 am-u-md-6">
+							<div class="am-btn-toolbar">
+								<div class="am-btn-group am-btn-group-xs">
+									<button type="button" class="am-btn am-btn-primary" onclick="search_panel()">
+										<span class="am-icon-search"></span> SEARCH
+									</button>
+								</div>
 							</div>
 						</div>
+						
 					</div>
 
 					<div class="am-g" style="margin-top: 5px;">
@@ -47,12 +49,6 @@
 								<table class="am-table am-table-striped am-table-hover table-main">
 									<thead>
 										<tr>
-											<!--
-													<th class="table-id">
-													<input id="chkAll" type="checkbox">
-													</th>
-												-->
-
 											<th>
 												ID
 											</th>
@@ -113,13 +109,13 @@
 			});
 		}
 
-		socket.on("deleteLibrarianSuccess",function(data){
+		socket.on("deleteLibrarianSuccess", function (data) {
 			window.alert("Delete librarian success.");
 			location.href = location.href;
 		});
 
 		function deleteItem(index) {
-			socket.emit("deleteLibrarian",items[index]);
+			socket.emit("deleteLibrarian", items[index]);
 		}
 
 		function addLibrarianItem(item, i) {
@@ -188,14 +184,35 @@
 			}
 		}
 
+		function search_panel() {
+			$.jq_Panel({
+				title: "SEARCH LIBRARIAN",
+				url: "searchLibrarian.html",
+				iframeWidth: 600,
+				iframeHeight: 450,
+			});
+		}
+
 		socket.on("librarianList", function (data) {
-			clearItems();
-			data = data.librarian_list;
-			items = data;
-			for (var i = 0; i < data.length; i++) {
-				addLibrarianItem(data[i], i);
-			}
+			Cookies.set("librarianList", data.librarian_list);
+			Cookies.set("update", "true");
 		});
+
+
+		setInterval(function () {
+			if (Cookies.get("update") == "true") {
+				var librarians = Cookies.getJSON('librarianList');
+				var obj = document.getElementById('tUser');
+				while (obj.childNodes.length > 0) {
+					obj.removeChild(obj.lastChild);
+				}
+				//alert(books);
+				for (var i = 0; i < librarians.length; i++) {
+					addLibrarianItem(librarians[i], i);
+				}
+				Cookies.set("update", "false");
+			}
+		}, 100);
 
 		socket.emit("getLibrarianList");
 
