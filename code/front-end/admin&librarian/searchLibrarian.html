@@ -29,7 +29,7 @@
 								ID
 							</label>
 							<div class="am-u-sm-9">
-								<input id="id" required="" placeholder="Enter book title" value="" name="book-title" type="text">
+								<input id="id" required="" placeholder="Enter librarian ID" value="" name="book-title" type="text">
 							</div>
 						</div>
 						<div class="am-form-group">
@@ -37,7 +37,7 @@
 								NAME
 							</label>
 							<div class="am-u-sm-9">
-								<input id="authors" required="" placeholder="Enter book authors" value="" name="book-authors" type="text">
+								<input id="name" required="" placeholder="Enter book name" value="" name="book-authors" type="text">
 							</div>
 						</div>
 
@@ -46,7 +46,7 @@
 								PHONE
 							</label>
 							<div class="am-u-sm-9">
-								<input id="press" required="" placeholder="Enter publication press" value="" name="book-press" type="text">
+								<input id="phone" required="" placeholder="Enter phone number" value="" name="book-press" type="text">
 							</div>
 						</div>
 
@@ -55,7 +55,7 @@
 								EMAIL 
 							</label>
 							<div class="am-u-sm-9">
-								<input id="year" required="" placeholder="Enter publication date" value="" name="publication-year" type="text">
+								<input id="email" required="" placeholder="Enter email" value="" name="publication-year" type="text">
 							</div>
 						</div>
 
@@ -77,50 +77,22 @@
 <script>
 	var socket = io("http://139.199.112.88:2761");
 
-	socket.on('searchBooksResult', function (data) {
-		if (data.bookList.length <= 0) data.bookList = [];
-		Cookies.set("bookList", data.bookList);
+	socket.on('searchLibrariansResult', function (data) {
+		if (data.librarianList.length <= 0) data.librarianList = [];
+		Cookies.set("librarianList", data.librarianList);
 		Cookies.set("update", "true");
 	});
 
 	function search() {
-		data = {};
-		data.book_name = $('#title').val();
-		data.author = $('#authors').val();
-		data.press = $('#press').val();
-		data.publish_year = $('#year').val();
-		data.type = $("#typeSelect").find("option:selected").text();
-		if (data.type == "Select a Type") data.type = "";
-
-		if ($('#avail').val() == '') data.show_avail = true;
-		else data.show_avail = false;
-
-		socket.emit('searchBooks', data);
+		var data = {};
+		data.librarian_id = $('#id').val();
+		data.name = $('#name').val();
+		data.phone = $('#phone').val();
+		data.email = $('#email').val();
+		socket.emit('searchLibrarians', data);
 	}
 
-	socket.on("CatLocList", function (data) {
-		var typeParent = document.getElementById('typeSelect');
-		var type = data.type;
 
-		while (typeParent.childNodes.length > 0) {
-			typeParent.removeChild(typeParent.lastChild);
-		}
-
-		var select_type = document.createElement("option");
-		select_type.innerHTML = "Select a Type";
-		typeParent.appendChild(select_type);
-
-		var typeList = [];
-		for (var i = 0; i < type.length; i++) {
-			typeList.push(document.createElement("option"));
-			typeList[i].setAttribute("id", type[i].type);
-			typeList[i].innerHTML = type[i].type;
-			typeParent.appendChild(typeList[i]);
-		}
-	});
-
-
-	socket.emit("getCatLocList");
 
 
 

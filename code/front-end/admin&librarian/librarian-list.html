@@ -194,13 +194,25 @@
 		}
 
 		socket.on("librarianList", function (data) {
-			clearItems();
-			data = data.librarian_list;
-			items = data;
-			for (var i = 0; i < data.length; i++) {
-				addLibrarianItem(data[i], i);
-			}
+			Cookies.set("librarianList", data.librarian_list);
+			Cookies.set("update", "true");
 		});
+
+
+		setInterval(function () {
+			if (Cookies.get("update") == "true") {
+				var librarians = Cookies.getJSON('librarianList');
+				var obj = document.getElementById('tUser');
+				while (obj.childNodes.length > 0) {
+					obj.removeChild(obj.lastChild);
+				}
+				//alert(books);
+				for (var i = 0; i < librarians.length; i++) {
+					addLibrarianItem(librarians[i], i);
+				}
+				Cookies.set("update", "false");
+			}
+		}, 100);
 
 		socket.emit("getLibrarianList");
 

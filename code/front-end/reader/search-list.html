@@ -1,0 +1,632 @@
+﻿<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Search-List</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,600,600i,700,700i,800" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/plugins.css">
+	<link rel="stylesheet" href="style.css">
+
+	<!-- Cusom css -->
+	<link rel="stylesheet" href="css/custom.css">
+
+	<!-- Modernizer js -->
+	<script src="js/vendor/modernizr-3.5.0.min.js"></script>
+</head>
+
+<body>
+	<!--[if lte IE 9]>
+		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+	<![endif]-->
+
+	<!-- Main wrapper -->
+	<div class="wrapper" id="wrapper">
+
+		<!-- Header -->
+		<header id="wn__header" class="oth-page header__area header__absolute sticky__header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-6 col-sm-6 col-6 col-lg-2">
+						<div class="logo-area">
+							<a href="index.html">
+								<img src="images/logo/logo白字.png" alt="logo images">
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-8 d-none d-lg-block">
+						<nav class="mainmenu__nav">
+						</nav>
+					</div>
+					<div class="col-md-6 col-sm-6 col-6 col-lg-2">
+						<ul class="header__sidebar__right d-flex justify-content-end align-items-center">
+							<li class="setting__bar__icon"><a class="setting__active" href="#"></a>
+								<div class="searchbar__content setting__block">
+									<div class="content-inner">
+										<div class="switcher-currency">
+											<strong class="label switcher-label">
+												<span>Language</span>
+											</strong>
+											<div class="switcher-options">
+												<div class="switcher-currency-trigger">
+													<span class="currency-trigger">English</span>
+													<ul class="switcher-dropdown">
+														<li>中文</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+										<div class="switcher-currency">
+											<strong class="label switcher-label">
+												<span id="topMenu">My Account</span>
+											</strong>
+											<div class="switcher-options">
+												<div class="switcher-currency-trigger">
+													<div class="setting__menu">
+														<span><a id="accMenu" onclick="personConsole()">My Account</a></span>
+														<span><a id="accLog" onclick="signinServer()">Log Out</a></span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- Start Mobile Menu -->
+			</div>
+		</header>
+		<!-- //Header -->
+		<!-- Start Bradcaump area -->
+		<div class="ht__bradcaump__area bg-image--5">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+							<form>
+								<div class="form-row">
+									<div class="col-12 col-md-9 mb-2 mb-md-0">
+										<input id="search_content" class="form-control form-control-lg">
+									</div>
+									<div class="col-12 col-md-2">
+										<button type="button" class="btn btn-block btn-lg btn-primary" onclick="search()">Search</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Bradcaump area -->
+		<!-- Start Shop Page -->
+		<div class="page-shop-sidebar left--sidebar bg--white section-padding--lg">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-12 order-1 order-lg-2">
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="shop__list__wrapper d-flex flex-wrap flex-md-nowrap justify-content-between">
+									<div class="shop__list nav justify-content-center" role="tablist">
+										<a class="nav-item nav-link active" data-toggle="tab" href="#nav-list" role="tab"><i class="fa fa-list"></i></a>
+									</div>
+									<p id='list_title'></p>
+									<div class="orderby__wrapper">
+										<span>Sort By</span>
+										<select class="shot__byselect">
+											<option>Default sorting</option>
+											<option>Name</option>
+											<option>Edition</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab__container">
+
+							<div class="shop-grid tab-pane fade show active" id="nav-list" role="tabpanel">
+								<div id="listView" class="list__view__wrapper">
+									<!-- Start Single Product -->
+									<div class="list__view">
+										<div class="thumb">
+											<a class="first__img" href="advancedmaths.html"><img src="images/product/1.jpg" alt="product images"></a>
+											<!-- <a class="second__img animation1" href="single-product.html"><img src="images/product/2.jpg" alt="product images"></a> -->
+											<!-- 可以显示一本书的两张图片 -->
+										</div>
+										<div class="content">
+											<h2><a href="single-product.html">Advanced Mathematics</br>(sixth edition,volume one)</a></h2>
+
+											<ul class="prize__box">
+												<li>5 items in stock</li>
+												<li class="old__prize">has borrowed 15 books</li>
+											</ul>
+											<p> The sixth edition of Higher Mathematics is a book published by the Higher Education Press in 2007. The
+												author is the Department of Mathematics of Tongji University.</br>The book is the sixth edition of the
+												Higher Mathematics of the Department of Mathematics of Tongji University. It is revised according to the
+												latest "Basic Requirements for the Teaching of Basic Mathematics Courses for Engineering Undergraduate
+												Courses" for students of engineering majors in higher education institutions.</p>
+											<ul class="cart__action d-flex">
+												<li class="cart"><a href="#">want to read</a></li>
+												<li class="cart"><a href="advancedmaths.html">learn more</a></li>
+											</ul>
+
+										</div>
+									</div>
+									<!-- End Single Product -->
+									<!-- Start Single Product -->
+									<div class="list__view mt--40">
+										<div class="thumb">
+											<a class="first__img" href="#"><img src="images/product/2.jpg" alt="product images"></a>
+
+										</div>
+										<div class="content">
+											<h2><a href="single-product.html">How to solve it</br>a new aspect of mathematical method</a></h2>
+
+											<ul class="prize__box">
+												<li>5 items in stock</li>
+												<li class="old__prize">has borrowed 15 books</li>
+											</ul>
+											<p>some detials about this book</p>
+											<ul class="cart__action d-flex">
+												<li class="cart"><a href="#">want to read</a></li>
+												<li class="cart"><a href="#">learn more</a></li>
+											</ul>
+
+										</div>
+									</div>
+									<!-- End Single Product -->
+									<!-- Start Single Product -->
+									<div class="list__view mt--40">
+										<div class="thumb">
+											<a class="first__img" href="#"><img src="images/product/3.jpg" alt="product images"></a>
+
+										</div>
+										<div class="content">
+											<h2><a href="single-product.html">A Mathematical Bridge</a></h2>
+
+											<ul class="prize__box">
+												<li>5 items in stock</li>
+												<li class="old__prize">has borrowed 15 books</li>
+											</ul>
+											<p>some detials about this book</p>
+											<ul class="cart__action d-flex">
+												<li class="cart"><a href="#">want to read</a></li>
+												<li class="cart"><a href="#">learn more</a></li>
+											</ul>
+
+										</div>
+									</div>
+									<!-- End Single Product -->
+									<!-- Start Single Product -->
+									<div class="list__view mt--40">
+										<div class="thumb">
+											<a class="first__img" href="#"><img src="images/product/4.jpg" alt="product images"></a>
+
+										</div>
+										<div class="content">
+											<h2><a href="single-product.html">Linear Algebra</a></h2>
+
+											<ul class="prize__box">
+												<li>5 items in stock</li>
+												<li class="old__prize">has borrowed 15 books</li>
+											</ul>
+											<p>some detials about this book</p>
+											<ul class="cart__action d-flex">
+												<li class="cart"><a href="#">want to read</a></li>
+												<li class="cart"><a href="#">learn more</a></li>
+											</ul>
+
+										</div>
+									</div>
+									<!-- End Single Product -->
+								</div>
+								<ul id="pageBar" class="wn__pagination">
+									<li class="active"><a href="#">1</a></li>
+									<li><a href="#">2</a></li>
+									<li><a href="#">3</a></li>
+									<li><a href="#">4</a></li>
+
+									<li><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Shop Page -->
+		<!-- Footer Area -->
+		<footer id="wn__footer" class="footer__area bg__cat--8 brown--color">
+			<div class="footer-static-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="footer__widget footer__menu">
+								<div class="ft__logo">
+									<a href="index.html">
+										<img src="images/logo/logo黑字.png" width="150" height="50" alt="logo">
+									</a>
+									<p>Ideal books， is the key to wisdom。 -- Lev Tolstoy</p>
+								</div>
+								<!-- <div class="footer__content">
+									<ul class="mainmenu d-flex justify-content-center">
+										<li><a href="booklist.html">All Product</a></li>
+										<li><a href="https://weibo.com">Blog</a></li>
+										<li><a href="#">Contact</a></li>
+										<li><a href="#"><img src="images/contact/wechat.png" width="35" height="35" ></a></li>
+										<li><a href="#"><img src="images/contact/qq.png" width="35" height="35" ></a></li><
+									</ul>
+								</div> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="copyright__wrapper">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 col-md-6 col-sm-12">
+							<div class="copyright">
+								<div class="copy__right__inner text-center">
+									<p>©2018 XDU-SPM-B2 Copyright</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- //Footer Area -->
+
+	</div>
+	<!-- //Main wrapper -->
+
+	<!-- JS Files -->
+	<script src="js/vendor/jquery-3.2.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/active.js"></script>
+	<script src="../cookie.js"></script>
+	<script src="../socket.io.js"></script>
+	<!--<![endif]-->
+	<script type="text/javascript" src="myplugs/js/plugs.js"></script>
+
+	<script type="text/javascript">
+		var href = location.href;
+		var auth_data = {};
+
+
+		auth_data.username = Cookies.get("username");
+		auth_data.session = Cookies.get("session");
+		auth_data.type = Cookies.get("type");
+		auth_data.cur = "reader";
+		var accMenu = document.getElementById('accMenu');
+		var accLog = document.getElementById('accLog');
+		var topMenu = document.getElementById('topMenu');
+
+		var listView = document.getElementById('listView');
+		var pageBar = document.getElementById('pageBar');
+
+		var page_scale = 3;
+		var bookList = null;
+		var logFlag = false;
+		var pageNum = 0;
+		var lastPageBookNum = 0;
+
+		var socket = io("http://139.199.112.88:2761");
+
+		function showPage(page_index) {
+
+			var now_index = Cookies.get('now_index');
+			if (now_index == page_index)
+				return;
+			Cookies.set('now_index', page_index);
+			for (var i = 0; i < pageBar.childNodes.length; i++) {
+				if (pageBar.childNodes[i].hasAttribute('class'))
+					pageBar.childNodes[i].removeAttribute('class');
+			}
+
+			pageBar.childNodes[page_index].setAttribute('class', 'active');
+			var temp_len = listView.childNodes.length;
+			for (var i = 0; i < temp_len; i++) {
+				listView.removeChild(listView.childNodes[0]);
+			}
+			var begin_index = page_index * page_scale;
+			var end_index = begin_index + page_scale;//最后一本书index的下一个值
+			var img_isbn = [];
+			if (end_index > bookList.length)
+				end_index = bookList.length;
+
+			var list_title = document.getElementById('list_title');
+			list_title.innerHTML = "Showing " + (begin_index + 1) + "–" + end_index + " of " + bookList.length + " results";
+
+			for (var i = begin_index; i < end_index; i++) {
+				//window.alert('hello');
+				var item = bookList[i];
+				img_isbn.push(item.isbn);
+
+				var divFrame = document.createElement('div');
+				divFrame.setAttribute('class', 'list__view mt--40');
+
+				var img_thumb = document.createElement('img');
+				img_thumb.setAttribute('alt', 'product images');
+				img_thumb.setAttribute('id', 'book' + (i - begin_index));
+
+				var a_thumb = document.createElement('a');
+				a_thumb.setAttribute('name', i);
+				a_thumb.setAttribute('class', 'first__img');
+				a_thumb.setAttribute('onclick', 'show_detail(this.name)');
+				a_thumb.appendChild(img_thumb);
+				var div_thumb = document.createElement('div');
+				div_thumb.setAttribute('class', 'thumb');
+				div_thumb.appendChild(a_thumb);
+
+				var a1 = document.createElement('a');
+				a1.setAttribute('name', i);
+				a1.setAttribute('onclick', 'show_detail(this.name)');
+				a1.innerHTML = item.book_name;
+				var h1 = document.createElement('h2');
+				h1.appendChild(a1);
+
+				var li_instock = document.createElement('li');
+				li_instock.innerHTML = item.available_number + ' items in stock';
+				var li_allbooks = document.createElement('li');
+				li_allbooks.setAttribute('class', 'old__prize');
+				li_allbooks.innerHTML = 'has all ' + item.total_number + ' book(s)';
+				var ul_booknum = document.createElement('ul');
+				ul_booknum.setAttribute('class', 'prize__box');
+				ul_booknum.appendChild(li_instock);
+				ul_booknum.appendChild(li_allbooks);
+
+				var p = document.createElement('p');
+				p.innerHTML = item.subject;
+
+				var a2 = document.createElement('a');
+				a2.setAttribute('name', i);
+				a2.setAttribute('onclick', 'reserve(this.name)');
+				a2.innerHTML = 'Reserve';
+				var li_reserve = document.createElement('li');
+				li_reserve.setAttribute('class', 'cart');
+				li_reserve.appendChild(a2);
+				var a3 = document.createElement('a');
+				a3.setAttribute('name', i);
+				//a3.setAttribute('id','test')
+				//window.alert(a3.val());
+				a3.setAttribute('onclick', 'show_detail(this.name)');
+				a3.innerHTML = 'Learn more';
+				var li_detail = document.createElement('li');
+				li_detail.setAttribute('class', 'cart');
+				li_detail.appendChild(a3);
+				var ul_buttons = document.createElement('ul');
+				ul_buttons.setAttribute('class', 'cart__action d-flex');
+				ul_buttons.appendChild(li_reserve);
+				ul_buttons.appendChild(li_detail);
+
+				var div_content = document.createElement('div');
+				div_content.setAttribute('class', 'content');
+				div_content.appendChild(h1);
+				div_content.appendChild(ul_booknum);
+				div_content.appendChild(p);
+				div_content.appendChild(ul_buttons);
+
+				divFrame.appendChild(div_thumb);
+				divFrame.appendChild(div_content);
+				listView.appendChild(divFrame);
+			}
+
+			socket.emit('getPicture', img_isbn);
+			/*
+	        						<div class="list__view mt--40">
+	        							<div class="thumb">
+	        								<a class="first__img" href="#"><img src="images/product/3.jpg" alt="product images"></a>
+	        								
+	        							</div>
+	        							<div class="content">
+	        								<h2><a href="single-product.html">A Mathematical Bridge</a></h2>
+	        								
+	        								<ul class="prize__box">
+	        									<li>5 items in stock</li>
+	        									<li class="old__prize">has borrowed 15 books</li>
+	        								</ul>
+	        								<p>some detials about this book</p>
+	        								<ul class="cart__action d-flex">
+	        									<li class="cart"><a href="#">want to read</a></li>
+	        									<li class="cart"><a href="#">learn more</a></li>
+	        								</ul>
+
+	        							</div>
+	        						</div>
+			*/
+
+		}
+
+		function showBooks(active_page) {
+			Cookies.remove('now_index');
+			bookList = Cookies.getJSON('bookList');
+
+			var temp_len = pageBar.childNodes.length;
+			for (var i = 0; i < temp_len; i++) {
+				pageBar.removeChild(pageBar.childNodes[0]);
+			}
+			if (bookList != null && bookList.length > 0) {
+				pageNum = parseInt(bookList.length / page_scale);
+				lastPageBookNum = bookList.length - pageNum * page_scale;
+				if (lastPageBookNum != 0) pageNum = pageNum + 1;
+				for (var i = 0; i < pageNum; i++) {
+					var a_item = document.createElement('a');
+					a_item.innerHTML = i + 1;
+					a_item.setAttribute('id', i);
+					a_item.setAttribute('onclick', 'showPage(this.id)');
+					var li_item = document.createElement('li');
+					li_item.appendChild(a_item);
+					pageBar.appendChild(li_item);
+				}
+				var end_i_item = document.createElement('i');
+				end_i_item.setAttribute('class', 'zmdi zmdi-chevron-right');
+				var end_a_item = document.createElement('a');
+				end_a_item.appendChild(end_i_item);
+				var end_li_item = document.createElement('li');
+				end_li_item.appendChild(end_a_item);
+				pageBar.appendChild(end_li_item);
+				//window.alert(active_page);
+				showPage(active_page);
+			} else if (bookList == null) {
+				//window.alert(111);
+				temp_len = listView.childNodes.length;
+
+				for (var i = 0; i < temp_len; i++) {
+					listView.removeChild(listView.childNodes[0]);
+				}
+			} else {
+				temp_len = listView.childNodes.length;
+				for (var i = 0; i < temp_len; i++) {
+					listView.removeChild(listView.childNodes[0]);
+				}
+
+			}
+		}
+
+		function noLogin() {
+			topMenu.innerHTML = 'My account';
+			accLog.innerHTML = 'Log in';
+			logFlag = false;
+
+			if (accMenu != null) {
+				var parent = accMenu.parentNode;
+				parent.removeChild(parent.childNodes[0]);
+				parent = parent.parentNode;
+				parent.removeChild(parent.childNodes[0]);
+			}
+		}
+
+		function personConsole() {
+			socket.emit('sessionAuth', auth_data);
+			if (logFlag == false) return;	//如果检查发现登陆失效，跳转失败退出
+			location.href = location.href.replace('search-list.html', 'profile.html');
+		}
+		function signinServer() {
+			if (logFlag == false) {
+				location.href = location.href.replace('search-list.html', 'login.html');
+			} else {
+				socket.emit('logOut', auth_data);
+				noLogin();
+			}
+		}
+
+		function search() {
+			data = $('#search_content').val();
+			if (data == null) data = '';
+			socket.emit('searchReaderBooks', data);
+		}
+		function show_detail(index) {
+
+			var item = bookList[index];
+
+			Cookies.set('cur_book', item.isbn, { expires: 1 });
+			var test = Cookies.get('cur_book');
+			window.open('book-detail.html');
+			/*弹出面板莫名其妙失败
+			$.jq_Panel({
+				title: "Details",
+				url: "book-detail.html",
+				iframeWidth: 1000,
+				iframeHeight: 700,
+			});
+			*/
+		}
+
+		function reserve(index) {
+			Cookies.set('cur_index', index);
+			var reserve_auth = auth_data;
+			reserve_auth.req = 'reserve';
+			socket.emit('sessionAuth', reserve_auth);
+		}
+
+		socket.on("noSession", function (data) {
+			Cookies.remove('type');
+			window.alert('Login has expired, please login again!');
+			noLogin();
+		});
+
+		socket.on('sessionSuccess', function (data) {
+			if (data == 'reserve') {
+				var item = {};
+				item.reader_id = auth_data.username;
+				item.isbn = bookList[Cookies.get("cur_index")].isbn;
+				socket.emit('reserveBook', item);
+			}
+			topMenu.innerHTML = auth_data.username;
+			accMenu.innerHTML = 'Console';
+			accLog.innerHTML = 'Log out';
+			logFlag = true;
+		});
+		socket.on("sessionFailed", function (data) {
+			Cookies.remove('type');
+			window.alert('Login has expired, please login again!');
+			noLogin();
+		});
+		socket.on('show_search', function (data) {
+			Cookies.set('bookList', data);
+
+			showBooks(0);
+		});
+		socket.on('showPicture', function (pic) {
+			for (var i = 0; i < pic.length; i++) {
+				var imgFrame = document.getElementById('book' + i);
+
+				imgFrame.setAttribute('src', pic[i]);
+			}
+		});
+
+		socket.on('reserveOverflow', function (data) {
+			window.alert('You can only reserve ' + data + ' books.');
+		});
+		socket.on('noneToReserve', function () {
+			window.alert('there\'s no book left.');
+		});
+		socket.on('reserveSuccess', function (data) {
+			/*
+			var email = require("emailjs");
+			var server = email.server.connect({
+				user: "13279492761@2980.com",      // 你的QQ用户
+				password: "130427132794WL",           // 注意，不是QQ密码，而是刚才生成的授权码
+				host: "smtp.2980.com",         // 主机，不改
+				ssl: false                 // 使用ssl
+			});
+			server.send({
+					text: data.href + '?session=' + data.session + '&username=' + data.reader_id,       //邮件内容
+					from: "cjiang_5@stu.xidian.edu.cn",        //谁发送的
+					to: data.email,       //发送给谁的
+					subject: "changePasswd"          //邮件主题
+				});
+				*/
+			window.alert('reserve success!');
+		});
+
+		if (auth_data.type == "reader") {
+			socket.emit("sessionAuth", auth_data);
+		} else {
+			noLogin();
+		}
+		//Cookies.remove('bookList');
+		showBooks(0);
+
+	</script>
+
+</body>
+
+</html>

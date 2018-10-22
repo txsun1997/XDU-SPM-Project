@@ -1,0 +1,316 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta content="" name="description" />
+    <meta content="webthemez" name="author" />
+    <title>Book History</title>
+	<!-- Bootstrap Styles-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FontAwesome Styles-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+     <!-- Morris Chart Styles-->
+   
+        <!-- Custom Styles-->
+    <link href="assets/css/custom-styles.css" rel="stylesheet" />
+     <!-- Google Fonts-->
+   <link href='http://fonts.useso.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+     <!-- TABLE STYLES-->
+    <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+ <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <a href="index.html"><img src="images/logo/logo黑字.png" width = 190px height = 65px ></a>
+                <!-- <a class="navbar-brand" href="index.html"><img src="images/logo/logo黑字.png" width = 205px height = 60px ></a> -->     
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>admin</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Oct.14.2018</em>
+                                    </span>
+                                </div>
+                                <div>The book you borrowed will expire in one day. </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>Librarian</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Oct.13.2018</em>
+                                    </span>
+                                </div>
+                                <div>Today, the library has a new collection of books.</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>Read All Messages</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="index.html" onclick="logOut()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+        </nav>
+        <!--/. NAV TOP  -->
+       <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+
+                    <li>
+                        <a  href="profile.html"><i class="fa fa-fw fa-file"></i> Profile</a>
+                    </li>
+                    <!-- <li>
+                        <a href="change-password.html"><i class="fa fa-edit"></i> Change password<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="change-password.html">remember password</a>
+                            </li>
+                            <li>
+                                <a href="change-password.html">forget password</a>
+                            </li>
+                        </ul>
+                    </li>      -->  
+                    <li>
+                        <a href="change-password.html"><i class="fa fa-edit"></i> Change Password</a>
+                    </li>                                       
+                    <li>
+                        <a href="history.html"><i class="fa fa-table"></i> History</a>
+                    </li>
+                    <li>
+                        <a class="active-menu" href="reserve.html"><i class="fa fa-table"></i> Reserve</a>
+                    </li>                   
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+		    <div class="header"> 
+                        <h1 class="page-header">
+                            Book Reserved <small>The books you have reserved</small>
+                        </h1>		
+		    </div>
+		
+            <div id="page-inner"> 
+               
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                             Book List
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Bookname</th>                        
+                                            <th>Author</th>
+                                            <th>Press</th>
+                                            <th>Year</th>
+                                            
+                                            <th>Book-ISBN</th>
+                                            
+                                            <th>Reserve time</th>
+                                            <th>Status</th>     
+                                        </tr>
+                                    </thead>
+                                    <tbody id="list_body">
+
+                                         
+                                                                      
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                       
+                    </div>
+                    <!--End Advanced Tables -->
+                     <footer><p align="center">©2018 XDU-SPM-B2 Copyright</p></footer>
+                </div>
+            </div>
+                <!-- /. ROW  -->
+        </div>
+              
+    </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+     <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+      <!-- Bootstrap Js -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Js -->
+    <script src="assets/js/jquery.metisMenu.js"></script>
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#dataTables-example').dataTable();
+            });
+    </script>
+         <!-- Custom Js -->
+    <script src="assets/js/custom-scripts.js"></script>
+    <script src="../cookie.js"></script>
+    <script src="../socket.io.js"></script>
+    <script type="text/javascript">
+        var auth_data={};
+        auth_data.username = Cookies.get("username");
+        auth_data.session = Cookies.get("session");
+        auth_data.type = Cookies.get("type");
+        auth_data.cur = "reader";  
+        var socket = io("http://139.199.112.88:2761");
+        var list_body = document.getElementById('list_body');
+        function logOut(){
+            Cookies.remove('type');
+            socket.emit('logOut',auth_data);
+        }
+        function cancelReserve(index){
+            var data = {};
+            var tds = document.getElementById(index).childNodes;
+            data.reserve_time = parseInt(tds[5].getAttribute('name'));
+            data.isbn = tds[4].innerHTML;
+            data.reader_id = auth_data.username;
+            //window.alert(JSON.stringify(data));
+            socket.emit('cancelReserve',data);
+            var status = tds[6];
+            //status.removeChild(status.childNotes[0]);
+            //window.alert(status.childNotes.length);
+            status.innerHTML = 'inValid';
+        }
+        socket.on("noSession", function (data) {
+            window.alert("Login has expired, please login again!");
+            Cookies.remove('type');
+            location.href = location.href.replace("reserve.html","index.html");
+        });
+
+        socket.on("sessionFailed", function (data) {
+            window.alert("User name type is inconsistent, please login again!");
+            Cookies.remove('type');
+            location.href = location.href.replace("reserve.html","index.html");
+        });
+        socket.on('showReserveList',function(data){
+            //window.alert(JSON.stringify(data));
+            for(var i=0;i<data.length;i++){
+                var tr = document.createElement('tr');
+                tr.setAttribute('class','odd gradeX');
+                tr.setAttribute('id',i);
+                var td_name = document.createElement('td');
+                var td_author = document.createElement('td');
+                var td_press = document.createElement('td');
+                var td_year = document.createElement('td');
+                var td_isbn = document.createElement('td');
+                td_isbn.setAttribute('class','center');
+                td_isbn.innerHTML=data[i].isbn;
+                var td_time = document.createElement('td');
+                td_time.setAttribute('class','center');
+                td_time.setAttribute('name',data[i].reserve_time);
+                var reserve_time = new Date(data[i].reserve_time);
+                td_time.innerHTML = reserve_time.getFullYear()+'-'+(reserve_time.getMonth()+1)+'-'+reserve_time.getDate()+' '+reserve_time.getHours()+':'+reserve_time.getMinutes()+':'+reserve_time.getSeconds();
+                var td_status=document.createElement('td');
+                td_status.setAttribute('class','center');
+
+                if(data[i].status==true){
+                    var btn = document.createElement('button');
+                    btn.setAttribute('name',i);
+                    btn.setAttribute('onclick','cancelReserve(this.name)');
+                    btn.innerHTML = 'Cancel';
+                    td_status.appendChild(btn);
+                }else{
+                    td_status.innerHTML = 'inValid';
+                }
+
+                tr.appendChild(td_name);
+                tr.appendChild(td_author);
+                tr.appendChild(td_press);
+                tr.appendChild(td_year);
+                tr.appendChild(td_isbn);
+                tr.appendChild(td_time);
+                tr.appendChild(td_status);
+                list_body.appendChild(tr);
+
+                var item = {isbn:data[i].isbn,index:i};
+                socket.emit('getReserveItem',item);
+            }
+
+            /*
+                                        <tr class="odd gradeX">
+                                            <td>Deep Leearning</td>
+                                            <td>Lan Goodfellow</td>
+                                            <td>MIT Press</td>
+                                            <td class="center">2016</td>
+                                            
+                                            
+                                            <td class="center">123-321</td>
+                                            <td class="center">12:00</td>
+                                            <td class="center">
+                                                <button>
+                                                    Cancel
+                                                </button>
+                                            </td>                                            
+                                        </tr>
+            */
+        });
+        socket.on('showReserveItem',function(data){
+            var book = data.book;
+            var index = data.index;
+            var tr = document.getElementById(index);
+            var tds = tr.childNodes;
+            tds[0].innerHTML = book.book_name;
+            tds[1].innerHTML = book.author;
+            tds[2].innerHTML = book.press;
+            tds[3].innerHTML = book.publish_year;
+           // window.alert(JSON.stringify(data));
+        });
+        socket.on('cancelReserve',function(data){
+            window.alert('cancel success!');
+        });
+
+        socket.emit('sessionAuth',auth_data);   
+        socket.emit('getReserveList',auth_data.username);     
+
+    </script>
+    
+   
+</body>
+</html>
