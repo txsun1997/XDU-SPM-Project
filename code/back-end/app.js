@@ -29,6 +29,14 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 	dbase = db.db("Bibliosoft");
 	console.log("Required database has been successfully accessed.");
 
+	var email = require("emailjs");
+	var server = email.server.connect({
+		user: "cjiang_5@stu.xidian.edu.cn",      // 你的QQ用户
+		password: "SomeoneFuck8005",           // 注意，不是QQ密码，而是刚才生成的授权码
+		host: "stumail.xidian.edu.cn",         // 主机，不改
+		ssl: false                 // 使用ssl
+	});
+
 	//connect server when client start to run, all things need to be completed are defined in this scope.
 	io.on('connection', function (socket) {
 		console.log("The client and server has been successfully connected.");
@@ -433,13 +441,13 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				socket.emit("borrowerInformation", push);
 			});
 		});
-		
+
 		socket.on("borrowBook", function (data) {
 			dbase.collection("config").find({ "varname": "config" }).toArray(function (err, config) {
 				test.equal(null, err);
 				var cur_time = new Date();
 				var ms_time = cur_time.getTime();
-				dbase.collection('reserve').updateMany({ reader_id: data.phone, status: true, reserve_time: { $lt: ms_time - config[0].reserve * 60000 } }, { $set: { 'status': false } }, function (err, sync) {
+				dbase.collection('reserve').updateMany({ reader_id: data.phone, status: true, reserve_time: { $lt: ms_time - config[0].reserve * 60 * 60000 } }, { $set: { 'status': false } }, function (err, sync) {
 					test.equal(null, err);
 					dbase.collection("copies").find({ "bar_code": data.bar_code }).toArray(function (err, copies) {
 						test.equal(null, err);
@@ -522,10 +530,10 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					dbase.collection("copies").updateOne({ "bar_code": data.bar_code }, { $set: { "status": "available" } });
 
 					var cur = new Date();
-					var interval = cur.getDate() - res[0].borrow_date.getDate();
+					var interval = cur.getTime() - res[0].borrow_date.getTime();
 					console.log(interval);
-					if (interval > res2[0].limit) {
-						var fine = (interval - res2[0].limit) * res2[0].exceed;
+					if (interval > res2[0].limit * 60 * 60000) {
+						var fine = (interval/60/60000 - res2[0].limit) * res2[0].exceed;
 					} else {
 						var fine = 0;
 					}
@@ -546,13 +554,12 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					var cur = new Date();
 					for (var i = 0; i < reader.length; i++) {
 						if (reader[i].status == false) {
-							var interval = cur.getDate() - reader[i].borrow_date.getDate();
-							if (interval > res[0].limit) {
-								reader[i].fine = (interval - res[0].limit) * res[0].exceed;
+							var interval = cur.getTime() - reader[i].borrow_date.getTime();
+							if (interval > res[0].limit * 60 * 60000) {
+								reader[i].fine = (interval/60/60000 - res[0].limit) * res[0].exceed;
 							} else {
 								reader[i].fine = 0;
 							}
-
 						}
 					}
 					var push = {};
@@ -594,42 +601,8 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 			});
 		});
 		//jc10.22
-		var reserve = 120;
-		var reserveNum = 5;
-		var email = require("emailjs");
-		var server = email.server.connect({
-			user: "cjiang_5@stu.xidian.edu.cn",      // 你的QQ用户
-			password: "SomeoneFuck8005",           // 注意，不是QQ密码，而是刚才生成的授权码
-			host: "stumail.xidian.edu.cn",         // 主机，不改
-			ssl: false                 // 使用ssl
-		});
 
 		socket.on('searchReaderBooks', function (data) {		//修改searchbooksjc
-			/*	//旧版本searchbooks
-			var whereStr = {};
-			if (data.book_name != '') whereStr['book_name'] = data.book_name;
-			if (data.author != '') whereStr['author'] = data.author;
-			if (data.press != '') whereStr['press'] = data.press;
-			if (data.publish_year != '') whereStr['publish_year'] = data.publish_year;
-			if (data.type != '') whereStr['type'] = data.type;
-
-			console.log(data.book_name + ' ' + data.author + " " + data.press + " " + data.publish_year + " " + data.type);
-			if (data.show_avail == true) whereStr['available_number'] = { $gt: 0 };
-			
-			var search_books_cursor = dbase.collection("books").find();
-			search_books_cursor.toArray(function (err, doc) {
-				test.equal(null, err);
-				var result = {};
-				for (var i = 0; i < doc.length; i++) {
-					delete doc[i].figure;
-				}
-				console.log(doc);
-				socket.emit('show_search', doc);
-			});
-			*/
-
-
-
 			orStr = [];
 			orStr.push({ book_name: new RegExp('.*' + data + '.*', 'i') });
 			//orStr.push({book_name:'/'+data+'/'});
@@ -646,8 +619,6 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				//console.log(doc);
 				socket.emit('show_search', doc);
 			});
-
-
 		});
 
 
@@ -681,9 +652,6 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					socket.emit('sendSuccess');
 					console.log(err || message);
 				});
-
-				//data.session = loginData.session
-				//socket.emit('sendSuccess',data);
 			});
 		});
 
@@ -702,57 +670,62 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				socket.emit("showPicture", imgs);
 			});
 		});
-		/*		
-		dbase.collection('borrows').find({}).toArray(function(err,doc){
-			//for(var i=0;i<doc.length;i++) delete doc[i].figure;
-			console.log(doc);
-		})
-		*/
-		/*
-		dbase.collection('reserve').find({reserve_time:'1540124080218'}).toArray(function(err,doc){
-			console.log(doc);
-		})
-		*/
+
+
 		socket.on('reserveBook', function (data) {
 			var cur_time = new Date();
 			var ms_time = cur_time.getTime();
-			console.log("data");
-			dbase.collection('reserve').updateMany({ reader_id: data.reader_id, status: true, reserve_time: { $lt: ms_time - reserve * 60000 } }, { $set: { 'status': false } }, function (err, res) {
-				dbase.collection('reserve').find({ reader_id: data.reader_id, status: true }).toArray(function (err1, doc1) {
-					if (doc1.length >= reserveNum) {
-						socket.emit('reserveOverflow', reserveNum);
-						return;
-					} else {
-						dbase.collection('reserve').updateMany({ isbn: data.isbn, status: true, reserve_time: { $lt: ms_time - reserve * 60000 } }, { $set: { status: false } }, function (err2, doc2) {
-							dbase.collection('reserve').find({ isbn: data.isbn, status: true }).toArray(function (err3, doc3) {
-								dbase.collection('copies').find({ isbn: data.isbn, status: 'reserved' }).toArray(function (err4, doc4) {
-									if (doc4.length == doc3.length) {
-										dbase.collection('copies').find({ isbn: data.isbn, status: 'available' }).toArray(function (err5, doc5) {
-											if (doc5.length == 0) {
-												socket.emit('noneToReserve');
-											} else {
-												dbase.collection('copies').updateOne(doc5[0], { $set: { status: 'reserved' } });
-												dbase.collection('reserve').insertOne({ reader_id: data.reader_id, isbn: data.isbn, reserve_time: ms_time, status: true }, function (Err, res) {
-													socket.emit('reserveSuccess');
-												})
-											}
-										})
-									} else {
-										for (var i = 0; i < doc4.length - doc3.length - 1; i++) {
-											dbase.collection('copies').updateOne({ isbn: data.isbn, status: 'reserved' }, { $set: { status: 'available' } });
-										}
-										dbase.collection('reserve').insertOne({ reader_id: data.reader_id, isbn: data.isbn, reserve_time: ms_time, status: true }, function (Err, res) {
-											socket.emit('reserveSuccess');
-											console.log("sdf");
-										})
-									}
+			dbase.collection('config').find({ varname: 'config' }).toArray(function (err0, doc0) {
+				var reserve = doc0[0].reserve;
+				var reserveNum = doc0[0].maxnum;
+				dbase.collection('reserve').updateMany({ reader_id: data.reader_id, status: true, reserve_time: { $lt: ms_time - reserve * 60 * 60000 } }, { $set: { 'status': false } }, function (err, res) {
+					//更新当前用户下有效reserve
+					dbase.collection('reserve').find({ reader_id: data.reader_id, status: true }).toArray(function (err1, doc1) {
+						//查询当前用户下有效reserve
+						dbase.collection("borrows").find({ reader_id: data.reader_id, status: false }).toArray(function (err6, doc6) {
+							//查询当前用户下borrow
+							if (doc1.length + doc6.length >= reserveNum) {		//reserveNum表示可以预约+借阅的最多本数
+								//如果有效预约+出借>=允许最大量
+								dbase.collection("reader").updateOne({ reader_id: data.reader_id }, { $set: { borrowNum: doc1.length + doc6.length } });
+								socket.emit('reserveOverflow', reserveNum);
+								return;
+							} else {
+								dbase.collection('reserve').updateMany({ isbn: data.isbn, status: true, reserve_time: { $lt: ms_time - reserve * 60000 } }, { $set: { status: false } }, function (err2, doc2) {
+									//更新待预约书的有效预约
+									dbase.collection('reserve').find({ isbn: data.isbn, status: true }).toArray(function (err3, doc3) {
+										//查询待预约书的有效预约
+										dbase.collection('copies').find({ isbn: data.isbn, status: 'borrowed' }).toArray(function (err4, doc4) {
+											//查询待预约书的出借数量
+											dbase.collection('copies').find({ isbn: data.isbn }).toArray(function (err5, doc5) {
+												//查询待预约书的总数
+												if (doc4.length + doc3.length >= doc5.length) {//总数=有效预约+出借
+													//console.log(doc3);
+													//dbase.collection('copies').find({isbn:data.isbn,status:'available'}).toArray(function(err5,doc5){
+
+													dbase.collection('books').updateOne({ isbn: data.isbn }, { $set: { available_number: 0 } });
+													dbase.collection("reader").updateOne({ reader_id: data.reader_id }, { $set: { borrowNum: doc1.length + doc6.length } });
+													socket.emit('noneToReserve');
+													//});
+												} else {
+
+													dbase.collection("reader").updateOne({ reader_id: data.reader_id }, { $set: { borrowNum: doc1.length + doc6.length + 1 } });
+													dbase.collection('books').updateOne({ isbn: data.isbn }, { $set: { available_number: doc[5].length - doc[4].length - doc[3].length } });
+													dbase.collection('reserve').insertOne({ reader_id: data.reader_id, isbn: data.isbn, reserve_time: ms_time, status: true }, function (Err, res) {
+														socket.emit('reserveSuccess');
+													});
+												}
+											});
+										});
+									});
 								});
-							});
-						});
-					}
+							}
+						})
+					});
 				});
 			});
 		});
+
+
 
 		socket.on('getReserveList', function (reader_id) {
 			var cur_time = new Date();
