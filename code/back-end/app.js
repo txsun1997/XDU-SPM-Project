@@ -270,7 +270,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				socket.emit("editReaderSuccess");
 			});
 		});
-		/////////////jc
+		
 		socket.on('getReaderInfo', function (data) {
 			var cursor = dbase.collection("reader").find({ "reader_id": data.username });
 			cursor.toArray(function (err, doc) {
@@ -429,7 +429,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					socket.emit("copyNotExist");
 					return;
 				}
-				if (res[0].status != "available") {
+				if (res[0].status == "borrowed") {
 					socket.emit("notAvailable");
 					return;
 				}
@@ -472,6 +472,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 								insert_data.status = false;
 								insert_data.fine = 0;
 								dbase.collection("borrows").insertOne(insert_data);
+								dbase.collection("reserve").updateOne({ "isbn": res[0].isbn, "reader_id":data.phone, "status": true }, { $set: { "status": false } });
 								socket.emit("borrowSuccess");
 							});
 						});
@@ -506,6 +507,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 
 					var cur = new Date();
 					var interval = cur.getDate() - res[0].borrow_date.getDate();
+					console.log(interval);
 					if (interval > res2[0].limit) {
 						var fine = (interval - res2[0].limit) * res2[0].exceed;
 					} else {
@@ -534,6 +536,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 							} else {
 								reader[i].fine = 0;
 							}
+						
 						}
 					}
 					var push = {};

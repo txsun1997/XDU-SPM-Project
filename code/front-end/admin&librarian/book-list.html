@@ -18,6 +18,7 @@
 			<div class="admin-content-body">
 
 				<div class="container" style="padding: 50px 10px 0px 10px">
+
 					<div class="am-g">
 						<div class="am-u-sm-12 am-u-md-6">
 							<div class="am-btn-toolbar">
@@ -29,16 +30,18 @@
 							</div>
 						</div>
 
-						<div class="am-u-sm-12 am-u-md-3">
-							<div class="am-input-group am-input-group-sm">
-								<input class="am-form-field" placeholder="Enter title/author" id="keywords" type="text">
-								<span class="am-input-group-btn">
-									<button class="am-btn am-btn-primary" type="button" id="btnsearch">
-										<span class="am-icon-search"></span>
-									</button> </span>
+
+						<div class="am-u-sm-12 am-u-md-6">
+							<div class="am-btn-toolbar">
+								<div class="am-btn-group am-btn-group-xs">
+									<button type="button" class="am-btn am-btn-primary" onclick="search_panel()">
+										<span class="am-icon-search"></span> SEARCH
+									</button>
+								</div>
 							</div>
 						</div>
 					</div>
+
 					<div class="am-g" style="margin-top: -30px;">
 						<div class="am-u-sm-12">
 							<form class="am-form" action="user/delAll.action">
@@ -134,7 +137,14 @@
 			});
 		}
 
-
+		function search_panel() {
+			$.jq_Panel({
+				title: "SEARCH BOOK",
+				url: "search-panel.html",
+				iframeWidth: 600,
+				iframeHeight: 450,
+			});
+		}
 
 		function addBookItem(item, i) {
 			var obj = document.createElement('tr');
