@@ -70,7 +70,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					socket.emit("noSession");
 				} else {
 					if (doc[0].username == data.username && doc[0].type == data.type) {
-						socket.emit("sessionSuccess");
+						socket.emit("sessionSuccess", data.req);
 					} else {
 						socket.emit("sessionFailed");
 					}
@@ -270,7 +270,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				socket.emit("editReaderSuccess");
 			});
 		});
-		
+
 		socket.on('getReaderInfo', function (data) {
 			var cursor = dbase.collection("reader").find({ "reader_id": data.username });
 			cursor.toArray(function (err, doc) {
@@ -344,40 +344,53 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 		});
 
 		socket.on("deleteCopy", function (data) {
-			dbase.collection("books").find({ "isbn": data.isbn }).toArray(function (err, doc) {
-				test.equal(null, err);
-				data.book_name = doc[0].book_name;
-				var deleted = false;
-				dbase.collection("copies").deleteOne({ "bar_code": data.bar_code });
-				data.time = new Date();
-				dbase.collection("librarianOperation").insertOne(data);
-				dbase.collection("books").find({ "isbn": data.isbn }).toArray(function (err, res) {
+			dbase.collection("copies").find({ "bar_code": data.bar_code }).toArray(function (err, auth) {
+				if (auth[0].status != "available") {
+					socket.emit("copyNotAvailable");
+					return;
+				}
+				dbase.collection("books").find({ "isbn": data.isbn }).toArray(function (err, doc) {
 					test.equal(null, err);
-					if (res[0].total_number == 1) {
-						dbase.collection("books").deleteOne({ "isbn": data.isbn });
-						deleted = true;
-					} else {
-						dbase.collection("books").updateOne({ "isbn": data.isbn }, { $set: { "available_number": res[0].available_number - 1, "total_number": res[0].total_number - 1 } });
-					}
-					var succ = {};
-					succ.deleted = deleted;
-					socket.emit("deleteCopySuccess", succ);
+					data.book_name = doc[0].book_name;
+					var deleted = false;
+					dbase.collection("copies").deleteOne({ "bar_code": data.bar_code });
+					data.time = new Date();
+					dbase.collection("librarianOperation").insertOne(data);
+					dbase.collection("books").find({ "isbn": data.isbn }).toArray(function (err, res) {
+						test.equal(null, err);
+						if (res[0].total_number == 1) {
+							dbase.collection("books").deleteOne({ "isbn": data.isbn });
+							deleted = true;
+						} else {
+							dbase.collection("books").updateOne({ "isbn": data.isbn }, { $set: { "available_number": res[0].available_number - 1, "total_number": res[0].total_number - 1 } });
+						}
+						var succ = {};
+						succ.deleted = deleted;
+						socket.emit("deleteCopySuccess", succ);
+					});
 				});
 			});
 		});
 
 		socket.on("deleteBook", function (data) {
-			dbase.collection("copies").deleteMany({ "isbn": data.isbn });
-			data.bar_code = 0;
-			dbase.collection("books").find({ "isbn": data.isbn }).toArray(function (err, doc) {
-				test.equal(null, err);
-				data.book_name = doc[0].book_name;
-				data.time = new Date();
-				dbase.collection("librarianOperation").insertOne(data);
-				dbase.collection("books").deleteOne({ "isbn": data.isbn });
-				socket.emit("deleteBookSuccess");
+			dbase.collection("copies").find({ "isbn": data.isbn }).toArray(function (err, auth) {
+				for (var i = 0; i < auth.length; i++) {
+					if (auth[i].status != "available") {
+						socket.emit("bookNotAvailable");
+						return;
+					}
+				}
+				dbase.collection("copies").deleteMany({ "isbn": data.isbn });
+				data.bar_code = 0;
+				dbase.collection("books").find({ "isbn": data.isbn }).toArray(function (err, doc) {
+					test.equal(null, err);
+					data.book_name = doc[0].book_name;
+					data.time = new Date();
+					dbase.collection("librarianOperation").insertOne(data);
+					dbase.collection("books").deleteOne({ "isbn": data.isbn });
+					socket.emit("deleteBookSuccess");
+				});
 			});
-
 		});
 
 		socket.on("getLibrarianRecord", function () {
@@ -411,7 +424,6 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				});
 			});
 		});
-
 		socket.on("getBorrowerInformation", function (data) {
 			dbase.collection("reader").find({ "reader_id": data.phone }).toArray(function (err, res) {
 				test.equal(null, err);
@@ -421,59 +433,63 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				socket.emit("borrowerInformation", push);
 			});
 		});
-
+		
 		socket.on("borrowBook", function (data) {
-			dbase.collection("copies").find({ "bar_code": data.bar_code }).toArray(function (err, res) {
+			dbase.collection("config").find({ "varname": "config" }).toArray(function (err, config) {
 				test.equal(null, err);
-				if (res.length == 0) {
-					socket.emit("copyNotExist");
-					return;
-				}
-				if (res[0].status == "borrowed") {
-					socket.emit("notAvailable");
-					return;
-				}
-				dbase.collection("config").find({ "varname": "config" }).toArray(function (err, config) {
+				var cur_time = new Date();
+				var ms_time = cur_time.getTime();
+				dbase.collection('reserve').updateMany({ reader_id: data.phone, status: true, reserve_time: { $lt: ms_time - config[0].reserve * 60000 } }, { $set: { 'status': false } }, function (err, sync) {
 					test.equal(null, err);
-					dbase.collection("reader").find({ "reader_id": data.phone }).toArray(function (err, res2) {
+					dbase.collection("copies").find({ "bar_code": data.bar_code }).toArray(function (err, copies) {
 						test.equal(null, err);
-						if (res2.length == 0) {
-							socket.emit("readerNotExist");
+						test.equal(null, err);
+						if (copies.length == 0) {
+							socket.emit("copyNotExist");
 							return;
 						}
-						if (res2[0].borrowNum >= config[0].maxnum) {
-							socket.emit("limitExceed");
+						if (copies[0].status == "borrowed") {
+							socket.emit("notAvailable");
 							return;
 						}
-						dbase.collection("books").find({ "isbn": res[0].isbn }).toArray(function (err, res3) {
+						dbase.collection("books").find({ "isbn": copies[0].isbn }).toArray(function (err, books) {
 							test.equal(null, err);
-							dbase.collection("books").updateOne({ "isbn": res[0].isbn }, { $set: { "available_number": res3[0].available_number - 1 } });
-						});
-
-						dbase.collection("reader").updateOne({ "reader_id": data.phone }, { $set: { "borrowNum": res2[0].borrowNum + 1 } });
-
-						dbase.collection("copies").updateOne({ "bar_code": data.bar_code }, { $set: { "status": "borrowed" } });
-
-
-						dbase.collection("copies").find({ "bar_code": data.bar_code }).toArray(function (err, res) {
-							test.equal(null, err);
-							if (res.length == 0) return;
-							dbase.collection("books").find({ "isbn": res[0].isbn }).toArray(function (err, res) {
+							if (books[0].available_number == 0) {
+								socket.emit("allBorrows");
+								return;
+							}
+							dbase.collection("reader").find({ "reader_id": data.phone }).toArray(function (err, reader) {
 								test.equal(null, err);
-								if (res.length == 0) return;
-								var insert_data = {};
-								insert_data.book_name = res[0].book_name;
-								insert_data.reader_id = data.phone;
-								insert_data.bar_code = data.bar_code;
-								insert_data.lend_librarian_id = data.lend_librarian_id;
-								insert_data.return_librarian_id = "-";
-								insert_data.borrow_date = new Date();
-								insert_data.return_date = "-";
-								insert_data.status = false;
-								insert_data.fine = 0;
-								dbase.collection("borrows").insertOne(insert_data);
-								dbase.collection("reserve").updateOne({ "isbn": res[0].isbn, "reader_id":data.phone, "status": true }, { $set: { "status": false } });
-								socket.emit("borrowSuccess");
+								if (reader.length == 0) {
+									socket.emit("readerNotExist");
+									return;
+								}
+								if (reader[0].borrowNum >= config[0].maxnum) {
+									socket.emit("limitExceed");
+									return;
+								}
+								dbase.collection("reserve").find({ "reader_id": data.phone, "isbn": books[0].isbn, "status": true }).toArray(function (err, reserve) {
+									if (reserve.length == 0) {
+										dbase.collection("books").updateOne({ "isbn": res[0].isbn }, { $set: { "available_number": res3[0].available_number - 1 } });
+										dbase.collection("reader").updateOne({ "reader_id": data.phone }, { $set: { "borrowNum": res2[0].borrowNum + 1 } });
+									} else {
+										dbase.collection("reserve").updateOne({ "isbn": books[0].isbn, "reader_id": data.phone, "status": true }, { $set: { "status": false } });
+									}
+									dbase.collection("copies").updateOne({ "bar_code": data.bar_code }, { $set: { "status": "borrowed" } });
+									var insert_data = {};
+									insert_data.book_name = books[0].book_name;
+									insert_data.reader_id = data.phone;
+									insert_data.bar_code = data.bar_code;
+									insert_data.lend_librarian_id = data.lend_librarian_id;
+									insert_data.return_librarian_id = "-";
+									insert_data.borrow_date = new Date();
+									insert_data.return_date = "-";
+									insert_data.status = false;
+									insert_data.fine = 0;
+									insert_data.isbn = books[0].isbn;
+									dbase.collection("borrows").insertOne(insert_data);
+									socket.emit("borrowSuccess");
+								});
 							});
 						});
 					});
@@ -536,7 +552,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 							} else {
 								reader[i].fine = 0;
 							}
-						
+
 						}
 					}
 					var push = {};
@@ -561,6 +577,222 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 			dbase.collection("config").updateOne({ "varname": "config" }, { $set: { "security": data.security, "limit": data.limit, "exceed": data.exceed, "maxnum": data.maxnum, "reserve": data.reserve } });
 			socket.emit("editRuleSuccess");
 		});
+
+		socket.on('searchLibrarians', function (data) {
+			var whereStr = {};
+			if (data.librarian_id != '') whereStr['librarian_id'] = data.librarian_id;
+			if (data.name != '') whereStr['name'] = data.name;
+			if (data.phone != '') whereStr['phone'] = data.phone;
+			if (data.email != '') whereStr['email'] = data.email;
+
+			var cursor = dbase.collection("librarian").find(whereStr);
+			cursor.toArray(function (err, doc) {
+				test.equal(null, err);
+				var result = {};
+				result.librarianList = doc;
+				socket.emit('searchLibrariansResult', result);
+			});
+		});
+		//jc10.22
+		var reserve = 120;
+		var reserveNum = 5;
+		var email = require("emailjs");
+		var server = email.server.connect({
+			user: "cjiang_5@stu.xidian.edu.cn",      // 你的QQ用户
+			password: "SomeoneFuck8005",           // 注意，不是QQ密码，而是刚才生成的授权码
+			host: "stumail.xidian.edu.cn",         // 主机，不改
+			ssl: false                 // 使用ssl
+		});
+
+		socket.on('searchReaderBooks', function (data) {		//修改searchbooksjc
+			/*	//旧版本searchbooks
+			var whereStr = {};
+			if (data.book_name != '') whereStr['book_name'] = data.book_name;
+			if (data.author != '') whereStr['author'] = data.author;
+			if (data.press != '') whereStr['press'] = data.press;
+			if (data.publish_year != '') whereStr['publish_year'] = data.publish_year;
+			if (data.type != '') whereStr['type'] = data.type;
+
+			console.log(data.book_name + ' ' + data.author + " " + data.press + " " + data.publish_year + " " + data.type);
+			if (data.show_avail == true) whereStr['available_number'] = { $gt: 0 };
+			
+			var search_books_cursor = dbase.collection("books").find();
+			search_books_cursor.toArray(function (err, doc) {
+				test.equal(null, err);
+				var result = {};
+				for (var i = 0; i < doc.length; i++) {
+					delete doc[i].figure;
+				}
+				console.log(doc);
+				socket.emit('show_search', doc);
+			});
+			*/
+
+
+
+			orStr = [];
+			orStr.push({ book_name: new RegExp('.*' + data + '.*', 'i') });
+			//orStr.push({book_name:'/'+data+'/'});
+			orStr.push({ author: new RegExp('.*' + data + '.*', 'i') });
+			orStr.push({ press: new RegExp('.*' + data + '.*', 'i') });
+			orStr.push({ publish_year: data });
+			orStr.push({ type: data });
+			whereStr = { $or: orStr };
+			var search_books_cursor = dbase.collection("books").find(whereStr);
+			search_books_cursor.toArray(function (err, doc) {
+				test.equal(null, err);
+				for (var i = 0; i < doc.length; i++)
+					delete doc[i].figure;
+				//console.log(doc);
+				socket.emit('show_search', doc);
+			});
+
+
+		});
+
+
+		//开始发送邮件
+
+		socket.on('checkEmail', function (data) {
+			dbase.collection("reader").find({ "reader_id": data.reader_id }).toArray(function (err, doc) {
+				test.equal(null, err);
+				if (doc.length == 0) {
+					socket.emit('sendFail');
+					return;
+				}
+				doc = doc[0];
+				if (doc.email != data.email) {
+					socket.emit('sendFail');
+					return;
+				}
+				loginData = {};
+				loginData.session = randomString(32);
+				loginData.username = data.reader_id;
+				loginData.type = 'reader';
+				dbase.collection("session").insertOne(loginData);
+				console.log(data.href);
+
+				server.send({
+					text: data.href + '?session=' + loginData.session + '&username=' + data.reader_id,       //邮件内容
+					from: "cjiang_5@stu.xidian.edu.cn",        //谁发送的
+					to: data.email,       //发送给谁的
+					subject: "changePasswd"          //邮件主题
+				}, function (err, message) {
+					socket.emit('sendSuccess');
+					console.log(err || message);
+				});
+
+				//data.session = loginData.session
+				//socket.emit('sendSuccess',data);
+			});
+		});
+
+		socket.on('getPicture', function (isbn) {
+			var orStr = [];
+			for (var i = 0; i < isbn.length; i++) {
+				orStr.push({ isbn: isbn[i] });
+			}
+			var whereStr = { $or: orStr };
+			dbase.collection("books").find(whereStr).toArray(function (err, res) {
+				test.equal(null, err);
+				imgs = [];
+				for (var i = 0; i < res.length; i++) {
+					imgs.push(res[i].figure);
+				}
+				socket.emit("showPicture", imgs);
+			});
+		});
+		/*		
+		dbase.collection('borrows').find({}).toArray(function(err,doc){
+			//for(var i=0;i<doc.length;i++) delete doc[i].figure;
+			console.log(doc);
+		})
+		*/
+		/*
+		dbase.collection('reserve').find({reserve_time:'1540124080218'}).toArray(function(err,doc){
+			console.log(doc);
+		})
+		*/
+		socket.on('reserveBook', function (data) {
+			var cur_time = new Date();
+			var ms_time = cur_time.getTime();
+			console.log("data");
+			dbase.collection('reserve').updateMany({ reader_id: data.reader_id, status: true, reserve_time: { $lt: ms_time - reserve * 60000 } }, { $set: { 'status': false } }, function (err, res) {
+				dbase.collection('reserve').find({ reader_id: data.reader_id, status: true }).toArray(function (err1, doc1) {
+					if (doc1.length >= reserveNum) {
+						socket.emit('reserveOverflow', reserveNum);
+						return;
+					} else {
+						dbase.collection('reserve').updateMany({ isbn: data.isbn, status: true, reserve_time: { $lt: ms_time - reserve * 60000 } }, { $set: { status: false } }, function (err2, doc2) {
+							dbase.collection('reserve').find({ isbn: data.isbn, status: true }).toArray(function (err3, doc3) {
+								dbase.collection('copies').find({ isbn: data.isbn, status: 'reserved' }).toArray(function (err4, doc4) {
+									if (doc4.length == doc3.length) {
+										dbase.collection('copies').find({ isbn: data.isbn, status: 'available' }).toArray(function (err5, doc5) {
+											if (doc5.length == 0) {
+												socket.emit('noneToReserve');
+											} else {
+												dbase.collection('copies').updateOne(doc5[0], { $set: { status: 'reserved' } });
+												dbase.collection('reserve').insertOne({ reader_id: data.reader_id, isbn: data.isbn, reserve_time: ms_time, status: true }, function (Err, res) {
+													socket.emit('reserveSuccess');
+												})
+											}
+										})
+									} else {
+										for (var i = 0; i < doc4.length - doc3.length - 1; i++) {
+											dbase.collection('copies').updateOne({ isbn: data.isbn, status: 'reserved' }, { $set: { status: 'available' } });
+										}
+										dbase.collection('reserve').insertOne({ reader_id: data.reader_id, isbn: data.isbn, reserve_time: ms_time, status: true }, function (Err, res) {
+											socket.emit('reserveSuccess');
+											console.log("sdf");
+										})
+									}
+								});
+							});
+						});
+					}
+				});
+			});
+		});
+
+		socket.on('getReserveList', function (reader_id) {
+			var cur_time = new Date();
+			var ms_time = cur_time.getTime();
+			dbase.collection('reserve').updateMany({ reader_id: reader_id, reserve_time: { $lt: ms_time - reserve * 60000 } }, { $set: { status: false } }, function (err, doc) {
+				dbase.collection('reserve').find({ reader_id: reader_id }).toArray(function (err1, doc1) {
+					doc1 = doc1.sort(function (a, b) {
+						return a.reserve_time < b.reserve_time;
+					});
+
+					socket.emit('showReserveList', doc1);
+				});
+			});
+		});
+
+		socket.on('getReserveItem', function (data) {
+			dbase.collection("books").find({ isbn: data.isbn }).toArray(function (err, doc) {
+				delete doc[0].figure;
+				socket.emit('showReserveItem', { book: doc[0], index: data.index });
+			});
+		});
+
+		socket.on('cancelReserve', function (data) {
+			dbase.collection("reserve").updateOne(data, { $set: { status: false } }, function (err, doc) {
+				socket.emit('cancelSuccess');
+			});
+		});
+
+		socket.on('getBorrowList', function (reader_id) {
+			dbase.collection('borrows').find({ reader_id: reader_id }).toArray(function (err, doc) {
+
+				for (var i = 0; i < doc.length; i++) {
+					doc[i].borrow_date = parseInt(doc[i].borrow_date.getTime());
+					doc[i].return_date = parseInt(doc[i].return_date.getTime())
+				}
+				socket.emit('showBorrowList', doc);
+			})
+		});
+		//jc10.22
+
 		//The scope which all bussiness defined in. end--------------------------------------------------------------
 	});
 });
