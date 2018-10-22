@@ -533,7 +533,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					var interval = cur.getTime() - res[0].borrow_date.getTime();
 					console.log(interval);
 					if (interval > res2[0].limit * 60 * 60000) {
-						var fine = (interval/60/60000 - res2[0].limit) * res2[0].exceed;
+						var fine = (interval / 60 / 60000 - res2[0].limit) * res2[0].exceed;
 					} else {
 						var fine = 0;
 					}
@@ -556,7 +556,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 						if (reader[i].status == false) {
 							var interval = cur.getTime() - reader[i].borrow_date.getTime();
 							if (interval > res[0].limit * 60 * 60000) {
-								reader[i].fine = (interval/60/60000 - res[0].limit) * res[0].exceed;
+								reader[i].fine = (interval / 60 / 60000 - res[0].limit) * res[0].exceed;
 							} else {
 								reader[i].fine = 0;
 							}
@@ -709,7 +709,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 												} else {
 
 													dbase.collection("reader").updateOne({ reader_id: data.reader_id }, { $set: { borrowNum: doc1.length + doc6.length + 1 } });
-													dbase.collection('books').updateOne({ isbn: data.isbn }, { $set: { available_number: doc[5].length - doc[4].length - doc[3].length } });
+													dbase.collection('books').updateOne({ isbn: data.isbn }, { $set: { available_number: doc5.length - doc4.length - doc3.length - 1 } });
 													dbase.collection('reserve').insertOne({ reader_id: data.reader_id, isbn: data.isbn, reserve_time: ms_time, status: true }, function (Err, res) {
 														socket.emit('reserveSuccess');
 													});
@@ -730,13 +730,15 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 		socket.on('getReserveList', function (reader_id) {
 			var cur_time = new Date();
 			var ms_time = cur_time.getTime();
-			dbase.collection('reserve').updateMany({ reader_id: reader_id, reserve_time: { $lt: ms_time - reserve * 60000 } }, { $set: { status: false } }, function (err, doc) {
-				dbase.collection('reserve').find({ reader_id: reader_id }).toArray(function (err1, doc1) {
-					doc1 = doc1.sort(function (a, b) {
-						return a.reserve_time < b.reserve_time;
-					});
 
-					socket.emit('showReserveList', doc1);
+			dbase.collection("config").find({ "varname": "config" }).toArray(function (err, config) {
+				dbase.collection('reserve').updateMany({ reader_id: reader_id, reserve_time: { $lt: ms_time - config[0].reserve * 60 * 60000 } }, { $set: { status: false } }, function (err, doc) {
+					dbase.collection('reserve').find({ reader_id: reader_id }).toArray(function (err1, doc1) {
+						doc1 = doc1.sort(function (a, b) {
+							return a.reserve_time < b.reserve_time;
+						});
+						socket.emit('showReserveList', doc1);
+					});
 				});
 			});
 		});
