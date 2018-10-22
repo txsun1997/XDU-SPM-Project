@@ -478,8 +478,8 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 								}
 								dbase.collection("reserve").find({ "reader_id": data.phone, "isbn": books[0].isbn, "status": true }).toArray(function (err, reserve) {
 									if (reserve.length == 0) {
-										dbase.collection("books").updateOne({ "isbn": res[0].isbn }, { $set: { "available_number": res3[0].available_number - 1 } });
-										dbase.collection("reader").updateOne({ "reader_id": data.phone }, { $set: { "borrowNum": res2[0].borrowNum + 1 } });
+										dbase.collection("books").updateOne({ "isbn": copies[0].isbn }, { $set: { "available_number": books[0].available_number - 1 } });
+										dbase.collection("reader").updateOne({ "reader_id": data.phone }, { $set: { "borrowNum": reader[0].borrowNum + 1 } });
 									} else {
 										dbase.collection("reserve").updateOne({ "isbn": books[0].isbn, "reader_id": data.phone, "status": true }, { $set: { "status": false } });
 									}

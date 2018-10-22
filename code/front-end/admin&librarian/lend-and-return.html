@@ -190,7 +190,12 @@
 	socket.on("allBorrows", function () {
 		alert("Specified book has been all borrowed");
 		location.href = location.href;
-	})
+	});
+
+	socket.on("noRecord", function () {
+		alert("No borrow record.");
+		location.href = location.href;
+	});
 
 	function barcodeBlur() {
 		var data = {};
