@@ -187,10 +187,10 @@
 		}
 
 		socket.on("librarianList", function (data) {
+			items = data.librarian_list;
 			Cookies.set("librarianList", data.librarian_list);
 			Cookies.set("update", "true");
 		});
-
 
 		setInterval(function () {
 			if (Cookies.get("update") == "true") {
