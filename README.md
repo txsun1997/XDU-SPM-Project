@@ -92,6 +92,8 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [ ] 主页面右上角添加message（与搜索页面保持一致）或删除搜索页面的message
 - [ ] 错误提示/处理：所有输入框测试空值、错误值
 
+----
+
 ## Release 2
 
 - [x] 重构主页，合并登录界面
@@ -121,8 +123,6 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [x] 浏览借书、还书、缴纳罚金记录和当前待支付罚金
 - [x] 预约2小时
 - [x] 通过邮件找回密码
-
-----
 
 ## Release 1
 
