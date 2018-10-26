@@ -11,3 +11,5 @@ librarianOperation(operation, book_name, time, librarian_id, isbn, bar_code(»Ù «
 config(varname:"config",security, limit, exceed, maxnum, reserve)
 location(location)
 type(type)
+income(date, type(deposit, fine), reader_id, value)
+news(date, librarian_id, title, content)
