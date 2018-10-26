@@ -621,6 +621,21 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 			});
 		});
 
+		socket.on('searchReaders', function (data) {		//修改searchbooksjc
+			var orStr = [];
+			orStr.push({ reader_id: new RegExp('.*' + data + '.*', 'i') });
+			orStr.push({ name: new RegExp('.*' + data + '.*', 'i') });
+			orStr.push({ email: new RegExp('.*' + data + '.*', 'i') });
+			orStr.push({ gender: data });
+			var whereStr = { $or: orStr };
+			var search_readers_cursor = dbase.collection("reader").find(whereStr);
+			search_readers_cursor.toArray(function (err, doc) {
+				test.equal(null, err);
+				var readerList = {};
+				readerList.reader_list = doc;
+				socket.emit('readerList', readerList);
+			});
+		});
 
 		//开始发送邮件
 
@@ -753,10 +768,10 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 		socket.on('cancelReserve', function (data) {
 			data.status = true;
 			dbase.collection("reserve").updateOne(data, { $set: { status: false } }, function (err, res) {
-				dbase.collection('books').find({isbn:data.isbn}).toArray(function(err1,doc1){
-					dbase.collection('books').updateOne({isbn:data.isbn},{$set:{available_number:doc1.length+res.result.nModified}},function(err2,res2){
-						dbase.collection('reader').find({reader_id:data.reader_id}).toArray(function(err3,doc3){
-							dbase.collection('reader').updateOne({reader_id:data.reader_id},{$set:{borrowNum:doc[0].borrowNum+res.result.nModified}},function(err4,res4){
+				dbase.collection('books').find({ isbn: data.isbn }).toArray(function (err1, doc1) {
+					dbase.collection('books').updateOne({ isbn: data.isbn }, { $set: { available_number: doc1.length + res.result.nModified } }, function (err2, res2) {
+						dbase.collection('reader').find({ reader_id: data.reader_id }).toArray(function (err3, doc3) {
+							dbase.collection('reader').updateOne({ reader_id: data.reader_id }, { $set: { borrowNum: doc[0].borrowNum + res.result.nModified } }, function (err4, res4) {
 								socket.emit('cancelSuccess');
 							});
 						});
@@ -769,9 +784,9 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 			dbase.collection('borrows').find({ reader_id: reader_id }).toArray(function (err, doc) {
 				for (var i = 0; i < doc.length; i++) {
 					doc[i].borrow_date = parseInt(doc[i].borrow_date.getTime());
-					if(doc[i].return_date != '-'){
+					if (doc[i].return_date != '-') {
 						doc[i].return_date = parseInt(doc[i].return_date.getTime());
-					}else{
+					} else {
 						doc[i].return_date = null;
 					}
 				}
