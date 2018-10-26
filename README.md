@@ -72,8 +72,8 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [ ] 错误提示/处理：所有输入框测试空值、错误值
 
 ### Librarian
-- [ ] 改进搜书功能，一个输入框，可以根据作者、书名检索，支持子串搜索
-- [ ] 整合借还书和预约的业务逻辑，还书时输入barcode自动填充借阅人的电话、姓名
+- [x] 改进搜书功能，一个输入框，可以根据作者、书名检索，支持子串搜索
+- [x] 整合借还书和预约的业务逻辑，还书时输入barcode自动填充借阅人的电话、姓名
 - [ ] 浏览图书馆收入记录（按天/月/年，收入包含保证金和罚金，做可视化如柱状图、折线图，我这里有Amaze UI相关组件的demo）
 - [ ] 添加/编辑/删除主页的公告
 - [ ] 添加/编辑书籍类别（Category）
@@ -113,7 +113,7 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [x] 管理（编辑/删除）reader，删除时须确保罚金已还清&书已归还
 - [x] 编辑书籍信息
 - [x] 删除书籍，精确到书籍&副本，保存和浏览删除书籍的操作记录（包含操作人）
-- [ ] 搜书
+- [x] 搜书
 - [x] 浏览reader的借书、还书、罚金记录
 - [x] 借书（一个账号最多同时借阅3本书）
 - [x] 还书
