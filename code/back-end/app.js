@@ -429,6 +429,21 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					var push = {};
 					push.book_info = book_info;
 					socket.emit("bookInformation", push);
+					dbase.collection("borrows").find({ "bar_code": data.bar_code, "status": false }).toArray(function (err, res) {
+						test.equal(null, err);
+						if (res.length != 0) {
+							var reader_info = {};
+							reader_info.reader_id = res[0].reader_id;
+							reader_info.reader_id = res[0].reader_id;
+							dbase.collection("reader").find({ "reader_id": reader_info.reader_id }).toArray(function (err, res) {
+								test.equal(null, err);
+								if (res.length != 0) {
+									reader_info.name = res[0].name;
+									socket.emit("readerInfoForReturn", reader_info);
+								}
+							});
+						}
+					});
 				});
 			});
 		});
