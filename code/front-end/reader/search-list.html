@@ -532,6 +532,8 @@
 			if (data == null) data = '';
 			socket.emit('searchReaderBooks', data);
 		}
+
+
 		function show_detail(index) {
 
 			var item = bookList[index];
@@ -587,7 +589,6 @@
 		socket.on('showPicture', function (pic) {
 			for (var i = 0; i < pic.length; i++) {
 				var imgFrame = document.getElementById('book' + i);
-
 				imgFrame.setAttribute('src', pic[i]);
 			}
 		});

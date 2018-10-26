@@ -26,10 +26,17 @@
 									<button type="button" class="am-btn am-btn-primary btnAdd">
 										<span class="am-icon-plus"></span> ADD
 									</button>
-									<button type="button" class="am-btn am-btn-warning" onclick="search_panel()">
-										<span class="am-icon-search"></span> SEARCH
-									</button>
 								</div>
+							</div>
+						</div>
+
+						<div class="am-u-sm-12 am-u-md-3">
+							<div class="am-input-group am-input-group-sm">
+								<input id="bookSearch" class="am-form-field" placeholder="Enter book Information" type="text">
+								<span class="am-input-group-btn">
+									<button class="am-btn am-btn-primary" type="button" id="btnsearch" onclick="search_panel()">
+										<span class="am-icon-search"></span>
+									</button> </span>
 							</div>
 						</div>
 					</div>
@@ -130,13 +137,14 @@
 		}
 
 		function search_panel() {
-			$.jq_Panel({
-				title: "SEARCH BOOK",
-				url: "search-panel.html",
-				iframeWidth: 600,
-				iframeHeight: 450,
-			});
+			var data = $('#bookSearch').val();
+			socket.emit('searchReaderBooks', data);
 		}
+
+		socket.on('show_search', function (data) {
+			Cookies.set('bookList', data);
+			Cookies.set("update", "true");
+		});
 
 		function addBookItem(item, i) {
 			var obj = document.createElement('tr');
