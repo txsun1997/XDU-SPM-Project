@@ -39,92 +39,41 @@
                     />
                 &nbsp;  &nbsp; &nbsp;
                     <label for="typeSelect">Search by</label>
-                      <select id="typeSelect" name="type" required >
-                            <option value="year">Year</option>
-                            <option value="year">Month</option>
-                            <option value="year">Day</option>
+                      <select id="typeSelect" name="type" >
+                            <option value="Year">Year</option>
+                            <option value="Month">Month</option>
+                            <option value="Day">Day</option>
                       </select>
                       &nbsp;  &nbsp; &nbsp;
-                        <button type="button" class="am-btn-secondary" onclick="searchincome()">
+                        <button id="11" type="button" class="am-btn-secondary" onclick="searchincome()">
                             VIEW
                         </button>
+
                 </div>
 
             <div id="container1" style="min-width:500px;height:400px"></div>
 
             <div class="am-g" style="margin-top: 30px;">
                     <div class="am-u-sm-12">
-                            <table class="am-table" border="1">
+                            <table class="am-table" border="1" align="center">
                                 <caption>Income Detail</caption>
                                 <thead>
                                 <tr>
                                     <th>
-                                        date
+                                        Date
                                     </th>
                                     <th>
-                                        income
+                                        Income(¥)
                                     </th>
                                     <th>
-                                        type
+                                        Type(Deposit/Fine)
+                                    </th>
+                                    <th>
+                                        Reader
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody id="tUser">
-                                <tr>
-                                    <td>
-                                        2018.3.2
-                                    </td>
-                                    <td>
-                                        133
-                                    </td>
-                                    <td>
-                                        fine
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        2018.3.2
-                                    </td>
-                                    <td>
-                                        133
-                                    </td>
-                                    <td>
-                                        fine
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        2018.3.2
-                                    </td>
-                                    <td>
-                                        133
-                                    </td>
-                                    <td>
-                                        fine
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        2018.3.2
-                                    </td>
-                                    <td>
-                                        133
-                                    </td>
-                                    <td>
-                                        fine
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        2018.3.2
-                                    </td>
-                                    <td>
-                                        133
-                                    </td>
-                                    <td>
-                                        fine
-                                    </td>
-                                </tr>
                                 </tbody>
                             </table>
 
@@ -134,6 +83,10 @@
         <!-- content end -->
     </div>
 </div>
+
+<script src="../cookie.js"></script>>
+<script src="../socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/layer.js"></script>
 <script type="text/javascript" src="js/H-ui.min.js"></script>
@@ -141,46 +94,110 @@
 <script type="text/javascript" src="js/hcharts/Highcharts/5.0.6/js/highcharts.js"></script>
 <script type="text/javascript" src="js/hcharts/Highcharts/5.0.6/js/modules/exporting.js"></script>
 <script type="text/javascript">
-    var data=['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
-    var hh=[7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6];
-    $(function() {
-        Highcharts.chart('container1', {
-            title: {
-                text: 'Income',
-                x: -20 //center
-            },
-            xAxis: {
-                categories:data
-            },
-            yAxis: {
+    var socket = io("http://139.199.112.88:2761");
+    var items = [];
+    var senddata={};
+    senddata.type="Day";
+    senddata.origin=true;
+    socket.emit('viewincome', senddata);
+    socket.on("incomepicture", function (data) {
+        var xdate=data.xdate;
+        var yfine=data.yfine;
+        var ydeposit=data.ydeposit;
+        $(function() {
+            Highcharts.chart('container1', {
                 title: {
-                    text: 'Temperature (°C)'
+                    text: 'Income',
+                    x: -20 //center
                 },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
+                xAxis: {
+                    categories:xdate
+                },
+                yAxis: {
+                    title: {
+                        text: 'Income (¥)'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    valueSuffix: '¥'
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle',
+                    borderWidth: 0
+                },
+                series: [{
+                    name: 'Fine',
+                    data: yfine
+                }, {
+                    name: 'Deposit ',
+                    data: ydeposit
                 }]
-            },
-            tooltip: {
-                valueSuffix: '°C'
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
-            },
-            series: [{
-                name: 'Fine',
-                data: hh
-            }, {
-                name: 'Cash deposit ',
-                data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-            }]
+            });
         });
+    });
+
+    function searchincome(){
+        var start=$('#start_date').val();
+        var end=$('#end_date').val();
+        var type=$('#typeSelect').val();
+        if(start==""||end==""||type=="")
+            alert("Please select the complete date and type you want to view.");
+        var data={};
+        data.start = start;
+        data.end = end;
+        data.type = type;
+        data.origin=false;
+        socket.emit('viewincome', data);
+    }
+
+    function addIncomeItem(item) {
+        var obj = document.createElement('tr');
+
+        var income_date = document.createElement('td');
+        income_date.innerHTML = item.date.substring(0, 10);
+        var income_value = document.createElement('td');
+        income_value.innerHTML =item.value;
+        var income_type= document.createElement('td');
+        income_type.innerHTML =item.type;
+        var reader_id= document.createElement('td');
+        reader_id.innerHTML =item.reader_id;
+
+        obj.appendChild(income_date);
+        obj.appendChild(income_value);
+        obj.appendChild(income_type);
+        obj.appendChild(reader_id);
+
+        var parent = document.getElementById('tUser');
+        parent.appendChild(obj);
+    }
+
+
+
+    function clearItems() {
+        var obj = document.getElementById('tUser');
+        while (obj.childNodes.length > 0) {
+            obj.removeChild(obj.lastChild);
+        }
+    }
+
+    socket.on("incomeList", function (data) {
+        clearItems();
+        data = data.incomelist;
+        items = data;
+        for (var i = 0; i < data.length; i++) {
+            addIncomeItem(data[i]);
+        }
     });
 </script>
 </body>
 
 </html>
+
+
