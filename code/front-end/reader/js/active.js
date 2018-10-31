@@ -360,7 +360,7 @@
 
 /*=============  Slider Activation  ==============*/
     $('.slide__activation').owlCarousel({
-        loop:true,
+        loop:false,
         margin: 0,
         nav:true,
         autoplay: false,

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
@@ -22,7 +22,7 @@
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
-                <a href="index.html"><img src="images/logo/logo黑字.png" width = 190px height = 65px ></a>
+                <a href="index-ch.html"><img src="images/logo/logo黑字.png" width = 190px height = 65px ></a>
                 <!-- <a class="navbar-brand" href="index.html"><img src="images/logo/logo黑字.png" width = 205px height = 60px ></a> -->     
             </div>
             <ul class="nav navbar-top-links navbar-right">
@@ -57,7 +57,7 @@
                         <li class="divider"></li>
                         <li>
                             <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
+                                <strong>所有邮件</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>
@@ -70,17 +70,18 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                         <li><a href="#"><i class="fa fa-user fa-fw"></i> Language</a>
+                         <li><a href="#"><i class="fa fa-user fa-fw"></i> 语言</a>
                              <li>                                  
-                                    <li><a href="#"><i class="fa fa-none fa-fw"></i>English</a></li>
+                                    <li><a href="profile.html"><i class="fa fa-none fa-fw"></i>English</a></li>
                                     <!-- 瞎写的类，不知道有没有，留空用的 -->
-                                    <li><a href="profile-ch.html"><i class="fa fa-none fa-fw"></i>中文</a></li>                                 
+                                    <li><a href="#"><i class="fa fa-none fa-fw"></i>中文</a></li>                                 
                             </li> 
+                        
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 设置</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="index.html" onclick="logOut()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="index-ch.html" onclick="logOut()"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -95,7 +96,7 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a class="active-menu" href="profile.html"><i class="fa fa-fw fa-file"></i> Profile</a>
+                        <a class="active-menu" href="profile-ch.html"><i class="fa fa-fw fa-file"></i> 个人中心</a>
                     </li>
                     <!-- <li>
                         <a href="change-password.html"><i class="fa fa-edit"></i> Change password<span class="fa arrow"></span></a>
@@ -109,13 +110,13 @@
                         </ul>
                     </li>      -->  
                     <li>
-                        <a href="change-password.html"><i class="fa fa-edit"></i> Change Password</a>
+                        <a href="change-password-ch.html"><i class="fa fa-edit"></i> 改变密码</a>
                     </li>                                       
                     <li>
-                        <a href="history.html"><i class="fa fa-table"></i> History</a>
+                        <a href="history-ch.html"><i class="fa fa-table"></i> 历史</a>
                     </li>
                     <li>
-                        <a href="reserve.html"><i class="fa fa-table"></i> Reserve</a>
+                        <a href="reserve-ch.html"><i class="fa fa-table"></i> 保留书籍</a>
                     </li>                    
                 </ul>
 
@@ -126,7 +127,7 @@
         <div id="page-wrapper" >
 		  <div class="header"> 
                         <h1 class="page-header">
-                             Self Profile <small>Change or inquire your info</small>
+                             个人简介 <small>改变或查询您的信息</small>
                         </h1> 
 									
 		</div>
@@ -137,48 +138,48 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <div class="card-title">
-                                        <div class="title">Info List</div>
+                                        <div class="title">信息列表</div>
                                     </div>
                                 </div>
                                 <div class="panel-body">
                                     <form class="form-horizontal">
                                         <div class="form-group">
-                                            <label for="inputID" class="col-sm-2 control-label">Reader_ID</label>
+                                            <label for="inputID" class="col-sm-2 control-label">读者ID</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control" id="inputID" readonly="readonly" >
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="inputname" class="col-sm-2 control-label">Name</label>
+                                            <label for="inputname" class="col-sm-2 control-label">姓名</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control" id="inputname" readonly="readonly">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="inputgender" class="col-sm-2 control-label">Gender</label>
+                                            <label for="inputgender" class="col-sm-2 control-label">性别</label>
                                             <div class="col-sm-6">
                                                  <div class="radio3 radio-check radio-inline">
                                                  <input type="radio" id="radio4" name="radio2" value="Male" checked="" onclick="return false;">
                                                  <label for="radio4">
-                                                 Male
+                                                 男
                                                  </label>
                                             </div>
                                             <div class="radio3 radio-check radio-warning radio-inline">
                                                  <input type="radio" id="radio6" name="radio2" value="Female" onclick="return false;">
                                                  <label for="radio6">
-                                                 Female
+                                                 女
                                                  </label>
                                             </div>
                                         </div>                                        
                                         </div>
                                         <div class="form-group">
-                                            <label for="inputemail" class="col-sm-2 control-label">Email</label>
+                                            <label for="inputemail" class="col-sm-2 control-label">邮件</label>
                                             <div class="col-sm-6">
                                                 <input type="email" class="form-control" id="inputemail" value="">
                                             </div>
                                         </div> 
                                         <div class="form-group">
-                                            <label for="inputtel" class="col-sm-2 control-label">Tel</label>
+                                            <label for="inputtel" class="col-sm-2 control-label">电话</label>
                                             <div class="col-sm-6">
                                                 <input type="tel" class="form-control" id="inputtel" value="">
                                             </div>
@@ -186,8 +187,8 @@
                                     
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="button" onclick="save()" class="btn btn-default">Save</button>
-                                                <button type="button" onclick="reset()" class="btn btn-default">Reset</button>
+                                                <button type="button" onclick="save()" class="btn btn-default">保存</button>
+                                                <button type="button" onclick="reset()" class="btn btn-default">重置</button>
                                             </div>
                                            
                                         </div>
@@ -250,7 +251,7 @@
         socket.on("noSession", function (data) {
             window.alert("Login has expired, please login again!");
             Cookies.remove('type');
-            location.href = location.href.replace("profile.html","index.html");
+            location.href = location.href.replace("profile-ch.html","index-ch.html");
         });
         socket.on('sessionSuccess',function(data){
             if(data=='updateProfile'){
@@ -260,7 +261,7 @@
         socket.on("sessionFailed", function (data) {
             window.alert("User name type is inconsistent, please login again!");
             Cookies.remove('type');
-            location.href = location.href.replace("profile.html","index.html");
+            location.href = location.href.replace("profile-ch.html","index-ch.html");
         });
         
         socket.on("readerInfo", function (data) {
