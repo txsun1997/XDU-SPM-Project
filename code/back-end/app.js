@@ -941,7 +941,6 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 			socket.emit("editbooktypeSuccess");
 		});
 
-
 		socket.on("viewincome", function (data) {
 			var type = data.type;
 			var cursor;
@@ -960,14 +959,15 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				retdata.incomelist = doc;
 				socket.emit("incomeList", retdata);// Return the detail information of all income between two dates;
 				//Following part return the information for drawing.
+
+				var fine = [];
+				var deposit = [];
+				var xdate = [];
 				if (type == "Year") {
-					var fine = [];
-					var deposit = [];
-					var xdate = [];
 					var curfine = 0, curdeposit = 0;
-					var curyear = doc[0].getYear();
+					var curyear = doc[0].date.getYear();
 					for (var i = 0; i < doc.length; i++) {
-						if (doc[i].getYear() == curyear) {
+						if (doc[i].date.getYear() == curyear) {
 							if (doc[i].type == "fine")
 								curfine += doc[i].value;
 							else curdeposit += doc[i].value;
@@ -976,21 +976,21 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 							xdate.push(curyear + 1900);
 							fine.push(curfine);
 							deposit.push(curdeposit);
-							curyear = doc[i].getYear();
+							curyear = doc[i].date.getYear();
 							curfine = 0;
 							curdeposit = 0;
 						}
 					}
+					xdate.push(curyear + 1900);
+					fine.push(curfine);
+					deposit.push(curdeposit);
 				}
 				else if (type == "Month") {
-					var fine = [];
-					var deposit = [];
-					var xdate = [];
 					var curfine = 0, curdeposit = 0;
-					var curyear = doc[0].getYear();
-					var curmonth = doc[0].getMonth();
+					var curyear = doc[0].date.getYear();
+					var curmonth = doc[0].date.getMonth();
 					for (var i = 0; i < doc.length; i++) {
-						if (doc[i].getYear() == curyear && doc[i].getMonth() == curmonth) {
+						if (doc[i].date.getYear() == curyear && doc[i].date.getMonth() == curmonth) {
 							if (doc[i].type == "fine")
 								curfine += doc[i].value;
 							else curdeposit += doc[i].value;
@@ -999,23 +999,23 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 							xdate.push(curyear + 1900 + "." + (curmonth + 1));
 							fine.push(curfine);
 							deposit.push(curdeposit);
-							curyear = doc[i].getYear();
-							curmonth = doc[i].getMonth();
+							curyear = doc[i].date.getYear();
+							curmonth = doc[i].date.getMonth();
 							curfine = 0;
 							curdeposit = 0;
 						}
 					}
+					xdate.push(curyear + 1900 + "." + (curmonth + 1));
+					fine.push(curfine);
+					deposit.push(curdeposit);
 				}
 				else {
-					var fine = [];
-					var deposit = [];
-					var xdate = [];
 					var curfine = 0, curdeposit = 0;
-					var curyear = doc[0].getYear();
-					var curmonth = doc[0].getMonth();
-					var curdate = doc[0].getDate();
-					for (i = 0; i < doc[i].length; i++) {
-						if (doc[i].getYear() == curyear && doc[i].getMonth() == curmonth && doc[i].getDate() == curdate) {
+					var curyear = doc[0].date.getYear();
+					var curmonth = doc[0].date.getMonth();
+					var curdate = doc[0].date.getDate();
+					for (i = 0; i < doc.length; i++) {
+						if (doc[i].date.getYear() == curyear && doc[i].date.getMonth() == curmonth && doc[i].date.getDate() == curdate) {
 							if (doc[i].type == "fine")
 								curfine += doc[i].value;
 							else curdeposit += doc[i].value;
@@ -1024,19 +1024,43 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 							xdate.push(curyear + 1900 + "." + (curmonth + 1) + "." + curdate);
 							fine.push(curfine);
 							deposit.push(curdeposit);
-							curyear = doc[i].getYear();
-							curmonth = doc[i].getMonth();
-							curdate = doc[i].getDate();
+							curyear = doc[i].date.getYear();
+							curmonth = doc[i].date.getMonth();
+							curdate = doc[i].date.getDate();
 							curfine = 0;
 							curdeposit = 0;
 						}
 					}
+					xdate.push(curyear + 1900 + "." + (curmonth + 1) + "." + curdate);
+					fine.push(curfine);
+					deposit.push(curdeposit);
 				}
 				var ret = {};
 				ret.xdate = xdate;
 				ret.yfine = fine;
 				ret.ydeposit = deposit;
 				socket.emit("incomepicture", ret);
+			});
+		});
+
+		socket.on('passwordrecovery', function (data) {
+			var auth_cursor = dbase.collection("librarian").find({ "librarian_id": data.username });
+			auth_cursor.toArray(function (err, doc) {
+				test.equal(null, err);
+				var successData = {};
+				if (doc.length == 0) {
+					socket.emit("nouser1");
+				} else {
+					if (doc[0].email == data.email) {
+						successData.librarian_id = doc[0].librarian_id;
+						successData.email = doc[0].email;
+						socket.emit("passwordrecoverySuccess");
+						successData.status = true;
+						dbase.collection("restorePassword").insertOne(successData);
+					} else {
+						socket.emit("wrongemail");
+					}
+				}
 			});
 		});
 		//The scope which all bussiness defined in. end--------------------------------------------------------------
