@@ -19,42 +19,6 @@
 		});
 	</script>
 
-	<script src="../socket.io.js"></script>
-	<script src="../cookie.js"></script>
-	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-
-
-	<script>
-
-		var socket = io("http://139.199.112.88:2761");
-
-		function loginServer() {
-			var login_data = {};
-			login_data["username"] = $("#username").val();
-			login_data["password"] = $("#password").val();
-			socket.emit("login", login_data);
-		}
-
-		socket.on("LoginSuccess", function (data) {
-			Cookies.set("username", $("#username").val(), { expires: 1 });
-			Cookies.set("type", data.type, { expires: 1 });
-			Cookies.set("session", data.session, { expires: 1 });
-			var cur_href = location.href;
-			location.href = cur_href.replace("reader&login/login.html", "admin&librarian/" + data.type + "-index.html");
-
-		});
-
-		socket.on("noUser", function (data) {
-			window.alert("Unregistered User!");
-		});
-
-		socket.on("wrongPassword", function (data) {
-			window.alert("Password Error!");
-		});
-
-
-	</script>
-
 </head>
 
 <body>
@@ -78,7 +42,7 @@
 				<div class="clear"> </div>
 				<div class="submit">
 					<input type="submit" onclick="loginServer()" value="LOGIN">
-					<h4><a href="#">Lost your Password ?</a></h4>
+					<h4><a href="passwordRecover.html">Lost your Password ?</a></h4>
 					<div class="clear"> </div>
 				</div>
 
@@ -92,6 +56,40 @@
 		<p>Copyright &copy; 2018 XDU.</p>
 	</div>
 
+
+	<script src="../socket.io.js"></script>
+	<script src="../cookie.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+
+	<script>
+
+        var socket = io("http://139.199.112.88:2761");
+
+        function loginServer() {
+            var login_data = {};
+            login_data["username"] = $("#username").val();
+            login_data["password"] = $("#password").val();
+            socket.emit("login", login_data);
+        }
+
+        socket.on("LoginSuccess", function (data) {
+            Cookies.set("username", $("#username").val(), { expires: 1 });
+            Cookies.set("type", data.type, { expires: 1 });
+            Cookies.set("session", data.session, { expires: 1 });
+            var cur_href = location.href;
+            location.href = cur_href.replace("reader&login/login.html", "admin&librarian/" + data.type + "-index.html");
+
+        });
+
+        socket.on("noUser", function (data) {
+            window.alert("Unregistered User!");
+        });
+
+        socket.on("wrongPassword", function (data) {
+            window.alert("Password Error!");
+        });
+	</script>
 </body>
 
 </html>
