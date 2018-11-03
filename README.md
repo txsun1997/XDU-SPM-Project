@@ -76,6 +76,7 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [x] 改进搜书功能，一个输入框，可以根据作者、书名检索，支持子串搜索
 - [x] 整合借还书和预约的业务逻辑，还书时输入barcode自动填充借阅人的电话、姓名
 - [ ] 浏览图书馆收入记录（按天/月/年，收入包含保证金和罚金，做可视化如柱状图、折线图，我这里有Amaze UI相关组件的demo）
+- [ ] ISBN调用豆瓣API，豆瓣书库中没有的需手动输入信息，也可以无ISBN（比如很多年前的书）
 - [ ] 添加/编辑/删除主页的公告
 - [ ] 添加/编辑书籍类别（Category）
 - [ ] 添加/编辑/删除位置（Location）
