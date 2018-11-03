@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="css/amazeui.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/app.css">
+    <style>
+        .admin-main{
+            padding-top: 0px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="am-cf admin-main">
+    <!-- content start -->
+    <div class="admin-content">
+        <div class="admin-content-body">
+            <div class="am-g">
+                <form class="am-form am-form-horizontal" style="padding-top: 30px;">
+                    <input value="504" name="roleId" type="hidden">
+                    <div class="am-form-group">
+                        <label for="title" class="am-u-sm-3 am-form-label">
+                            Title
+                        </label>
+                        <div class="am-u-sm-9">
+                            <input id="title"  required=""  value="" placeholder="please enter announcement title" name="annonuncetitle" type="text">
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="content" class="am-u-sm-3 am-form-label">
+                            Content
+                        </label>
+                        <div class="am-u-sm-9">
+                            <textarea id="content" rows="5" cols="25" placeholder="please enter announcement content"></textarea>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <div class="am-u-sm-9 am-u-sm-push-3">
+                            <button onclick="addannounce()" class="am-btn am-btn-success">ADD</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="../cookie.js"></script>
+<script src="../socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    var socket = io("http://139.199.112.88:2761");
+
+    socket.on("addAnnouncementSuccess", function () {  //服务器端
+        window.alert("Successfully add Announcement.");
+    });
+
+    function addannounce() {
+        var data = {};
+        data.title=$("#title").val();
+        data.content=$("#content").val();
+        data.librarian_id=Cookies.get("username");
+        socket.emit("addAnnouncement", data);
+    }
+</script>
+
+</html>

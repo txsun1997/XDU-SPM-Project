@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
       <meta charset="utf-8" />
@@ -23,7 +23,7 @@
  <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
-                <a href="index.html"><img src="images/logo/logo黑字.png" width = 190px height = 65px ></a>
+                <a href="index-ch.html"><img src="images/logo/logo黑字.png" width = 190px height = 65px ></a>
                 <!-- <a class="navbar-brand" href="index.html"><img src="images/logo/logo黑字.png" width = 205px height = 60px ></a> -->     
             </div>
             <ul class="nav navbar-top-links navbar-right">
@@ -40,7 +40,7 @@
                                         <em>Oct.14.2018</em>
                                     </span>
                                 </div>
-                                <div >The book you borrowed will expire in one day. </div>
+                                <div>The book you borrowed will expire in one day. </div>
                             </a>
                         </li>
                         <li class="divider"></li>
@@ -58,7 +58,7 @@
                         <li class="divider"></li>
                         <li>
                             <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
+                                <strong>所有邮件</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>
@@ -71,17 +71,17 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                         <li><a href="#"><i class="fa fa-user fa-fw"></i> Language</a>
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 语言</a>
                              <li>                                  
-                                    <li><a href="#"><i class="fa fa-none fa-fw"></i>English</a></li>
+                                    <li><a href="reserve-ch.html"><i class="fa fa-none fa-fw"></i>English</a></li>
                                     <!-- 瞎写的类，不知道有没有，留空用的 -->
-                                    <li><a href="history-ch.html"><i class="fa fa-none fa-fw"></i>中文</a></li>                                 
+                                    <li><a href="#"><i class="fa fa-none fa-fw"></i>中文</a></li>                                 
                             </li> 
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 设置</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="index.html" onclick="logOut()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="index-ch.html" onclick="logOut()"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -96,7 +96,7 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a  href="profile.html"><i class="fa fa-fw fa-file"></i> Profile</a>
+                        <a  href="profile-ch.html"><i class="fa fa-fw fa-file"></i> 个人中心</a>
                     </li>
                     <!-- <li>
                         <a href="change-password.html"><i class="fa fa-edit"></i> Change password<span class="fa arrow"></span></a>
@@ -110,14 +110,14 @@
                         </ul>
                     </li>      -->  
                     <li>
-                        <a href="change-password.html"><i class="fa fa-edit"></i> Change Password</a>
+                        <a href="change-password-ch.html"><i class="fa fa-edit"></i> 更改密码</a>
                     </li>                                       
                     <li>
-                        <a  class="active-menu" href="history.html"><i class="fa fa-table"></i> History</a>
-                    </li>  
+                        <a href="history-ch.html"><i class="fa fa-table"></i> 历史</a>
+                    </li>
                     <li>
-                        <a href="reserve.html"><i class="fa fa-table"></i> Reserve</a>
-                    </li>                  
+                        <a class="active-menu" href="reserve-ch.html"><i class="fa fa-table"></i> 保留书籍</a>
+                    </li>                   
                 </ul>
 
             </div>
@@ -127,7 +127,7 @@
         <div id="page-wrapper" >
 		    <div class="header"> 
                         <h1 class="page-header">
-                            Book History <small id='fine'>The books you have read</small>
+                            保留的书籍 <small>您正保留的书籍</small>
                         </h1>		
 		    </div>
 		
@@ -138,23 +138,28 @@
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                             Book List
+                             书籍列表
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>TITLE</th>                       
-                                            <th>BARCODE</th>
-                                            <th>BORROW TIME</th>
-                                            <th>RETURN TIME</th>
-                                            <th>FINE TIME</th>                                               
+                                            <th>书名</th>                        
+                                            <th>作者</th>
+                                            <th>版本</th>
+                                            <th>出版年份</th>
+                                            
+                                            <th>书的ISBN</th>
+                                            
+                                            <th>保留时间</th>
+                                            <th>状态</th>     
                                         </tr>
                                     </thead>
-                                    <tbody id='list_body'>
-                                        
-                       
+                                    <tbody id="list_body">
+
+                                         
+                                                                      
                                     </tbody>
                                 </table>
                             </div>
@@ -205,70 +210,110 @@
             Cookies.remove('type');
             socket.emit('logOut',auth_data);
         }
-
+        function cancelReserve(index){
+            var data = {};
+            var tds = document.getElementById(index).childNodes;
+            data.reserve_time = parseInt(tds[5].getAttribute('name'));
+            data.isbn = tds[4].innerHTML;
+            data.reader_id = auth_data.username;
+            //window.alert(JSON.stringify(data));
+            socket.emit('cancelReserve',data);
+            var status = tds[6];
+            //status.removeChild(status.childNotes[0]);
+            //window.alert(status.childNotes.length);
+            status.innerHTML = 'inValid';
+        }
         socket.on("noSession", function (data) {
             window.alert("Login has expired, please login again!");
             Cookies.remove('type');
-            location.href = location.href.replace("history.html","index.html");
+            location.href = location.href.replace("reserve-ch.html","index-ch.html");
         });
 
         socket.on("sessionFailed", function (data) {
             window.alert("User name type is inconsistent, please login again!");
             Cookies.remove('type');
-            location.href = location.href.replace("history.html","index.html");
+            location.href = location.href.replace("reserve-ch.html","index-ch.html");
         });
-        socket.on('showBorrowList',function(data){
-            var totalFine = 0;
+        socket.on('showReserveList',function(data){
+            //window.alert(JSON.stringify(data));
             for(var i=0;i<data.length;i++){
-
                 var tr = document.createElement('tr');
                 tr.setAttribute('class','odd gradeX');
+                tr.setAttribute('id',i);
                 var td_name = document.createElement('td');
-                td_name.innerHTML = data[i].book_name; 
-                var td_code = document.createElement('td');
-                td_code.innerHTML = data[i].bar_code;
-                var td_borrow = document.createElement('td');
-                var borrow_time = new Date(data[i].borrow_date);
-                //window.alert();
-                td_borrow.innerHTML = borrow_time.getFullYear()+'-'+(borrow_time.getMonth()+1)+'-'+borrow_time.getDate();
+                var td_author = document.createElement('td');
+                var td_press = document.createElement('td');
+                var td_year = document.createElement('td');
+                var td_isbn = document.createElement('td');
+                td_isbn.setAttribute('class','center');
+                td_isbn.innerHTML=data[i].isbn;
+                var td_time = document.createElement('td');
+                td_time.setAttribute('class','center');
+                td_time.setAttribute('name',data[i].reserve_time);
+                var reserve_time = new Date(data[i].reserve_time);
+                td_time.innerHTML = reserve_time.getFullYear()+'-'+(reserve_time.getMonth()+1)+'-'+reserve_time.getDate()+' '+reserve_time.getHours()+':'+reserve_time.getMinutes()+':'+reserve_time.getSeconds();
+                var td_status=document.createElement('td');
+                td_status.setAttribute('class','center');
 
-
-                var td_return = document.createElement('td');
-                var return_time = new Date(data[i].return_date);
-                td_return.innerHTML = return_time.getFullYear()+'-'+(return_time.getMonth()+1)+'-'+return_time.getDate();
-                var td_fine = document.createElement('td');
-
-                td_fine.innerHTML = '<font color="#FF0000">'+data[i].fine+'</font>';
-                totalFine+=data[i].fine;
+                if(data[i].status==true){
+                    var btn = document.createElement('button');
+                    btn.setAttribute('name',i);
+                    btn.setAttribute('onclick','cancelReserve(this.name)');
+                    btn.innerHTML = 'Cancel';
+                    td_status.appendChild(btn);
+                }else{
+                    td_status.innerHTML = 'inValid';
+                }
 
                 tr.appendChild(td_name);
-
-                tr.appendChild(td_code);
-                tr.appendChild(td_borrow);
-
-                tr.appendChild(td_return);
-                tr.appendChild(td_fine);
+                tr.appendChild(td_author);
+                tr.appendChild(td_press);
+                tr.appendChild(td_year);
+                tr.appendChild(td_isbn);
+                tr.appendChild(td_time);
+                tr.appendChild(td_status);
                 list_body.appendChild(tr);
+
+                var item = {isbn:data[i].isbn,index:i};
+                socket.emit('getReserveItem',item);
             }
-            var fineText = document.getElementById('fine');
-            fineText.innerHTML='Total fine you have to pay: <font color="#FF0000">'+ totalFine+'</font> '
 
             /*
                                         <tr class="odd gradeX">
                                             <td>Deep Leearning</td>
-                                            <td>123-321</td>
-                                            <td>2018-7-1</td>
-                                            <td>2018-9-1</td>
-                                            <td>15</td>                                            
-                                        </tr>    
-
+                                            <td>Lan Goodfellow</td>
+                                            <td>MIT Press</td>
+                                            <td class="center">2016</td>
+                                            
+                                            
+                                            <td class="center">123-321</td>
+                                            <td class="center">12:00</td>
+                                            <td class="center">
+                                                <button>
+                                                    Cancel
+                                                </button>
+                                            </td>                                            
+                                        </tr>
             */
         });
-
+        socket.on('showReserveItem',function(data){
+            var book = data.book;
+            var index = data.index;
+            var tr = document.getElementById(index);
+            var tds = tr.childNodes;
+            tds[0].innerHTML = book.book_name;
+            tds[1].innerHTML = book.author;
+            tds[2].innerHTML = book.press;
+            tds[3].innerHTML = book.publish_year;
+           // window.alert(JSON.stringify(data));
+        });
+        socket.on('cancelSuccess',function(data){
+            window.alert('cancel success!');
+        });
 
         socket.emit('sessionAuth',auth_data);   
-        socket.emit('getBorrowList',auth_data.username);
-        
+        socket.emit('getReserveList',auth_data.username);     
+
     </script>
     
    

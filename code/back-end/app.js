@@ -42,6 +42,45 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 		console.log("The client and server has been successfully connected.");
 		//The scope which all bussiness defined in. start------------------------------------------------------------
 
+
+		// 导入node-schedule模块
+		var schedule = require("node-schedule");
+
+		// 设置每天8点检查逾期信息
+		var rule = new schedule.RecurrenceRule();
+		rule.dayOfWeek = [0, new schedule.Range(1, 6)];
+		rule.hour = 8;
+		rule.minute = 0;
+
+		var j = schedule.scheduleJob(rule, function () {
+			dbase.collection('config').find({ varname: 'config' }).toArray(function (err0, doc0) {
+				var limit = doc0[0].limit;
+				var cur_time = new Date();
+				var ms_time = cur_time.getTime();
+				dbase.collection('borrows').find({ status: true }).toArray(function (err1, doc1) {
+					for (var i = 0; i < doc1.length; i++) {
+						borrow_time = doc1[i].borrow_date.getTime();
+						// 如果当前时间减去租借时间大于限定时间，则发送警告邮件
+						if (ms_time - borrow_time > limit * 24 * 60 * 60 * 1000) {
+							var email_data = {};
+							email_data.book_name = doc1[i].book_name;
+							dbase.collection('reader').find({ "reader_id": doc1[i].reader_id }).toArray(function (err2, doc2) {
+								email_data.email = doc2[0].email;
+								server.send({
+									text: "The book " + email_data.book_name + " has overdued. Please return your book, or you will be fined 1 cent per day.",       //邮件内容
+									from: "cjiang_5@stu.xidian.edu.cn",        //谁发送的
+									to: email_data.email,       //发送给谁的
+									subject: "receiveAlert"          //邮件主题
+								}, function (err, message) {
+									console.log(err || message);
+								});
+							});
+						}
+					}
+				});
+			});
+		});
+
 		//author: wanglei, usage: login part for user.
 		socket.on('login', function (data) {
 			//Do the things you want to do when a user login.
@@ -170,6 +209,12 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				auth_data.password = "12345678";
 				auth_data.type = "reader";
 				dbase.collection("accounts").insertOne(auth_data);
+				var auth_data1 = {};
+				auth_data1.date = new Date();
+				auth_data1.type = "deposit";
+				auth_data1.value = 300;
+				auth_data1.reader_id = data.reader_id;
+				dbase.collection("income").insertOne(auth_data1);
 			});
 		});
 
@@ -380,24 +425,25 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 			});
 		});
 
-		socket.on("deleteBook", function (data) {
-			dbase.collection("copies").find({ "isbn": data.isbn }).toArray(function (err, auth) {
-				for (var i = 0; i < auth.length; i++) {
-					if (auth[i].status != "available") {
-						socket.emit("bookNotAvailable");
+		socket.on("deleteReader", function (data) {
+			dbase.collection("borrows").find({ "reader_id": data.reader_id }).toArray(function (err, doc) {
+				for (var i = 0; i < doc.length; i++) {
+					if (doc[i].status == false) {
+						socket.emit("notAllReturned");
 						return;
 					}
 				}
-				dbase.collection("copies").deleteMany({ "isbn": data.isbn });
-				data.bar_code = 0;
-				dbase.collection("books").find({ "isbn": data.isbn }).toArray(function (err, doc) {
+				dbase.collection("reader").remove({ "reader_id": data.reader_id }, function (err, res) {
 					test.equal(null, err);
-					data.book_name = doc[0].book_name;
-					data.time = new Date();
-					dbase.collection("librarianOperation").insertOne(data);
-					dbase.collection("books").deleteOne({ "isbn": data.isbn });
-					socket.emit("deleteBookSuccess");
+					socket.emit("deleteReaderSuccess");
 				});
+				dbase.collection("accounts").deleteOne({ "username": data.reader_id });
+				var auth_data1 = {};
+				auth_data1.date = new Date();
+				auth_data1.type = "deposit";
+				auth_data1.value = -300;
+				auth_data1.reader_id = data.reader_id;
+				dbase.collection("income").insertOne(auth_data1);
 			});
 		});
 
@@ -549,12 +595,16 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					console.log(interval);
 					if (interval > res2[0].limit * 60 * 60000) {
 						var fine = (interval / 60 / 60000 - res2[0].limit) * res2[0].exceed;
+						var auth_data1 = {};
+						auth_data1.date = new Date();
+						auth_data1.type = "fine";
+						auth_data1.value = fine;
+						auth_data1.reader_id = data.phone;
+						dbase.collection("income").insertOne(auth_data1);
 					} else {
 						var fine = 0;
 					}
-
 					dbase.collection("borrows").updateOne({ "reader_id": data.phone, "bar_code": data.bar_code, "status": false }, { $set: { "status": true, "return_librarian_id": data.return_librarian_id, "return_date": cur, "fine": fine } });
-
 					socket.emit("returnBookSuccess");
 				});
 			});
@@ -810,6 +860,209 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 		});
 		//jc10.22
 
+		//高雅
+
+
+		//...edit, add and delete announcement...
+		socket.on("getAnnouncementList", function (data) {
+			dbase.collection("news").find({}).toArray(function (err, res) {
+				var retdata = {};
+				for (var i = 0; i < res.length; i++) {
+					delete res[i].content;
+				}
+				retdata.annoucement_list = res;
+				socket.emit("AnnouncementList", retdata);
+			});
+		});
+		socket.on("deleteAnnouncement", function (data) {
+			dbase.collection("news").deleteOne({ "title": data.title }, function (err, res) {
+				test.equal(null, err);
+				socket.emit("deleteAnnouncementSuccess");
+			});
+		});
+		//get a specific announcementinfo
+		socket.on("getAnnouncementInfo", function (data) {
+			dbase.collection("news").find({ "title": data.title }).toArray(function (err, res) {
+				var retdata = {};
+				retdata.content = res[0].content;
+				retdata.title = res[0].title;
+				socket.emit("AnnouncementInfo", retdata);
+			});
+		});
+		socket.on("editAnnouncement", function (data) {
+			var cur_time = new Date();
+			dbase.collection("news").updateOne({ "title": data.title }, { $set: { "content": data.content, "librarian_id": data.librarian_id, "date": cur_time } });
+			socket.emit("editAnnouncementSuccess");
+		});
+		socket.on("addAnnouncement", function (data) {
+			data.date = new Date();
+			dbase.collection("news").insertOne(data, function (err, doc) {
+				socket.emit("addAnnouncementSuccess");
+			});
+		});
+
+		//位置的删除
+		socket.on("deletelocation", function (data) {
+			dbase.collection("location").deleteOne({ "location": data.location }, function (err, res) {
+				test.equal(null, err);
+				socket.emit("DeletelocationSuccess");
+			});
+			dbase.collection("books").updateMany({ "location": data.location }, { $set: { "location": "Undetermined" } });
+
+		});
+
+		//位置的添加
+		socket.on("addlocation", function (data) {
+			dbase.collection("location").insertOne({ "location": data.location_name }, function (err, res) {
+				test.equal(null, err);
+				socket.emit("addlocationSuccess");
+			});
+		});
+
+		//类型的添加
+		socket.on("addType", function (data) {
+			dbase.collection("type").insertOne({ "type": data.type_name }, function (err, res) {
+				test.equal(null, err);
+				socket.emit("addtypeSuccess");
+			});
+		});
+
+		//位置的编辑
+		socket.on("editlocation", function (data) {
+			dbase.collection("location").updateOne({ "location": data.oldloc }, { $set: { "location": data.newloc } });
+			dbase.collection("books").updateMany({ "location": data.oldloc }, { $set: { "location": data.newloc } });
+			socket.emit("editlocationSuccess");
+		});
+
+		//类型的编辑
+		socket.on("editbookType", function (data) {
+			dbase.collection("type").updateOne({ "type": data.oldtype }, { $set: { "type": data.newtype } });
+			dbase.collection("books").updateMany({ "type": data.oldtype }, { $set: { "type": data.newtype } });
+			socket.emit("editbooktypeSuccess");
+		});
+
+		socket.on("viewincome", function (data) {
+			var type = data.type;
+			var cursor;
+			if (data.origin) {
+				cursor = dbase.collection("income").find({}).sort({ "date": 1 });
+			}
+			else {
+				var start = data.start;
+				var end = data.end;
+				var start_date = new Date(start.replace(/-/, "/"));
+				var end_date = new Date(end.replace(/-/, "/"));
+				cursor = dbase.collection("income").find({ "date": { $gte: start_date, $lte: end_date } }).sort({ "date": 1 });
+			}
+			cursor.toArray(function (err, doc) {
+				var retdata = {};
+				retdata.incomelist = doc;
+				socket.emit("incomeList", retdata);// Return the detail information of all income between two dates;
+				//Following part return the information for drawing.
+
+				var fine = [];
+				var deposit = [];
+				var xdate = [];
+				if (type == "Year") {
+					var curfine = 0, curdeposit = 0;
+					var curyear = doc[0].date.getYear();
+					for (var i = 0; i < doc.length; i++) {
+						if (doc[i].date.getYear() == curyear) {
+							if (doc[i].type == "fine")
+								curfine += doc[i].value;
+							else curdeposit += doc[i].value;
+						}
+						else {
+							xdate.push(curyear + 1900);
+							fine.push(curfine);
+							deposit.push(curdeposit);
+							curyear = doc[i].date.getYear();
+							curfine = 0;
+							curdeposit = 0;
+						}
+					}
+					xdate.push(curyear + 1900);
+					fine.push(curfine);
+					deposit.push(curdeposit);
+				}
+				else if (type == "Month") {
+					var curfine = 0, curdeposit = 0;
+					var curyear = doc[0].date.getYear();
+					var curmonth = doc[0].date.getMonth();
+					for (var i = 0; i < doc.length; i++) {
+						if (doc[i].date.getYear() == curyear && doc[i].date.getMonth() == curmonth) {
+							if (doc[i].type == "fine")
+								curfine += doc[i].value;
+							else curdeposit += doc[i].value;
+						}
+						else {
+							xdate.push(curyear + 1900 + "." + (curmonth + 1));
+							fine.push(curfine);
+							deposit.push(curdeposit);
+							curyear = doc[i].date.getYear();
+							curmonth = doc[i].date.getMonth();
+							curfine = 0;
+							curdeposit = 0;
+						}
+					}
+					xdate.push(curyear + 1900 + "." + (curmonth + 1));
+					fine.push(curfine);
+					deposit.push(curdeposit);
+				}
+				else {
+					var curfine = 0, curdeposit = 0;
+					var curyear = doc[0].date.getYear();
+					var curmonth = doc[0].date.getMonth();
+					var curdate = doc[0].date.getDate();
+					for (i = 0; i < doc.length; i++) {
+						if (doc[i].date.getYear() == curyear && doc[i].date.getMonth() == curmonth && doc[i].date.getDate() == curdate) {
+							if (doc[i].type == "fine")
+								curfine += doc[i].value;
+							else curdeposit += doc[i].value;
+						}
+						else {
+							xdate.push(curyear + 1900 + "." + (curmonth + 1) + "." + curdate);
+							fine.push(curfine);
+							deposit.push(curdeposit);
+							curyear = doc[i].date.getYear();
+							curmonth = doc[i].date.getMonth();
+							curdate = doc[i].date.getDate();
+							curfine = 0;
+							curdeposit = 0;
+						}
+					}
+					xdate.push(curyear + 1900 + "." + (curmonth + 1) + "." + curdate);
+					fine.push(curfine);
+					deposit.push(curdeposit);
+				}
+				var ret = {};
+				ret.xdate = xdate;
+				ret.yfine = fine;
+				ret.ydeposit = deposit;
+				socket.emit("incomepicture", ret);
+			});
+		});
+
+		socket.on('passwordrecovery', function (data) {
+			var auth_cursor = dbase.collection("librarian").find({ "librarian_id": data.username });
+			auth_cursor.toArray(function (err, doc) {
+				test.equal(null, err);
+				var successData = {};
+				if (doc.length == 0) {
+					socket.emit("nouser1");
+				} else {
+					if (doc[0].email == data.email) {
+						successData.librarian_id = doc[0].librarian_id;
+						successData.email = doc[0].email;
+						socket.emit("passwordrecoverySuccess");
+						successData.status = true;
+						dbase.collection("restorePassword").insertOne(successData);
+					} else {
+						socket.emit("wrongemail");
+					}
+				}
+			});
+		});
 		//The scope which all bussiness defined in. end--------------------------------------------------------------
 	});
 });

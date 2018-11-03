@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="css/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+   <!-- <script>DD_belatedPNG.fix('*');</script>-->
+    <title></title>
+    <link rel="stylesheet" href="css/amazeui.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<!--
+                <div class="am-u-sm-12 am-u-md-6">-->
+<body>
+<div class="am-cf admin-main">
+    <!-- content start -->
+    <div class="admin-content">
+        <div class="admin-content-body">
+            <div style="min-width:700px;height:50px">
+                    <label for="start_date" style="padding-left: 20px"> Start date:</label>
+                    <input
+                            type="date"
+                            id="start_date"
+                            style="background-color: #f1b0b7"
+                            required="required"/>
+                    <label for="end_date"> End date:</label>
+                    <input
+                            type="date"
+                            id="end_date"
+                            style="background-color: #f0f1f2"
+                            required="required"
+                    />
+                &nbsp;  &nbsp; &nbsp;
+                    <label for="typeSelect">Search by</label>
+                      <select id="typeSelect" name="type" >
+                            <option value="Year">Year</option>
+                            <option value="Month">Month</option>
+                            <option value="Day">Day</option>
+                      </select>
+                      &nbsp;  &nbsp; &nbsp;
+                        <button id="11" type="button" class="am-btn-secondary" onclick="searchincome()">
+                            VIEW
+                        </button>
+
+                </div>
+
+            <div id="container1" style="min-width:500px;height:400px"></div>
+
+            <div class="am-g" style="margin-top: 30px;">
+                    <div class="am-u-sm-12">
+                            <table class="am-table" border="1" align="center">
+                                <caption>Income Detail</caption>
+                                <thead>
+                                <tr>
+                                    <th>
+                                        Date
+                                    </th>
+                                    <th>
+                                        Income(¥)
+                                    </th>
+                                    <th>
+                                        Type(Deposit/Fine)
+                                    </th>
+                                    <th>
+                                        Reader
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody id="tUser">
+                                </tbody>
+                            </table>
+
+                    </div>
+                </div>
+        </div>
+        <!-- content end -->
+    </div>
+</div>
+
+<script src="../cookie.js"></script>>
+<script src="../socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/layer.js"></script>
+<script type="text/javascript" src="js/H-ui.min.js"></script>
+<script type="text/javascript" src="js/H-ui.admin.js"></script>
+<script type="text/javascript" src="js/hcharts/Highcharts/5.0.6/js/highcharts.js"></script>
+<script type="text/javascript" src="js/hcharts/Highcharts/5.0.6/js/modules/exporting.js"></script>
+<script type="text/javascript">
+    var socket = io("http://139.199.112.88:2761");
+    var items = [];
+    var senddata={};
+    senddata.type="Day";
+    senddata.origin=true;
+    socket.emit('viewincome', senddata);
+    socket.on("incomepicture", function (data) {
+        var xdate=data.xdate;
+        var yfine=data.yfine;
+        var ydeposit=data.ydeposit;
+        $(function() {
+            Highcharts.chart('container1', {
+                title: {
+                    text: 'Income',
+                    x: -20 //center
+                },
+                xAxis: {
+                    categories:xdate
+                },
+                yAxis: {
+                    title: {
+                        text: 'Income (¥)'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    valueSuffix: '¥'
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle',
+                    borderWidth: 0
+                },
+                series: [{
+                    name: 'Fine',
+                    data: yfine
+                }, {
+                    name: 'Deposit ',
+                    data: ydeposit
+                }]
+            });
+        });
+    });
+
+    function searchincome(){
+        var start=$('#start_date').val();
+        var end=$('#end_date').val();
+        var type=$('#typeSelect').val();
+        if(start==""||end==""||type=="")
+            alert("Please select the complete date and type you want to view.");
+        var data={};
+        data.start = start;
+        data.end = end;
+        data.type = type;
+        data.origin=false;
+        socket.emit('viewincome', data);
+    }
+
+    function addIncomeItem(item) {
+        var obj = document.createElement('tr');
+
+        var income_date = document.createElement('td');
+        income_date.innerHTML = item.date.substring(0, 10);
+        var income_value = document.createElement('td');
+        income_value.innerHTML =item.value;
+        var income_type= document.createElement('td');
+        income_type.innerHTML =item.type;
+        var reader_id= document.createElement('td');
+        reader_id.innerHTML =item.reader_id;
+
+        obj.appendChild(income_date);
+        obj.appendChild(income_value);
+        obj.appendChild(income_type);
+        obj.appendChild(reader_id);
+
+        var parent = document.getElementById('tUser');
+        parent.appendChild(obj);
+    }
+
+
+
+    function clearItems() {
+        var obj = document.getElementById('tUser');
+        while (obj.childNodes.length > 0) {
+            obj.removeChild(obj.lastChild);
+        }
+    }
+
+    socket.on("incomeList", function (data) {
+        clearItems();
+        data = data.incomelist;
+        items = data;
+        for (var i = 0; i < data.length; i++) {
+            addIncomeItem(data[i]);
+        }
+    });
+</script>
+</body>
+
+</html>
+
+

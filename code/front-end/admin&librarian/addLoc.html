@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="css/amazeui.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/amazeui.cropper.css">
+    <link rel="stylesheet" href="css/custom_up_img.css">
+    <style>
+        .admin-main {
+            padding-top: 0px;
+        }
+    </style>
+    <style type="text/css">
+        .up-img-cover {
+            width: 210px;
+            height: 279px;
+        }
+
+        .up-img-cover img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<div class="am-cf admin-main">
+    <!-- content start -->
+    <div class="admin-content">
+        <div class="admin-content-body">
+            <div class="am-g">
+                <form class="am-form am-form-horizontal"  method="post" style="padding-top: 30px;">
+                    <input value="504" name="roleId" type="hidden">
+                    <div class="am-form-group">
+                        <label for="loc_name" class="am-u-sm-3 am-form-label">
+                            Location Name
+                        </label>
+                        <div class="am-u-sm-9">
+                            <input id="loc_name" required="" placeholder="Enter location_name" value="" name="location_name" type="text">
+                            <small id="helpRole">Please enter location name, e.g. 1-2-1.</small>
+                        </div>
+                    </div>
+
+
+                        <script src="js/jquery-1.11.3.min.js"></script>
+                        <script src="js/amazeui.min.js" charset="utf-8"></script>
+                        <script src="js/cropper.min.js" charset="utf-8"></script>
+                        <script src="js/custom_up_img.js" charset="utf-8"></script>
+
+                        <div class="am-form-group">
+                            <div class="am-u-sm-9 am-u-sm-push-3">
+                                <button onclick="addlocation()" class="am-btn am-btn-success">ADD LOCATION</button>
+                            </div>
+                        </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="../cookie.js"></script>
+<script src="../socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    var socket = io("http://139.199.112.88:2761");
+
+    socket.on("addlocationSuccess", function () {
+        window.alert("Successfully add location.");
+    });
+
+    function addlocation() {
+        var data = {};
+        data.location_name = $("#loc_name").val();
+        var temp = $("#loc_name").val();
+        var myreg = /^[1-9][\d-]*[0-9]$/;
+        if(!myreg.test(temp))
+        {
+            alert('Please enter the correct location format.');
+            return;
+        }
+        socket.emit("addlocation", data);
+    }
+</script>
+
+</html>

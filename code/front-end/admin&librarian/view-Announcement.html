@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="css/amazeui.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/app.css">
+    <style>
+        .admin-main {
+            padding-top: 0px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="am-cf admin-main">
+    <!-- content start -->
+    <div class="admin-content">
+        <div class="admin-content-body">
+
+            <div class="container" style="padding: 10px 10px 0px 10px">
+                <div class="am-g">
+                    <div class="am-u-sm-12 am-u-end">
+                        <h1 id="title"></h1>
+                        <span id="date"></span>
+                        <hr/>
+                    </div>
+                    <div class="am-u-sm-12 am-u-end">
+
+                        <h2 id="content"></h2>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- content end -->
+    </div>
+</div>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="../cookie.js"></script>>
+<script src="../socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<!--<![endif]-->
+<script type="text/javascript" src="myplugs/js/plugs.js"></script>
+<script>
+
+    var socket = io("http://139.199.112.88:2761");
+    document.getElementById("title").innerText="公告标题";
+    document.getElementById("date").innerText="  2018.10.24";
+    document.getElementById("content").innerText="公告内容";
+
+    data.announcement_name = Cookies.get("cur_announcement_name");  //----------------
+
+    socket.on("AnnouncementInfo", function (data) {
+        //document.getElementById("title").innerText(data.announcement_name);
+       // document.getElementById("content").innerText(data.announcement_content);
+    });
+
+    socket.emit("getAnnouncementInfo",data);     //服务器端要写的
+
+
+</script>
+</body>
+
+</html>

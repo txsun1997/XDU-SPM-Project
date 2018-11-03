@@ -66,7 +66,7 @@
 			var email_data={};
 			email_data.reader_id = $('#getback_name').val();
 			email_data.email = $('#email').val();
-			email_data.href = location.href.replace('login.html','change-password.html');
+			email_data.href = location.href.replace('login-ch.html','change-password-ch.html');
 			socket.emit('checkEmail',email_data);
 		}	
 
@@ -83,9 +83,9 @@
 			Cookies.set("session", data.session, { expires: 1 });
 			var cur_href = location.href;
 			if (data.type == "reader") {
-        		location.href = cur_href.replace("login.html", "index.html");
+        		location.href = cur_href.replace("login-ch.html", "index-ch.html");
     		} else {
-        		location.href = cur_href.replace("reader/login.html", "admin&librarian/" + data.type + "-index.html");
+        		location.href = cur_href.replace("reader/login-ch.html", "admin&librarian/" + data.type + "-index.html");
     		}
 
 		});
@@ -127,10 +127,10 @@
 					<ul>
 						
 						<li class="has-dropdown">
-							<a href="#">Language</a>
+							<a href="#">语言</a>
 							<ul class="dropdown">
-								<li><a href="#">English</a></li>
-								<li><a href="login-ch.html">中文</a></li>
+								<li><a href="login.html">English</a></li>
+								<li><a href="#">中文</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -149,28 +149,28 @@
 
 					<div class="row row-mt-15em">
 						<div class="col-md-7 mt-text animate-box" data-animate-effect="fadeInUp">
-							<span class="intro-text-small">Welcome</span>
-							<h1>Read favourite books </br>From here</h1>	
+							<span class="intro-text-small">欢迎</span>
+							<h1>我们的故事 </br>从这里开始</h1>	
 						</div>
 						<div class="col-md-4 col-md-push-1 animate-box" data-animate-effect="fadeInRight">
 							<div class="form-wrap">
 								<div class="tab">
 									<ul class="tab-menu">
-										<li class="gtco-second"><a href="#" data-tab="signup">Forget password</a></li>
-										<li class="active gtco-first"><a href="#" data-tab="login">Login</a></li>
+										<li class="gtco-second"><a href="#" data-tab="signup">忘记密码</a></li>
+										<li class="active gtco-first"><a href="#" data-tab="login">登录</a></li>
 									</ul>
 									<div class="tab-content">
 										<div class="tab-content-inner" data-content="signup"><!-- 模板代替 -->
 											<form action="#">
 												<div class="row form-group">
 													<div class="col-md-12">
-														<label for="username"> Username</label>
+														<label for="username"> 用户名</label>
 														<input type="text" class="form-control" id="getback_name">
 													</div>
 												</div>
 												<div class="row form-group">
 													<div class="col-md-12">
-														<label for="username"> Email Address</label>
+														<label for="username"> 邮箱地址</label>
 														<input type="text" class="form-control" id="email">
 													</div>
 												</div>
@@ -179,7 +179,7 @@
 
 												<div class="row form-group">
 													<div class="col-md-12">
-														<input type="button" class="btn btn-primary" value="Send" onclick="sendmail()">
+														<input type="button" class="btn btn-primary" value="发送" onclick="sendmail()">
 													</div>
 												</div>
 											</form>	
@@ -189,20 +189,20 @@
 											<form action="#">
 												<div class="row form-group">
 													<div class="col-md-12">
-														<label for="username">Username</label>
+														<label for="username">用户名</label>
 														<input type="text" class="form-control" id="username">
 													</div>
 												</div>
 												<div class="row form-group">
 													<div class="col-md-12">
-														<label for="password">Password</label>
+														<label for="password">密码</label>
 														<input type="password" class="form-control" id="password">
 													</div>
 												</div>
 
 												<div class="row form-group">
 													<div class="col-md-12">
-														<input type="submit" class="btn btn-primary" onclick="loginServer()" value="Login">
+														<input type="submit" class="btn btn-primary" onclick="loginServer()" value="登陆">
 													</div>
 												</div>
 											</form>	

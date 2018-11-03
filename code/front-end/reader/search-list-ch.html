@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html class="no-js" lang="zxx">
 
 <head>
@@ -55,26 +55,26 @@
 									<div class="content-inner">
 										<div class="switcher-currency">
 											<strong class="label switcher-label">
-												<span>Language</span>
+												<span>语言</span>
 											</strong>
 											<div class="switcher-options">
 												<div class="switcher-currency-trigger">
-													<span class="currency-trigger">English</span>
+													<span class="currency-trigger"><a href="search-list.html">English</a></span>
 													<ul class="switcher-dropdown">
-														<li><a href="search-list-ch.html">中文</a></li>
+														<li><a href="#">中文</a></li>
 													</ul>
 												</div>
 											</div>
 										</div>
 										<div class="switcher-currency">
 											<strong class="label switcher-label">
-												<span id="topMenu">My Account</span>
+												<span id="topMenu">账号信息</span>
 											</strong>
 											<div class="switcher-options">
 												<div class="switcher-currency-trigger">
 													<div class="setting__menu">
-														<span><a id="accMenu" onclick="personConsole()">My Account</a></span>
-														<span><a id="accLog" onclick="signinServer()">Log Out</a></span>
+														<span><a id="accMenu" onclick="personConsole()">账号信息</a></span>
+														<span><a id="accLog" onclick="signinServer()">登出</a></span>
 													</div>
 												</div>
 											</div>
@@ -101,7 +101,7 @@
 										<input id="search_content" class="form-control form-control-lg">
 									</div>
 									<div class="col-12 col-md-2">
-										<button type="button" class="btn btn-block btn-lg btn-primary" onclick="search()">Search</button>
+										<button type="button" class="btn btn-block btn-lg btn-primary" onclick="search()">搜索</button>
 									</div>
 								</div>
 							</form>
@@ -124,11 +124,11 @@
 									</div>
 									<p id='list_title'></p>
 									<div class="orderby__wrapper">
-										<span>Sort By</span>
+										<span>排序</span>
 										<select class="shot__byselect">
-											<option>Default sorting</option>
-											<option>Name</option>
-											<option>Edition</option>
+											<option>默认排序</option>
+											<option>名称</option>
+											<option>版本</option>
 										</select>
 									</div>
 								</div>
@@ -501,8 +501,8 @@
 		}
 
 		function noLogin() {
-			topMenu.innerHTML = 'My account';
-			accLog.innerHTML = 'Log in';
+			topMenu.innerHTML = '账号信息';
+			accLog.innerHTML = '登录';
 			logFlag = false;
 
 			if (accMenu != null) {
@@ -516,11 +516,11 @@
 		function personConsole() {
 			socket.emit('sessionAuth', auth_data);
 			if (logFlag == false) return;	//如果检查发现登陆失效，跳转失败退出
-			location.href = location.href.replace('search-list.html', 'profile.html');
+			location.href = location.href.replace('search-list-ch.html', 'profile.html');
 		}
 		function signinServer() {
 			if (logFlag == false) {
-				location.href = location.href.replace('search-list.html', 'login.html');
+				location.href = location.href.replace('search-list-ch.html', 'login-ch.html');
 			} else {
 				socket.emit('logOut', auth_data);
 				noLogin();
@@ -571,7 +571,7 @@
 			}
 			topMenu.innerHTML = auth_data.username;
 			accMenu.innerHTML = 'Console';
-			accLog.innerHTML = 'Log out';
+			accLog.innerHTML = '登出';
 			logFlag = true;
 		});
 		socket.on("sessionFailed", function (data) {
