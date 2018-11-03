@@ -157,6 +157,11 @@
 		$("#name").attr("value", data.name);
 	});
 
+	socket.on("readerInfoForReturn", function(data){
+		$("#phone").attr("value", data.reader_id);
+		$("#name").attr("value", data.name);
+	});
+
 	socket.on("copyNotExist", function () {
 		alert("Specified copy is not exist.");
 		location.href = location.href;
