@@ -69,16 +69,19 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [ ] 根据姓名或用户名搜索librarian，支持子串搜索
 - [ ] 帮助librarian找回密码（完成消息系统，入口在主页面右上角的Message按钮，向忘记密码的librarian自动发送邮件）
 - [ ] 重做登录界面，隐藏入口（页面通过地址栏输入，librarian和reader通过reader的index登录，admin通过原admin&librarian的login页面登录）
+- [ ] 删除前添加询问框确认删除
 - [ ] 错误提示/处理：所有输入框测试空值、错误值
 
 ### Librarian
 - [x] 改进搜书功能，一个输入框，可以根据作者、书名检索，支持子串搜索
 - [x] 整合借还书和预约的业务逻辑，还书时输入barcode自动填充借阅人的电话、姓名
 - [ ] 浏览图书馆收入记录（按天/月/年，收入包含保证金和罚金，做可视化如柱状图、折线图，我这里有Amaze UI相关组件的demo）
+- [ ] ISBN调用豆瓣API，豆瓣书库中没有的需手动输入信息，也可以无ISBN（比如很多年前的书）
 - [ ] 添加/编辑/删除主页的公告
 - [ ] 添加/编辑书籍类别（Category）
 - [ ] 添加/编辑/删除位置（Location）
 - [ ] 在admin的帮助下找回密码（向admin的消息系统发送请求，等待重置密码的邮件通知）
+- [ ] 删除前添加询问框确认删除
 - [ ] 错误提示/处理：所有输入框测试空值、错误值
 
 ### Reader
