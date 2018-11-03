@@ -69,6 +69,7 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [ ] 根据姓名或用户名搜索librarian，支持子串搜索
 - [ ] 帮助librarian找回密码（完成消息系统，入口在主页面右上角的Message按钮，向忘记密码的librarian自动发送邮件）
 - [ ] 重做登录界面，隐藏入口（页面通过地址栏输入，librarian和reader通过reader的index登录，admin通过原admin&librarian的login页面登录）
+- [ ] 删除前添加询问框确认删除
 - [ ] 错误提示/处理：所有输入框测试空值、错误值
 
 ### Librarian
@@ -79,6 +80,7 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [ ] 添加/编辑书籍类别（Category）
 - [ ] 添加/编辑/删除位置（Location）
 - [ ] 在admin的帮助下找回密码（向admin的消息系统发送请求，等待重置密码的邮件通知）
+- [ ] 删除前添加询问框确认删除
 - [ ] 错误提示/处理：所有输入框测试空值、错误值
 
 ### Reader
