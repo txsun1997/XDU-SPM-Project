@@ -95,15 +95,35 @@
 	<script>
 
 		var socket = io("http://139.199.112.88:2761");
+		var books = [];
 
 		function editBook(index) {
-			var books = Cookies.getJSON('bookList');
 			Cookies.set("cur_book", books[index].isbn, { expires: 1 });
 			$.jq_Panel({
-				title: "editBook",
+				title: "EDIT BOOK",
 				url: "editBook.html",
 				iframeWidth: 800,
 				iframeHeight: 500,
+			});
+		}
+
+		function viewCopies(index) {
+			Cookies.set("cur_book", books[index].isbn, { expires: 1 });
+			$.jq_Panel({
+				title: "VIEW COPIES",
+				url: "viewCopies.html",
+				iframeWidth: 800,
+				iframeHeight: 500,
+			});
+		}
+
+		function plusBook(index) {
+			Cookies.set("cur_book", books[index].isbn, { expires: 1 });
+			$.jq_Panel({
+				title: "PLUS BOOK",
+				url: "plusBook.html",
+				iframeWidth: 800,
+				iframeHeight: 400,
 			});
 		}
 
@@ -117,7 +137,6 @@
 		});
 
 		function deleteBook(index) {
-			var books = Cookies.getJSON('bookList');
 			Cookies.set("cur_book", books[index].isbn, { expires: 1 });
 			$.jq_Panel({
 				title: "DELETE BOOK",
@@ -132,10 +151,6 @@
 			socket.emit('searchReaderBooks', data);
 		}
 
-		socket.on('show_search', function (data) {
-			Cookies.set('bookList', data);
-			Cookies.set("update", "true");
-		});
 
 		function addBookItem(item, i) {
 			var obj = document.createElement('tr');
@@ -160,13 +175,24 @@
 			var delete_span = document.createElement('span');
 			delete_span.setAttribute("class", "am-icon-trash-o");
 
+			var view_span = document.createElement('span');
+			view_span.setAttribute("class", "am-icon-eye");
+
 			var btnEdit = document.createElement('button');
 			btnEdit.innerHTML = '';
 			btnEdit.appendChild(edit_span);
-			btnEdit.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary btnEdit');
+			btnEdit.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary');
 			btnEdit.setAttribute('id', i);
 			btnEdit.setAttribute('onclick', 'editBook(this.id)');
 			btnEdit.setAttribute('type', 'button');
+
+			var btnView = document.createElement('button');
+			btnView.innerHTML = '';
+			btnView.appendChild(view_span);
+			btnView.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary');
+			btnView.setAttribute('id', i);
+			btnView.setAttribute('onclick', 'viewCopies(this.id)');
+			btnView.setAttribute('type', 'button');
 
 			var btnDelete = document.createElement('button');
 			btnDelete.innerHTML = '';
@@ -180,6 +206,20 @@
 			div1.setAttribute('class', 'am-btn-group am-btn-group-xs');
 			div1.appendChild(btnEdit);
 			div1.appendChild(btnDelete);
+			div1.appendChild(btnView);
+
+			if (item.isbn[0] == "H") {
+				var plus_span = document.createElement('span');
+				plus_span.setAttribute("class", "am-icon-plus");
+				var btnPlus = document.createElement('button');
+				btnPlus.innerHTML = '';
+				btnPlus.appendChild(plus_span);
+				btnPlus.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-success');
+				btnPlus.setAttribute('id', i);
+				btnPlus.setAttribute('onclick', 'plusBook(this.id)');
+				btnPlus.setAttribute('type', 'button');
+				div1.appendChild(btnPlus);
+			}
 
 			var div2 = document.createElement('div');
 			div2.setAttribute('class', 'am-btn-toolbar');
@@ -201,25 +241,15 @@
 		}
 
 		socket.on("bookList", function (data) {
-			Cookies.set("bookList", data.bookList);
-			Cookies.set("update", "true");
-		});
-
-		setInterval(function () {
-			if (Cookies.get("update") == "true") {
-				var books = Cookies.getJSON('bookList');
-				var obj = document.getElementById('tUser');
-				while (obj.childNodes.length > 0) {
-					obj.removeChild(obj.lastChild);
-				}
-				//alert(books);
-				for (var i = 0; i < books.length; i++) {
-					addBookItem(books[i], i);
-				}
-				Cookies.set("update", "false");
+			books = data.bookList;
+			var obj = document.getElementById('tUser');
+			while (obj.childNodes.length > 0) {
+				obj.removeChild(obj.lastChild);
 			}
-		}, 100);
-
+			for (var i = 0; i < books.length; i++) {
+				addBookItem(books[i], i);
+			}
+		});
 
 		socket.emit("getBookList");
 

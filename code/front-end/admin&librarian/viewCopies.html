@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/app.css">
 
+
     <style>
-		.admin-main {
+        .admin-main {
             padding-top: 0px;
         }
     </style>
@@ -21,26 +22,14 @@
         <div class="admin-content">
             <div class="admin-content-body">
                 <div class="container" style="padding: 50px 10px 0px 10px">
-                    <div class="am-g">
-                        <div class="am-u-sm-12 am-u-md-6">
-                            <div class="am-btn-toolbar">
-                                <div class="am-btn-group am-btn-group-xs">
-                                    <button type="button" class="am-btn am-btn-danger" id="btnremove" onclick="delAll()">
-                                        <span class="am-icon-trash"></span> DELETE ALL
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
                     <div class="am-g" style="margin-top: -30px;">
                         <div class="am-u-sm-12">
-                            <form class="am-form" action="user/delAll.action">
+                            <form class="am-form">
                                 <table class="am-table am-table-striped am-table-hover table-main">
                                     <thead>
                                         <tr>
                                             <th>
-                                                Barcode
+                                                Barcode Number
                                             </th>
                                             <th>
                                                 ISBN
@@ -49,7 +38,7 @@
                                                 Status
                                             </th>
                                             <th>
-                                                Operation
+                                                Barcode Image
                                             </th>
                                         </tr>
                                     </thead>
@@ -74,9 +63,11 @@
 
     <!--[if (gte IE 9)|!(IE)]><!-->
     <script src="js/jquery-1.11.3.min.js"></script>
-    <script src="js/jquery-1.11.3.min.js"></script>
     <script src="../cookie.js"></script>>
     <script src="../socket.io.js"></script>
+    <script src="js/amazeui.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="dist/jquery-ean13.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <!--<![endif]-->
     <script type="text/javascript" src="myplugs/js/plugs.js"></script>
@@ -84,49 +75,18 @@
 
         var socket = io("http://139.199.112.88:2761");
         var isbn = Cookies.get("cur_book");
-
         var data = {};
         data.isbn = isbn;
-
         var copies;
 
-        socket.on("copyNotAvailable", function () {
-            alert("Specified copy is not available, Can't delete it.");
-        });
-
-        socket.on("bookNotAvailable", function () {
-            alert("Specified book is not available, Can't delete it.");
-        });
-
-        socket.on("deleteCopySuccess", function (data) {
-            if (data.deleted == true) alert("The specified copy and book have been successfully deleted.");
-            else alert("The specified copy has been successfully deleted.");
-            location.href = location.href;
-        });
-
-        socket.on("deleteBookSuccess", function () {
-            alert("The specified book has been successfully deleted.");
-            location.href = location.href;
-        });
-
-        function delAll() {
-            var username = Cookies.get("username");
-            data = {};
-            data.operation = "Delete";
-            data.bar_code = "ALL";
-            data.isbn = isbn;
-            data.librarian_id = username;
-            socket.emit("deleteBook", data);
-        }
-
-        function deleteCopy(index) {
-            var username = Cookies.get("username");
-            data = {};
-            data.operation = "Delete";
-            data.bar_code = copies[index].bar_code;
-            data.isbn = isbn;
-            data.librarian_id = username;
-            socket.emit("deleteCopy", data);
+        function viewBarcode(index) {
+            Cookies.set("cur_copy", copies[index].bar_code, { expires: 1 });
+            $.jq_Panel({
+				title: "VIEW BARCODE",
+				url: "viewBarcode.html",
+				iframeWidth: 350,
+				iframeHeight: 150,
+			});
         }
 
         function addCopyItem(item, i) {
@@ -142,15 +102,14 @@
             status.innerHTML = item.status;
 
             var btnDelete = document.createElement('button');
-            btnDelete.innerHTML = 'DELETE';
-            btnDelete.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only');
+            btnDelete.innerHTML = 'VIEW BARCODE';
+            btnDelete.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-hide-sm-only');
             btnDelete.setAttribute('id', i);
-            btnDelete.setAttribute('onclick', 'deleteCopy(this.id)');
+            btnDelete.setAttribute('onclick', 'viewBarcode(this.id)');
             btnDelete.setAttribute('type', 'button');
 
             var div1 = document.createElement('div');
             div1.setAttribute('class', 'am-btn-group am-btn-group-xs');
-
             div1.appendChild(btnDelete);
 
             var div2 = document.createElement('div');
@@ -171,7 +130,6 @@
 
         socket.on("copyList", function (data) {
             copies = data.copy_list;
-
             var obj = document.getElementById('tUser');
             while (obj.childNodes.length > 0) {
                 obj.removeChild(obj.lastChild);

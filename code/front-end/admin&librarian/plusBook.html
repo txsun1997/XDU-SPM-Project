@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="css/amazeui.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/amazeui.cropper.css">
+    <link rel="stylesheet" href="css/custom_up_img.css">
+    <style>
+        .admin-main {
+            padding-top: 0px;
+        }
+    </style>
+    <style type="text/css">
+        .up-img-cover {
+            width: 210px;
+            height: 279px;
+        }
+
+        .up-img-cover img {
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="am-cf admin-main">
+        <!-- content start -->
+        <div class="admin-content">
+            <div class="admin-content-body">
+                <div class="am-g">
+                    <form class="am-form am-form-horizontal" style="padding-top: 30px;">
+                        <div class="am-form-group">
+                            <label for="number" class="am-u-sm-3 am-form-label">
+                                Number
+                            </label>
+                            <div class="am-u-sm-9">
+                                <input id="number" required="" oninput="value=value.replace(/[^\d]/g,'')"
+                                    placeholder="Enter the number the copies"  name="number-of-book"
+                                    type="text">
+                                <small id="helpRole">Please enter the number of the copies you want to add.</small>
+                            </div>
+                        </div>
+
+                        <script src="js/jquery-1.11.3.min.js"></script>
+                        <script src="js/amazeui.min.js" charset="utf-8"></script>
+                        <script src="js/cropper.min.js" charset="utf-8"></script>
+                        <script src="js/custom_up_img.js" charset="utf-8"></script>
+
+                        <div class="am-form-group">
+                            <div class="am-u-sm-9 am-u-sm-push-3">
+                                <button onclick="plusBook()" class="am-btn am-btn-success">ADD COPIES</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="../cookie.js"></script>
+<script src="../socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    var socket = io("http://139.199.112.88:2761");
+    var isbn = Cookies.get("cur_book");
+    var data = {};
+    data.isbn = isbn;
+
+    socket.on("barcodeList", function (data) {
+		Cookies.set("barcode_list", data.barcode_list, { expires: 1 });
+		location.href = "bar-code.html";
+	});
+
+    function plusBook() {
+        var convert = {};
+        var number = parseInt($("#number").val());
+        if(number <= 0){
+            alert("Can't add lower than 1 books");
+        }
+        convert.number = number;
+        convert.isbn = isbn;
+        socket.emit("plusBook", convert);
+    }
+
+    socket.emit("getCatLocList");
+    socket.emit("getBookDetail", data);
+
+
+</script>
+
+</html>

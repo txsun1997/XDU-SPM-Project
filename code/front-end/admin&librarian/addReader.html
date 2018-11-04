@@ -93,6 +93,10 @@
 		else data.gender = "Female";
 		data.phone = $("#phone").val();
 		data.email = $("#email").val();
+		if(data.name == "" || data.phone == "" || data.email == "" ){
+			alert("Can not have null value.");
+			return;
+		}
 		socket.emit("addReaderRole", data);
 	}
 
