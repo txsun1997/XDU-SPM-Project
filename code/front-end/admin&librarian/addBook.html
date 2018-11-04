@@ -262,16 +262,13 @@
 	var socket = io("http://139.199.112.88:2761");
 	var picture = "";
 
-	socket.on("addbookSuccess", function () {
-		window.alert("Successfully add book.");
-	});
-
 	function file2base64() {
 		var file = document.getElementById("chooseImage").files[0];
 		var reader = new FileReader();
 		reader.readAsDataURL(file);
 		reader.onload = function () {
 			picture = reader.result;
+			alert(picture.length);
 		}
 	}
 
@@ -280,10 +277,9 @@
 			var canvas = document.createElement("canvas");
 			canvas.width = width ? width : img.width;
 			canvas.height = height ? height : img.height;
-
 			var ctx = canvas.getContext("2d");
 			ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-			var dataURL = canvas.toDataURL();
+			var dataURL = canvas.toDataURL("image/jpeg", 0.5);
 			return dataURL;
 		}
 		var image = new Image();
@@ -292,7 +288,7 @@
 		var deferred = $.Deferred();
 		if (img) {
 			image.onload = function () {
-				deferred.resolve(getBase64Image(image));//将base64传给done上传处理
+				deferred.resolve(getBase64Image(image,200,282));//将base64传给done上传处理
 			}
 			return deferred.promise();//问题要让onload完成后再return sessionStorage['imgTest']
 		}
@@ -302,6 +298,7 @@
 		getBase64(figure)
 			.then(function (base64) {
 				picture = base64;
+				
 			}, function (err) {
 				console.log(err);//打印异常信息
 			});
@@ -358,6 +355,7 @@
 		data.total_number = parseInt($("#number").val());
 		data.location = $("#locationSelect").find("option:selected").text();
 		data.figure = picture;
+
 		socket.emit("printBarcode", data);
 	}
 

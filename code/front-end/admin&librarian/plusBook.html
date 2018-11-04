@@ -35,14 +35,14 @@
         <div class="admin-content">
             <div class="admin-content-body">
                 <div class="am-g">
-                    <form class="am-form am-form-horizontal" action="role/addroleSubmit.action" method="post" style="padding-top: 30px;">
+                    <form class="am-form am-form-horizontal" style="padding-top: 30px;">
                         <div class="am-form-group">
                             <label for="number" class="am-u-sm-3 am-form-label">
                                 Number
                             </label>
                             <div class="am-u-sm-9">
                                 <input id="number" required="" oninput="value=value.replace(/[^\d]/g,'')"
-                                    placeholder="Enter the number the copies" value="" name="number-of-book"
+                                    placeholder="Enter the number the copies"  name="number-of-book"
                                     type="text">
                                 <small id="helpRole">Please enter the number of the copies you want to add.</small>
                             </div>
@@ -74,20 +74,21 @@
     var data = {};
     data.isbn = isbn;
 
-    var isReady = false;
-
+    socket.on("barcodeList", function (data) {
+		Cookies.set("barcode_list", data.barcode_list, { expires: 1 });
+		location.href = "bar-code.html";
+	});
 
     function plusBook() {
-        var number = parseInt($("#nubmer").val());
+        var convert = {};
+        var number = parseInt($("#number").val());
         if(number <= 0){
             alert("Can't add lower than 1 books");
         }
-
-
-        socket.emit("editBook", data);
+        convert.number = number;
+        convert.isbn = isbn;
+        socket.emit("plusBook", convert);
     }
-
-
 
     socket.emit("getCatLocList");
     socket.emit("getBookDetail", data);
