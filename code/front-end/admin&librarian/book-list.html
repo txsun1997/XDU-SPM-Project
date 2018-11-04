@@ -100,10 +100,21 @@
 			var books = Cookies.getJSON('bookList');
 			Cookies.set("cur_book", books[index].isbn, { expires: 1 });
 			$.jq_Panel({
-				title: "editBook",
+				title: "EDIT Book",
 				url: "editBook.html",
 				iframeWidth: 800,
 				iframeHeight: 500,
+			});
+		}
+
+		function plusBook(index) {
+			var books = Cookies.getJSON('bookList');
+			Cookies.set("cur_book", books[index].isbn, { expires: 1 });
+			$.jq_Panel({
+				title: "PLUS BOOK",
+				url: "plusBook.html",
+				iframeWidth: 700,
+				iframeHeight: 200,
 			});
 		}
 
@@ -163,7 +174,7 @@
 			var btnEdit = document.createElement('button');
 			btnEdit.innerHTML = '';
 			btnEdit.appendChild(edit_span);
-			btnEdit.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary btnEdit');
+			btnEdit.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary');
 			btnEdit.setAttribute('id', i);
 			btnEdit.setAttribute('onclick', 'editBook(this.id)');
 			btnEdit.setAttribute('type', 'button');
@@ -180,6 +191,20 @@
 			div1.setAttribute('class', 'am-btn-group am-btn-group-xs');
 			div1.appendChild(btnEdit);
 			div1.appendChild(btnDelete);
+
+			if (item.isbn[0] == "H") {
+				var plus_span = document.createElement('span');
+				plus_span.setAttribute("class", "am-icon-plus");
+				var btnPlus = document.createElement('button');
+				btnPlus.innerHTML = '';
+				btnPlus.appendChild(plus_span);
+				btnPlus.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-success');
+				btnPlus.setAttribute('id', i);
+				btnPlus.setAttribute('onclick', 'plusBook(this.id)');
+				btnPlus.setAttribute('type', 'button');
+				isbn.innerHTML = "NO ISBN";
+				div1.appendChild(btnPlus);
+			}
 
 			var div2 = document.createElement('div');
 			div2.setAttribute('class', 'am-btn-toolbar');
@@ -208,11 +233,12 @@
 		setInterval(function () {
 			if (Cookies.get("update") == "true") {
 				var books = Cookies.getJSON('bookList');
+				
 				var obj = document.getElementById('tUser');
 				while (obj.childNodes.length > 0) {
 					obj.removeChild(obj.lastChild);
 				}
-				//alert(books);
+
 				for (var i = 0; i < books.length; i++) {
 					addBookItem(books[i], i);
 				}

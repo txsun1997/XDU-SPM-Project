@@ -102,7 +102,18 @@
 			<div class="admin-content-body">
 				<div class="am-g">
 					<form class="am-form am-form-horizontal" action="role/addroleSubmit.action" method="post" style="padding-top: 30px;">
-						<input value="504" name="roleId" type="hidden">
+
+						<div class="am-form-group">
+							<label for="isbn" class="am-u-sm-3 am-form-label">
+								ISBN
+							</label>
+							<div class="am-u-sm-9">
+								<input onblur="doubanAPI()" id="isbn" required="" maxlength="13" oninput="value=value.replace(/[^\d]/g,'')"
+								 placeholder="Enter the ISBN" value="" name="book-ISBN" type="text">
+								<small id="helpRole">Please enter the ISBN, e.g. 9780262035613.</small>
+							</div>
+						</div>
+
 						<div class="am-form-group">
 							<label for="title" class="am-u-sm-3 am-form-label">
 								Book Title
@@ -121,16 +132,6 @@
 								<small id="helpRole">Please enter book authors, e.g. Ian Goodfellow.</small>
 							</div>
 
-							<div class="am-form-group">
-								<label for="isbn" class="am-u-sm-3 am-form-label">
-									ISBN
-								</label>
-								<div class="am-u-sm-9">
-									<input id="isbn" required="" maxlength="13" oninput="value=value.replace(/[^\d]/g,'')" placeholder="Enter the ISBN"
-									 value="" name="book-ISBN" type="text">
-									<small id="helpRole">Please enter the ISBN, e.g. 9780262035613.</small>
-								</div>
-							</div>
 
 							<div class="am-form-group">
 								<label for="press" class="am-u-sm-3 am-form-label">
@@ -274,36 +275,88 @@
 		}
 	}
 
+	function getBase64(img) {
+		function getBase64Image(img, width, height) {//width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
+			var canvas = document.createElement("canvas");
+			canvas.width = width ? width : img.width;
+			canvas.height = height ? height : img.height;
+
+			var ctx = canvas.getContext("2d");
+			ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+			var dataURL = canvas.toDataURL();
+			return dataURL;
+		}
+		var image = new Image();
+		image.crossOrigin = '';
+		image.src = img;
+		var deferred = $.Deferred();
+		if (img) {
+			image.onload = function () {
+				deferred.resolve(getBase64Image(image));//将base64传给done上传处理
+			}
+			return deferred.promise();//问题要让onload完成后再return sessionStorage['imgTest']
+		}
+	}
+
+	function fromNet(figure) {
+		getBase64(figure)
+			.then(function (base64) {
+				picture = base64;
+			}, function (err) {
+				console.log(err);//打印异常信息
+			});
+	}
+
+	function doubanAPI() {
+		var isbn = $("#isbn").val();
+		socket.emit("getDouban", isbn);
+	}
+
+	socket.on("bookInfoOfDouban", function (data) {
+		$("#title").attr("value", data.title);
+		$("#authors").attr("value", data.author);
+		$("#press").attr("value", data.press);
+		$("#year").attr("value", data.year);
+		$("#subject").attr("value", data.subject);
+		$("#pages").attr("value", data.pages);
+		$("#price").attr("value", data.price);
+		document.getElementById("cropedBigImg").setAttribute("src", data.figure);
+		fromNet(data.figure);
+	});
+
 	socket.on("barcodeList", function (data) {
 		Cookies.set("barcode_list", data.barcode_list, { expires: 1 });
 		location.href = "bar-code.html";
 	});
 
 	function printBarcode() {
-		if (picture == "") {
-			alert("Please insert a picture.");
-			return;
-		}
 		var data = {};
+		if (picture == "") { alert("Please insert a picture."); return; }
+		if ($("#title").val() == "") { alert("Title is desired."); return; }
+		if ($("#price").val() == "") { alert("Price is desired."); return; }
+		if ($("#authors").val() == "") { alert("Author is desired."); return; }
+		if ($("#press").val() == "") { alert("Press is desired."); return; }
+		if ($("#number").val() == "") { alert("Number is desired."); return; }
+		if ($("#year").val() == "") { alert("Year is desired."); return; }
+		if ($("#subject").val() == "") { alert("Subject is desired."); return; }
+		if ($("#pages").val() == "") { alert("Pages is desired."); return; }
+		if (parseInt($("#number").val()) == 0) { alert("Number must larger than 0."); return; }
+		if ($("#typeSelect").find("option:selected").text() == "Select a Type") { alert("Please Select a Type."); return; }
+		if ($("#locationSelect").find("option:selected").text() == "Select a Location") { alert("Please Select a Location"); return; }
+		if ($("#isbn").val() == "") {
+			data.isbn = "N";
+		} else data.isbn = $("#isbn").val();
+
 		data.book_name = $("#title").val();
 		data.price = parseInt($("#price").val());
 		data.author = $("#authors").val();
-		data.isbn = $("#isbn").val();
 		data.press = $("#press").val();
 		data.publish_year = $("#year").val();
 		data.subject = $("#subject").val();
 		data.page = parseInt($("#pages").val());
 		data.type = $("#typeSelect").find("option:selected").text();
-		if(data.type == "Select a Type"){
-			alert("Please Select a Type.");
-			location.href = location.href;
-		}
 		data.total_number = parseInt($("#number").val());
 		data.location = $("#locationSelect").find("option:selected").text();
-		if(data.location == "Select a Location"){
-			alert("Please Select a Location");
-			location.href = location.href;
-		}
 		data.figure = picture;
 		socket.emit("printBarcode", data);
 	}
