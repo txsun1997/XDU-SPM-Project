@@ -1020,6 +1020,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 							curyear = doc[i].date.getYear();
 							curfine = 0;
 							curdeposit = 0;
+							i--;
 						}
 					}
 					xdate.push(curyear + 1900);
@@ -1044,6 +1045,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 							curmonth = doc[i].date.getMonth();
 							curfine = 0;
 							curdeposit = 0;
+							i--;
 						}
 					}
 					xdate.push(curyear + 1900 + "." + (curmonth + 1));
@@ -1070,6 +1072,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 							curdate = doc[i].date.getDate();
 							curfine = 0;
 							curdeposit = 0;
+							i--;
 						}
 					}
 					xdate.push(curyear + 1900 + "." + (curmonth + 1) + "." + curdate);
