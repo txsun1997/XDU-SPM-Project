@@ -124,7 +124,8 @@
 						<div class="post__itam">
 							<div class="content">
 								<h3 class="title1" id="title1">Instructions for borrowing books </h3>
-								<p class="content1" id="content1">A user can only borrow up to 20 books.Each book can be borrowed for 45 days by default.If you overdue,you
+								<p class="content1" id="content1">A user can only borrow up to 20 books.Each book can be borrowed for 45 days
+									by default.If you overdue,you
 									will be fined 1 cent per day each book.</p>
 								<div class="post__time">
 									<span class="day" id="date1">Dec 13, 18</span>
@@ -136,7 +137,8 @@
 						<div class="post__itam">
 							<div class="content">
 								<h3 class="title2" id="title2">Instructions for borrowing books </h3>
-								<p class="content2" id="content2">A user can only borrow up to 20 books.Each book can be borrowed for 45 days by default.If you overdue,you
+								<p class="content2" id="content2">A user can only borrow up to 20 books.Each book can be borrowed for 45 days
+									by default.If you overdue,you
 									will be fined 1 cent per day each book.</p>
 								<div class="post__time">
 									<span class="day" id="date2">Dec 13, 18</span>
@@ -148,7 +150,8 @@
 						<div class="post__itam">
 							<div class="content">
 								<h3 class="title3" id="title3">Instructions for borrowing books </h3>
-								<p class="content3" id="content3">A user can only borrow up to 20 books.Each book can be borrowed for 45 days by default.If you overdue,you
+								<p class="content3" id="content3">A user can only borrow up to 20 books.Each book can be borrowed for 45 days
+									by default.If you overdue,you
 									will be fined 1 cent per day each book.</p>
 								<div class="post__time">
 									<span class="day" id="date3">Dec 13, 18</span>
@@ -467,17 +470,15 @@
 
 		var socket = io("http://139.199.112.88:2761");
 
-		
-
-		socket.on("show_search", function (data) {
-			Cookies.set('bookList', data);
-			location.href = location.href.replace('index-ch.html', 'search-list-ch.html');
-		});
 
 		function search() {
-			var data = $('#search_content').val();
-			socket.emit('searchReaderBooks', data);
+			var data = $('#search-content').val();
+			Cookies.set('search', data);
+			//window.alert(data);
+			location.href = location.href.replace('index-ch.html', 'search-list-ch.html');
+			//socket.emit('searchReaderBooks', data);
 		}
+
 
 		function signinServer() {
 			if (bntVal.value == "SIGN IN") {
@@ -533,19 +534,19 @@
 
 		socket.emit("releaseAnnouncement");
 
-		socket.on("getAnnounce1", function(data) {
+		socket.on("getAnnounce1", function (data) {
 			document.getElementById("title1").innerHTML = data.title;
 			document.getElementById("content1").innerHTML = data.content;
 			document.getElementById("date1").innerHTML = data.date;
 		});
 
-		socket.on("getAnnounce2", function(data) {
+		socket.on("getAnnounce2", function (data) {
 			document.getElementById("title2").innerHTML = data.title;
 			document.getElementById("content2").innerHTML = data.content;
 			document.getElementById("date2").innerHTML = data.date;
 		});
 
-		socket.on("getAnnounce3", function(data) {
+		socket.on("getAnnounce3", function (data) {
 			document.getElementById("title3").innerHTML = data.title;
 			document.getElementById("content3").innerHTML = data.content;
 			document.getElementById("date3").innerHTML = data.date;

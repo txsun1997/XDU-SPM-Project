@@ -474,14 +474,11 @@
 
 		
 
-		socket.on("show_search", function (data) {
-			Cookies.set('bookList', data);
-			location.href = location.href.replace('index.html', 'search-list.html');
-		});
-
 		function search() {
 			var data = $('#search-content').val();
-			socket.emit('searchReaderBooks', data);
+			Cookies.set('search',data);
+			location.href = location.href.replace('index.html', 'search-list.html');
+			//socket.emit('searchReaderBooks', data);
 		}
 
 		function signinServer() {
