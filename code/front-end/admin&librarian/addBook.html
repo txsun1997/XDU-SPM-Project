@@ -279,7 +279,7 @@
 			canvas.height = height ? height : img.height;
 			var ctx = canvas.getContext("2d");
 			ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-			var dataURL = canvas.toDataURL("image/jpeg", 0.5);
+			var dataURL = canvas.toDataURL("image/jpeg", 0.6);
 			return dataURL;
 		}
 		var image = new Image();

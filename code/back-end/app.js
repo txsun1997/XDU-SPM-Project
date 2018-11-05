@@ -379,24 +379,26 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 		});
 
 		socket.on('searchBooks', function (data) {
-			var whereStr = {};
-			if (data.book_name != '') whereStr['book_name'] = data.book_name;
-			if (data.author != '') whereStr['author'] = data.author;
-			if (data.press != '') whereStr['press'] = data.press;
-			if (data.publish_year != '') whereStr['publish_year'] = data.publish_year;
-			if (data.type != '') whereStr['type'] = data.type;
-
-			console.log(data.book_name + ' ' + data.author + " " + data.press + " " + data.publish_year + " " + data.type);
-			if (data.show_avail == true) whereStr['available_number'] = { $gt: 0 };
+			orStr = [];
+			orStr.push({ book_name: new RegExp('.*' + data + '.*', 'i') });
+			//orStr.push({book_name:'/'+data+'/'});
+			orStr.push({ author: new RegExp('.*' + data + '.*', 'i') });
+			orStr.push({ press: new RegExp('.*' + data + '.*', 'i') });
+			orStr.push({ publish_year: data });
+			orStr.push({ type: data });
+			whereStr = { $or: orStr };
 			var search_books_cursor = dbase.collection("books").find(whereStr);
 			search_books_cursor.toArray(function (err, doc) {
 				test.equal(null, err);
-				var result = {};
 				for (var i = 0; i < doc.length; i++) {
 					delete doc[i].figure;
+					delete doc[i].subject;
+					delete doc[i].location;
+					delete doc[i].page;
 				}
-				result.bookList = doc;
-				socket.emit('searchBooksResult', result);
+				var bookList = {};
+				bookList.bookList = doc;
+				socket.emit('bookList', bookList);
 			});
 		});
 
@@ -706,7 +708,6 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 			});
 		});
 		//jc10.22
-
 		socket.on('searchReaderBooks', function (data) {		//修改searchbooksjc
 			orStr = [];
 			orStr.push({ book_name: new RegExp('.*' + data + '.*', 'i') });
@@ -721,13 +722,8 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				test.equal(null, err);
 				for (var i = 0; i < doc.length; i++) {
 					delete doc[i].figure;
-					delete doc[i].subject;
-					delete doc[i].location;
-					delete doc[i].page;
 				}
-				var bookList = {};
-				bookList.bookList = doc;
-				socket.emit('bookList', doc);
+				socket.emit('show_search', doc);
 			});
 		});
 
@@ -1024,6 +1020,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 							curyear = doc[i].date.getYear();
 							curfine = 0;
 							curdeposit = 0;
+							i--;
 						}
 					}
 					xdate.push(curyear + 1900);
@@ -1048,6 +1045,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 							curmonth = doc[i].date.getMonth();
 							curfine = 0;
 							curdeposit = 0;
+							i--;
 						}
 					}
 					xdate.push(curyear + 1900 + "." + (curmonth + 1));
@@ -1074,6 +1072,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 							curdate = doc[i].date.getDate();
 							curfine = 0;
 							curdeposit = 0;
+							i--;
 						}
 					}
 					xdate.push(curyear + 1900 + "." + (curmonth + 1) + "." + curdate);

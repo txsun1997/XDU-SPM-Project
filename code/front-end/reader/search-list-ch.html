@@ -459,7 +459,7 @@
 
 		function showBooks(active_page) {
 			Cookies.remove('now_index');
-			bookList = Cookies.getJSON('bookList');
+			//bookList = Cookies.getJSON('bookList');
 
 			var temp_len = pageBar.childNodes.length;
 			for (var i = 0; i < temp_len; i++) {
@@ -535,6 +535,15 @@
 			if (data == null) data = '';
 			socket.emit('searchReaderBooks', data);
 		}
+
+		function initSearch(){
+			data = Cookies.get('search');
+			//window.alert(data);
+			if(data == null) data = '';
+			//window.alert(data);
+			socket.emit('searchReaderBooks',data);
+		}
+
 		function show_detail(index) {
 
 			var item = bookList[index];
@@ -583,7 +592,7 @@
 			noLogin();
 		});
 		socket.on('show_search', function (data) {
-			Cookies.set('bookList', data);
+			bookList = data;
 
 			showBooks(0);
 		});
@@ -602,7 +611,7 @@
 			window.alert('there\'s no book left.');
 		});
 		socket.on('reserveSuccess', function (data) {
-			/*
+		show_sear	/*
 			var email = require("emailjs");
 			var server = email.server.connect({
 				user: "13279492761@2980.com",      // 你的QQ用户
@@ -626,6 +635,7 @@
 			noLogin();
 		}
 		//Cookies.remove('bookList');
+		initSearch();
 		showBooks(0);
 
 	</script>
