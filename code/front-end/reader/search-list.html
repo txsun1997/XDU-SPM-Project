@@ -355,7 +355,6 @@
 			list_title.innerHTML = "Showing " + (begin_index + 1) + "–" + end_index + " of " + bookList.length + " results";
 
 			for (var i = begin_index; i < end_index; i++) {
-				//window.alert('hello');
 				var item = bookList[i];
 				img_isbn.push(item.isbn);
 
@@ -405,7 +404,6 @@
 				var a3 = document.createElement('a');
 				a3.setAttribute('name', i);
 				//a3.setAttribute('id','test')
-				//window.alert(a3.val());
 				a3.setAttribute('onclick', 'show_detail(this.name)');
 				a3.innerHTML = 'Learn more';
 				var li_detail = document.createElement('li');
@@ -456,8 +454,7 @@
 
 		function showBooks(active_page) {
 			Cookies.remove('now_index');
-			bookList = Cookies.getJSON('bookList');
-
+			//bookList = Cookies.getJSON('bookList');
 			var temp_len = pageBar.childNodes.length;
 			for (var i = 0; i < temp_len; i++) {
 				pageBar.removeChild(pageBar.childNodes[0]);
@@ -532,6 +529,13 @@
 			if (data == null) data = '';
 			socket.emit('searchReaderBooks', data);
 		}
+		function initSearch(){
+			data = Cookies.get('search');
+			if(data == null) data = '';
+			//window.alert(data);
+			socket.emit('searchReaderBooks',data);
+		}
+
 		function show_detail(index) {
 
 			var item = bookList[index];
@@ -580,8 +584,9 @@
 			noLogin();
 		});
 		socket.on('show_search', function (data) {
-			Cookies.set('bookList', data);
-
+			//window.alert(JSON.stringify(data[0]));
+			bookList = data;
+			//window.alert(Cookies.get('bookList'));
 			showBooks(0);
 		});
 		socket.on('showPicture', function (pic) {
@@ -622,7 +627,8 @@
 		} else {
 			noLogin();
 		}
-		//Cookies.remove('bookList');
+		
+		initSearch();
 		showBooks(0);
 
 	</script>

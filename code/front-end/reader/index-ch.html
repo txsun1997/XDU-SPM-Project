@@ -93,7 +93,7 @@
 									<form>
 										<div class="form-row">
 											<div class="col-12 col-md-9 mb-2 mb-md-0">
-												<input class="form-control form-control-lg" id="search_content" value="" placeholder="发现你感兴趣的">
+												<input id='search-content' class="form-control form-control-lg" id="search_content" value="" placeholder="发现你感兴趣的">
 											</div>
 											<div class="col-12 col-md-2">
 												<button type="button" class="btn btn-block btn-lg btn-primary" onclick="search()">搜索</button>
@@ -464,16 +464,12 @@
 
 		var socket = io("http://139.199.112.88:2761");
 
-		
-
-		socket.on("show_search", function (data) {
-			Cookies.set('bookList', data);
-			location.href = location.href.replace('index-ch.html', 'search-list-ch.html');
-		});
-
 		function search() {
-			var data = $('#search_content').val();
-			socket.emit('searchReaderBooks', data);
+			var data = $('#search-content').val();
+			Cookies.set('search',data);
+			//window.alert(data);
+			location.href = location.href.replace('index-ch.html', 'search-list-ch.html');
+			//socket.emit('searchReaderBooks', data);
 		}
 
 		function signinServer() {

@@ -148,7 +148,7 @@
 
 		function search_panel() {
 			var data = $('#bookSearch').val();
-			socket.emit('searchReaderBooks', data);
+			socket.emit('searchBooks', data);
 		}
 
 
@@ -250,6 +250,7 @@
 				addBookItem(books[i], i);
 			}
 		});
+
 
 		socket.emit("getBookList");
 
