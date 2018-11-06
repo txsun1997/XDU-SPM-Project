@@ -77,7 +77,8 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [ ] 找回密码提交后应有反馈（WL）
 - [ ] 做主页，显示公告（STX）
 - [ ] 条形码在小窗口显示无法打印，显示在新标签页（WL）
-- [ ] 检查location和category管理，删除有问题（WCX, GY）
+- [ ] 检查location和category管理，删除/刷新有问题（WCX, GY）
+- [ ] 添加/编辑/删除后自动刷新列表（WL）
 
 ### Reader
 - [ ] 主页上面加一个按钮Librarian，提供librarian的登录入口（WQX, HAM）
@@ -89,6 +90,7 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 ### Admin
 - [ ] 重做一个登录界面，只能通过地址访问（STX）
 - [ ] Message有高亮显示未读消息数目（STX, WL）
+- [ ] 添加/编辑/删除后自动刷新列表（WL）
 
 ----
 
