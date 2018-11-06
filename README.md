@@ -63,11 +63,48 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 * 须测试所有输入的空值和错误值
 * 隐藏Admin登录界面
 
+## Final Tasks
+
+### ALL
+- [ ] 删除操作前加询问框（WL, WQX, JC）
+- [ ] 进行空值和错误值测试
+- [ ] 邮件发送的问题再改进一下（特别是163邮箱），用西电邮箱是可以接收到的（YTH）
+- [ ] 部署（WL）
+- [ ] 对照需求ppt测试（STX, WL, JC, YTH）
+- [ ] 测试一下浏览器，解决兼容问题（YTH）
+- [ ] 空值搜索显示全部结果
+
+### Librarian
+- [ ] 找回密码提交后应有反馈（WL）
+- [ ] 做主页，显示公告（STX）
+- [ ] 条形码在小窗口显示无法打印，显示在新标签页（WL）
+- [ ] 检查location和category管理，删除/刷新有问题（WCX, GY）
+- [ ] 添加/编辑/删除后自动刷新列表（WL）
+- [ ] 把admin登录功能从librarian登陆界面删除
+- [ ] post news用新的框架
+- [ ] income加一条总线表示总收入
+
+### Reader
+- [ ] 主页上面加一个按钮Librarian，提供librarian的登录入口（WQX, HAM）
+- [ ] UI统一和改进（WQX）
+- [ ] Profile界面Male Female不能改（JC）
+- [ ] News只能显示4条，点击不对应，正文字体需调整（HAM, WQX）
+- [ ] 主页展示书的功能（HAM, WQX）
+- [ ] 页码问题（WQX, HAM）
+- [ ] 主页公告无法点击（WQX, HAM）
+
+### Admin
+- [ ] 重做一个登录界面，只能通过地址访问（STX）
+- [ ] Message有高亮显示未读消息数目（STX, WL）
+- [ ] 添加/编辑/删除后自动刷新列表（WL）
+
+----
+
 ## Release 3
 
 ### Admin
 - [ ] 根据姓名或用户名搜索librarian，支持子串搜索
-- [ ] 帮助librarian找回密码（完成消息系统，入口在主页面右上角的Message按钮，向忘记密码的librarian自动发送邮件）
+- [x] 帮助librarian找回密码（完成消息系统，入口在主页面右上角的Message按钮，向忘记密码的librarian自动发送邮件）
 - [ ] 重做登录界面，隐藏入口（页面通过地址栏输入，librarian和reader通过reader的index登录，admin通过原admin&librarian的login页面登录）
 - [ ] 删除前添加询问框确认删除
 - [ ] 错误提示/处理：所有输入框测试空值、错误值
@@ -75,27 +112,25 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 ### Librarian
 - [x] 改进搜书功能，一个输入框，可以根据作者、书名检索，支持子串搜索
 - [x] 整合借还书和预约的业务逻辑，还书时输入barcode自动填充借阅人的电话、姓名
-- [ ] 浏览图书馆收入记录（按天/月/年，收入包含保证金和罚金，做可视化如柱状图、折线图，我这里有Amaze UI相关组件的demo）
-- [ ] ISBN调用豆瓣API，豆瓣书库中没有的需手动输入信息，也可以无ISBN（比如很多年前的书）
-- [ ] 添加/编辑/删除主页的公告
-- [ ] 添加/编辑书籍类别（Category）
-- [ ] 添加/编辑/删除位置（Location）
-- [ ] 在admin的帮助下找回密码（向admin的消息系统发送请求，等待重置密码的邮件通知）
+- [x] 浏览图书馆收入记录（按天/月/年，收入包含保证金和罚金，做可视化如柱状图、折线图，我这里有Amaze UI相关组件的demo）
+- [x] ISBN调用豆瓣API，豆瓣书库中没有的需手动输入信息，也可以无ISBN（比如很多年前的书）
+- [x] 添加/编辑/删除主页的公告
+- [x] 添加/编辑书籍类别（Category）
+- [x] 添加/编辑/删除位置（Location）
+- [x] 在admin的帮助下找回密码（向admin的消息系统发送请求，等待重置密码的邮件通知）
 - [ ] 删除前添加询问框确认删除
 - [ ] 错误提示/处理：所有输入框测试空值、错误值
 
 ### Reader
-- [ ] 完善预约功能，整合借还书方面的业务逻辑
+- [x] 完善预约功能，整合借还书方面的业务逻辑
 - [ ] 主页面公告栏
 - [ ] 将librarian的登录界面整合到reader登录界面
-- [ ] 书籍到期前邮件提醒
-- [ ] 主页面搜索框赋予实际功能或删除（建议想办法完成，即使是笨方法）
+- [x] 书籍到期前邮件提醒
+- [x] 主页面搜索框赋予实际功能或删除（建议想办法完成，即使是笨方法）
 - [ ] 主页面下方展示部分图书功能做完或删除
 - [ ] 主页面logout和console放在user图标的下拉框里
 - [ ] 主页面右上角添加message（与搜索页面保持一致）或删除搜索页面的message
 - [ ] 错误提示/处理：所有输入框测试空值、错误值
-
-----
 
 ## Release 2
 
