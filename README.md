@@ -79,6 +79,7 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [ ] 条形码在小窗口显示无法打印，显示在新标签页（WL）
 - [ ] 检查location和category管理，删除/刷新有问题（WCX, GY）
 - [ ] 添加/编辑/删除后自动刷新列表（WL）
+- [ ] 把admin登录功能从librarian登陆界面删除
 
 ### Reader
 - [ ] 主页上面加一个按钮Librarian，提供librarian的登录入口（WQX, HAM）
@@ -86,6 +87,8 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [ ] Profile界面Male Female不能改（JC）
 - [ ] News只能显示4条，点击不对应，正文字体需调整（HAM, WQX）
 - [ ] 主页展示书的功能（HAM, WQX）
+- [ ] 页码问题（WQX, HAM）
+- [ ] 主页公告无法点击（WQX, HAM）
 
 ### Admin
 - [ ] 重做一个登录界面，只能通过地址访问（STX）
