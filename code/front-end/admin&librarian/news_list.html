@@ -12,182 +12,226 @@
 
 <body>
 
-<div class="am-cf admin-main">
-    <!-- content start -->
-    <div class="admin-content">
-        <div class="admin-content-body">
+    <div class="am-cf admin-main">
+        <!-- content start -->
+        <div class="admin-content">
+            <div class="admin-content-body">
 
-            <div class="container" style="padding: 50px 10px 0px 10px">
-                <div class="am-g">
-                    <div class="am-u-sm-12 am-u-md-6">
-                        <div class="am-btn-toolbar">
-                            <div class="am-btn-group am-btn-group-xs">
+                <div class="container" style="padding: 50px 10px 0px 10px">
+                    <div class="am-g">
+                        <div class="am-u-sm-12 am-u-md-6">
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
 
-                                <button type="button" class="am-btn am-btn-primary btnAdd">
-                                    <span class="am-icon-plus"></span> ADD
-                                </button>
+                                    <button type="button" class="am-btn am-btn-primary btnAdd">
+                                        <span class="am-icon-plus"></span> ADD
+                                    </button>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="am-g" style="margin-top: 5px;">
-                    <div class="am-u-sm-12">
-                        <form class="am-form">
-                            <table class="am-table am-table-striped am-table-hover table-main">
-                                <thead>
-                                <tr>
-                                    <th class="table-title">
-                                        ANNOUNCEMENT
-                                    </th>
-                                    <th class="table-title">
-                                        LIBRARIAN
-                                    </th>
-                                    <th class="table-title">
-                                        DATE
-                                    </th>
-                                    <th class="table-set">
-                                        OPERATION
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody id="tUser">
-                                </tbody>
-                            </table>
-                        </form>
+                    <div id="collapse-panel-4" class="am-panel-bd am-collapse am-in">
+                        <ul class="am-list admin-content-task">
+                            <li>
+                                <div class="admin-task-meta"> Posted on 25/1/2120 by John Clark</div>
+                                <div class="admin-task-bd">
+                                    The starting place for exploring business management; helping new managers get
+                                    started and
+                                    experienced managers get better.
+                                </div>
+                                <div class="am-cf">
+                                    <div class="am-btn-toolbar am-fl">
+                                        <div class="am-btn-group am-btn-group-xs">
+                                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-check"></span></button>
+                                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-pencil"></span></button>
+                                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-times"></span></button>
+                                        </div>
+                                    </div>
+                                    <div class="am-fr">
+                                        <button type="button" class="am-btn am-btn-default am-btn-xs">删除</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="admin-task-meta"> Posted on 25/1/2120 by 呵呵呵</div>
+                                <div class="admin-task-bd">
+                                    基兰和狗熊出现在不同阵营时。基兰会获得BUFF，“装甲熊憎恨者”。狗熊会获得BUFF，“时光老人憎恨者”。
+                                </div>
+                                <div class="am-cf">
+                                    <div class="am-btn-toolbar am-fl">
+                                        <div class="am-btn-group am-btn-group-xs">
+                                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-check"></span></button>
+                                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-pencil"></span></button>
+                                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-times"></span></button>
+                                        </div>
+                                    </div>
+                                    <div class="am-fr">
+                                        <button type="button" class="am-btn am-btn-default am-btn-xs">删除</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
+                    <!--
+                        <div class="am-g" style="margin-top: 5px;">
+                        <div class="am-u-sm-12">
+                            <form class="am-form">
+                                <table class="am-table am-table-striped am-table-hover table-main">
+                                    <thead>
+                                        <tr>
+                                            <th class="table-title">
+                                                ANNOUNCEMENT
+                                            </th>
+                                            <th class="table-title">
+                                                LIBRARIAN
+                                            </th>
+                                            <th class="table-title">
+                                                DATE
+                                            </th>
+                                            <th class="table-set">
+                                                OPERATION
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tUser">
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                    -->
+                    
                 </div>
             </div>
+            <!-- content end -->
         </div>
-        <!-- content end -->
     </div>
-</div>
 
 
-<script src="../cookie.js"></script>>
-<script src="../socket.io.js"></script>
-<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-<script>
-    var socket = io("http://139.199.112.88:2761");
-    var items = [];
-    function editItem(index) {
-        Cookies.set("cur_news_title", items[index].title, { expires: 1 });
-        $.jq_Panel({
-            title: "Edit Announcement",
-            url: "edit-announcement.html",
-            top: 300,
-            iframeWidth: 800,
-            iframeHeight: 400,
-        });
-    }
-
-    socket.on("deleteAnnouncementSuccess", function (data) {
-        window.alert("DeleteAnnouncement success.");
-        location.href = location.href;
-    });
-
-    function deleteItem(index) {
-        var data={};
-        data.title=items[index].title;
-        socket.emit("deleteAnnouncement", data);
-    }
-
-    function addAnnouncementItem(item,i) {
-        var obj = document.createElement('tr');
-        var news_title = document.createElement('td');
-        news_title.innerHTML =item.title;
-
-        var news_librarian = document.createElement('td');
-        news_librarian.innerHTML =item.librarian_id;
-
-        var news_date = document.createElement('td');
-        news_date.innerHTML = item.date.substring(0, 10);
-
-        var edit_span = document.createElement('span');
-        edit_span.setAttribute("class", "am-icon-pencil-square-o");
-
-        var delete_span = document.createElement('span');
-        delete_span.setAttribute("class", "am-icon-trash-o");
-
-        var edit_btn = document.createElement('button');
-        edit_btn.innerHTML = '';
-        edit_btn.appendChild(edit_span);
-        edit_btn.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary btnedit');
-        edit_btn.setAttribute('id', i);
-        edit_btn.setAttribute('onclick', 'editItem(this.id)');
-        edit_btn.setAttribute('type', 'button');
-
-        var delete_btn = document.createElement('button');
-        delete_btn.innerHTML = '';
-        delete_btn.appendChild(delete_span);
-        delete_btn.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only');
-        delete_btn.setAttribute('id', i);
-        delete_btn.setAttribute('onclick', 'deleteItem(this.id)');
-        delete_btn.setAttribute('type', 'button');
-
-        var div1 = document.createElement('div');
-        div1.setAttribute('class', 'am-btn-group am-btn-group-xs');
-        div1.appendChild(edit_btn);
-        div1.appendChild(delete_btn);
-
-        var div2 = document.createElement('div');
-        div2.setAttribute('class', 'am-btn-toolbar');
-        div2.appendChild(div1);
-
-        var buttons_td = document.createElement('td');
-        buttons_td.appendChild(div2);
-
-        obj.appendChild(news_title);
-        obj.appendChild(news_librarian);
-        obj.appendChild(news_date);
-        obj.appendChild(buttons_td);
-
-        var parent = document.getElementById('tUser');
-        parent.appendChild(obj);
-    }
-
-    function clearItems() {
-        var obj = document.getElementById('tUser');
-        while (obj.childNodes.length > 0) {
-            obj.removeChild(obj.lastChild);
-        }
-    }
-
-    socket.on("AnnouncementList", function (data) {
-        clearItems();
-        data = data.annoucement_list;
-        items = data;
-        for (var i = 0; i < data.length; i++) {
-            addAnnouncementItem(data[i], i);
-        }
-    });
-
-    socket.emit("getAnnouncementList");
-</script>
-
-
-
-
-
-<!--[if (gte IE 9)|!(IE)]><!-->
-<script src="js/jquery-1.11.3.min.js"></script>
-<!--<![endif]-->
-<script type="text/javascript" src="myplugs/js/plugs.js"></script>
-<script>
-    $(function () {
-        $(".btnAdd").click(function () {
-
+    <script src="../cookie.js"></script>>
+    <script src="../socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        var socket = io("http://139.199.112.88:2761");
+        var items = [];
+        function editItem(index) {
+            Cookies.set("cur_news_title", items[index].title, { expires: 1 });
             $.jq_Panel({
-                title: "ADD Announcement",
+                title: "Edit Announcement",
+                url: "edit-announcement.html",
+                top: 300,
                 iframeWidth: 800,
-                iframeHeight: 300,
-                url: "addAnnouncement.html"
+                iframeHeight: 400,
             });
+        }
 
+        socket.on("deleteAnnouncementSuccess", function (data) {
+            window.alert("DeleteAnnouncement success.");
+            location.href = location.href;
         });
-    });
-</script>
+
+        function deleteItem(index) {
+            var data = {};
+            data.title = items[index].title;
+            socket.emit("deleteAnnouncement", data);
+        }
+
+        function addAnnouncementItem(item, i) {
+            var obj = document.createElement('tr');
+            var news_title = document.createElement('td');
+            news_title.innerHTML = item.title;
+
+            var news_librarian = document.createElement('td');
+            news_librarian.innerHTML = item.librarian_id;
+
+            var news_date = document.createElement('td');
+            news_date.innerHTML = item.date.substring(0, 10);
+
+            var edit_span = document.createElement('span');
+            edit_span.setAttribute("class", "am-icon-pencil-square-o");
+
+            var delete_span = document.createElement('span');
+            delete_span.setAttribute("class", "am-icon-trash-o");
+
+            var edit_btn = document.createElement('button');
+            edit_btn.innerHTML = '';
+            edit_btn.appendChild(edit_span);
+            edit_btn.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary btnedit');
+            edit_btn.setAttribute('id', i);
+            edit_btn.setAttribute('onclick', 'editItem(this.id)');
+            edit_btn.setAttribute('type', 'button');
+
+            var delete_btn = document.createElement('button');
+            delete_btn.innerHTML = '';
+            delete_btn.appendChild(delete_span);
+            delete_btn.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only');
+            delete_btn.setAttribute('id', i);
+            delete_btn.setAttribute('onclick', 'deleteItem(this.id)');
+            delete_btn.setAttribute('type', 'button');
+
+            var div1 = document.createElement('div');
+            div1.setAttribute('class', 'am-btn-group am-btn-group-xs');
+            div1.appendChild(edit_btn);
+            div1.appendChild(delete_btn);
+
+            var div2 = document.createElement('div');
+            div2.setAttribute('class', 'am-btn-toolbar');
+            div2.appendChild(div1);
+
+            var buttons_td = document.createElement('td');
+            buttons_td.appendChild(div2);
+
+            obj.appendChild(news_title);
+            obj.appendChild(news_librarian);
+            obj.appendChild(news_date);
+            obj.appendChild(buttons_td);
+
+            var parent = document.getElementById('tUser');
+            parent.appendChild(obj);
+        }
+
+        function clearItems() {
+            var obj = document.getElementById('tUser');
+            while (obj.childNodes.length > 0) {
+                obj.removeChild(obj.lastChild);
+            }
+        }
+
+        socket.on("AnnouncementList", function (data) {
+            clearItems();
+            data = data.annoucement_list;
+            items = data;
+            for (var i = 0; i < data.length; i++) {
+                addAnnouncementItem(data[i], i);
+            }
+        });
+
+        socket.emit("getAnnouncementList");
+    </script>
+
+
+
+
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <!--<![endif]-->
+    <script type="text/javascript" src="myplugs/js/plugs.js"></script>
+    <script>
+        $(function () {
+            $(".btnAdd").click(function () {
+
+                $.jq_Panel({
+                    title: "ADD Announcement",
+                    iframeWidth: 800,
+                    iframeHeight: 300,
+                    url: "addAnnouncement.html"
+                });
+
+            });
+        });
+    </script>
 </body>
 
 </html>

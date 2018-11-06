@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="css/custom_up_img.css">
 	<style>
 		.admin-main {
-			padding-top: 50px;
+			padding-top: 0px;
 		}
 	</style>
 	<style type="text/css">
@@ -35,6 +35,7 @@
 		<!-- content start -->
 		<div class="admin-content">
 			<div class="admin-content-body">
+				<!--
 				<div class="am-g">
 					<form class="am-form am-form-horizontal" style="padding-top: 30px;">
 						<input value="504" name="roleId" type="hidden">
@@ -44,7 +45,7 @@
 							</label>
 						</div>
 
-						<div class="am-form-group">
+						<div class="am-form">
 							<label for="title" class="am-u-sm-3 am-form-label">
 								BAR-CODE
 							</label>
@@ -119,12 +120,71 @@
 						</div>
 
 				</div>
+				-->
+				<div class="am-u-lg-8 am-u-md-8 am-u-sm-centered">
+					<br>
+					<h1>Book Information</h1>
+					<hr>
+					<form class="am-form">
+							<label for="barcode">
+								BAR-CODE
+							</label>
+							<input onblur="barcodeBlur()" id="barcode" required="" maxlength="13" oninput="value=value.replace(/[^\d]/g,'')"
+								placeholder="Example: 9780262035613" value="" name="bar-code" type="text">
+					</form>
+					
+					<form class="am-form">
+							<label for="title">
+								Book Title
+							</label>
+							<input readonly="readonly" id="title" required="" value="" name="book-title" type="text">
+					</form>
+
+					<form class="am-form">
+							<label for="authors">
+								Authors
+							</label>
+							<input readonly="readonly" id="authors" required="" value="" name="book-authors" type="text">
+					</form>
+
+					<form class="am-form">
+							<label for="isbn">
+								ISBN
+							</label>
+							<input readonly="readonly" id="isbn" required="" value="" name="book-ISBN" type="text">
+					</form>
+
+					<form class="am-form">
+							<label for="press">
+								Publisher
+							</label>
+							<input readonly="readonly" id="press" required="" value="" name="book-press" type="text">
+					</form>
+
+					<h1>Borrower Information</h1>
+					<hr>
+
+					<form class="am-form">
+							<label for="phone">
+								Username
+							</label>
+							<input id="phone" onblur="borrowerBlur()" required="" maxlength="11" oninput="value=value.replace(/[^\d]/g,'')"
+								 placeholder="Example: 18292020841" value="" name="borrower-phone" type="text">
+					</form>
+
+					<form class="am-form">
+							<label for="name">
+								Name
+							</label>
+							<input readonly="readonly" id="name" required="" value="" name="borrower-name" type="text">
+					</form>
+				</div>
 
 				<script src="js/jquery-1.11.3.min.js"></script>
 				<script src="js/amazeui.min.js" charset="utf-8"></script>
 				<script src="js/cropper.min.js" charset="utf-8"></script>
 				<script src="js/custom_up_img.js" charset="utf-8"></script>
-
+				<br>
 				<div class="am-form-group">
 					<div class="am-u-sm-9 am-u-sm-push-3">
 						<button onclick="lendBook()" class="am-btn am-btn-success">LEND</button>

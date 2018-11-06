@@ -72,6 +72,7 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [ ] 部署（WL）
 - [ ] 对照需求ppt测试（STX, WL, JC, YTH）
 - [ ] 测试一下浏览器，解决兼容问题（YTH）
+- [ ] 空值搜索显示全部结果
 
 ### Librarian
 - [ ] 找回密码提交后应有反馈（WL）
@@ -80,6 +81,8 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [ ] 检查location和category管理，删除/刷新有问题（WCX, GY）
 - [ ] 添加/编辑/删除后自动刷新列表（WL）
 - [ ] 把admin登录功能从librarian登陆界面删除
+- [ ] post news用新的框架
+- [ ] income加一条总线表示总收入
 
 ### Reader
 - [ ] 主页上面加一个按钮Librarian，提供librarian的登录入口（WQX, HAM）
