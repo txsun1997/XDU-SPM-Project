@@ -152,7 +152,7 @@
                                             <th>BARCODE</th>
                                             <th>BORROW TIME</th>
                                             <th>RETURN TIME</th>
-                                            <th>FINE TIME</th>                                               
+                                            <th>PENALTY</th>                                               
                                         </tr>
                                     </thead>
                                     <tbody id='list_body'>
@@ -237,8 +237,13 @@
 
 
                 var td_return = document.createElement('td');
-                var return_time = new Date(data[i].return_date);
-                td_return.innerHTML = return_time.getFullYear()+'-'+(return_time.getMonth()+1)+'-'+return_time.getDate();
+                if(data[i].return_date!=null){
+                	var return_time = new Date(data[i].return_date);
+                    td_return.innerHTML = return_time.getFullYear()+'-'+(return_time.getMonth()+1)+'-'+return_time.getDate();
+                }else{
+                	td_return.innerHTML = '<font color="#FF0000">not returned yet</font>';
+                }
+
                 var td_fine = document.createElement('td');
 
                 td_fine.innerHTML = '<font color="#FF0000">'+data[i].fine+'</font>';
