@@ -66,29 +66,29 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 ## Final Tasks
 
 ### ALL
-- [ ] 删除操作前加询问框
+- [ ] 删除操作前加询问框（WL, WQX, JC）
 - [ ] 进行空值和错误值测试
-- [ ] 邮件发送的问题再改进一下，用西电邮箱是可以接收到的
-- [ ] 部署
-- [ ] 对照需求ppt测试
-- [ ] 测试一下浏览器，解决兼容问题
+- [ ] 邮件发送的问题再改进一下，用西电邮箱是可以接收到的（YTH）
+- [ ] 部署（WL）
+- [ ] 对照需求ppt测试（STX, WL, JC, YTH）
+- [ ] 测试一下浏览器，解决兼容问题（YTH）
 
 ### Librarian
-- [ ] 找回密码提交后应有反馈
-- [ ] 做主页，显示公告
-- [ ] 条形码在小窗口显示无法打印，显示在新标签页
-- [ ] 检查location和category管理，删除有问题
+- [ ] 找回密码提交后应有反馈（WL）
+- [ ] 做主页，显示公告（STX）
+- [ ] 条形码在小窗口显示无法打印，显示在新标签页（WL）
+- [ ] 检查location和category管理，删除有问题（WCX, GY）
 
 ### Reader
-- [ ] 主页上面加一个按钮Librarian，提供librarian的登录入口
-- [ ] UI统一和改进
-- [ ] Profile界面Male Female不能改
-- [ ] News只能显示4条，点击不对应，正文字体需调整
-- [ ] 主页展示书的功能
+- [ ] 主页上面加一个按钮Librarian，提供librarian的登录入口（WQX, HAM）
+- [ ] UI统一和改进（WQX）
+- [ ] Profile界面Male Female不能改（JC）
+- [ ] News只能显示4条，点击不对应，正文字体需调整（HAM, WQX）
+- [ ] 主页展示书的功能（HAM, WQX）
 
 ### Admin
-- [ ] 重做一个登录界面，只能通过地址访问
-- [ ] Message有高亮显示未读消息数目
+- [ ] 重做一个登录界面，只能通过地址访问（STX）
+- [ ] Message有高亮显示未读消息数目（STX, WL）
 
 ----
 
