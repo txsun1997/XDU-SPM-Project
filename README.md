@@ -68,7 +68,7 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 ### ALL
 - [ ] 删除操作前加询问框（WL, WQX, JC）
 - [ ] 进行空值和错误值测试
-- [ ] 邮件发送的问题再改进一下，用西电邮箱是可以接收到的（YTH）
+- [ ] 邮件发送的问题再改进一下（特别是163邮箱），用西电邮箱是可以接收到的（YTH）
 - [ ] 部署（WL）
 - [ ] 对照需求ppt测试（STX, WL, JC, YTH）
 - [ ] 测试一下浏览器，解决兼容问题（YTH）
