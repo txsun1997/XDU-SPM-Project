@@ -93,48 +93,6 @@
         var npl;
         var pl;
 
-        function editLoc(index) {
-            var locs = Cookies.getJSON('locList');
-            Cookies.set("cur_loc", locs[index].location, { expires: 1 });
-            $.jq_Panel({
-                title: "Edit Location",
-                url: "editloc.html",
-                iframeWidth: 600,
-                iframeHeight: 300,
-            });
-        }
-        function editType(index) {
-            var types = Cookies.getJSON('typeList');
-            Cookies.set("cur_type", types[index].type, { expires: 1 });
-            $.jq_Panel({
-                title: "Edit Type",
-                url: "editType.html",
-                iframeWidth: 600,
-                iframeHeight: 300,
-            });
-        }
-
-        function addloction() {
-            $.jq_Panel({
-                title: "ADD LOCATION",
-                url: "addLoc.html",
-                iframeWidth: 600,
-                iframeHeight: 300,
-            });
-        }
-        function addtype() {
-            $.jq_Panel({
-                title: "ADD TYPE",
-                url: "addType.html",
-                iframeWidth: 600,
-                iframeHeight: 300,
-            });
-        }
-        function deleteLoc(index) {
-            var locs = Cookies.getJSON('locList');
-            var data = locs[index];
-            socket.emit("deletelocation", data);
-        }
         function addNotPendingItem(item, i) {
             var obj = document.createElement('tr');
             var librarian_id = document.createElement('td');
