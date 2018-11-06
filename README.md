@@ -71,6 +71,7 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [ ] 邮件发送的问题再改进一下，用西电邮箱是可以接收到的
 - [ ] 部署
 - [ ] 对照需求ppt测试
+- [ ] 测试一下浏览器，解决兼容问题
 
 ### Librarian
 - [ ] 找回密码提交后应有反馈
