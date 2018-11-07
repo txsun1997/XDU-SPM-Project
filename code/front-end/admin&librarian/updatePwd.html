@@ -22,9 +22,10 @@
 		<!-- content start -->
 		<div class="admin-content">
 			<div class="admin-content-body">
-					<div class="am-cf am-padding" style="padding-top: 40px">
-						<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">Change Password</strong> / <small>修改密码</small></div>
-					</div>
+				<div class="am-cf am-padding" style="padding-top: 40px">
+					<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" style="font-size: 25px">Change Password</strong>
+						/ 修改密码</div>
+				</div>
 				<div class="am-g">
 					<form class="am-form am-form-horizontal" style="margin-left: -300px;margin-top: 10px;" method="post" style="padding-top:30px;"
 					 data-am-validator>
@@ -55,8 +56,12 @@
 	</div>
 	<script type="text/javascript" src="assets/js/libs/jquery-1.10.2.min.js">
 
+
+
 	</script>
 	<script type="text/javascript" src="myplugs/js/plugs.js">
+
+
 
 	</script>
 </body>
@@ -73,7 +78,7 @@
 	socket.on("updateAdminPasswordSuccess", function () {
 		window.alert("Your password has been successfully updated.");
 	});
-	
+
 	function updateAdminPassword() {
 		var data = {};
 		data.username = Cookies.get("username");
