@@ -189,7 +189,7 @@
     <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
         <script>
             $(document).ready(function () {
-                $('#dataTables-example').dataTable();
+                //$('#dataTables-example').dataTable();
             });
     </script>
          <!-- Custom Js -->
@@ -222,44 +222,33 @@
         });
         socket.on('showBorrowList',function(data){
             var totalFine = 0;
+                        var showList = []
             for(var i=0;i<data.length;i++){
+                var showItem = [];
+                showItem.push(data[i].book_name);
+                showItem.push(data[i].bar_code);
 
-                var tr = document.createElement('tr');
-                tr.setAttribute('class','odd gradeX');
-                var td_name = document.createElement('td');
-                td_name.innerHTML = data[i].book_name; 
-                var td_code = document.createElement('td');
-                td_code.innerHTML = data[i].bar_code;
-                var td_borrow = document.createElement('td');
                 var borrow_time = new Date(data[i].borrow_date);
-                //window.alert();
-                td_borrow.innerHTML = borrow_time.getFullYear()+'-'+(borrow_time.getMonth()+1)+'-'+borrow_time.getDate();
+                borrow_time = borrow_time.getFullYear()+'-'+(borrow_time.getMonth()+1)+'-'+borrow_time.getDate();
+                showItem.push(borrow_time);
 
-
-                var td_return = document.createElement('td');
+                var return_time = null;
                 if(data[i].return_date!=null){
-                    var return_time = new Date(data[i].return_date);
-                    td_return.innerHTML = return_time.getFullYear()+'-'+(return_time.getMonth()+1)+'-'+return_time.getDate();
+                    return_time = new Date(data[i].return_date);
+                    return_time = return_time.getFullYear()+'-'+(return_time.getMonth()+1)+'-'+return_time.getDate();
                 }else{
-                    td_return.innerHTML = '<font color="#FF0000">尚未归还</font>';
+                    return_time = '<font color="#FF0000">尚未归还</font>';
                 }
-                var td_fine = document.createElement('td');
+                showItem.push(return_time);
 
-                td_fine.innerHTML = '<font color="#FF0000">'+data[i].fine+'</font>';
-                totalFine+=data[i].fine;
-
-                tr.appendChild(td_name);
-
-                tr.appendChild(td_code);
-                tr.appendChild(td_borrow);
-
-                tr.appendChild(td_return);
-                tr.appendChild(td_fine);
-                list_body.appendChild(tr);
+                showItem.push('<font color="#FF0000">'+data[i].fine+'</font>');
+                showList.push(showItem);
+                totalFine += data[i].fine;
             }
+
             var fineText = document.getElementById('fine');
             fineText.innerHTML='Total fine you have to pay: <font color="#FF0000">'+ totalFine+'</font> '
-
+            $('#dataTables-example').dataTable({data:showList});
             /*
                                         <tr class="odd gradeX">
                                             <td>Deep Leearning</td>
