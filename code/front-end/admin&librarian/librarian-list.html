@@ -16,8 +16,10 @@
 		<!-- content start -->
 		<div class="admin-content">
 			<div class="admin-content-body">
-
-				<div class="container" style="padding: 50px 10px 0px 10px">
+				<div class="am-cf am-padding">
+                    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" style="font-size: 25px">Librarian Management</strong> / 图书管理员</div>
+                </div>
+				<div class="container" style="padding: 10px 10px 0px 10px">
 					<div class="am-g">
 						<div class="am-u-sm-12 am-u-md-6">
 							<div class="am-btn-toolbar">
@@ -26,13 +28,18 @@
 									<button type="button" class="am-btn am-btn-primary btnAdd">
 										<span class="am-icon-plus"></span> ADD
 									</button>
-									<button type="button" class="am-btn am-btn-warning" onclick="search_panel()">
-										<span class="am-icon-search"></span> SEARCH
-									</button>
 								</div>
 							</div>
 						</div>
-
+						<div class="am-u-sm-12 am-u-md-3">
+							<div class="am-input-group am-input-group-sm">
+								<input id="readerSearch" class="am-form-field" placeholder="Enter ID/name/phone" type="text">
+								<span class="am-input-group-btn">
+									<button class="am-btn am-btn-primary" type="button" id="btnsearch" onclick="search_librarian()">
+										<span class="am-icon-search"></span>
+									</button> </span>
+							</div>
+						</div>
 						
 					</div>
 
