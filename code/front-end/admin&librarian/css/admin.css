@@ -200,6 +200,12 @@ ul {
   margin-bottom: 5px;
 }
 
+.admin-task-title{
+  font-size: 1.8rem;
+  margin-top: 10px;
+  font-weight: 700;
+}
+
 .admin-content-comment {
   margin-bottom: 0;
 }
