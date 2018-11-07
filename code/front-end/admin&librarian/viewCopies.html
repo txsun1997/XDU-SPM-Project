@@ -81,12 +81,8 @@
 
         function viewBarcode(index) {
             Cookies.set("cur_copy", copies[index].bar_code, { expires: 1 });
-            $.jq_Panel({
-				title: "VIEW BARCODE",
-				url: "viewBarcode.html",
-				iframeWidth: 350,
-				iframeHeight: 150,
-			});
+            window.open("viewBarcode.html");
+            location.href = location.href;
         }
 
         function addCopyItem(item, i) {
