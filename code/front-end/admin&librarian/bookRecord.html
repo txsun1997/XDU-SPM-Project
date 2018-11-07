@@ -103,7 +103,17 @@
 			}
 
 			var operation = document.createElement('td');
-			operation.innerHTML = item.operation;
+			//operation.innerHTML = item.operation;
+
+			var operation_span = document.createElement('span');
+			if(item.operation == "Delete"){
+				operation_span.setAttribute("class", "am-badge am-badge-danger");
+			}
+			if(item.operation == "Edit"){
+				operation_span.setAttribute("class", "am-badge am-badge-success");
+			}
+			operation_span.innerHTML = item.operation;
+			operation.appendChild(operation_span);
 
 			var librarian_id = document.createElement('td');
 			librarian_id.innerHTML = item.librarian_id;

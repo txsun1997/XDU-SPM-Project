@@ -27,7 +27,7 @@
                     <div class="wn__single__product">
                         <div class="row">
 
-                            <div class="col-lg-5 col-12">
+                            <div class="col-lg-3 col-12">
 
                                 <div class="wn__fotorama__wrapper">
                                     <img id="imageContent">
@@ -40,7 +40,7 @@
                                         <p>Available: <span id='avail'></span></p>
                                         <p> Total Number: <span id='total_num'></span></p>
                                     </div>
-                                    </br>
+                                    <br>
                                     <div class="product-color-label">
                                         <h1>Infomation</h1>
                                         <ul class="pro__attribute">
@@ -48,18 +48,22 @@
                                             <li id='location'>Location: </li>
                                             <li id='type'>Type: </li>
                                             <li id='author'>Author: </li>
-                                            <li id='press'>Press: </li>
+                                            <li id='press'>Publisher: </li>
                                             <li id='page'>Page: </li>
                                             <li id='year'>Publish year: </li>
                                         </ul>
                                     </div>
 
-                                    <div class="product__overview">
-                                        <p id='subject'>Description of the book.</p>
-
-                                    </div>
+                                    
                                 </div>
                             </div>
+                            <div class="col-lg-10 col-12" style="padding-top: 20px">
+                                <hr>
+                                <div class="product__overview">
+                                    <p id='subject' style="padding-top: 20px">Description of the book.</p>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -76,17 +80,6 @@
     <script src="js/plugins.js"></script>
     <script>
         var socket = io("http://139.199.112.88:2761");
-        var books;
-
-
-        var index = 0;
-        for (var i = 0; i < location.href.length; i++) {
-            if (location.href[i] != "?") {
-                for (var j = i; j < location.href.length; j++)
-                    index = index * 10 + parseInt(location.href[i]);
-            }
-        }
-
 
         function showBookDetail(data) {
             if (data.figure != null) {
@@ -138,27 +131,13 @@
 
         }
 
-        var isbn = books[index].isbn;
+        var isbn = Cookies.get("cur_book");
         var data = {};
         data.isbn = isbn;
-
-        socket.on("bookList", function (data) {
-            books = data.bookList;
-            var obj = document.getElementById('tUser');
-            while (obj.childNodes.length > 0) {
-                obj.removeChild(obj.lastChild);
-            }
-            for (var i = 0; i < books.length; i++) {
-                addBookItem(books[i], i);
-            }
-        });
 
         socket.on("bookDetail", function (data) {
             showBookDetail(data.bookDetail);
         });
-        socket.emit("getBookList");
-
-
 
         socket.emit("getBookDetail", data);
 

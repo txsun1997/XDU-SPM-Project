@@ -84,6 +84,7 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [ ] post news用新的框架
 - [ ] income加一条总线表示总收入
 - [ ] income detail表美化一下
+- [ ] Operation History增加Edit历史，Edit类型用绿色标注
 
 ### Reader
 - [ ] 主页上面加一个按钮Librarian，提供librarian的登录入口（WQX, HAM）
