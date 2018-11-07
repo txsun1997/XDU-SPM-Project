@@ -14,8 +14,9 @@
 	<style type="text/css">
 
 		#ean {
-			margin: 0 auto;
+			padding-top: 100px;
 		}
+
 	</style>
 
 </head>
@@ -23,7 +24,7 @@
 <body>
 
 	<article class="zzsc">
-		<canvas id="ean" width="300" height="150"></canvas>
+		<canvas id="ean" width="600" height="300"></canvas>
 	</article>
 
 	<script src="../cookie.js"></script>
@@ -36,6 +37,7 @@
 		$(function () {
 			$("#ean").EAN13(barcode.toString());
 		});
+
 	</script>
 
 </body>

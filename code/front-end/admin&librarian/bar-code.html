@@ -27,9 +27,7 @@
 
 <body>
 
-	<article class="zzsc">
-		<canvas id="ean" width="300" height="150"></canvas>
-		<button id = "nextBarcode" class="am-btn am-btn-success" onclick="next()">Next Barcode</button>
+	<article  id = "barcodes" class="zzsc">
 	</article>
 
 	<script src="../cookie.js"></script>
@@ -41,17 +39,22 @@
 		var cur = 0;
 		var barcode = json.barcode_list;
 		var length = json.barcode_list.length;
-		$(function () {
-			$("#ean").EAN13(barcode[cur].toString());
-		});
-		function next() {
-			cur++;
-			if (cur >= length) {
-				alert("That's all barcodes.");
-				return;
-			}
-			$("#ean").EAN13(barcode[cur].toString());
+
+		function addItem(item, i) {
+            var barcode = document.createElement('canvas');
+            barcode.setAttribute("id", i);
+			barcode.setAttribute("width", "300");
+			barcode.setAttribute("height", "150");
+			barcode.setAttribute("style", "padding: 30px")
+            var parent = document.getElementById('barcodes');
+            parent.appendChild(barcode);
+        }
+
+		for(var cur = 0; cur < length; cur++){
+			addItem(barcode[cur], cur);
+			$("#" + cur.toString()).EAN13(barcode[cur].toString());
 		}
+
 	</script>
 
 </body>

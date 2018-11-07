@@ -309,6 +309,10 @@
 		socket.emit("getDouban", isbn);
 	}
 
+	socket.on("addBookSuccess",function(){
+		location.href = "addBookSuccess.html";
+	});
+
 	socket.on("bookInfoOfDouban", function (data) {
 		$("#title").attr("value", data.title);
 		$("#authors").attr("value", data.author);
@@ -323,7 +327,7 @@
 
 	socket.on("barcodeList", function (data) {
 		Cookies.set("barcode_list", data.barcode_list, { expires: 1 });
-		location.href = "bar-code.html";
+		window.open("bar-code.html");
 	});
 
 	function printBarcode() {
