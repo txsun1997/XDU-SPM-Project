@@ -76,11 +76,11 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 
 ### Librarian
 - [X] 找回密码提交后应有反馈（WL）
-- [ ] 做主页，显示公告（STX）
+- [x] 做主页，显示公告（STX）
 - [x] 条形码在小窗口显示无法打印，显示在新标签页（WL）
 - [x] 检查location和category管理，删除/刷新有问题（WCX, GY）
 - [ ] 添加/编辑/删除后自动刷新列表（WL）
-- [ ] 把admin登录功能从librarian登陆界面删除
+- [x] 把admin登录功能从librarian登陆界面删除
 - [ ] post news用新的框架
 - [ ] income加一条总线表示总收入
 - [ ] income detail表美化一下
@@ -92,12 +92,12 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [x] Profile界面Male Female不能改（JC）
 - [X] News只能显示4条，点击不对应，正文字体需调整（HAM, WQX）
 - [ ] 主页展示书的功能（HAM, WQX）
-- [ ] 页码问题（WQX, HAM）
+- [x] 页码问题（WQX, HAM）
 - [ ] 主页公告无法点击（WQX, HAM）
 
 ### Admin
-- [ ] 子串搜索librarian
-- [ ] 重做一个登录界面，只能通过地址访问（STX）
+- [ ] 删除原来的搜索librarian，调整为一个搜索框，可以根据账号、姓名、电话来检索，支持子串搜索
+- [x] 重做一个登录界面，只能通过地址访问（STX）
 - [X] Message有高亮显示未读消息数目（STX, WL）
 - [ ] 添加/编辑/删除后自动刷新列表（WL）
 
