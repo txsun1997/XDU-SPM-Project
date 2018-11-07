@@ -15,14 +15,16 @@
 	<div class="am-cf admin-main">
 		<div class="admin-content">
 			<div class="admin-content-body">
-
-				<div class="container" style="padding: 50px 10px 0px 10px">
+				<div class="am-cf am-padding">
+                    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">Book Management</strong> / <small>图书管理</small></div>
+                </div>
+				<div class="container" style="padding: 10px 10px 0px 10px">
 
 					<div class="am-g">
 						<div class="am-u-sm-12 am-u-md-6">
 							<div class="am-btn-toolbar">
 								<div class="am-btn-group am-btn-group-xs">
-									<button type="button" class="am-btn am-btn-primary btnAdd">
+									<button type="button" class="am-btn am-btn-warning btnAdd">
 										<span class="am-icon-plus"></span> ADD
 									</button>
 								</div>
@@ -151,18 +153,22 @@
 			socket.emit('searchBooks', data);
 		}
 
+
 		function setCurbook(index){
 			Cookies.set("cur_book", books[index].isbn, { expires: 1 });
 		}
+
 
 		function addBookItem(item, i) {
 			var obj = document.createElement('tr');
 			var bookname = document.createElement('td');
 			var ah = document.createElement('a');
 			ah.innerHTML = item.book_name;
+
 			ah.setAttribute("href", "book-detail.html");
 			ah.setAttribute('id', i);
 			ah.setAttribute('onclick', 'setCurbook(this.id)');
+
 			bookname.appendChild(ah);
 			var author = document.createElement('td');
 			author.innerHTML = item.author;
