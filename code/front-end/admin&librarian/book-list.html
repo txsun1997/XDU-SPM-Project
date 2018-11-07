@@ -154,12 +154,21 @@
 		}
 
 
+		function setCurbook(index){
+			Cookies.set("cur_book", books[index].isbn, { expires: 1 });
+		}
+
+
 		function addBookItem(item, i) {
 			var obj = document.createElement('tr');
 			var bookname = document.createElement('td');
 			var ah = document.createElement('a');
 			ah.innerHTML = item.book_name;
-			ah.setAttribute("href","book-detail.html");
+
+			ah.setAttribute("href", "book-detail.html");
+			ah.setAttribute('id', i);
+			ah.setAttribute('onclick', 'setCurbook(this.id)');
+
 			bookname.appendChild(ah);
 			var author = document.createElement('td');
 			author.innerHTML = item.author;
@@ -173,6 +182,7 @@
 			avail.innerHTML = item.available_number + '/' + item.total_number;
 			var isbn = document.createElement('td');
 			isbn.innerHTML = item.isbn;
+			
 
 			var edit_span = document.createElement('span');
 			edit_span.setAttribute("class", "am-icon-pencil-square-o");
