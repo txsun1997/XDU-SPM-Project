@@ -151,18 +151,13 @@
 			socket.emit('searchBooks', data);
 		}
 
-		function bookDetail() {
-			Cookies.set("cur_book", books[index].isbn, { expires: 1 });
-			location.href = "book-detail.html";
-		}
 
 		function addBookItem(item, i) {
 			var obj = document.createElement('tr');
 			var bookname = document.createElement('td');
 			var ah = document.createElement('a');
 			ah.innerHTML = item.book_name;
-		
-			ah.setAttribute("href","book-detail.html" + "?" + "index=" + i);
+			ah.setAttribute("href","book-detail.html");
 			bookname.appendChild(ah);
 			var author = document.createElement('td');
 			author.innerHTML = item.author;
