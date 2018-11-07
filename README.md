@@ -88,7 +88,7 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 
 ### Reader
 - [ ] 主页上面加一个按钮Librarian，提供librarian的登录入口（WQX, HAM）
-- [ ] UI统一和改进（WQX）
+- [ ] UI统一和改进，比如三个小人下栏菜单的统一（WQX）
 - [ ] Profile界面Male Female不能改（JC）
 - [X] News只能显示4条，点击不对应，正文字体需调整（HAM, WQX）
 - [ ] 主页展示书的功能（HAM, WQX）
