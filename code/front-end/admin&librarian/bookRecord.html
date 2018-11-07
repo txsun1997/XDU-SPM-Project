@@ -16,13 +16,10 @@
 		<!-- content start -->
 		<div class="admin-content">
 			<div class="admin-content-body">
-
-				<div class="container" style="padding: 30px 10px 0px 10px">
-					<div class="am-g">
-						<div class="am-u-sm-12 am-u-md-6">
-							<h1>Operation History</h1>
-						</div>
-					</div>
+				<div class="am-cf am-padding">
+					<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">Operation History</strong> / <small>操作历史</small></div>
+				</div>
+				<div class="container" style="padding: 10px 10px 0px 10px">
 					<div class="am-g" style="margin-top: -30px;">
 						<div class="am-u-sm-12">
 							<form class="am-form" action="user/delAll.action">
@@ -106,10 +103,10 @@
 			//operation.innerHTML = item.operation;
 
 			var operation_span = document.createElement('span');
-			if(item.operation == "Delete"){
+			if (item.operation == "Delete") {
 				operation_span.setAttribute("class", "am-badge am-badge-danger");
 			}
-			if(item.operation == "Edit"){
+			if (item.operation == "Edit") {
 				operation_span.setAttribute("class", "am-badge am-badge-success");
 			}
 			operation_span.innerHTML = item.operation;

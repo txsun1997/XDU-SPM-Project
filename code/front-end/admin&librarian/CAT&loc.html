@@ -16,20 +16,18 @@
         <!-- content start -->
         <div class="admin-content">
             <div class="admin-content-body">
-
-                <div class="container" style="padding: 50px 10px 0px 10px">
+                <div class="am-cf am-padding">
+                    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">Location Management</strong> /
+                        <small>位置管理</small></div>
+                </div>
+                <div class="container" style="padding: 10px 10px 0px 10px">
 
                     <div class="am-g">
                         <div class="am-u-sm-12 am-u-md-6">
                             <div class="am-btn-toolbar">
                                 <div class="am-btn-group am-btn-group-xs">
                                     <button type="button" class="am-btn am-btn-warning" onclick="addloction()">
-                                        <span class="am-icon-plus"></span> ADD LOCATION
-                                    </button>
-                                </div>
-                                <div class="am-btn-group am-btn-group-xs">
-                                    <button type="button" onclick="addtype()" class="am-btn am-btn-primary btnAdd">
-                                        <span class="am-icon-plus"></span> ADD CATEGORY
+                                        <span class="am-icon-plus"></span> ADD
                                     </button>
                                 </div>
                             </div>
@@ -37,8 +35,6 @@
 
                         </div>
                     </div>
-
-
 
                     <div class="am-g" style="margin-top: -30px;">
                         <div class="am-u-sm-12">
@@ -59,201 +55,229 @@
                                     <tbody id="tUser">
                                     </tbody>
                                 </table>
-                                <table class="am-table am-table-striped am-table-hover table-main">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                CATEGORY
-                                            </th>
-
-                                            <th>
-                                                OPERATIONS
-                                            </th>
-                                        </tr>
-
-                                    </thead>
-                                    <tbody id="tUser1">
-                                    </tbody>
-                                </table>
+                                
 
                             </form>
                         </div>
                     </div>
                 </div>
+                    <div class="am-cf am-padding">
+                        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">Category Management</strong>
+                            / <small>种类管理</small></div>
+                    </div>
+                    <div class="container" style="padding: 10px 10px 0px 10px">
 
+                        <div class="am-g">
+                            <div class="am-u-sm-12 am-u-md-6">
+                                <div class="am-btn-toolbar">
+                                    <div class="am-btn-group am-btn-group-xs">
+                                        <button type="button" onclick="addtype()" class="am-btn am-btn-warning btnAdd">
+                                            <span class="am-icon-plus"></span> ADD
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="am-g" style="margin-top: -30px;">
+                            <div class="am-u-sm-12">
+                                <form class="am-form">
+                                    
+                                    <table class="am-table am-table-striped am-table-hover table-main">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    CATEGORY
+                                                </th>
+    
+                                                <th>
+                                                    OPERATIONS
+                                                </th>
+                                            </tr>
+    
+                                        </thead>
+                                        <tbody id="tUser1">
+                                        </tbody>
+                                    </table>
+    
+                                </form>
+                            </div>
+                        </div>
+
+                
+                <!-- content end -->
             </div>
-            <!-- content end -->
         </div>
-    </div>
 
-    <!--[if lt IE 9]>
+        <!--[if lt IE 9]>
 <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
 <script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 <![endif]-->
 
-    <!--[if (gte IE 9)|!(IE)]><!-->
-    <script src="js/jquery-1.11.3.min.js"></script>
-    <script src="js/jquery-1.11.3.min.js"></script>
-    <script src="../cookie.js"></script>>
-    <script src="../socket.io.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <!--<![endif]-->
-    <script type="text/javascript" src="myplugs/js/plugs.js"></script>
-    <script>
+        <!--[if (gte IE 9)|!(IE)]><!-->
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="../cookie.js"></script>>
+        <script src="../socket.io.js"></script>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <!--<![endif]-->
+        <script type="text/javascript" src="myplugs/js/plugs.js"></script>
+        <script>
 
-        var socket = io("http://139.199.112.88:2761");
-        var locList;
-        var typeList;
+            var socket = io("http://139.199.112.88:2761");
+            var locList;
+            var typeList;
 
-        function editLoc(index) {
-            Cookies.set("cur_loc", locList[index].location, { expires: 1 });
-            $.jq_Panel({
-                title: "Edit Location",
-                url: "editloc.html",
-                iframeWidth: 600,
-                iframeHeight: 200,
-            });
-        }
-        function editType(index) {
-            Cookies.set("cur_type", typeList[index].type, { expires: 1 });
-            $.jq_Panel({
-                title: "Edit Type",
-                url: "editType.html",
-                iframeWidth: 600,
-                iframeHeight: 200,
-            });
-        }
-
-        function addloction() {
-            $.jq_Panel({
-                title: "ADD LOCATION",
-                url: "addLoc.html",
-                iframeWidth: 600,
-                iframeHeight: 200,
-            });
-        }
-        function addtype() {
-            $.jq_Panel({
-                title: "ADD TYPE",
-                url: "addType.html",
-                iframeWidth: 600,
-                iframeHeight: 200,
-            });
-        }
-
-        function deleteLoc(index) {
-            socket.emit("deletelocation", locList[index]);
-        }
-
-        function addTypeItem(item, i) {
-            var obj = document.createElement('tr');
-            var typename = document.createElement('td');
-            typename.innerHTML = item.type;
-
-            var edit_span = document.createElement('span');
-            edit_span.setAttribute("class", "am-icon-pencil-square-o");
-
-            var btnEdit = document.createElement('button');
-            btnEdit.innerHTML = '';
-            btnEdit.appendChild(edit_span);
-            btnEdit.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary btnEdit');
-            btnEdit.setAttribute('id', i);
-            btnEdit.setAttribute('onclick', 'editType(this.id)');
-            btnEdit.setAttribute('type', 'button');
-
-            var div1 = document.createElement('div');
-            div1.setAttribute('class', 'am-btn-group am-btn-group-xs');
-            div1.appendChild(btnEdit);
-
-            var div2 = document.createElement('div');
-            div2.setAttribute('class', 'am-btn-toolbar');
-            div2.appendChild(div1);
-            var buttons = document.createElement('td');
-            buttons.appendChild(div2);
-
-            obj.appendChild(typename);
-            obj.appendChild(buttons);
-
-            var parent = document.getElementById('tUser1');
-            parent.appendChild(obj);
-        }
-
-        function addLocItem(item, i) {
-            var obj = document.createElement('tr');
-            var locname = document.createElement('td');
-            locname.innerHTML = item.location;
-
-            var edit_span = document.createElement('span');
-            edit_span.setAttribute("class", "am-icon-pencil-square-o");
-
-            var delete_span = document.createElement('span');
-            delete_span.setAttribute("class", "am-icon-trash-o");
-
-            var btnEdit = document.createElement('button');
-            btnEdit.innerHTML = '';
-            btnEdit.appendChild(edit_span);
-            btnEdit.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary btnEdit');
-            btnEdit.setAttribute('id', i);
-            btnEdit.setAttribute('onclick', 'editLoc(this.id)');
-            btnEdit.setAttribute('type', 'button');
-
-            var btnDelete = document.createElement('button');
-            btnDelete.innerHTML = '';
-            btnDelete.appendChild(delete_span);
-            btnDelete.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only');
-            btnDelete.setAttribute('id', i);
-            btnDelete.setAttribute('onclick', 'deleteLoc(this.id)');
-            btnDelete.setAttribute('type', 'button');
-
-            var div1 = document.createElement('div');
-            div1.setAttribute('class', 'am-btn-group am-btn-group-xs');
-            div1.appendChild(btnEdit);
-            div1.appendChild(btnDelete);
-
-            var div2 = document.createElement('div');
-            div2.setAttribute('class', 'am-btn-toolbar');
-            div2.appendChild(div1);
-            var buttons = document.createElement('td');
-            buttons.appendChild(div2);
-
-            obj.appendChild(locname);
-            obj.appendChild(buttons);
-
-            var parent = document.getElementById('tUser');
-            parent.appendChild(obj);
-        }
-
-        socket.on("CatLocList", function (data) {
-            locList = data.location;
-            typeList = data.type;
-            var obj1 = document.getElementById('tUser');
-            var obj2 = document.getElementById('tUser1');
-            while (obj1.childNodes.length > 0) {
-                obj1.removeChild(obj1.lastChild);
+            function editLoc(index) {
+                Cookies.set("cur_loc", locList[index].location, { expires: 1 });
+                $.jq_Panel({
+                    title: "Edit Location",
+                    url: "editloc.html",
+                    iframeWidth: 600,
+                    iframeHeight: 200,
+                });
             }
-            //alert(types);
-            for (var i = 0; i < locList.length; i++) {
-                addLocItem(locList[i], i);
+            function editType(index) {
+                Cookies.set("cur_type", typeList[index].type, { expires: 1 });
+                $.jq_Panel({
+                    title: "Edit Type",
+                    url: "editType.html",
+                    iframeWidth: 600,
+                    iframeHeight: 200,
+                });
             }
 
-            while (obj2.childNodes.length > 0) {
-                obj2.removeChild(obj2.lastChild);
+            function addloction() {
+                $.jq_Panel({
+                    title: "ADD LOCATION",
+                    url: "addLoc.html",
+                    iframeWidth: 600,
+                    iframeHeight: 200,
+                });
             }
-            //alert(types);
-            for (var i = 0; i < typeList.length; i++) {
-                addTypeItem(typeList[i], i);
+            function addtype() {
+                $.jq_Panel({
+                    title: "ADD TYPE",
+                    url: "addType.html",
+                    iframeWidth: 600,
+                    iframeHeight: 200,
+                });
             }
-        });
 
-        socket.on("DeletelocationSuccess", function (data) {
-           alert("Delete location success.");
-           location.href = location.href;
-        });
+            function deleteLoc(index) {
+                socket.emit("deletelocation", locList[index]);
+            }
 
-        socket.emit("getCatLocList");
+            function addTypeItem(item, i) {
+                var obj = document.createElement('tr');
+                var typename = document.createElement('td');
+                typename.innerHTML = item.type;
 
-    </script>
+                var edit_span = document.createElement('span');
+                edit_span.setAttribute("class", "am-icon-pencil-square-o");
+
+                var btnEdit = document.createElement('button');
+                btnEdit.innerHTML = '';
+                btnEdit.appendChild(edit_span);
+                btnEdit.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary btnEdit');
+                btnEdit.setAttribute('id', i);
+                btnEdit.setAttribute('onclick', 'editType(this.id)');
+                btnEdit.setAttribute('type', 'button');
+
+                var div1 = document.createElement('div');
+                div1.setAttribute('class', 'am-btn-group am-btn-group-xs');
+                div1.appendChild(btnEdit);
+
+                var div2 = document.createElement('div');
+                div2.setAttribute('class', 'am-btn-toolbar');
+                div2.appendChild(div1);
+                var buttons = document.createElement('td');
+                buttons.appendChild(div2);
+
+                obj.appendChild(typename);
+                obj.appendChild(buttons);
+
+                var parent = document.getElementById('tUser1');
+                parent.appendChild(obj);
+            }
+
+            function addLocItem(item, i) {
+                var obj = document.createElement('tr');
+                var locname = document.createElement('td');
+                locname.innerHTML = item.location;
+
+                var edit_span = document.createElement('span');
+                edit_span.setAttribute("class", "am-icon-pencil-square-o");
+
+                var delete_span = document.createElement('span');
+                delete_span.setAttribute("class", "am-icon-trash-o");
+
+                var btnEdit = document.createElement('button');
+                btnEdit.innerHTML = '';
+                btnEdit.appendChild(edit_span);
+                btnEdit.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary btnEdit');
+                btnEdit.setAttribute('id', i);
+                btnEdit.setAttribute('onclick', 'editLoc(this.id)');
+                btnEdit.setAttribute('type', 'button');
+
+                var btnDelete = document.createElement('button');
+                btnDelete.innerHTML = '';
+                btnDelete.appendChild(delete_span);
+                btnDelete.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only');
+                btnDelete.setAttribute('id', i);
+                btnDelete.setAttribute('onclick', 'deleteLoc(this.id)');
+                btnDelete.setAttribute('type', 'button');
+
+                var div1 = document.createElement('div');
+                div1.setAttribute('class', 'am-btn-group am-btn-group-xs');
+                div1.appendChild(btnEdit);
+                div1.appendChild(btnDelete);
+
+                var div2 = document.createElement('div');
+                div2.setAttribute('class', 'am-btn-toolbar');
+                div2.appendChild(div1);
+                var buttons = document.createElement('td');
+                buttons.appendChild(div2);
+
+                obj.appendChild(locname);
+                obj.appendChild(buttons);
+
+                var parent = document.getElementById('tUser');
+                parent.appendChild(obj);
+            }
+
+            socket.on("CatLocList", function (data) {
+                locList = data.location;
+                typeList = data.type;
+                var obj1 = document.getElementById('tUser');
+                var obj2 = document.getElementById('tUser1');
+                while (obj1.childNodes.length > 0) {
+                    obj1.removeChild(obj1.lastChild);
+                }
+                //alert(types);
+                for (var i = 0; i < locList.length; i++) {
+                    addLocItem(locList[i], i);
+                }
+
+                while (obj2.childNodes.length > 0) {
+                    obj2.removeChild(obj2.lastChild);
+                }
+                //alert(types);
+                for (var i = 0; i < typeList.length; i++) {
+                    addTypeItem(typeList[i], i);
+                }
+            });
+
+            socket.on("DeletelocationSuccess", function (data) {
+                alert("Delete location success.");
+                location.href = location.href;
+            });
+
+            socket.emit("getCatLocList");
+
+        </script>
 </body>
 
 </html>
