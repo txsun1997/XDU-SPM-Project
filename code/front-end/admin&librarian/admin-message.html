@@ -22,6 +22,7 @@
                     <div class="am-g" style="margin-top: -30px;">
                         <div class="am-u-sm-12">
                             <form class="am-form" action="user/delAll.action">
+                                <label style="padding-left: 10px"><h1>Messages Not Read</h1></label>
                                 <table class="am-table am-table-striped am-table-hover table-main">
                                     <thead>
                                         <tr>
@@ -42,6 +43,7 @@
                                     <tbody id="tUser">
                                     </tbody>
                                 </table>
+                                <label style="padding-left: 10px"><h1>Messages Have Read</h1></label>
                                 <table class="am-table am-table-striped am-table-hover table-main">
                                     <thead>
                                         <tr>
@@ -102,7 +104,15 @@
             email.innerHTML = item.email;
 
             var status = document.createElement('td');
-            status.innerHTML = item.status;
+            var sts_span = document.createElement('span');
+            if(item.status == "Rejected"){
+				sts_span.setAttribute("class", "am-badge am-badge-danger");
+			}
+			if(item.status == "Restored"){
+				sts_span.setAttribute("class", "am-badge am-badge-success");
+			}
+            sts_span.innerHTML = item.status;
+            status.appendChild(sts_span);
 
             obj.appendChild(librarian_id);
             obj.appendChild(email);
