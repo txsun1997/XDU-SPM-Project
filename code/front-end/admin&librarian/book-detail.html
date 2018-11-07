@@ -1,0 +1,169 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>book-detail</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/plugins.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+
+    <style>
+
+    </style>
+</head>
+
+
+<body>
+    <div class="maincontent bg--white pt--80 pb--55">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-12">
+                    <div class="wn__single__product">
+                        <div class="row">
+
+                            <div class="col-lg-5 col-12">
+
+                                <div class="wn__fotorama__wrapper">
+                                    <img id="imageContent">
+                                </div>
+                            </div>
+                            <div class="col-lg-7 col-12">
+                                <div class="product__info__main">
+                                    <h1 id='title'>Book Title</h1>
+                                    <div class="product-info-stock-sku d-flex">
+                                        <p>Available: <span id='avail'></span></p>
+                                        <p> Total Number: <span id='total_num'></span></p>
+                                    </div>
+                                    </br>
+                                    <div class="product-color-label">
+                                        <h1>Infomation</h1>
+                                        <ul class="pro__attribute">
+                                            <li id='isbn'>ISBN: </li>
+                                            <li id='location'>Location: </li>
+                                            <li id='type'>Type: </li>
+                                            <li id='author'>Author: </li>
+                                            <li id='press'>Press: </li>
+                                            <li id='page'>Page: </li>
+                                            <li id='year'>Publish year: </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="product__overview">
+                                        <p id='subject'>Description of the book.</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <script src="../cookie.js"></script>
+    <script src="../socket.io.js"></script>
+    <script src="js/vendor/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script>
+        var socket = io("http://139.199.112.88:2761");
+        var books;
+
+
+        var index = 0;
+        for (var i = 0; i < location.href.length; i++) {
+            if (location.href[i] != "?") {
+                for (var j = i; j < location.href.length; j++)
+                    index = index * 10 + parseInt(location.href[i]);
+            }
+        }
+
+
+        function showBookDetail(data) {
+            if (data.figure != null) {
+                document.getElementById("imageContent").setAttribute("src", data.figure);
+            }
+            if (data.book_name != null) {
+                var title = document.getElementById('title');
+                title.innerHTML = data.book_name;
+            }
+            if (data.author != null) {
+                var author = document.getElementById('author');
+                author.innerHTML = '• Author: ' + data.author;
+            }
+            if (data.type != null) {
+                var type = document.getElementById('type');
+                type.innerHTML = '• Type: ' + data.type;
+            }
+            if (data.press != null) {
+                var press = document.getElementById('press');
+                press.innerHTML = '• Press: ' + data.press;
+            }
+            if (data.page != null) {
+                var page = document.getElementById('page');
+                page.innerHTML = '• Page: ' + data.page;
+            }
+            if (data.publish_year != null) {
+                var year = document.getElementById('year');
+                year.innerHTML = '• Publish year: ' + data.publish_year;
+            }
+            if (data.isbn != null) {
+                var isbn = document.getElementById('isbn');
+                isbn.innerHTML = '• ISBN: ' + data.isbn;
+            }
+            if (data.location != null) {
+                var loc = document.getElementById('location');
+                loc.innerHTML = '• Location: ' + data.location;
+            }
+            if (data.subject != null) {
+                document.getElementById('subject').innerHTML = data.subject;
+            }
+            if (data.available_number != null) {
+                var avail = document.getElementById('avail');
+                avail.innerHTML = data.available_number;
+            }
+            if (data.total_number != null && data.available_number != null) {
+                var left = document.getElementById('total_num');
+                left.innerHTML = data.total_number;
+            }
+
+        }
+
+        var isbn = books[index].isbn;
+        var data = {};
+        data.isbn = isbn;
+
+        socket.on("bookList", function (data) {
+            books = data.bookList;
+            var obj = document.getElementById('tUser');
+            while (obj.childNodes.length > 0) {
+                obj.removeChild(obj.lastChild);
+            }
+            for (var i = 0; i < books.length; i++) {
+                addBookItem(books[i], i);
+            }
+        });
+
+        socket.on("bookDetail", function (data) {
+            showBookDetail(data.bookDetail);
+        });
+        socket.emit("getBookList");
+
+
+
+        socket.emit("getBookDetail", data);
+
+    </script>
+
+</body>
+
+</html>
