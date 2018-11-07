@@ -69,13 +69,13 @@
 										</div>
 										<div class="switcher-currency">
 											<strong class="label switcher-label">
-												<span>My Account</span>
+												<span id="topMenu">My Account</span>
 											</strong>
 											<div class="switcher-options">
 												<div class="switcher-currency-trigger">
 													<div class="setting__menu">
-														<span><a href="profile.html">My Account</a></span>
-														<span><a href="#">Log In</a></span>
+														<span><a id="accMenu" onclick="personConsole()">My Account</a></span>
+														<span><a id="accLog" onclick="signinServer()">Log In</a></span>
 													</div>
 												</div>
 											</div>
@@ -108,15 +108,15 @@
         				<div class="tab__container">
 	        		
 	        				<div class="shop-grid tab-pane fade show active" id="nav-list" role="tabpanel">
-	        					<div class="list__view__wrapper">
+	        					<div id="listView" class="list__view__wrapper">
 	        						<!-- Start Single Anc -->
 	        						<div class="list__view">
 	        							<div class="col-lg-12">
 	        							    <div class="content">
-	        								     <h2 class="title1" id="title1">Instructions for borrowing books</h2>
-	        								     <h4 class="date1" id="date1">Dec 13, 18</h4>
+	        								     <h2 class="title">Just a moment</h2>
+	        								     <h4 class="date">...</h4>
 	        								
-	        								     <p class="content1" id="content1">	A user can only borrow up to 20 books.Each book can be borrowed for 45 days by default.If you overdue,you will be fined 1 cent per day each book.</p>
+	        								     <p class="c">	...</p>
 	        								     <ul class="cart__action d-flex">
 	        									    <li class="cart"><a href="single-announcement.html">learn more</a></li>
 	        								     </ul>
@@ -126,10 +126,10 @@
 	        						<div class="list__view">
 	        							<div class="col-lg-12">
 	        							    <div class="content">
-	        								     <h2 class="title2" id="title2">Instructions for borrowing books</h2>
-	        								     <h4 class="date2" id="date2">Dec 13, 18</h4>
+	        								     <h2 class="title">Just a moment</h2>
+	        								     <h4 class="date">...</h4>
 	        								
-	        								     <p class="content2" id="content2">	A user can only borrow up to 20 books.Each book can be borrowed for 45 days by default.If you overdue,you will be fined 1 cent per day each book.</p>
+	        								     <p class="c">	...</p>
 	        								     <ul class="cart__action d-flex">
 	        									    <li class="cart"><a href="single-announcement.html">learn more</a></li>
 	        								     </ul>
@@ -139,10 +139,10 @@
 	        						<div class="list__view">
 	        							<div class="col-lg-12">
 	        							    <div class="content">
-	        								     <h2 class="title3" id="title3">Instructions for borrowing books</h2>
-	        								     <h4 class="date3" id="date3">Dec 13, 18</h4>
+	        								     <h2 class="title">Just a moment</h2>
+	        								     <h4 class="date">...</h4>
 	        								
-	        								     <p class="content3" id="content3">	A user can only borrow up to 20 books.Each book can be borrowed for 45 days by default.If you overdue,you will be fined 1 cent per day each book.</p>
+	        								     <p class="c">	...</p>
 	        								     <ul class="cart__action d-flex">
 	        									    <li class="cart"><a href="single-announcement.html">learn more</a></li>
 	        								     </ul>
@@ -152,10 +152,10 @@
 	        						<div class="list__view">
 	        							<div class="col-lg-12">
 	        							    <div class="content">
-	        								     <h2 class="title4" id="title4">Instructions for borrowing books</h2>
-	        								     <h4 class="date4" id="date4">Dec 13, 18</h4>
+	        								     <h2 class="title">Just a moment</h2>
+	        								     <h4 class="date">...</h4>
 	        								
-	        								     <p class="content4" id="content4">	A user can only borrow up to 20 books.Each book can be borrowed for 45 days by default.If you overdue,you will be fined 1 cent per day each book.</p>
+	        								     <p class="c">	...</p>
 	        								     <ul class="cart__action d-flex">
 	        									    <li class="cart"><a href="single-announcement.html">learn more</a></li>
 	        								     </ul>
@@ -164,7 +164,7 @@
 	        						</div>
 	        						<!-- End Single Anc -->
 	        					</div>
-	        					<ul class="wn__pagination">
+	        					<ul id="pageBar" class="wn__pagination">
 	        						<li class="active"><a href="#">1</a></li>
 	        						<li><a href="#">2</a></li>
 	        						<li><a href="#">3</a></li>
@@ -237,38 +237,209 @@
 
 		<script type="text/javascript">
 
+			var href = location.href;
+			var auth_data = {};
+
+
+			auth_data.username = Cookies.get("username");
+			auth_data.session = Cookies.get("session");
+			auth_data.type = Cookies.get("type");
+			auth_data.cur = "reader";
+			var accMenu = document.getElementById('accMenu');
+			var accLog = document.getElementById('accLog');
+			var topMenu = document.getElementById('topMenu');
+
+			var listView = document.getElementById('listView');
+			var pageBar = document.getElementById('pageBar');
+
+			var page_scale = 4;
+			var annList = null;
+			var logFlag = false;
+			var pageNum = 0;
+			var lastPageBookNum = 0;
+
 			var socket = io("http://139.199.112.88:2761");
 
-			function show() {
-				location.href = location.href.replace("announcement.html", "single-announcement.html");
+			function showPage(page_index) {
+
+				var now_index = Cookies.get('now_index');
+				if (now_index == page_index)
+					return;
+				Cookies.set('now_index', page_index);
+				for (var i = 0; i < pageBar.childNodes.length; i++) {
+					if (pageBar.childNodes[i].hasAttribute('class'))
+						pageBar.childNodes[i].removeAttribute('class');
+				}
+
+				pageBar.childNodes[page_index].setAttribute('class', 'active');
+				var temp_len = listView.childNodes.length;
+				for (var i = 0; i < temp_len; i++) {
+					listView.removeChild(listView.childNodes[0]);
+				}
+				//window.alert(temp_len);
+				var begin_index = page_index * page_scale;
+				var end_index = begin_index + page_scale;//最后一本书index的下一个值
+				if (end_index > annList.length)
+					end_index = annList.length;
+				for (var i = begin_index; i < end_index; i++) {
+					var item = annList[i];
+
+					var divFrame = document.createElement('div');
+					divFrame.setAttribute('class', 'list__view');
+
+					var div_col = document.createElement('div');
+					div_col.setAttribute('class', 'col-lg-12');
+
+					var div_con = document.createElement('div');
+					div_con.setAttribute('class', 'content');
+
+					var h1 = document.createElement('h2');
+					h1.setAttribute('class', 'title');
+					h1.innerHTML = item.title;
+
+					var h2 = document.createElement('h4');
+					h2.setAttribute('class', 'date');
+					h2.innerHTML = item.date;
+
+					var p = document.createElement('p');
+					p.setAttribute('class', 'c');
+					p.innerHTML = item.content;
+
+					var a = document.createElement('a');
+					a.setAttribute('name', i);
+					//a3.setAttribute('id','test')
+					a.setAttribute('onclick', 'show_detail(this.name)');
+					a.innerHTML = 'Learn more';
+					var li_detail = document.createElement('li');
+					li_detail.setAttribute('class', 'cart');
+					li_detail.appendChild(a);
+					var ul_buttons = document.createElement('ul');
+					ul_buttons.setAttribute('class', 'cart__action d-flex');
+					ul_buttons.appendChild(li_detail);
+
+					div_con.appendChild(h1);
+					div_con.appendChild(h2);
+					div_con.appendChild(p);
+					div_con.appendChild(ul_buttons);
+
+					div_col.appendChild(div_con);
+					divFrame.appendChild(div_col);
+					listView.appendChild(divFrame);
+				}
+				
 			}
 
-			socket.emit("releaseAnnouncementTotal");
+			function showAnns(active_page) {
+				Cookies.remove('now_index');
+				var temp_len = pageBar.childNodes.length;
+				for (var i = 0; i < temp_len; i++) {
+					pageBar.removeChild(pageBar.childNodes[0]);
+				}
+				if (annList != null && annList.length > 0) {
+					pageNum = parseInt(annList.length / page_scale);
+					lastPageBookNum = annList.length - pageNum * page_scale;
+					if (lastPageBookNum != 0) pageNum = pageNum + 1;
+					for (var i = 0; i < pageNum; i++) {
+						var a_item = document.createElement('a');
+						a_item.innerHTML = i + 1;
+						a_item.setAttribute('id', i);
+						a_item.setAttribute('onclick', 'showPage(this.id)');
+						var li_item = document.createElement('li');
+						li_item.appendChild(a_item);
+						pageBar.appendChild(li_item);
+					}
+					var end_i_item = document.createElement('i');
+					end_i_item.setAttribute('class', 'zmdi zmdi-chevron-right');
+					var end_a_item = document.createElement('a');
+					end_a_item.appendChild(end_i_item);
+					var end_li_item = document.createElement('li');
+					end_li_item.appendChild(end_a_item);
+					pageBar.appendChild(end_li_item);
+					//window.alert(active_page);
+					showPage(active_page);
+				} else if (annList == null) {
+					//window.alert(111);
+					temp_len = listView.childNodes.length;
 
-			socket.on("getAnnounce1", function(data) {
-				document.getElementById("title1").innerHTML = data.title;
-				document.getElementById("content1").innerHTML = data.content;
-				document.getElementById("date1").innerHTML = data.date;
+					for (var i = 0; i < temp_len; i++) {
+						listView.removeChild(listView.childNodes[0]);
+					}
+				} else {
+					temp_len = listView.childNodes.length;
+					for (var i = 0; i < temp_len; i++) {
+						listView.removeChild(listView.childNodes[0]);
+					}
+
+				}
+			}
+
+			socket.emit('getAllAnnouncement');
+
+			socket.on('show_announcement', function (data) {
+				annList = data;
+				showAnns(0);
 			});
 
-			socket.on("getAnnounce2", function(data) {
-				document.getElementById("title2").innerHTML = data.title;
-				document.getElementById("content2").innerHTML = data.content;
-				document.getElementById("date2").innerHTML = data.date;
+			function show_detail(index) {
+				var item = annList[index];
+				
+				Cookies.set('cur_ann', item.title, {expires: 1});
+				window.open('single-announcement.html');
+			}
+
+			function noLogin() {
+				topMenu.innerHTML = 'My account';
+				accLog.innerHTML = 'Log in';
+				logFlag = false;
+
+				if (accMenu != null) {
+					var parent = accMenu.parentNode;
+					parent.removeChild(parent.childNodes[0]);
+					parent = parent.parentNode;
+					parent.removeChild(parent.childNodes[0]);
+				}
+			}
+
+			function personConsole() {
+				socket.emit('sessionAuth', auth_data);
+				if (logFlag == false) return;	//如果检查发现登陆失效，跳转失败退出
+				location.href = location.href.replace('announcement.html', 'profile.html');
+			}
+
+			function signinServer() {
+				if (logFlag == false) {
+					location.href = location.href.replace('announcement.html', 'login.html');
+				} else {
+					socket.emit('logOut', auth_data);
+					noLogin();
+				}
+			}
+
+			socket.on("noSession", function (data) {
+				Cookies.remove('type');
+				window.alert('Login has expired, please login again!');
+				noLogin();
 			});
 
-			socket.on("getAnnounce3", function(data) {
-				document.getElementById("title3").innerHTML = data.title;
-				document.getElementById("content3").innerHTML = data.content;
-				document.getElementById("date3").innerHTML = data.date;
+			socket.on('sessionSuccess', function (data) {
+				topMenu.innerHTML = auth_data.username;
+				accMenu.innerHTML = 'Console';
+				accLog.innerHTML = 'Log out';
+				logFlag = true;
 			});
 
-			socket.on("getAnnounce4", function(data) {
-				document.getElementById("title4").innerHTML = data.title;
-				document.getElementById("content4").innerHTML = data.content;
-				document.getElementById("date4").innerHTML = data.date;
+			socket.on("sessionFailed", function (data) {
+				Cookies.remove('type');
+				window.alert('Login has expired, please login again!');
+				noLogin();
 			});
 
+			if (auth_data.type == "reader") {
+				socket.emit("sessionAuth", auth_data);
+			} else {
+				noLogin();
+			}
+		
 	</script>
 	</body>
 	</html>
