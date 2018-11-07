@@ -71,7 +71,7 @@
 			var login_data = {};
 			login_data["username"] = $("#username").val();
 			login_data["password"] = $("#password").val();
-			socket.emit("login", login_data);
+			socket.emit("loginForLibrarian", login_data);
 		}
 
 		socket.on("LoginSuccess", function (data) {

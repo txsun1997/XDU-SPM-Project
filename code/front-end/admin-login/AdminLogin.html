@@ -70,7 +70,7 @@
 			var login_data = {};
 			login_data["username"] = $("#username").val();
 			login_data["password"] = $("#password").val();
-			socket.emit("login", login_data);
+			socket.emit("loginForAdmin", login_data);
 		}
 
 		socket.on("LoginSuccess", function (data) {
@@ -78,7 +78,7 @@
 			Cookies.set("type", data.type, { expires: 1 });
 			Cookies.set("session", data.session, { expires: 1 });
 			var cur_href = location.href;
-			location.href = cur_href.replace("reader&login/login.html", "admin&librarian/" + data.type + "-index.html");
+			location.href = cur_href.replace("admin-login/AdminLogin.html", "admin&librarian/" + data.type + "-index.html");
 		});
 
 		socket.on("noUser", function (data) {

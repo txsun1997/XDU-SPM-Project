@@ -146,19 +146,19 @@
 	//session auth failed
 	socket.on("noSession", function (data) {
 		window.alert("Login has expired, please login again!");
-		location.href = location.href.replace("admin&librarian/admin-index.html", "reader&login/login.html");
+		location.href = location.href.replace("admin&librarian/admin-index.html", "admin-login/AdminLogin.html");
 	});
 
 	//session auth failed
 	socket.on("sessionFailed", function (data) {
 		window.alert("User name type is inconsistent, please login again!");
-		location.href = location.href.replace("admin&librarian/admin-index.html", "reader&login/login.html");
+		location.href = location.href.replace("admin&librarian/admin-index.html", "admin-login/AdminLogin.html");
 	});
 
 	//louOut request
 	function logOut() {
 		socket.emit("logOut", auth_data);
-		location.href = location.href.replace("admin&librarian/admin-index.html", "reader&login/login.html");
+		location.href = location.href.replace("admin&librarian/admin-index.html", "admin-login/AdminLogin.html");
 	}
 
 	//auth session and username and type
