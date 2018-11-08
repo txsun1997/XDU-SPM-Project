@@ -71,9 +71,12 @@
         });
 
         function deleteItem(index) {
-            var data = {};
-            data.title = items[index].title;
-            socket.emit("deleteAnnouncement", data);
+            var del = confirm("Are you sure?");
+            if (del == true) {
+                var data = {};
+                data.title = items[index].title;
+                socket.emit("deleteAnnouncement", data);
+            }
         }
 
         function addAnnouncementItem(item, i) {
@@ -156,10 +159,6 @@
 
         socket.emit("getAnnouncementList");
     </script>
-
-
-
-
 
     <!--[if (gte IE 9)|!(IE)]><!-->
     <script src="js/jquery-1.11.3.min.js"></script>
