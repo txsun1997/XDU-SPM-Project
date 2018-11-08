@@ -82,18 +82,17 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [X] 添加/编辑/删除后自动刷新列表（WL）
 - [x] 把admin登录功能从librarian登陆界面删除
 - [ ] post news用新的框架
-- [ ] income加一条总线表示总收入
 - [ ] income detail表美化一下
-- [ ] Operation History增加Edit历史，Edit类型用绿色标注
 
 ### Reader
-- [ ] 主页上面加一个按钮Librarian，提供librarian的登录入口（WQX, HAM）
-- [ ] UI统一和改进，比如三个小人下栏菜单的统一（WQX）
+- [x] 主页上面加一个按钮Librarian，提供librarian的登录入口（WQX, HAM）
+- [x] UI统一和改进，比如三个小人下栏菜单的统一（WQX）
 - [x] Profile界面Male Female不能改（JC）
 - [x] News只能显示4条，点击不对应，正文字体需调整（HAM, WQX）
 - [x] 主页展示书的功能（HAM, WQX）
 - [x] 页码问题（WQX, HAM）
 - [x] 主页公告无法点击（WQX, HAM）
+- [ ] 预约功能调整（WQX, HAM, JC）
 
 ### Admin
 - [x] 删除原来的搜索librarian，调整为一个搜索框，可以根据账号、姓名、电话来检索，支持子串搜索
