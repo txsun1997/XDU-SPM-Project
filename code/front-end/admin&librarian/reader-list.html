@@ -126,7 +126,8 @@
 		});
 
 		function deleteItem(index) {
-			socket.emit("deleteReader", items[index]);
+			var del = confirm("Are you sure?");
+			if(del == true)socket.emit("deleteReader", items[index]);
 		}
 
 		function addReaderItem(item, i) {

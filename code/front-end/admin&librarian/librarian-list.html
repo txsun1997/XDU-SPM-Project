@@ -17,8 +17,9 @@
 		<div class="admin-content">
 			<div class="admin-content-body">
 				<div class="am-cf am-padding">
-                    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" style="font-size: 25px">Librarian Management</strong> / 图书管理员</div>
-                </div>
+					<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" style="font-size: 25px">Librarian Management</strong>
+						/ 图书管理员</div>
+				</div>
 				<div class="container" style="padding: 10px 10px 0px 10px">
 					<div class="am-g">
 						<div class="am-u-sm-12 am-u-md-6">
@@ -118,6 +119,8 @@
 		});
 
 		function deleteItem(index) {
+			var del = confirm("Are you sure?");
+			if(del == true)
 			socket.emit("deleteLibrarian", librarians[index]);
 		}
 
@@ -184,7 +187,7 @@
 			var data = $('#librarianSearch').val();
 			socket.emit('searchLibrarians', data);
 		}
-	
+
 		socket.on("librarianList", function (data) {
 			librarians = data.librarian_list;
 			var obj = document.getElementById('tUser');
