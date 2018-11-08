@@ -17,7 +17,8 @@
         <div class="admin-content">
             <div class="admin-content-body">
                 <div class="am-cf am-padding">
-                    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" style="font-size: 25px">Post Management</strong></div>
+                    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" style="font-size: 25px">Post
+                            Management</strong></div>
                 </div>
                 <div class="container" style="padding: 10px 10px 0px 10px">
                     <div class="am-g">
@@ -51,6 +52,7 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
         var socket = io("http://139.199.112.88:2761");
+        Cookies.set("update", "false");
         var items = [];
         function editItem(index) {
             Cookies.set("cur_news_title", items[index].title, { expires: 1 });
@@ -75,16 +77,16 @@
         }
 
         function addAnnouncementItem(item, i) {
-            var obj= document.createElement("li");
-            var title=document.createElement("div");
-            title.setAttribute("class",'admin-task-title');
-            title.innerText=item.title;
-            var date=document.createElement("div");
-            date.setAttribute("class",'admin-task-meta');
-            date.innerText="Posted on "+ item.date.substring(0, 10)+" by "+item.librarian_id;
-            var content=document.createElement("div");
-            content.setAttribute("class",'admin-task-bd');
-            content.innerText=item.content;
+            var obj = document.createElement("li");
+            var title = document.createElement("div");
+            title.setAttribute("class", 'admin-task-title');
+            title.innerText = item.title;
+            var date = document.createElement("div");
+            date.setAttribute("class", 'admin-task-meta');
+            date.innerText = "Posted on " + item.date.substring(0, 10) + " by " + item.librarian_id;
+            var content = document.createElement("div");
+            content.setAttribute("class", 'admin-task-bd');
+            content.innerText = item.content;
 
             var edit_span = document.createElement('span');
             edit_span.setAttribute("class", "am-icon-pencil");
@@ -117,8 +119,8 @@
             div2.setAttribute('class', 'am-btn-toolbar am-fl');
             div2.appendChild(div1);
 
-            var button_cf=document.createElement("div");
-            button_cf.setAttribute('class',"am-cf");
+            var button_cf = document.createElement("div");
+            button_cf.setAttribute('class', "am-cf");
             button_cf.appendChild(div2);
 
             obj.appendChild(title);
@@ -145,6 +147,12 @@
                 addAnnouncementItem(data[i], i);
             }
         });
+
+        setInterval(function () {
+            if (Cookies.get("update") == "true") {
+                location.href = location.href;
+            }
+        }, 100);
 
         socket.emit("getAnnouncementList");
     </script>

@@ -17,39 +17,40 @@
 
 <body>
 
-<div class="am-cf admin-main">
-    <!-- content start -->
-    <div class="admin-content">
-        <div class="admin-content-body">
-            <div class="am-g">
-                <form class="am-form am-form-horizontal" style="padding-top: 30px;">
-                    <input value="504" name="roleId" type="hidden">
-                    <div class="am-form-group">
-                        <label for="title" class="am-u-sm-3 am-form-label">
-                            Title
-                        </label>
-                        <div class="am-u-sm-9">
-                            <input id="title"  required=""  value="" placeholder="please enter announcement title" name="annonuncetitle" type="text">
+    <div class="am-cf admin-main">
+        <!-- content start -->
+        <div class="admin-content">
+            <div class="admin-content-body">
+                <div class="am-g">
+                    <form class="am-form am-form-horizontal" style="padding-top: 30px;">
+                        <input value="504" name="roleId" type="hidden">
+                        <div class="am-form-group">
+                            <label for="title" class="am-u-sm-3 am-form-label">
+                                Title
+                            </label>
+                            <div class="am-u-sm-9">
+                                <input id="title" required="" value="" placeholder="please enter announcement title"
+                                    name="annonuncetitle" type="text">
+                            </div>
                         </div>
-                    </div>
-                    <div class="am-form-group">
-                        <label for="content" class="am-u-sm-3 am-form-label">
-                            Content
-                        </label>
-                        <div class="am-u-sm-9">
-                            <textarea id="content" rows="5" cols="25" placeholder="please enter announcement content"></textarea>
+                        <div class="am-form-group">
+                            <label for="content" class="am-u-sm-3 am-form-label">
+                                Content
+                            </label>
+                            <div class="am-u-sm-9">
+                                <textarea id="content" rows="5" cols="25" placeholder="please enter announcement content"></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="am-form-group">
-                        <div class="am-u-sm-9 am-u-sm-push-3">
-                            <button onclick="addannounce()" class="am-btn am-btn-success">ADD</button>
+                        <div class="am-form-group">
+                            <div class="am-u-sm-9 am-u-sm-push-3">
+                                <button onclick="addannounce()" class="am-btn am-btn-success">ADD</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 
 <script src="../cookie.js"></script>
@@ -60,23 +61,22 @@
 
     socket.on("addAnnouncementSuccess", function () {  //服务器端
         window.alert("Successfully add Announcement.");
+        Cookies.set("update", "true");
     });
 
     function addannounce() {
         var data = {};
-        data.title=$("#title").val();
-        data.content=$("#content").val();
-        if($("#title").val()=="")
-        {
+        data.title = $("#title").val();
+        data.content = $("#content").val();
+        if ($("#title").val() == "") {
             window.alert("Please input announcement title!");
             return;
         }
-        if($("#content").val()=="")
-        {
+        if ($("#content").val() == "") {
             window.alert("Please input announcement content!");
             return;
         }
-        data.librarian_id=Cookies.get("username");
+        data.librarian_id = Cookies.get("username");
         socket.emit("addAnnouncement", data);
     }
 </script>
