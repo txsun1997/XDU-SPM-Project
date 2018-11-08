@@ -91,7 +91,7 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [ ] UI统一和改进，比如三个小人下栏菜单的统一（WQX）
 - [x] Profile界面Male Female不能改（JC）
 - [x] News只能显示4条，点击不对应，正文字体需调整（HAM, WQX）
-- [ ] 主页展示书的功能（HAM, WQX）
+- [x] 主页展示书的功能（HAM, WQX）
 - [x] 页码问题（WQX, HAM）
 - [x] 主页公告无法点击（WQX, HAM）
 
