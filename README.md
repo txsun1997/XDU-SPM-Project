@@ -66,7 +66,7 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 ## Final Tasks
 
 ### ALL
-- [ ] 删除操作前加询问框（WL, WQX, JC）
+- [x] 删除操作前加询问框（WL, WQX, JC）
 - [ ] 进行空值和错误值测试
 - [ ] 邮件发送的问题再改进一下（特别是163邮箱），用西电邮箱是可以接收到的（YTH）
 - [ ] 部署（WL）
@@ -75,11 +75,11 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [x] 空值搜索显示全部结果
 
 ### Librarian
-- [X] 找回密码提交后应有反馈（WL）
+- [x] 找回密码提交后应有反馈（WL）
 - [x] 做主页，显示公告（STX）
 - [x] 条形码在小窗口显示无法打印，显示在新标签页（WL）
 - [x] 检查location和category管理，删除/刷新有问题（WCX, GY）
-- [ ] 添加/编辑/删除后自动刷新列表（WL）
+- [X] 添加/编辑/删除后自动刷新列表（WL）
 - [x] 把admin登录功能从librarian登陆界面删除
 - [ ] post news用新的框架
 - [ ] income加一条总线表示总收入
@@ -90,7 +90,7 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [ ] 主页上面加一个按钮Librarian，提供librarian的登录入口（WQX, HAM）
 - [ ] UI统一和改进，比如三个小人下栏菜单的统一（WQX）
 - [x] Profile界面Male Female不能改（JC）
-- [X] News只能显示4条，点击不对应，正文字体需调整（HAM, WQX）
+- [x] News只能显示4条，点击不对应，正文字体需调整（HAM, WQX）
 - [ ] 主页展示书的功能（HAM, WQX）
 - [x] 页码问题（WQX, HAM）
 - [x] 主页公告无法点击（WQX, HAM）
@@ -98,8 +98,8 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 ### Admin
 - [x] 删除原来的搜索librarian，调整为一个搜索框，可以根据账号、姓名、电话来检索，支持子串搜索
 - [x] 重做一个登录界面，只能通过地址访问（STX）
-- [X] Message有高亮显示未读消息数目（STX, WL）
-- [ ] 添加/编辑/删除后自动刷新列表（WL）
+- [x] Message有高亮显示未读消息数目（STX, WL）
+- [x] 添加/编辑/删除后自动刷新列表（WL）
 
 ----
 
