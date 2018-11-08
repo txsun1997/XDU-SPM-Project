@@ -71,8 +71,8 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [ ] 邮件发送的问题再改进一下（特别是163邮箱），用西电邮箱是可以接收到的（YTH）
 - [ ] 部署（WL）
 - [ ] 对照需求ppt测试（STX, WL, JC, YTH）
-- [ ] 测试一下浏览器，解决兼容问题（YTH）
-- [ ] 空值搜索显示全部结果
+- [ ] 测试一下哪些浏览器被支持（YTH）
+- [x] 空值搜索显示全部结果
 
 ### Librarian
 - [X] 找回密码提交后应有反馈（WL）
@@ -93,10 +93,10 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [X] News只能显示4条，点击不对应，正文字体需调整（HAM, WQX）
 - [ ] 主页展示书的功能（HAM, WQX）
 - [x] 页码问题（WQX, HAM）
-- [ ] 主页公告无法点击（WQX, HAM）
+- [x] 主页公告无法点击（WQX, HAM）
 
 ### Admin
-- [ ] 删除原来的搜索librarian，调整为一个搜索框，可以根据账号、姓名、电话来检索，支持子串搜索
+- [x] 删除原来的搜索librarian，调整为一个搜索框，可以根据账号、姓名、电话来检索，支持子串搜索
 - [x] 重做一个登录界面，只能通过地址访问（STX）
 - [X] Message有高亮显示未读消息数目（STX, WL）
 - [ ] 添加/编辑/删除后自动刷新列表（WL）
