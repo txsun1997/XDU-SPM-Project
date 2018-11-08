@@ -173,7 +173,7 @@
         if(item.value>0){
             income_span.setAttribute("class", "am-badge am-badge-success");
         }
-        income_span.innerHTML = item.value;
+        income_span.innerHTML = item.value.toFixed(2);
         income_value.appendChild(income_span);
         var income_type= document.createElement('td');
         income_type.innerHTML =item.type;
