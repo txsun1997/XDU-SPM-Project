@@ -81,8 +81,8 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [x] 检查location和category管理，删除/刷新有问题（WCX, GY）
 - [X] 添加/编辑/删除后自动刷新列表（WL）
 - [x] 把admin登录功能从librarian登陆界面删除
-- [ ] post news用新的框架
-- [ ] income detail表美化一下
+- [x] post news用新的框架
+- [x] income detail表美化一下
 
 ### Reader
 - [x] 主页上面加一个按钮Librarian，提供librarian的登录入口（WQX, HAM）

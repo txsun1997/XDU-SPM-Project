@@ -104,54 +104,54 @@
                     <form class="am-form am-form-horizontal" action="role/addroleSubmit.action" method="post" style="padding-top: 30px;">
                         <input value="504" name="roleId" type="hidden">
                         <div class="am-form-group">
-                            <label for="title" class="am-u-sm-3 am-form-label">
+                            <label for="title" class="am-u-sm-2 am-form-label">
                                 Book Title
                             </label>
-                            <div class="am-u-sm-9">
+                            <div class="am-u-sm-8 am-u-end">
                                 <input id="title" required="" placeholder="Enter book title" value="" name="book-title"
                                     type="text">
                                 <small id="helpRole">Please enter book name, e.g. Deep Learning.</small>
                             </div>
                         </div>
                         <div class="am-form-group">
-                            <label for="authors" class="am-u-sm-3 am-form-label">
+                            <label for="authors" class="am-u-sm-2 am-form-label">
                                 Authors
                             </label>
-                            <div class="am-u-sm-9">
+                            <div class="am-u-sm-8 am-u-end">
                                 <input id="authors" required="" placeholder="Enter book authors" value="" name="book-authors"
                                     type="text">
                                 <small id="helpRole">Please enter book authors, e.g. Ian Goodfellow.</small>
                             </div>
-
-                            <div class="am-form-group">
-                                <label for="isbn" class="am-u-sm-3 am-form-label">
-                                    ISBN
-                                </label>
-                                <div class="am-u-sm-9">
-                                    <input id="isbn" required="" maxlength="13" oninput="value=value.replace(/[^\d]/g,'')"
-                                        placeholder="Enter the ISBN" value="" name="book-ISBN" type="text">
-                                    <small id="helpRole">Please enter the ISBN, e.g. 9780262035613.</small>
-                                </div>
-                            </div>
-
-                            <div class="am-form-group">
-                                <label for="press" class="am-u-sm-3 am-form-label">
-                                    Press
-                                </label>
-                                <div class="am-u-sm-9">
-                                    <input id="press" required="" placeholder="Enter publication press" value="" name="book-press"
-                                        type="text">
-                                    <small id="helpRole">Please enter publication press, e.g. The MIT Press.</small>
-                                </div>
-
+                        </div>
+                        <div class="am-form-group">
+                            <label for="isbn" class="am-u-sm-2 am-form-label">
+                                ISBN
+                            </label>
+                            <div class="am-u-sm-8 am-u-end">
+                                <input id="isbn" required="" maxlength="13" oninput="value=value.replace(/[^\d]/g,'')"
+                                    placeholder="Enter the ISBN" value="" name="book-ISBN" type="text">
+                                <small id="helpRole">Please enter the ISBN, e.g. 9780262035613.</small>
                             </div>
                         </div>
 
                         <div class="am-form-group">
-                            <label for="year" class="am-u-sm-3 am-form-label">
+                            <label for="press" class="am-u-sm-2 am-form-label">
+                                Press
+                            </label>
+                            <div class="am-u-sm-8 am-u-end">
+                                <input id="press" required="" placeholder="Enter publication press" value="" name="book-press"
+                                    type="text">
+                                <small id="helpRole">Please enter publication press, e.g. The MIT Press.</small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="am-form-group">
+                            <label for="year" class="am-u-sm-2 am-form-label">
                                 Year
                             </label>
-                            <div class="am-u-sm-9">
+                            <div class="am-u-sm-8 am-u-end">
                                 <input id="year" required="" maxlength="4" oninput="value=value.replace(/[^\d]/g,'')"
                                     placeholder="Enter publication date" value="" name="publication-year" type="text">
                                 <small id="helpRole">Please enter publication date (year), e.g. 2016.</small>
@@ -159,10 +159,10 @@
                         </div>
 
                         <div class="am-form-group">
-                            <label for="subject" class="am-u-sm-3 am-form-label">
+                            <label for="subject" class="am-u-sm-2 am-form-label">
                                 Subject
                             </label>
-                            <div class="am-u-sm-9">
+                            <div class="am-u-sm-8 am-u-end">
                                 <input id="subject" required="" placeholder="Enter a description about the book" value=""
                                     name="book-subject" type="text">
                                 <small id="helpRole">Please briefly describe the book.</small>
@@ -170,10 +170,10 @@
                         </div>
 
                         <div class="am-form-group">
-                            <label for="pages" class="am-u-sm-3 am-form-label">
+                            <label for="pages" class="am-u-sm-2 am-form-label">
                                 Pages
                             </label>
-                            <div class="am-u-sm-9">
+                            <div class="am-u-sm-8 am-u-end">
                                 <input id="pages" required="" oninput="value=value.replace(/[^\d]/g,'')" placeholder="Enter the number of pages"
                                     value="" name="book-pages" type="text">
                                 <small id="helpRole">How many pages does the book have?</small>
@@ -181,10 +181,10 @@
                         </div>
 
                         <div class="am-form-group">
-                            <label for="price" class="am-u-sm-3 am-form-label">
+                            <label for="price" class="am-u-sm-2 am-form-label">
                                 Price
                             </label>
-                            <div class="am-u-sm-9">
+                            <div class="am-u-sm-8 am-u-end">
                                 <input id="price" required="" onKeyUp="amount(this)" onBlur="overFormat(this)"
                                     placeholder="Enter the price of the book" value="" name="price-of-book" type="text">
                                 <small id="helpRole">Please enter the price of the book.</small>
@@ -192,10 +192,10 @@
                         </div>
 
                         <div class="am-form-group">
-                            <label for="number" class="am-u-sm-3 am-form-label">
+                            <label for="number" class="am-u-sm-2 am-form-label">
                                 Number
                             </label>
-                            <div class="am-u-sm-9">
+                            <div class="am-u-sm-8 am-u-end">
                                 <input readonly="readonly" id="number" required="" oninput="value=value.replace(/[^\d]/g,'')"
                                     placeholder="Enter the number of the publication" value="" name="number-of-book"
                                     type="text">
@@ -204,10 +204,10 @@
                         </div>
 
                         <div class="am-form-group">
-                            <label for="type" class="am-u-sm-3 am-form-label">
+                            <label for="type" class="am-u-sm-2 am-form-label">
                                 Type
                             </label>
-                            <div class="am-u-sm-9">
+                            <div class="am-u-sm-8 am-u-end">
                                 <select id="typeSelect" name="type" required>
                                     <option value="">Select a type</option>
                                 </select>
@@ -218,10 +218,10 @@
 
 
                         <div class="am-form-group">
-                            <label for="location" class="am-u-sm-3 am-form-label">
+                            <label for="location" class="am-u-sm-2 am-form-label">
                                 Location
                             </label>
-                            <div class="am-u-sm-9">
+                            <div class="am-u-sm-8 am-u-end">
                                 <select id="locationSelect" name="type" required>
                                     <option id="">Select a location</option>
                                 </select>
@@ -230,10 +230,10 @@
                         </div>
 
                         <div class="am-form-group">
-                            <label for="location" class="am-u-sm-3 am-form-label">
+                            <label for="location" class="am-u-sm-2 am-form-label">
                                 Picture
                             </label>
-                            <div class="am-u-sm-9">
+                            <div class="am-u-sm-8 am-u-end">
                                 <form class="container" enctype="multipart/form-data" method="post" id='formBox' name="form">
                                     <input onchange="file2base64()" type="file" id="chooseImage" name="file">
                                     <!-- 保存用户自定义的背景图片 -->
@@ -284,16 +284,16 @@
         data.subject = $("#subject").val();
         data.page = parseInt($("#pages").val());
         data.type = $("#typeSelect").find("option:selected").text();
-        if(data.type == "Select a Type"){
-			alert("Please Select a Type.");
-			location.href = location.href;
-		}
+        if (data.type == "Select a Type") {
+            alert("Please Select a Type.");
+            location.href = location.href;
+        }
         data.total_number = parseInt($("#number").val());
         data.location = $("#locationSelect").find("option:selected").text();
-        if(data.location == "Select a Location"){
-			alert("Please Select a Location");
-			location.href = location.href;
-		}
+        if (data.location == "Select a Location") {
+            alert("Please Select a Location");
+            location.href = location.href;
+        }
         data.figure = picture;
         socket.emit("editBook", data);
     }
@@ -327,7 +327,7 @@
             $("#authors").attr("value", data.author);
         }
         if (data.type != null) {
-            document.getElementById(data.type).selected = true; 
+            document.getElementById(data.type).selected = true;
         }
         if (data.press != null) {
             $("#press").attr("value", data.press);
