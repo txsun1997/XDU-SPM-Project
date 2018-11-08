@@ -76,8 +76,14 @@
 
     socket.on("barcodeList", function (data) {
 		Cookies.set("barcode_list", data.barcode_list, { expires: 1 });
-		location.href = "bar-code.html";
+		window.open("bar-code.html");
 	});
+
+    socket.on("addBookSuccess",function(){
+		window.alert("Add book success.");
+		Cookies.set("update", "true");
+	});
+
 
     function plusBook() {
         var convert = {};
