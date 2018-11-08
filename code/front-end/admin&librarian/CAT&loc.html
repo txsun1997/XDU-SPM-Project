@@ -17,7 +17,8 @@
         <div class="admin-content">
             <div class="admin-content-body">
                 <div class="am-cf am-padding">
-                    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" style="font-size: 20px">Location Management</strong> /
+                    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" style="font-size: 20px">Location
+                            Management</strong> /
                         位置管理</div>
                 </div>
                 <div class="container" style="padding: 10px 10px 0px 10px">
@@ -55,57 +56,58 @@
                                     <tbody id="tUser">
                                     </tbody>
                                 </table>
-                                
+
 
                             </form>
                         </div>
                     </div>
                 </div>
-                    <div class="am-cf am-padding">
-                        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" style="font-size: 20px">Category Management</strong>
-                            / 种类管理</div>
-                    </div>
-                    <div class="container" style="padding: 10px 10px 0px 10px">
+                <div class="am-cf am-padding">
+                    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" style="font-size: 20px">Category
+                            Management</strong>
+                        / 种类管理</div>
+                </div>
+                <div class="container" style="padding: 10px 10px 0px 10px">
 
-                        <div class="am-g">
-                            <div class="am-u-sm-12 am-u-md-6">
-                                <div class="am-btn-toolbar">
-                                    <div class="am-btn-group am-btn-group-xs">
-                                        <button type="button" onclick="addtype()" class="am-btn am-btn-warning btnAdd">
-                                            <span class="am-icon-plus"></span> ADD
-                                        </button>
-                                    </div>
+                    <div class="am-g">
+                        <div class="am-u-sm-12 am-u-md-6">
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <button type="button" onclick="addtype()" class="am-btn am-btn-warning btnAdd">
+                                        <span class="am-icon-plus"></span> ADD
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                
-                    <div class="am-g" style="margin-top: -30px;">
-                            <div class="am-u-sm-12">
-                                <form class="am-form">
-                                    
-                                    <table class="am-table am-table-striped am-table-hover table-main">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    CATEGORY
-                                                </th>
-    
-                                                <th>
-                                                    OPERATIONS
-                                                </th>
-                                            </tr>
-    
-                                        </thead>
-                                        <tbody id="tUser1">
-                                        </tbody>
-                                    </table>
-    
-                                </form>
-                            </div>
-                        </div>
+                </div>
 
-                
+                <div class="am-g" style="margin-top: -30px;">
+                    <div class="am-u-sm-12">
+                        <form class="am-form">
+
+                            <table class="am-table am-table-striped am-table-hover table-main">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            CATEGORY
+                                        </th>
+
+                                        <th>
+                                            OPERATIONS
+                                        </th>
+                                    </tr>
+
+                                </thead>
+                                <tbody id="tUser1">
+                                </tbody>
+                            </table>
+
+                        </form>
+                    </div>
+                </div>
+
+
                 <!-- content end -->
             </div>
         </div>
@@ -129,6 +131,7 @@
             var socket = io("http://139.199.112.88:2761");
             var locList;
             var typeList;
+            Cookies.set("update", "false");
 
             function editLoc(index) {
                 Cookies.set("cur_loc", locList[index].location, { expires: 1 });
@@ -272,8 +275,14 @@
 
             socket.on("DeletelocationSuccess", function (data) {
                 alert("Delete location success.");
-                location.href = location.href;
+                Cookies.set("update", "true");
             });
+
+            setInterval(function () {
+                if (Cookies.get("update") == "true") {
+                    location.href = location.href;
+                }
+            }, 100);
 
             socket.emit("getCatLocList");
 

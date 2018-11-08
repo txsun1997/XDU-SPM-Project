@@ -16,8 +16,9 @@
 		<div class="admin-content">
 			<div class="admin-content-body">
 				<div class="am-cf am-padding">
-                    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" style="font-size: 25px">Book Management</strong> / 图书管理</div>
-                </div>
+					<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" style="font-size: 25px">Book Management</strong>
+						/ 图书管理</div>
+				</div>
 				<div class="container" style="padding: 10px 10px 0px 10px">
 
 					<div class="am-g">
@@ -98,6 +99,7 @@
 
 		var socket = io("http://139.199.112.88:2761");
 		var books = [];
+		Cookies.set("update", "false");
 
 		function editBook(index) {
 			Cookies.set("cur_book", books[index].isbn, { expires: 1 });
@@ -154,7 +156,7 @@
 		}
 
 
-		function setCurbook(index){
+		function setCurbook(index) {
 			Cookies.set("cur_book", books[index].isbn, { expires: 1 });
 		}
 
@@ -182,7 +184,7 @@
 			avail.innerHTML = item.available_number + '/' + item.total_number;
 			var isbn = document.createElement('td');
 			isbn.innerHTML = item.isbn;
-			
+
 
 			var edit_span = document.createElement('span');
 			edit_span.setAttribute("class", "am-icon-pencil-square-o");
@@ -266,6 +268,11 @@
 			}
 		});
 
+		setInterval(function () {
+			if (Cookies.get("update") == "true") {
+				location.href = location.href;
+			}
+		}, 100);
 
 		socket.emit("getBookList");
 

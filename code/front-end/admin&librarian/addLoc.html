@@ -74,6 +74,7 @@
 
     socket.on("addlocationSuccess", function () {
         alert("Successfully add location.");
+        Cookies.set("update", "true");
     });
 
     function addlocation() {
