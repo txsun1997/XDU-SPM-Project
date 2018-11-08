@@ -65,6 +65,13 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 
 ## Final Tasks
 
+### DOC
+- [x] Lab 1&2
+- [ ] Lab 3&4
+- [ ] User Manual（STX）
+- [ ] Readme（WL）
+- [ ] Vedio（LISH）
+
 ### ALL
 - [x] 删除操作前加询问框（WL, WQX, JC）
 - [ ] 进行空值和错误值测试
@@ -93,6 +100,7 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [x] 页码问题（WQX, HAM）
 - [x] 主页公告无法点击（WQX, HAM）
 - [ ] 预约功能调整（WQX, HAM, JC）
+- [ ] 修复罚金异常问题
 
 ### Admin
 - [x] 删除原来的搜索librarian，调整为一个搜索框，可以根据账号、姓名、电话来检索，支持子串搜索
