@@ -110,23 +110,30 @@
         });
 
         function delAll() {
-            var username = Cookies.get("username");
-            data = {};
-            data.operation = "Delete";
-            data.bar_code = "ALL";
-            data.isbn = isbn;
-            data.librarian_id = username;
-            socket.emit("deleteBook", data);
+            var del = confirm("Are you sure?");
+            if (del == true) {
+                var username = Cookies.get("username");
+                data = {};
+                data.operation = "Delete";
+                data.bar_code = "ALL";
+                data.isbn = isbn;
+                data.librarian_id = username;
+                socket.emit("deleteBook", data);
+
+            }
         }
 
         function deleteCopy(index) {
-            var username = Cookies.get("username");
-            data = {};
-            data.operation = "Delete";
-            data.bar_code = copies[index].bar_code;
-            data.isbn = isbn;
-            data.librarian_id = username;
-            socket.emit("deleteCopy", data);
+            var del = confirm("Are you sure?");
+            if (del == true) {
+                var username = Cookies.get("username");
+                data = {};
+                data.operation = "Delete";
+                data.bar_code = copies[index].bar_code;
+                data.isbn = isbn;
+                data.librarian_id = username;
+                socket.emit("deleteCopy", data);
+            }
         }
 
         function addCopyItem(item, i) {

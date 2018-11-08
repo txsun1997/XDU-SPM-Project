@@ -170,7 +170,8 @@
             }
 
             function deleteLoc(index) {
-                socket.emit("deletelocation", locList[index]);
+                var del = confirm("Are you sure?");
+                if (del == true) socket.emit("deletelocation", locList[index]);
             }
 
             function addTypeItem(item, i) {
