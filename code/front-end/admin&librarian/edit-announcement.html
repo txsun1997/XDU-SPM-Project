@@ -17,41 +17,41 @@
 
 <body>
 
-<div class="am-cf admin-main">
-    <!-- content start -->
-    <div class="admin-content">
-        <div class="admin-content-body">
-            <div class="am-g">
-                <form class="am-form am-form-horizontal" style="padding-top: 30px;">
-                    <input value="504" name="roleId" type="hidden">
-                    <div class="am-form-group">
-                        <label for="user-name" class="am-u-sm-3 am-form-label">
-                           Title
-                        </label>
-                        <div class="am-u-sm-9">
-                            <input id="title" readonly="readonly" required=""  value="" name="annonuncetitle" type="text">
+    <div class="am-cf admin-main">
+        <!-- content start -->
+        <div class="admin-content">
+            <div class="admin-content-body">
+                <div class="am-g">
+                    <form class="am-form am-form-horizontal" style="padding-top: 30px;">
+                        <input value="504" name="roleId" type="hidden">
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">
+                                Title
+                            </label>
+                            <div class="am-u-sm-9">
+                                <input id="title" readonly="readonly" required="" value="" name="annonuncetitle" type="text">
+                            </div>
                         </div>
-                    </div>
-                    <div class="am-form-group">
-                        <label for="user-name" class="am-u-sm-3 am-form-label">
-                            Content
-                        </label>
-                        <div class="am-u-sm-9">
-                            <textarea id="content" rows="5" cols="25" name="cc"  >
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">
+                                Content
+                            </label>
+                            <div class="am-u-sm-9">
+                                <textarea id="content" rows="5" cols="25" name="cc">
 
                             </textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="am-form-group">
-                        <div class="am-u-sm-9 am-u-sm-push-3">
-                            <button onclick="editnews()" class="am-btn am-btn-success">EDIT</button>
+                        <div class="am-form-group">
+                            <div class="am-u-sm-9 am-u-sm-push-3">
+                                <button onclick="editnews()" class="am-btn am-btn-success">EDIT</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 
 <script src="../cookie.js"></script>
@@ -67,6 +67,7 @@
 
     socket.on("editAnnouncementSuccess", function () {
         window.alert("Successfully edit Announcement.");
+        Cookies.set("update", "true");
     });
 
     socket.on("AnnouncementInfo", function (data) {
@@ -80,9 +81,9 @@
 
     function editnews() {
         var data = {};
-        data.title= Cookies.get("cur_news_title");
-        data.librarian_id=Cookies.get("username");
-        data.content= $("#content").val();
+        data.title = Cookies.get("cur_news_title");
+        data.librarian_id = Cookies.get("username");
+        data.content = $("#content").val();
         socket.emit("editAnnouncement", data);
     }
 

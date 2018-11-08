@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="skin/default/skin.css" id="skin" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
-   <!-- <script>DD_belatedPNG.fix('*');</script>-->
+    <!-- <script>DD_belatedPNG.fix('*');</script>-->
     <title></title>
     <link rel="stylesheet" href="css/amazeui.min.css">
     <link rel="stylesheet" href="css/admin.css">
@@ -25,65 +25,66 @@
         <div class="admin-content-body">
             <br>
             <div style="min-width:700px;height:50px">
-                    <label for="start_date" style="padding-left: 20px"> Start date </label>
-                    <i class="am-icon-calendar"></i>
-                            <input
-                            type="date"
-                            id="start_date"
-                            style="background-color: #f0f1f2"
-                            required="required">
-                            
-                    
-                    <label for="end_date"> End date</label>
-                    <i class="am-icon-calendar"></i>
-                    <input
-                            type="date"
-                            id="end_date"
-                            style="background-color: #f0f1f2"
-                            required="required">
-                            
-                &nbsp;  &nbsp; &nbsp;
-                    <label for="typeSelect">View by</label>
-                      <select id="typeSelect" name="type" >
-                            <option value="Year">Year</option>
-                            <option value="Month">Month</option>
-                            <option value="Day">Day</option>
-                      </select>
-                      &nbsp;  &nbsp; &nbsp;
-                        <button id="11" type="button" class="am-btn-secondary" onclick="searchincome()">
-                            VIEW
-                        </button>
+                <label for="start_date" style="padding-left: 20px"> Start date </label>
+                <i class="am-icon-calendar"></i>
+                <input
+                        type="date"
+                        id="start_date"
+                        style="background-color: #f0f1f2"
+                        required="required">
 
-                </div>
+
+                <label for="end_date"> End date</label>
+                <i class="am-icon-calendar"></i>
+                <input
+                        type="date"
+                        id="end_date"
+                        style="background-color: #f0f1f2"
+                        required="required">
+
+                &nbsp;  &nbsp; &nbsp;
+                <label for="typeSelect">View by</label>
+                <select id="typeSelect" name="type" >
+                    <option value="Year">Year</option>
+                    <option value="Month">Month</option>
+                    <option value="Day">Day</option>
+                </select>
+                &nbsp;  &nbsp; &nbsp;
+                <button id="11" type="button" class="am-btn-secondary" onclick="searchincome()">
+                    VIEW
+                </button>
+
+            </div>
 
             <div id="container1" style="min-width:500px;height:400px"></div>
 
-            <div class="am-g" style="margin-top: 30px;">
-                    <div class="am-u-sm-12">
-                            <table class="am-table" border="1" align="center">
-                                <caption>Income Detail</caption>
-                                <thead>
-                                <tr>
-                                    <th>
-                                        Date
-                                    </th>
-                                    <th>
-                                        Income(¥)
-                                    </th>
-                                    <th>
-                                        Type(Deposit/Fine)
-                                    </th>
-                                    <th>
-                                        Reader
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody id="tUser">
-                                </tbody>
-                            </table>
-
-                    </div>
+            <div class="am-g" style="margin-top:20px;">
+                <div class="am-u-sm-12">
+                    <form class="am-form">
+                        <table class="am-table am-table-striped am-table-hover table-main">
+                        <caption><span style="font-size: larger"> Income Detail</span></caption>
+                        <thead>
+                        <tr>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Income(¥)
+                            </th>
+                            <th>
+                                Type(Deposit/Fine)
+                            </th>
+                            <th>
+                                Reader
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody id="tUser">
+                        </tbody>
+                        </table>
+                    </form>
                 </div>
+            </div>
         </div>
         <!-- content end -->
     </div>
@@ -147,7 +148,6 @@
             });
         });
     });
-
     function searchincome(){
         var start=$('#start_date').val();
         var end=$('#end_date').val();
@@ -161,37 +161,37 @@
         data.origin=false;
         socket.emit('viewincome', data);
     }
-
     function addIncomeItem(item) {
         var obj = document.createElement('tr');
-
         var income_date = document.createElement('td');
         income_date.innerHTML = item.date.substring(0, 10);
         var income_value = document.createElement('td');
-        income_value.innerHTML =item.value;
+        var income_span = document.createElement('span');
+        if(item.value<=0){
+            income_span.setAttribute("class", "am-badge am-badge-danger");
+        }
+        if(item.value>0){
+            income_span.setAttribute("class", "am-badge am-badge-success");
+        }
+        income_span.innerHTML = item.value.toFixed(2);
+        income_value.appendChild(income_span);
         var income_type= document.createElement('td');
         income_type.innerHTML =item.type;
         var reader_id= document.createElement('td');
         reader_id.innerHTML =item.reader_id;
-
         obj.appendChild(income_date);
         obj.appendChild(income_value);
         obj.appendChild(income_type);
         obj.appendChild(reader_id);
-
         var parent = document.getElementById('tUser');
         parent.appendChild(obj);
     }
-
-
-
     function clearItems() {
         var obj = document.getElementById('tUser');
         while (obj.childNodes.length > 0) {
             obj.removeChild(obj.lastChild);
         }
     }
-
     socket.on("incomeList", function (data) {
         clearItems();
         data = data.incomelist;
@@ -204,5 +204,4 @@
 </body>
 
 </html>
-
 

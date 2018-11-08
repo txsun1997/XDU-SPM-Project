@@ -17,7 +17,8 @@
         <div class="admin-content">
             <div class="admin-content-body">
                 <div class="am-cf am-padding">
-                    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" style="font-size: 25px">Post Management</strong> / 公告管理</div>
+                    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" style="font-size: 25px">Post
+                            Management</strong></div>
                 </div>
                 <div class="container" style="padding: 10px 10px 0px 10px">
                     <div class="am-g">
@@ -35,77 +36,9 @@
                     </div>
 
                     <div id="collapse-panel-4" class="am-panel-bd am-collapse am-in">
-                        <ul class="am-list admin-content-task">
-                            <li>
-                                <div class="admin-task-title"> News 1</div>
-                                <div class="admin-task-meta"> Posted on 25/1/2120 by John Clark</div>
-                                <div class="admin-task-bd">
-                                    The starting place for exploring business management; helping new managers get
-                                    started and
-                                    experienced managers get better.
-                                </div>
-                                <div class="am-cf">
-                                    <div class="am-btn-toolbar am-fl">
-                                        <div class="am-btn-group am-btn-group-xs">
-                                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-check"></span></button>
-                                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-pencil"></span></button>
-                                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-times"></span></button>
-                                        </div>
-                                    </div>
-                                    <div class="am-fr">
-                                        <button type="button" class="am-btn am-btn-default am-btn-xs">删除</button>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="admin-task-title"> News 1</div>
-                                <div class="admin-task-meta"> Posted on 25/1/2120 by 呵呵呵</div>
-                                <div class="admin-task-bd">
-                                    基兰和狗熊出现在不同阵营时。基兰会获得BUFF，“装甲熊憎恨者”。狗熊会获得BUFF，“时光老人憎恨者”。
-                                </div>
-                                <div class="am-cf">
-                                    <div class="am-btn-toolbar am-fl">
-                                        <div class="am-btn-group am-btn-group-xs">
-                                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-check"></span></button>
-                                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-pencil"></span></button>
-                                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-times"></span></button>
-                                        </div>
-                                    </div>
-                                    <div class="am-fr">
-                                        <button type="button" class="am-btn am-btn-default am-btn-xs">删除</button>
-                                    </div>
-                                </div>
-                            </li>
+                        <ul id="news" class="am-list admin-content-task">
                         </ul>
                     </div>
-                    <!--
-                        <div class="am-g" style="margin-top: 5px;">
-                        <div class="am-u-sm-12">
-                            <form class="am-form">
-                                <table class="am-table am-table-striped am-table-hover table-main">
-                                    <thead>
-                                        <tr>
-                                            <th class="table-title">
-                                                ANNOUNCEMENT
-                                            </th>
-                                            <th class="table-title">
-                                                LIBRARIAN
-                                            </th>
-                                            <th class="table-title">
-                                                DATE
-                                            </th>
-                                            <th class="table-set">
-                                                OPERATION
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tUser">
-                                    </tbody>
-                                </table>
-                            </form>
-                        </div>
-                    </div>
-                    -->
 
                 </div>
             </div>
@@ -119,6 +52,7 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
         var socket = io("http://139.199.112.88:2761");
+        Cookies.set("update", "false");
         var items = [];
         function editItem(index) {
             Cookies.set("cur_news_title", items[index].title, { expires: 1 });
@@ -126,8 +60,8 @@
                 title: "Edit Announcement",
                 url: "edit-announcement.html",
                 top: 300,
-                iframeWidth: 800,
-                iframeHeight: 400,
+                iframeWidth: 650,
+                iframeHeight: 350,
             });
         }
 
@@ -143,26 +77,27 @@
         }
 
         function addAnnouncementItem(item, i) {
-            var obj = document.createElement('tr');
-            var news_title = document.createElement('td');
-            news_title.innerHTML = item.title;
-
-            var news_librarian = document.createElement('td');
-            news_librarian.innerHTML = item.librarian_id;
-
-            var news_date = document.createElement('td');
-            news_date.innerHTML = item.date.substring(0, 10);
+            var obj = document.createElement("li");
+            var title = document.createElement("div");
+            title.setAttribute("class", 'admin-task-title');
+            title.innerText = item.title;
+            var date = document.createElement("div");
+            date.setAttribute("class", 'admin-task-meta');
+            date.innerText = "Posted on " + item.date.substring(0, 10) + " by " + item.librarian_id;
+            var content = document.createElement("div");
+            content.setAttribute("class", 'admin-task-bd');
+            content.innerText = item.content;
 
             var edit_span = document.createElement('span');
-            edit_span.setAttribute("class", "am-icon-pencil-square-o");
+            edit_span.setAttribute("class", "am-icon-pencil");
 
             var delete_span = document.createElement('span');
-            delete_span.setAttribute("class", "am-icon-trash-o");
+            delete_span.setAttribute("class", "am-icon-times");
 
             var edit_btn = document.createElement('button');
             edit_btn.innerHTML = '';
             edit_btn.appendChild(edit_span);
-            edit_btn.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary btnedit');
+            edit_btn.setAttribute('class', 'am-btn am-btn-default');
             edit_btn.setAttribute('id', i);
             edit_btn.setAttribute('onclick', 'editItem(this.id)');
             edit_btn.setAttribute('type', 'button');
@@ -170,7 +105,7 @@
             var delete_btn = document.createElement('button');
             delete_btn.innerHTML = '';
             delete_btn.appendChild(delete_span);
-            delete_btn.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only');
+            delete_btn.setAttribute('class', 'am-btn am-btn-default');
             delete_btn.setAttribute('id', i);
             delete_btn.setAttribute('onclick', 'deleteItem(this.id)');
             delete_btn.setAttribute('type', 'button');
@@ -181,23 +116,24 @@
             div1.appendChild(delete_btn);
 
             var div2 = document.createElement('div');
-            div2.setAttribute('class', 'am-btn-toolbar');
+            div2.setAttribute('class', 'am-btn-toolbar am-fl');
             div2.appendChild(div1);
 
-            var buttons_td = document.createElement('td');
-            buttons_td.appendChild(div2);
+            var button_cf = document.createElement("div");
+            button_cf.setAttribute('class', "am-cf");
+            button_cf.appendChild(div2);
 
-            obj.appendChild(news_title);
-            obj.appendChild(news_librarian);
-            obj.appendChild(news_date);
-            obj.appendChild(buttons_td);
+            obj.appendChild(title);
+            obj.appendChild(date);
+            obj.appendChild(content);
+            obj.appendChild(button_cf);
 
-            var parent = document.getElementById('tUser');
+            var parent = document.getElementById('news');
             parent.appendChild(obj);
         }
 
         function clearItems() {
-            var obj = document.getElementById('tUser');
+            var obj = document.getElementById('news');
             while (obj.childNodes.length > 0) {
                 obj.removeChild(obj.lastChild);
             }
@@ -211,6 +147,12 @@
                 addAnnouncementItem(data[i], i);
             }
         });
+
+        setInterval(function () {
+            if (Cookies.get("update") == "true") {
+                location.href = location.href;
+            }
+        }, 100);
 
         socket.emit("getAnnouncementList");
     </script>
@@ -229,8 +171,8 @@
 
                 $.jq_Panel({
                     title: "ADD Announcement",
-                    iframeWidth: 800,
-                    iframeHeight: 300,
+                    iframeWidth: 650,
+                    iframeHeight: 350,
                     url: "addAnnouncement.html"
                 });
 
