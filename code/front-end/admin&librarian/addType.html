@@ -74,6 +74,7 @@
 
     socket.on("addtypeSuccess", function () {
         window.alert("Successfully add type.");
+        Cookies.set("update", "true");
     });
 
     function addType() {

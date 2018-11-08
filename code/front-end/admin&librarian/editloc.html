@@ -141,6 +141,7 @@
     $("#loc_name").attr("value",curloc);
     socket.on("editlocationSuccess", function () {
         window.alert("Successfully edit location.");
+        Cookies.set("update", "true");
     });
 
     function editlocation() {

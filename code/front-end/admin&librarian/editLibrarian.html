@@ -83,6 +83,7 @@
 
 	socket.on("editLibrarianSuccess", function () {
 		window.alert("Successfully edit role.");
+		Cookies.set("update", "true");
 	});
 
 	function editRole() {

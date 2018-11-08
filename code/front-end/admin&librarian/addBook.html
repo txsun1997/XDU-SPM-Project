@@ -310,7 +310,8 @@
 	}
 
 	socket.on("addBookSuccess",function(){
-		location.href = "addBookSuccess.html";
+		window.alert("Add book success.");
+		Cookies.set("update", "true");
 	});
 
 	socket.on("bookInfoOfDouban", function (data) {

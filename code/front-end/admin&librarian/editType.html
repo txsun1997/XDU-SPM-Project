@@ -147,6 +147,7 @@
     $("#type_name").attr("value",curtype);
     socket.on("editbooktypeSuccess", function () {
         window.alert("Successfully edit type.");
+        Cookies.set("update", "true");
     });
 
     function editType() {

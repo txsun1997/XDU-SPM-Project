@@ -90,6 +90,7 @@
 
     socket.on("addLibrarianRoleSuccess", function (data) {
         window.alert("Successfully add role.\nYour ID is "+data.librarian_id+"\n"+"Your password is 00010001.");
+        Cookies.set("update", "true");
     });
 
     function addRole() {

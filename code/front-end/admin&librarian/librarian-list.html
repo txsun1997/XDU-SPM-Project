@@ -99,9 +99,10 @@
 		var socket = io("http://139.199.112.88:2761");
 		var items = [];
 		var librarians;
+		Cookies.set("update", "false");
 
 		function editItem(index) {
-			Cookies.set("cur_librarian_id", items[index].librarian_id, { expires: 1 });
+			Cookies.set("cur_librarian_id", librarians[index].librarian_id, { expires: 1 });
 			$.jq_Panel({
 				title: "Edit Librarian",
 				url: "editLibrarian.html",
@@ -112,12 +113,12 @@
 		}
 
 		socket.on("deleteLibrarianSuccess", function (data) {
-			window.alert("Delete librarian success.");
-			location.href = location.href;
+			alert("Delete librarian success.");
+			Cookies.set("update", "true");
 		});
 
 		function deleteItem(index) {
-			socket.emit("deleteLibrarian", items[index]);
+			socket.emit("deleteLibrarian", librarians[index]);
 		}
 
 		function addLibrarianItem(item, i) {
@@ -194,6 +195,12 @@
 				addLibrarianItem(librarians[i], i);
 			}
 		});
+
+		setInterval(function () {
+			if (Cookies.get("update") == "true") {
+				location.href = location.href;
+			}
+		}, 100);
 
 		socket.emit("getLibrarianList");
 
