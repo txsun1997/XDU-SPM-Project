@@ -3,9 +3,9 @@ admin(admin_id, name, gender, phone, email)
 librarian(librarian_id, name, gender, phone, email)
 reader(reader_id, name, gender, email, phone, borrowNum) #borrowNum代表预约和借了几本书
 books(isbn, book_name, author, press, publish_year, subject, figure, type, available_number, total_number, location, page)
-copies(bar_code, isbn, status) #status包括available, borrowed
+copies(bar_code, isbn, status) #status包括available, borrowed, reserved
 borrows(reader_id, book_name, isbn, bar_code, lend_librarian_id, return_librarian_id, borrow_date, return_date, fine, status)#status 表示还了没，取值true表示还了
-reserve(reader_id, isbn, reserve_time, status)
+reserve(reader_id, bar_code, isbn, reserve_time, status)
 session(username, session, type)
 librarianOperation(operation, book_name, time, librarian_id, isbn, bar_code(若是删除或编辑整本书，则为0代表所有))#operation包括Delete, Edit等等
 config(varname:"config",security, limit, exceed, maxnum, reserve)
