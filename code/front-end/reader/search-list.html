@@ -126,7 +126,12 @@
 									</div>
 									<p id='list_title'></p>
 									<div class="orderby__wrapper">
-										<p></p>
+										<span>Sort By</span>
+										<select class="shot__byselect">
+											<option>Default sorting</option>
+											<option>Name</option>
+											<option>Edition</option>
+										</select>
 									</div>
 								</div>
 							</div>
@@ -379,14 +384,19 @@
 				h1.appendChild(a1);
 
 				var li_instock = document.createElement('li');
-				li_instock.innerHTML = 'Available: ' + item.available_number;
+				li_instock.innerHTML = item.available_number + ' items in stock';
+				var li_allbooks = document.createElement('li');
+				li_allbooks.setAttribute('class', 'old__prize');
+				li_allbooks.innerHTML = 'has all ' + item.total_number + ' book(s)';
 				var ul_booknum = document.createElement('ul');
 				ul_booknum.setAttribute('class', 'prize__box');
 				ul_booknum.appendChild(li_instock);
+				ul_booknum.appendChild(li_allbooks);
 
 				var p = document.createElement('p');
 				p.innerHTML = item.subject;
 
+				/*
 				var a2 = document.createElement('a');
 				a2.setAttribute('name', i);
 				a2.setAttribute('onclick', 'reserve(this.name)');
@@ -394,17 +404,19 @@
 				var li_reserve = document.createElement('li');
 				li_reserve.setAttribute('class', 'cart');
 				li_reserve.appendChild(a2);
+				*/
 				var a3 = document.createElement('a');
 				a3.setAttribute('name', i);
 				//a3.setAttribute('id','test')
 				a3.setAttribute('onclick', 'show_detail(this.name)');
-				a3.innerHTML = 'Learn more';
+				//a3.innerHTML = 'Learn more';
+				a3.innerHTML = 'Reserve';
 				var li_detail = document.createElement('li');
 				li_detail.setAttribute('class', 'cart');
 				li_detail.appendChild(a3);
 				var ul_buttons = document.createElement('ul');
 				ul_buttons.setAttribute('class', 'cart__action d-flex');
-				ul_buttons.appendChild(li_reserve);
+				//ul_buttons.appendChild(li_reserve);
 				ul_buttons.appendChild(li_detail);
 
 				var div_content = document.createElement('div');
@@ -560,12 +572,7 @@
 		});
 
 		socket.on('sessionSuccess', function (data) {
-			if (data == 'reserve') {
-				var item = {};
-				item.reader_id = auth_data.username;
-				item.isbn = bookList[Cookies.get("cur_index")].isbn;
-				socket.emit('reserveBook', item);
-			}
+
 			topMenu.innerHTML = auth_data.username;
 			accMenu.innerHTML = 'Console';
 			accLog.innerHTML = 'Log out';
@@ -590,30 +597,6 @@
 			}
 		});
 
-		socket.on('reserveOverflow', function (data) {
-			window.alert('You can only reserve ' + data + ' books.');
-		});
-		socket.on('noneToReserve', function () {
-			window.alert('there\'s no book left.');
-		});
-		socket.on('reserveSuccess', function (data) {
-			/*
-			var email = require("emailjs");
-			var server = email.server.connect({
-				user: "13279492761@2980.com",      // 你的QQ用户
-				password: "130427132794WL",           // 注意，不是QQ密码，而是刚才生成的授权码
-				host: "smtp.2980.com",         // 主机，不改
-				ssl: false                 // 使用ssl
-			});
-			server.send({
-					text: data.href + '?session=' + data.session + '&username=' + data.reader_id,       //邮件内容
-					from: "cjiang_5@stu.xidian.edu.cn",        //谁发送的
-					to: data.email,       //发送给谁的
-					subject: "changePasswd"          //邮件主题
-				});
-				*/
-			window.alert('reserve success!');
-		});
 
 		if (auth_data.type == "reader") {
 			socket.emit("sessionAuth", auth_data);
