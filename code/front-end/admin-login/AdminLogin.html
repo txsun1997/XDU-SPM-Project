@@ -65,7 +65,7 @@
 
 		var socket = io("http://139.199.112.88:2761");
 
-	
+
 		function loginServer() {
 			var login_data = {};
 			login_data["username"] = $("#username").val();
@@ -88,6 +88,7 @@
 		socket.on("wrongPassword", function (data) {
 			window.alert("Password Error!");
 		});
+
 	</script>
 </body>
 
