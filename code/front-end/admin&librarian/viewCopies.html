@@ -32,13 +32,13 @@
                                                 Barcode Number
                                             </th>
                                             <th>
-                                                ISBN
+                                                Location
                                             </th>
                                             <th>
                                                 Status
                                             </th>
                                             <th>
-                                                Barcode Image
+                                                Operations
                                             </th>
                                         </tr>
                                     </thead>
@@ -78,11 +78,22 @@
         var data = {};
         data.isbn = isbn;
         var copies;
+        Cookies.set("update", "false");
 
         function viewBarcode(index) {
             Cookies.set("cur_copy", copies[index].bar_code, { expires: 1 });
             window.open("viewBarcode.html");
             location.href = location.href;
+        }
+
+        function edit(index) {
+            Cookies.set("cur_copy", copies[index].bar_code, { expires: 1 });
+            $.jq_Panel({
+                title: "EDIT COPY",
+                url: "editCopy.html",
+                iframeWidth: 800,
+                iframeHeight: 500,
+            });
         }
 
         function addCopyItem(item, i) {
@@ -91,11 +102,12 @@
             var barcode = document.createElement('td');
             barcode.innerHTML = item.bar_code;
 
-            var isbn = document.createElement('td');
-            isbn.innerHTML = item.isbn;
+            var location = document.createElement('td');
+            location.innerHTML = item.location;
 
             var status = document.createElement('td');
             status.innerHTML = item.status;
+
 
             var btnDelete = document.createElement('button');
             btnDelete.innerHTML = 'VIEW BARCODE';
@@ -104,9 +116,17 @@
             btnDelete.setAttribute('onclick', 'viewBarcode(this.id)');
             btnDelete.setAttribute('type', 'button');
 
+            var btnEdit = document.createElement('button');
+            btnEdit.innerHTML = 'EDIT';
+            btnEdit.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-hide-sm-only');
+            btnEdit.setAttribute('id', i);
+            btnEdit.setAttribute('onclick', 'edit(this.id)');
+            btnEdit.setAttribute('type', 'button');
+
             var div1 = document.createElement('div');
             div1.setAttribute('class', 'am-btn-group am-btn-group-xs');
             div1.appendChild(btnDelete);
+            div1.appendChild(btnEdit);
 
             var div2 = document.createElement('div');
             div2.setAttribute('class', 'am-btn-toolbar');
@@ -116,7 +136,7 @@
             detail.appendChild(div2);
 
             obj.appendChild(barcode);
-            obj.appendChild(isbn);
+            obj.appendChild(location);
             obj.appendChild(status);
             obj.appendChild(detail);
 
@@ -134,6 +154,12 @@
                 addCopyItem(data.copy_list[i], i);
             }
         });
+
+        setInterval(function () {
+            if (Cookies.get("update") == "true") {
+                location.href = location.href;
+            }
+        }, 100);
 
         socket.emit("getCopyList", data);
 

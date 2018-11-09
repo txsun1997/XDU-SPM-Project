@@ -215,20 +215,6 @@
                             </div>
                         </div>
 
-
-
-                        <div class="am-form-group">
-                            <label for="location" class="am-u-sm-3 am-form-label">
-                                Location
-                            </label>
-                            <div class="am-u-sm-9">
-                                <select id="locationSelect" name="type" required>
-                                    <option id="">Select a location</option>
-                                </select>
-                                <small id="helpRole">Floor-Room-Bookcase, e.g. 2-01-02.</small>
-                            </div>
-                        </div>
-
                         <div class="am-form-group">
                             <label for="location" class="am-u-sm-3 am-form-label">
                                 Picture
@@ -289,11 +275,6 @@
 			location.href = location.href;
 		}
         data.total_number = parseInt($("#number").val());
-        data.location = $("#locationSelect").find("option:selected").text();
-        if(data.location == "Select a Location"){
-			alert("Please Select a Location");
-			location.href = location.href;
-		}
         data.figure = picture;
         socket.emit("editBook", data);
     }
@@ -356,39 +337,19 @@
         if (data.total_number != null) {
             $("#number").attr("value", data.total_number);
         }
-        if (data.location != null) {
-            document.getElementById(data.location).selected = true;
-        }
     }
 
     socket.on("CatLocList", function (data) {
         var typeParent = document.getElementById('typeSelect');
-        var locationParent = document.getElementById('locationSelect');
-        var location = data.location;
+
         var type = data.type;
         while (typeParent.childNodes.length > 0) {
             typeParent.removeChild(typeParent.lastChild);
         }
 
-        while (locationParent.childNodes.length > 0) {
-            locationParent.removeChild(locationParent.lastChild);
-        }
-
-        var select_loc = document.createElement("option");
-        select_loc.innerHTML = "Select a Location";
-        locationParent.appendChild(select_loc);
-
         var select_type = document.createElement("option");
         select_type.innerHTML = "Select a Type";
         typeParent.appendChild(select_type);
-
-        var locationList = [];
-        for (var i = 0; i < location.length; i++) {
-            locationList.push(document.createElement("option"));
-            locationList[i].setAttribute("id", location[i].location);
-            locationList[i].innerHTML = location[i].location;
-            locationParent.appendChild(locationList[i]);
-        }
 
         var typeList = [];
         for (var i = 0; i < type.length; i++) {

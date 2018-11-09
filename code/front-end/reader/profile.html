@@ -3,16 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta content="" name="description" />
+    <meta content="" name="description" />
     <meta content="webthemez" name="author" />
     <title>Reader Profile</title>
-	<!-- Bootstrap Styles-->
+    <!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
-	
+    
     <link href="assets/css/select2.min.css" rel="stylesheet" >
-	<link href="assets/css/checkbox3.min.css" rel="stylesheet" >
+    <link href="assets/css/checkbox3.min.css" rel="stylesheet" >
         <!-- Custom Styles-->
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
      <!-- Google Fonts-->
@@ -29,44 +29,6 @@
                 <!-- <a class="navbar-brand" href="index.html"><img src="images/logo/logo黑字.png" width = 205px height = 60px ></a> -->     
             </div>
             <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>admin</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Oct.14.2018</em>
-                                    </span>
-                                </div>
-                                <div>The book you borrowed will expire in one day. </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>Librarian</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Oct.13.2018</em>
-                                    </span>
-                                </div>
-                                <div>Today, the library has a new collection of books.</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-messages -->
-                </li>
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
@@ -79,8 +41,6 @@
                                     <!-- 瞎写的类，不知道有没有，留空用的 -->
                                     <li><a href="profile-ch.html"><i class="fa fa-none fa-fw"></i>中文</a></li>                                 
                             </li> 
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="index.html" onclick="logOut()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
@@ -127,13 +87,13 @@
         </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
-		  <div class="header"> 
+          <div class="header"> 
                         <h1 class="page-header">
                              Self Profile <small>Change or inquire your info</small>
                         </h1> 
-									
-		</div>
-		
+                                    
+        </div>
+        
             <div id="page-inner">                     
                     <div class="row">
                         <div class="col-xs-12">
@@ -200,8 +160,8 @@
                         </div>
                     </div>
                
-			<footer><p align="center">©2018 XDU-SPM-B2 Copyright</p></footer>
-			</div>
+            <footer><p align="center">©2018 XDU-SPM-B2 Copyright</p></footer>
+            </div>
              <!-- /. PAGE INNER  -->
             </div>
          <!-- /. PAGE WRAPPER  -->
@@ -214,12 +174,12 @@
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- Metis Menu Js -->
     <script src="assets/js/jquery.metisMenu.js"></script>
-	<script src="assets/js/select2.full.min.js"></script>
-	<script type="text/javascript">
-	$(document).ready(function() {
-	  $(".selectbox").select2();
-	});
-	</script>
+    <script src="assets/js/select2.full.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $(".selectbox").select2();
+    });
+    </script>
       <!-- Custom Js -->
     <script src="assets/js/custom-scripts.js"></script> 
     <script src="../cookie.js"></script>
@@ -288,8 +248,8 @@
         socket.emit('getReaderInfo',auth_data);      
         
     </script>
-	
-		
+    
+        
    
 </body>
 </html>

@@ -126,12 +126,7 @@
 									</div>
 									<p id='list_title'></p>
 									<div class="orderby__wrapper">
-										<span>Sort By</span>
-										<select class="shot__byselect">
-											<option>Default sorting</option>
-											<option>Name</option>
-											<option>Edition</option>
-										</select>
+										<p></p>
 									</div>
 								</div>
 							</div>
@@ -384,14 +379,10 @@
 				h1.appendChild(a1);
 
 				var li_instock = document.createElement('li');
-				li_instock.innerHTML = item.available_number + ' items in stock';
-				var li_allbooks = document.createElement('li');
-				li_allbooks.setAttribute('class', 'old__prize');
-				li_allbooks.innerHTML = 'has all ' + item.total_number + ' book(s)';
+				li_instock.innerHTML = 'Available: ' + item.available_number;
 				var ul_booknum = document.createElement('ul');
 				ul_booknum.setAttribute('class', 'prize__box');
 				ul_booknum.appendChild(li_instock);
-				ul_booknum.appendChild(li_allbooks);
 
 				var p = document.createElement('p');
 				p.innerHTML = item.subject;
