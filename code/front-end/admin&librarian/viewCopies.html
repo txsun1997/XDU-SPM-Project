@@ -29,7 +29,7 @@
                                     <thead>
                                         <tr>
                                             <th>
-                                                Barcode Number
+                                                Barcode
                                             </th>
                                             <th>
                                                 Location
@@ -89,10 +89,10 @@
         function edit(index) {
             Cookies.set("cur_copy", copies[index].bar_code, { expires: 1 });
             $.jq_Panel({
-                title: "EDIT COPY",
+                title: "EDIT LOCATION",
                 url: "editCopy.html",
-                iframeWidth: 800,
-                iframeHeight: 500,
+                iframeWidth: 400,
+                iframeHeight: 200,
             });
         }
 
@@ -110,15 +110,15 @@
 
 
             var btnDelete = document.createElement('button');
-            btnDelete.innerHTML = 'VIEW BARCODE';
-            btnDelete.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary am-hide-sm-only');
+            btnDelete.innerHTML = 'BARCODE';
+            btnDelete.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only');
             btnDelete.setAttribute('id', i);
             btnDelete.setAttribute('onclick', 'viewBarcode(this.id)');
             btnDelete.setAttribute('type', 'button');
 
             var btnEdit = document.createElement('button');
-            btnEdit.innerHTML = 'EDIT';
-            btnEdit.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-hide-sm-only');
+            btnEdit.innerHTML = 'LOCATION';
+            btnEdit.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-primary am-hide-sm-only');
             btnEdit.setAttribute('id', i);
             btnEdit.setAttribute('onclick', 'edit(this.id)');
             btnEdit.setAttribute('type', 'button');
