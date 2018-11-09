@@ -119,7 +119,7 @@
 		});
 
 		function deleteItem(index) {
-			var del = confirm("Are you sure?");
+			var del = confirm("Confirm to delete?");
 			if(del == true)
 			socket.emit("deleteLibrarian", librarians[index]);
 		}
