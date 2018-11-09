@@ -235,6 +235,7 @@
 									</div>
 									<!-- End Single Product -->
 								</div>
+								</br></br></br>
 								<ul id="pageBar" class="wn__pagination">
 									<li class="active"><a href="#">1</a></li>
 									<li><a href="#">2</a></li>
@@ -421,11 +422,16 @@
 				//ul_buttons.appendChild(li_reserve);
 				ul_buttons.appendChild(li_detail);
 
+				var style = document.createElement('div');
+				style.setAttribute('style','height: 90%');
+
 				var div_content = document.createElement('div');
 				div_content.setAttribute('class', 'content');
-				div_content.appendChild(h1);
-				div_content.appendChild(ul_booknum);
-				div_content.appendChild(p);
+				style.appendChild(h1);
+				style.appendChild(ul_booknum);
+				style.appendChild(p);
+				div_content.appendChild(style);
+
 				div_content.appendChild(ul_buttons);
 
 				divFrame.appendChild(div_thumb);

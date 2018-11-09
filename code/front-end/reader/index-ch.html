@@ -13,7 +13,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,600,600i,700,700i,800" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
 	-->
-	
+
 	<!-- Stylesheets -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/plugins.css">
@@ -45,17 +45,7 @@
 					</div><!-- 留空 -->
 					<div class="col-md-6 col-sm-6 col-6 col-lg-2">
 						<ul class="header__sidebar__right d-flex justify-content-end align-items-center">
-							<li id='topMenu' class="setting__bar__icon"><a class="setting__active" href="#"></a>
-								<!--
-
-
-    						<button id="ME" value="SIGN IN" onclick="personConsole()" class="btn btn-primary">ME</button>
-    						 -->
-								<script type="text/javascript">
-
-
-								</script>
-								<button id="SI" value="SIGN IN" onclick="signinServer()" class="btn btn-primary">SIGN IN</button>
+							<li class="setting__bar__icon"><a class="setting__active" href="#"></a>
 								<div class="searchbar__content setting__block">
 									<div class="content-inner">
 										<div class="switcher-currency">
@@ -64,13 +54,41 @@
 											</strong>
 											<div class="switcher-options">
 												<div class="switcher-currency-trigger">
-													<span class="currency-trigger"><a href="index.html">English</a></span>
-													<ul class="switcher-dropdown">
-														<li><a href="#">中文</a></li>
-													</ul>
+													<div class="setting__menu">
+														<span><a href="index.html">English</a></span>
+														<span><a href="#">中文</a></span>
+													</div>
 												</div>
 											</div>
 										</div>
+										<!-- <div class="switcher-currency">
+											<strong class="label switcher-label">
+												<span>Profile</span>
+											</strong>
+											<div class="switcher-options">
+												<div class="switcher-currency-trigger">
+													<div class="setting__menu">
+														<span><a href="profile.html">profile</a></span>
+														<span><a href="history.html">History</a></span>
+														<span><a href="change-password.html">Change Password</a></span>
+														<span><a href="reader-announcement.html">Announcement</a></span>
+													</div>
+												</div>
+											</div>
+										</div>  --> <!-- 登录之后显示 -->
+										<div class="switcher-currency">
+											<strong class="label switcher-label">
+												<span id="topMenu">Sign in</span><!-- 登录之后变成logout -->
+											</strong>
+											<div class="switcher-options">
+												<div class="switcher-currency-trigger">
+													<div class="setting__menu">
+														<span><a id="accMenu" onclick="signinLibrarianServer()">Librarian</a></span>
+														<span><a id="accLog" onclick="signinReaderServer()">Reader</a></span>
+													</div>
+												</div>
+											</div>
+										</div>											
 									</div>
 								</div>
 							</li>
@@ -81,6 +99,8 @@
 		</header>
 
 		<div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
+		<!-- <div class="slider-area brown__nav slider--15 slide__activation slide__arrow01"> -->
+
 
 			<div class="slide animation__style10 bg-image--9 fullscreen align__center--left">
 				<div class="container">
@@ -88,7 +108,7 @@
 						<div class="col-lg-12">
 							<div class="slider__content">
 								<div class="contentbox">
-									<h2>我们的<span> 故事</span></h2>
+									<h2>我们的 <span> 故事</span></h2>
 									<h2>从 <span> 这里 </span>开始</h2>
 									</br>
 								</div>
@@ -96,7 +116,7 @@
 									<form>
 										<div class="form-row">
 											<div class="col-12 col-md-9 mb-2 mb-md-0">
-												<input class="form-control form-control-lg" id="search_content" value="" placeholder="发现你感兴趣的">
+												<input class="form-control form-control-lg" id="search-content" value="" placeholder="发现你感兴趣的...">
 											</div>
 											<div class="col-12 col-md-2">
 												<button type="button" class="btn btn-block btn-lg btn-primary" onclick="search()">搜索</button>
@@ -118,7 +138,7 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="section__title text-center">
-							<h2 class="title__be--2"><a href="#">通知 <span class="color--theme">公告</span></a></h2>
+							<h2 class="title__be--2"><a href="announcement.html">通知 <span class="color--theme">公告</span></a></h2>
 						</div>
 					</div>
 				</div>
@@ -126,12 +146,10 @@
 					<div class="col-md-6 col-lg-4 col-sm-12">
 						<div class="post__itam">
 							<div class="content">
-								<h3 class="title1" id="title1">Instructions for borrowing books </h3>
-								<p class="content1" id="content1">A user can only borrow up to 20 books.Each book can be borrowed for 45 days
-									by default.If you overdue,you
-									will be fined 1 cent per day each book.</p>
+								<h3 class="title1"><a id="title1" name=0 onclick="show_detail(0)">Just a moment </a></h3>
+								<p class="content1"><a id="content1" name=0 onclick="show_detail(0)">...</a></p>
 								<div class="post__time">
-									<span class="day" id="date1">Dec 13, 18</span>
+									<span class="day" id="date1">...</span>
 								</div>
 							</div>
 						</div>
@@ -139,12 +157,10 @@
 					<div class="col-md-6 col-lg-4 col-sm-12">
 						<div class="post__itam">
 							<div class="content">
-								<h3 class="title2" id="title2">Instructions for borrowing books </h3>
-								<p class="content2" id="content2">A user can only borrow up to 20 books.Each book can be borrowed for 45 days
-									by default.If you overdue,you
-									will be fined 1 cent per day each book.</p>
+								<h3 class="title2"><a id="title2" name=1 onclick="show_detail(1)">Just a moment </a></h3>
+								<p class="content2"><a id="content2" name=1 onclick="show_detail(1)">...</a></p>
 								<div class="post__time">
-									<span class="day" id="date2">Dec 13, 18</span>
+									<span class="day" id="date2">...</span>
 								</div>
 							</div>
 						</div>
@@ -152,12 +168,10 @@
 					<div class="col-md-6 col-lg-4 col-sm-12">
 						<div class="post__itam">
 							<div class="content">
-								<h3 class="title3" id="title3">Instructions for borrowing books </h3>
-								<p class="content3" id="content3">A user can only borrow up to 20 books.Each book can be borrowed for 45 days
-									by default.If you overdue,you
-									will be fined 1 cent per day each book.</p>
+								<h3 class="title3"><a id="title3" name=2 onclick="show_detail(2)">Just a moment </a></h3>
+								<p class="content3"><a id="content3" name=2 onclick="show_detail(2)">...</a></p>
 								<div class="post__time">
-									<span class="day" id="date3">Dec 13, 18</span>
+									<span class="day" id="date3">...</span>
 								</div>
 							</div>
 						</div>
@@ -166,176 +180,7 @@
 			</div>
 		</section>
 		<!-- End Recent Announcement Area -->
-
-		<!-- Start BEst Seller Area -->
-		<section class="wn__product__area brown--color pt--80  pb--30">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="section__title text-center">
-							<h2 class="title__be--2"> <span class="color--theme"> 图书馆</span> 新书</h2>
-							<p>书籍是改变灵魂的工具。人类需要的是一种鼓舞人心的养分。阅读正是这种养分。- 维克多·雨果</p>
-						</div>
-					</div>
-				</div>
-				<!-- Start Single Tab Content -->
-				<div class="furniture--4 border--round arrows_style owl-carousel owl-theme row mt--50">
-					<!-- Start Single Product -->
-					<div class="product product__style--3">
-						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
-							<div class="product__thumb">
-								<a class="first__img" href="advancedmaths.html"><img src="images/books/1.jpg" alt="product image"></a>
-								<!-- <a class="second__img animation1" href="advancedmaths.html"><img src="images/books/2.jpg" alt="product image"></a> -->
-								<!-- 可以展示该书的两张照片 -->
-								<div class="hot__box">
-									<span class="hot-label">最热门书籍</span>
-								</div>
-							</div>
-							<div class="product__content content--center">
-								<h4><a href="single-product.html">高等数学</br>(第六版，第一卷)</a></h4>
-								<ul class="prize d-flex">
-									<li>馆藏复本：5</li>
-									<li class="old_prize">已出借复本：15</li>
-								</ul>
-								<div class="action">
-									<div class="actions_inner">
-										<ul class="add_to_links">
-											<li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-											<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#advancedmaths"><i
-													 class="bi bi-search"></i></a></li>
-										</ul>
-									</div>
-								</div>
-								<!-- <div class="product__hover--content">
-									<ul class="rating d-flex">
-										<li class="on"><i class="fa fa-star-o"></i></li>
-										<li class="on"><i class="fa fa-star-o"></i></li>
-										<li class="on"><i class="fa fa-star-o"></i></li>
-										<li class="on"><i class="fa fa-star-o"></i></li>
-										<li><i class="fa fa-star-o"></i></li>
-									</ul>
-								</div> -->
-							</div>
-						</div>
-					</div>
-					<!-- Start Single Product -->
-					<!-- Start Single Product -->
-					<div class="product product__style--3">
-						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
-							<div class="product__thumb">
-								<a class="first__img" href="single-product.html"><img src="images/books/3.jpg" alt="product image"></a>
-								<!-- <a class="second__img animation1" href="single-product.html"><img src="images/books/4.jpg" alt="product image"></a> -->
-								<div class="hot__box ">
-									<span class="hot-label">经典</span>
-								</div>
-							</div>
-							<div class="product__content content--center">
-								<h4><a href="single-product.html">操作系统</a></h4>
-								<ul class="prize d-flex">
-									<li>馆藏复本：6</li><!-- 这里表示库存等，以模板里的prize类代替 -->
-									<li class="old_prize">已出借复本：9</li>
-								</ul>
-								<div class="action">
-									<div class="actions_inner">
-										<ul class="add_to_links">
-											<li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-											<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal2"><i
-													 class="bi bi-search"></i></a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Start Single Product -->
-					<!-- Start Single Product -->
-					<div class="product product__style--3">
-						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
-							<div class="product__thumb">
-								<a class="first__img" href="single-product.html"><img src="images/books/5.jpg" alt="product image"></a>
-								<div class="hot__box">
-									<span class="hot-label">热门</span>
-								</div>
-							</div>
-							<div class="product__content content--center">
-								<h4><a href="single-product.html">追风筝的人</a></h4>
-								<ul class="prize d-flex">
-									<li>馆藏复本：9</li><!-- 这里表示库存等，以模板里的prize类代替 -->
-									<li class="old_prize">已出借复本：6</li>
-								</ul>
-								<div class="action">
-									<div class="actions_inner">
-										<ul class="add_to_links">
-											<li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-											<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal3"><i
-													 class="bi bi-search"></i></a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Start Single Product -->
-					<!-- Start Single Product -->
-					<div class="product product__style--3">
-						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
-							<div class="product__thumb">
-								<a class="first__img" href="single-product.html"><img src="images/books/7.jpg" alt="product image"></a>
-								<div class="hot__box">
-									<span class="hot-label">最新</span>
-								</div>
-							</div>
-							<div class="product__content content--center">
-								<h4><a href="single-product.html">星辰</a></h4>
-								<ul class="prize d-flex">
-									<li>馆藏复本：8</li><!-- 这里表示库存等，以模板里的prize类代替 -->
-									<li class="old_prize">已出借复本：2</li>
-								</ul>
-								<div class="action">
-									<div class="actions_inner">
-										<ul class="add_to_links">
-											<li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-											<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal4"><i
-													 class="bi bi-search"></i></a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Start Single Product -->
-					<!-- Start Single Product -->
-					<div class="product product__style--3">
-						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
-							<div class="product__thumb">
-								<a class="first__img" href="single-product.html"><img src="images/books/9.jpg" alt="product image"></a>
-								<div class="hot__box">
-									<span class="hot-label">HOT</span>
-								</div>
-							</div>
-							<div class="product__content content--center">
-								<h4><a href="single-product.html">不能承受的生命之轻</a></h4>
-								<ul class="prize d-flex">
-									<li>馆藏复本：5</li><!-- 这里表示库存等，以模板里的prize类代替 -->
-									<li class="old_prize">已出借复本：5</li>
-								</ul>
-								<div class="action">
-									<div class="actions_inner">
-										<ul class="add_to_links">
-											<li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-											<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal5"><i
-													 class="bi bi-search"></i></a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- End Single Tab Content -->
-			</div>
-		</section>
-
+		
 		<!-- Footer Area -->
 		<footer id="wn__footer" class="footer__area bg__cat--8 brown--color">
 			<div class="footer-static-top">
@@ -347,7 +192,7 @@
 									<a href="index-ch.html">
 										<img src="images/logo/logo黑字.png" width="150" height="50" alt="logo">
 									</a>
-									<p>理想的书籍，是智慧的关键 -- 列夫 托尔斯泰</p>
+									<h4>理想的书籍，是智慧的关键。  --列夫 托尔斯泰</h4>
 								</div>
 								<!-- <div class="footer__content">
 									<ul class="mainmenu d-flex justify-content-center">
@@ -369,7 +214,7 @@
 						<div class="col-lg-12 col-md-6 col-sm-12">
 							<div class="copyright">
 								<div class="copy__right__inner text-center">
-									<p>©2018 XDU-SPM-B2 Copyright</p>
+									<p>Copyright © 2018 XDU-SPM-B2</p>
 								</div>
 							</div>
 						</div>
@@ -378,77 +223,7 @@
 			</div>
 		</footer>
 		<!-- //Footer Area -->
-		<!-- QUICKVIEW PRODUCT -->
-		<div id="quickview-wrapper">
-			<!-- Modal -->
-			<div class="modal fade" id="advancedmaths" tabindex="-1" role="dialog">
-				<div class="modal-dialog modal__container" role="document">
-					<div class="modal-content">
-						<div class="modal-header modal__header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						</div>
-						<div class="modal-body">
-							<div class="modal-product">
-								<!-- Start product images -->
-								<div class="product-images">
-									<div class="main-image images">
-										<img alt="big images" src="images/books/1.jpg">
-									</div>
-								</div>
-								<!-- end product images -->
-								<div class="product-info">
-									<h1>Advanced Maths</h1>
-									<div class="rating__and__review">
-										<ul class="rating">
-											<li><span class="ti-star"></span></li>
-											<li><span class="ti-star"></span></li>
-											<li><span class="ti-star"></span></li>
-											<li><span class="ti-star"></span></li>
-											<li><span class="ti-star"></span></li>
-										</ul>
-									</div>
-									<div class="price-box-3">
-										<div class="s-price-box">
-											<span class="new-price">5 items in stock</span>
-											<span class="old-price">has borrowed 15 books</span>
-										</div>
-									</div>
-									<div class="quick-desc">
-										The sixth edition of Higher Mathematics is a book published by the Higher Education Press in 2007. The author
-										is the Department of Mathematics of Tongji University.</br>
-										The book is the sixth edition of the Higher Mathematics of the Department of Mathematics of Tongji
-										University. It is revised according to the latest "Basic Requirements for the Teaching of Basic Mathematics
-										Courses for Engineering Undergraduate Courses" for students of engineering majors in higher education
-										institutions.
-									</div>
-									<div class="select__color">
-										<!-- 代替搜索关键词 -->
-										<h2>key</h2>
-										<ul class="color__list">
-											<li href="#">Math</a></li>
-											<li href="#">education</a></li>
-											<li href="#">Tongji University</a></li>
-											<li href="#">sixth edition</a></li>
-										</ul>
-									</div>
-									<div class="select__size">
-										<h2>BookID</h2>
-										<ul class="color__list">
-											<li>ABCDE1234</li>
-										</ul>
-									</div>
-									<div class="addtocart-btn">
-										<a href="#">Want to Read</a>
-										<a href="advancedmaths.html">learn more</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- END QUICKVIEW PRODUCT -->
+		
 
 	</div>
 	<!-- //Main wrapper -->
@@ -471,89 +246,101 @@
 		auth_data.type = Cookies.get("type");
 		auth_data.cur = "reader";
 
-		var socket = io("http://139.199.112.88:2761");
+		var annList = null;
+		var bookList = null;
 
+		var page_scale = 5;
+		var listView = document.getElementById('listView');
+		var logFlag = false;
+
+//		window.alert(auth_data.type)
+
+		var socket = io("http://localhost:2761");
+
+		
 
 		function search() {
 			var data = $('#search-content').val();
-			Cookies.set('search', data);
-			//window.alert(data);
-			location.href = location.href.replace('index-ch.html', 'search-list-ch.html');
+			Cookies.set('search',data);
+			location.href = location.href.replace('index-ch.html', 'search-list.html');
 			//socket.emit('searchReaderBooks', data);
 		}
 
+		function noLogin() {
+			topMenu.innerHTML = '登录';
+			accLog.innerHTML = '读者';
+			accMenu.innerHTML = '图书管理员';
+			logFlag = false;
+		}
 
-		function signinServer() {
-			if (bntVal.value == "SIGN IN") {
-				location.href = location.href.replace("index-ch.html", "login-ch.html");
+		function signinReaderServer() {
+			if(logFlag == false) {
+				location.href = location.href.replace('index-ch.html', 'login-ch.html');
 			} else {
-				socket.emit("logOut", auth_data);
-				if (document.getElementById('ME') != null) {
-					document.getElementById('topMenu').removeChild(document.getElementById('ME'));
-				}
-				bntVal.innerHTML = "登录";
-				bntVal.value = "SIGN IN";
+				socket.emit('logOut', auth_data);
+				noLogin();
 			}
 		}
 
-		function personConsole() {
-			socket.emit("sessionAuth", auth_data);
-			if (bntVal.value != 'LOG OUT') return;
-			location.href = location.href.replace("index-ch.html", "profile-ch.html");
+		function signinLibrarianServer() {
+			if(logFlag == false) {
+				location.href = location.href.replace('reader/index-ch.html', 'reader&login/login.html');
+			} else {
+				location.href = location.href.replace('index-ch.html', 'profile-ch.html');
+			}
 		}
 
 		socket.on('sessionSuccess', function () {
-			bntVal.innerHTML = "登出";
-			bntVal.value = "LOG OUT";
-			var btn = document.createElement('button');
-			btn.setAttribute('id', 'ME');
-			btn.setAttribute('value', 'ME');
-			btn.setAttribute('class', 'btn btn-primary');
-			btn.setAttribute('onclick', 'personConsole()');
-			btn.innerHTML = 'Console';
-			var parent = document.getElementById('topMenu');
-			parent.appendChild(btn);
-			//parent.insertBefore(btn,parent.firstChild);
+			topMenu.innerHTML = auth_data.username;
+			accMenu.innerHTML = '个人信息';
+			accLog.innerHTML = '登出';
+			logFlag = true;
 		});
 		socket.on("noSession", function (data) {
-			window.alert('Login has expired, please login again!');
-			if (document.getElementById('ME') != null) {
-				document.getElementById('topMenu').removeChild(document.getElementById('ME'));
-			}
 			Cookies.remove('type');
-			bntVal.innerHTML = "SIGN IN";
-			bntVal.value = 'SIGN IN';
+			window.alert('Login has expired, please login again!');
+			noLogin();
 		});
 
 		socket.on("sessionFailed", function (data) {
-			window.alert('Login has expired, please login again!');
-			if (document.getElementById('ME') != null) {
-				document.getElementById('topMenu').removeChild(document.getElementById('ME'));
-			}
 			Cookies.remove('type');
-			bntVal.innerHTML = "登录";
-			bntVal.value = 'SIGN IN';
+			window.alert('Login has expired, please login again!');
+			noLogin();
 		});
 
 		socket.emit("releaseAnnouncement");
+		socket.emit('getAllAnnouncement');
 
-		socket.on("getAnnounce1", function (data) {
+		socket.on("getAnnounce1", function(data) {
 			document.getElementById("title1").innerHTML = data.title;
 			document.getElementById("content1").innerHTML = data.content;
 			document.getElementById("date1").innerHTML = data.date;
 		});
 
-		socket.on("getAnnounce2", function (data) {
+		socket.on("getAnnounce2", function(data) {
 			document.getElementById("title2").innerHTML = data.title;
 			document.getElementById("content2").innerHTML = data.content;
 			document.getElementById("date2").innerHTML = data.date;
 		});
 
-		socket.on("getAnnounce3", function (data) {
+		socket.on("getAnnounce3", function(data) {
 			document.getElementById("title3").innerHTML = data.title;
 			document.getElementById("content3").innerHTML = data.content;
 			document.getElementById("date3").innerHTML = data.date;
 		});
+
+		socket.on('show_announcement', function (data) {
+			annList = data;
+		});
+
+		function show_detail(index) {
+			var item = annList[index];
+				
+			Cookies.set('cur_ann', item.title, {expires: 1});
+			window.open('single-announcement.html');
+		}
+
+		
 
 		// 获取button内容
 
@@ -564,8 +351,7 @@
 		if (auth_data.type == "reader") {
 			socket.emit("sessionAuth", auth_data);
 		} else {
-			bntVal.innerHTML = "登录";
-			bntVal.value = "SIGN IN";
+			noLogin();
 		}
 		//window.alert('!!!');
 		// button内容为SIGN IN，则按键后进入login.html，反之logOut且button内容改为“SIGN IN”

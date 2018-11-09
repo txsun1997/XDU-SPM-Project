@@ -114,6 +114,7 @@
                                             <th>Year</th>
                                             
                                             <th>Book-ISBN</th>
+                                            <th>Bar-code</th>
                                             
                                             <th>Reserve time</th>
                                             <th>Status</th>     
@@ -197,7 +198,7 @@
                 var reserve_time = new Date(data[i].reserve_time);
                 reserve_time = reserve_time.getFullYear()+'-'+(reserve_time.getMonth()+1)+'-'+reserve_time.getDate()+' '+reserve_time.getHours()+':'+reserve_time.getMinutes()+':'+reserve_time.getSeconds();
 
-                var item = {isbn:data[i].isbn,index:i,time:reserve_time,status:data[i].status};
+                var item = {isbn:data[i].isbn,index:i,time:reserve_time,status:data[i].status,bar_code:data[i].bar_code};
                 socket.emit('getReserveItem',item);
             }
 
@@ -214,6 +215,7 @@
 
             showItem.push(book.publish_year);
             showItem.push(book.isbn);
+            showItem.push(data.bar_code)
             showItem.push(data.time);
 
             var btn = null;
@@ -226,7 +228,7 @@
             showItem.push(btn);
             //window.alert(showItem);
             table.row.add(showItem).draw();
-            table.order([[6, 'asc'],[5,'desc']]).draw();
+            table.order([[7, 'asc'],[6,'desc']]).draw();
         });
         socket.on('cancelSuccess',function(data){
             window.alert('cancel success!');

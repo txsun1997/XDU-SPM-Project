@@ -30,44 +30,6 @@
                 <!-- <a class="navbar-brand" href="index.html"><img src="images/logo/logo黑字.png" width = 205px height = 60px ></a> -->     
             </div>
             <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>admin</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Oct.14.2018</em>
-                                    </span>
-                                </div>
-                                <div>The book you borrowed will expire in one day. </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>Librarian</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Oct.13.2018</em>
-                                    </span>
-                                </div>
-                                <div>Today, the library has a new collection of books.</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>所有邮件</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-messages -->
-                </li>
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
@@ -80,8 +42,6 @@
                                     <!-- 瞎写的类，不知道有没有，留空用的 -->
                                     <li><a href="#"><i class="fa fa-none fa-fw"></i>中文</a></li>                                 
                             </li> 
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 设置</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="index-ch.html" onclick="logOut()"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
@@ -116,10 +76,10 @@
                         <a href="change-password-ch.html"><i class="fa fa-edit"></i> 更改密码</a>
                     </li>                                       
                     <li>
-                        <a href="history-ch.html"><i class="fa fa-table"></i> 历史</a>
+                        <a href="history-ch.html"><i class="fa fa-table"></i> 历史记录</a>
                     </li>
                     <li>
-                        <a class="active-menu" href="reserve-ch.html"><i class="fa fa-table"></i> 保留书籍</a>
+                        <a class="active-menu" href="reserve-ch.html"><i class="fa fa-table"></i> 预约书籍</a>
                     </li>                   
                 </ul>
 
@@ -130,7 +90,7 @@
         <div id="page-wrapper" >
 		    <div class="header"> 
                         <h1 class="page-header">
-                            保留的书籍 <small>您正保留的书籍</small>
+                            预约的书籍 <small>您已预约的书籍</small>
                         </h1>		
 		    </div>
 		
@@ -154,8 +114,8 @@
                                             <th>出版年份</th>
                                             
                                             <th>书的ISBN</th>
-                                            
-                                            <th>保留时间</th>
+                                            <th>书的ID</th>
+                                            <th>预约时间</th>
                                             <th>状态</th>     
                                         </tr>
                                     </thead>
@@ -193,15 +153,14 @@
     <script src="assets/js/dataTables/jquery.dataTables.js"></script>
     <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
         <script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable();
-            });
+
     </script>
          <!-- Custom Js -->
     <script src="assets/js/custom-scripts.js"></script>
     <script src="../cookie.js"></script>
     <script src="../socket.io.js"></script>
     <script type="text/javascript">
+        var table=null;
         var auth_data={};
         auth_data.username = Cookies.get("username");
         auth_data.session = Cookies.get("session");
@@ -213,18 +172,12 @@
             Cookies.remove('type');
             socket.emit('logOut',auth_data);
         }
-        function cancelReserve(index){
-            var data = {};
-            var tds = document.getElementById(index).childNodes;
-            data.reserve_time = parseInt(tds[5].getAttribute('name'));
-            data.isbn = tds[4].innerHTML;
+        function cancelReserve(isbn){
+            var data = {}; 
+            data.isbn = isbn;
             data.reader_id = auth_data.username;
-            //window.alert(JSON.stringify(data));
+            //window.alert(JSON.stringify(data))
             socket.emit('cancelReserve',data);
-            var status = tds[6];
-            //status.removeChild(status.childNotes[0]);
-            //window.alert(status.childNotes.length);
-            status.innerHTML = 'inValid';
         }
         socket.on("noSession", function (data) {
             window.alert("Login has expired, please login again!");
@@ -239,45 +192,13 @@
         });
         socket.on('showReserveList',function(data){
             //window.alert(JSON.stringify(data));
+            table = $('#dataTables-example').DataTable();
             for(var i=0;i<data.length;i++){
-                var tr = document.createElement('tr');
-                tr.setAttribute('class','odd gradeX');
-                tr.setAttribute('id',i);
-                var td_name = document.createElement('td');
-                var td_author = document.createElement('td');
-                var td_press = document.createElement('td');
-                var td_year = document.createElement('td');
-                var td_isbn = document.createElement('td');
-                td_isbn.setAttribute('class','center');
-                td_isbn.innerHTML=data[i].isbn;
-                var td_time = document.createElement('td');
-                td_time.setAttribute('class','center');
-                td_time.setAttribute('name',data[i].reserve_time);
                 var reserve_time = new Date(data[i].reserve_time);
-                td_time.innerHTML = reserve_time.getFullYear()+'-'+(reserve_time.getMonth()+1)+'-'+reserve_time.getDate()+' '+reserve_time.getHours()+':'+reserve_time.getMinutes()+':'+reserve_time.getSeconds();
-                var td_status=document.createElement('td');
-                td_status.setAttribute('class','center');
+                reserve_time = reserve_time.getFullYear()+'-'+(reserve_time.getMonth()+1)+'-'+reserve_time.getDate()+' '+reserve_time.getHours()+':'+reserve_time.getMinutes()+':'+reserve_time.getSeconds();
 
-                if(data[i].status==true){
-                    var btn = document.createElement('button');
-                    btn.setAttribute('name',i);
-                    btn.setAttribute('onclick','cancelReserve(this.name)');
-                    btn.innerHTML = 'Cancel';
-                    td_status.appendChild(btn);
-                }else{
-                    td_status.innerHTML = 'inValid';
-                }
-
-                tr.appendChild(td_name);
-                tr.appendChild(td_author);
-                tr.appendChild(td_press);
-                tr.appendChild(td_year);
-                tr.appendChild(td_isbn);
-                tr.appendChild(td_time);
-                tr.appendChild(td_status);
-                list_body.appendChild(tr);
-
-                var item = {isbn:data[i].isbn,index:i};
+                var item = {isbn:data[i].isbn,index:i,time:reserve_time,status:data[i].status,bar_code:data[i].bar_code};
+                window.alert(JSON.stringify(item));
                 socket.emit('getReserveItem',item);
             }
 
@@ -302,16 +223,34 @@
         socket.on('showReserveItem',function(data){
             var book = data.book;
             var index = data.index;
-            var tr = document.getElementById(index);
-            var tds = tr.childNodes;
-            tds[0].innerHTML = book.book_name;
-            tds[1].innerHTML = book.author;
-            tds[2].innerHTML = book.press;
-            tds[3].innerHTML = book.publish_year;
-           // window.alert(JSON.stringify(data));
+            
+            var showItem = [];
+            showItem.push(book.book_name);
+            
+            showItem.push(book.author);
+            showItem.push(book.press);
+
+            showItem.push(book.publish_year);
+            showItem.push(book.isbn);
+            showItem.push(data.bar_code);
+            showItem.push(data.time);
+
+            var btn = null;
+            if(data.status == true){
+                btn = '<button name="'+book.isbn+'" onclick="cancelReserve(this.name)">Cancel</button>';
+            }else{
+                btn = 'inValid';
+            }
+
+            showItem.push(btn);
+            //window.alert(showItem);
+            table.row.add(showItem).draw();
+            table.order([[7, 'asc'],[6,'desc']]).draw();
         });
         socket.on('cancelSuccess',function(data){
             window.alert('cancel success!');
+            location.reload();
+
         });
 
         socket.emit('sessionAuth',auth_data);   
