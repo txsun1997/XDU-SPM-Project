@@ -78,7 +78,7 @@
         var data = {};
         data.isbn = isbn;
         var copies;
-        Cookies.set("update", "false");
+        Cookies.set("copyUpdate", "false");
 
         function viewBarcode(index) {
             Cookies.set("cur_copy", copies[index].bar_code, { expires: 1 });
@@ -156,7 +156,7 @@
         });
 
         setInterval(function () {
-            if (Cookies.get("update") == "true") {
+            if (Cookies.get("copyUpdate") == "true") {
                 location.href = location.href;
             }
         }, 100);
