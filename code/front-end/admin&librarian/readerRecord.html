@@ -28,7 +28,7 @@
 							<h1>Borrow/Return History</h1>
 						</div>
 						<div class="am-u-sm-12 am-u-end">
-							<h2>Total Unpaid Fine Value: <font color="#FF0000">0.0</font> yuan</h2>
+							<h2>Total Unpaid Fine Value: <font id="value" color="#FF0000">0</font> yuan</h2>
 						</div>
 					</div>
 					<div class="am-g" style="margin-top: -30px;">
@@ -132,11 +132,20 @@
 			for (var i = 0; i < data.length; i++) {
 				addReaderItem(data[i], i);
 			}
+			var number = 0;
+			for (var i = 0; i < data.length; i++) {
+				if (data[i].status = false)
+					number = number + data[i].fine;
+			}
+
+			document.getElementById("value").innerHTML = number;
+
+
 		});
 
 
 
-		socket.emit("getBorrowRecord",data);
+		socket.emit("getBorrowRecord", data);
 
 
 	</script>
