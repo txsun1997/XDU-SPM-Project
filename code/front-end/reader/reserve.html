@@ -1,33 +1,35 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-      <meta charset="utf-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta content="" name="description" />
+    <meta content="" name="description" />
     <meta content="webthemez" name="author" />
     <title>Book History</title>
-	<!-- Bootstrap Styles-->
+    <!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
-     <!-- FontAwesome Styles-->
+    <!-- FontAwesome Styles-->
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
-     <!-- Morris Chart Styles-->
-   
-        <!-- Custom Styles-->
+    <!-- Morris Chart Styles-->
+
+    <!-- Custom Styles-->
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
-     <!-- Google Fonts-->
-     <!--
+    <!-- Google Fonts-->
+    <!--
 <link href='http://fonts.useso.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
      -->
-   
-     <!-- TABLE STYLES-->
+
+    <!-- TABLE STYLES-->
     <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
 </head>
+
 <body>
- <div id="wrapper">
+    <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
-                <a href="index.html"><img src="images/logo/logo黑字.png" width = 190px height = 65px ></a>
-                <!-- <a class="navbar-brand" href="index.html"><img src="images/logo/logo黑字.png" width = 205px height = 60px ></a> -->     
+                <a href="index.html"><img src="images/logo/logo黑字.png" width=190px height=65px></a>
+                <!-- <a class="navbar-brand" href="index.html"><img src="images/logo/logo黑字.png" width = 205px height = 60px ></a> -->
             </div>
             <ul class="nav navbar-top-links navbar-right">
                 <!-- /.dropdown -->
@@ -36,30 +38,30 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> Language</a>
-                             <li>                                  
-                                    <li><a href="#"><i class="fa fa-none fa-fw"></i>English</a></li>
-                                    <!-- 瞎写的类，不知道有没有，留空用的 -->
-                                    <li><a href="reserve-ch.html"><i class="fa fa-none fa-fw"></i>中文</a></li>                                 
-                            </li> 
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="index.html" onclick="logOut()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
+                        <li><a href="#" style="font-weight: 600"><i class="fa fa-user fa-fw"></i> Language</a>
+                        <li>
+                        <li><a href="#"><i class="fa fa-none fa-fw"></i>English</a></li>
+                        <!-- 瞎写的类，不知道有没有，留空用的 -->
+                        <li><a href="reserve-ch.html"><i class="fa fa-none fa-fw"></i>中文</a></li>
                 </li>
-                <!-- /.dropdown -->
+                </li>
+                <li class="divider"></li>
+                <li><a href="index.html" onclick="logOut()" style="font-weight: 600"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                </li>
+            </ul>
+            <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
             </ul>
         </nav>
         <!--/. NAV TOP  -->
-       <!--/. NAV TOP  -->
+        <!--/. NAV TOP  -->
         <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a  href="profile.html"><i class="fa fa-fw fa-file"></i> Profile</a>
+                        <a href="profile.html"><i class="fa fa-fw fa-file"></i> Profile</a>
                     </li>
                     <!-- <li>
                         <a href="change-password.html"><i class="fa fa-edit"></i> Change password<span class="fa arrow"></span></a>
@@ -71,145 +73,148 @@
                                 <a href="change-password.html">forget password</a>
                             </li>
                         </ul>
-                    </li>      -->  
+                    </li>      -->
                     <li>
                         <a href="change-password.html"><i class="fa fa-edit"></i> Change Password</a>
-                    </li>                                       
+                    </li>
                     <li>
                         <a href="history.html"><i class="fa fa-table"></i> History</a>
                     </li>
                     <li>
                         <a class="active-menu" href="reserve.html"><i class="fa fa-table"></i> Reserve</a>
-                    </li>                   
+                    </li>
                 </ul>
 
             </div>
 
         </nav>
         <!-- /. NAV SIDE  -->
-        <div id="page-wrapper" >
-		    <div class="header"> 
-                        <h1 class="page-header">
-                            Book Reserved <small>The books you have reserved</small>
-                        </h1>		
-		    </div>
-		
-            <div id="page-inner"> 
-               
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- Advanced Tables -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                             Book List
-                        </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                            <th>Bookname</th>                        
-                                            <th>Author</th>
-                                            <th>Press</th>
-                                            <th>Year</th>
-                                            
-                                            <th>Book-ISBN</th>
-                                            <th>Bar-code</th>
-                                            
-                                            <th>Reserve time</th>
-                                            <th>Status</th>     
-                                        </tr>
-                                    </thead>
-                                    <tbody id="list_body">
+        <div id="page-wrapper">
+            <div class="header">
+                <h1 class="page-header">
+                    Book Reserved <small>The books you have reserved</small>
+                </h1>
+            </div>
 
-                                         
-                                                                      
-                                    </tbody>
-                                </table>
+            <div id="page-inner">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Advanced Tables -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Book List
                             </div>
-                            
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                        <thead>
+                                            <tr>
+                                                <th>Bookname</th>
+                                                <th>Author</th>
+                                                <th>Press</th>
+                                                <th>Year</th>
+
+                                                <th>Book-ISBN</th>
+                                                <th>Bar-code</th>
+
+                                                <th>Reserve time</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="list_body">
+
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
                         </div>
-                       
+                        <!--End Advanced Tables -->
+                        <footer>
+                            <p align="center">©2018 XDU-SPM-B2 Copyright</p>
+                        </footer>
                     </div>
-                    <!--End Advanced Tables -->
-                     <footer><p align="center">©2018 XDU-SPM-B2 Copyright</p></footer>
                 </div>
-            </div>
                 <!-- /. ROW  -->
-        </div>
-              
-    </div>
-             <!-- /. PAGE INNER  -->
             </div>
-         <!-- /. PAGE WRAPPER  -->
-     <!-- /. WRAPPER  -->
+
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+    <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
     <script src="assets/js/jquery-1.10.2.js"></script>
-      <!-- Bootstrap Js -->
+    <!-- Bootstrap Js -->
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- Metis Menu Js -->
     <script src="assets/js/jquery.metisMenu.js"></script>
-     <!-- DATA TABLE SCRIPTS -->
+    <!-- DATA TABLE SCRIPTS -->
     <script src="assets/js/dataTables/jquery.dataTables.js"></script>
     <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
-        <script>
+    <script>
+
     </script>
-         <!-- Custom Js -->
+    <!-- Custom Js -->
     <script src="assets/js/custom-scripts.js"></script>
     <script src="../cookie.js"></script>
     <script src="../socket.io.js"></script>
     <script type="text/javascript">
         var table = null;
 
-        var auth_data={};
+        var auth_data = {};
         auth_data.username = Cookies.get("username");
         auth_data.session = Cookies.get("session");
         auth_data.type = Cookies.get("type");
-        auth_data.cur = "reader";  
+        auth_data.cur = "reader";
         var socket = io("http://139.199.112.88:2761");
         var list_body = document.getElementById('list_body');
-        function logOut(){
+        function logOut() {
             Cookies.remove('type');
-            socket.emit('logOut',auth_data);
+            socket.emit('logOut', auth_data);
         }
-        function cancelReserve(isbn){
+        function cancelReserve(isbn) {
             //window.alert('!!!');
-            var data = {}; 
+            var data = {};
             data.isbn = isbn;
             data.reader_id = auth_data.username;
-            socket.emit('cancelReserve',data);
+            socket.emit('cancelReserve', data);
         }
         socket.on("noSession", function (data) {
             window.alert("Login has expired, please login again!");
             Cookies.remove('type');
-            location.href = location.href.replace("reserve.html","index.html");
+            location.href = location.href.replace("reserve.html", "index.html");
         });
 
         socket.on("sessionFailed", function (data) {
             window.alert("User name type is inconsistent, please login again!");
             Cookies.remove('type');
-            location.href = location.href.replace("reserve.html","index.html");
+            location.href = location.href.replace("reserve.html", "index.html");
         });
-        socket.on('showReserveList',function(data){
+        socket.on('showReserveList', function (data) {
             //window.alert(JSON.stringify(data));
             table = $('#dataTables-example').DataTable();
-            for(var i=0;i<data.length;i++){
+            for (var i = 0; i < data.length; i++) {
                 var reserve_time = new Date(data[i].reserve_time);
-                reserve_time = reserve_time.getFullYear()+'-'+(reserve_time.getMonth()+1)+'-'+reserve_time.getDate()+' '+reserve_time.getHours()+':'+reserve_time.getMinutes()+':'+reserve_time.getSeconds();
+                reserve_time = reserve_time.getFullYear() + '-' + (reserve_time.getMonth() + 1) + '-' + reserve_time.getDate() + ' ' + reserve_time.getHours() + ':' + reserve_time.getMinutes() + ':' + reserve_time.getSeconds();
 
-                var item = {isbn:data[i].isbn,index:i,time:reserve_time,status:data[i].status,bar_code:data[i].bar_code};
-                socket.emit('getReserveItem',item);
+                var item = { isbn: data[i].isbn, index: i, time: reserve_time, status: data[i].status, bar_code: data[i].bar_code };
+                socket.emit('getReserveItem', item);
             }
 
         });
-        socket.on('showReserveItem',function(data){
+        socket.on('showReserveItem', function (data) {
             var book = data.book;
             var index = data.index;
-            
+
             var showItem = [];
             showItem.push(book.book_name);
-            
+
             showItem.push(book.author);
             showItem.push(book.press);
 
@@ -219,27 +224,28 @@
             showItem.push(data.time);
 
             var btn = null;
-            if(data.status == true){
-                btn = '<button name="'+book.isbn+'" onclick="cancelReserve(this.name)">Cancel</button>';
-            }else{
+            if (data.status == true) {
+                btn = '<button name="' + book.isbn + '" onclick="cancelReserve(this.name)">Cancel</button>';
+            } else {
                 btn = 'inValid';
             }
 
             showItem.push(btn);
             //window.alert(showItem);
             table.row.add(showItem).draw();
-            table.order([[7, 'asc'],[6,'desc']]).draw();
+            table.order([[7, 'asc'], [6, 'desc']]).draw();
         });
-        socket.on('cancelSuccess',function(data){
+        socket.on('cancelSuccess', function (data) {
             window.alert('cancel success!');
             location.reload();
         });
 
-        socket.emit('sessionAuth',auth_data);   
-        socket.emit('getReserveList',auth_data.username);     
+        socket.emit('sessionAuth', auth_data);
+        socket.emit('getReserveList', auth_data.username);
 
     </script>
-    
-   
+
+
 </body>
+
 </html>
