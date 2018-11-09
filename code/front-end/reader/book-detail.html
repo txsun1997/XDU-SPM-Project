@@ -40,7 +40,7 @@
                                         <p>Available: <span id='avail'></span></p>
                                         <p> Total Number: <span id='total_num'></span></p>
                                     </div>
-                                    </br>
+                                    <br>
                                     <div class="product-color-label">
                                         <h1>Infomation</h1>
                                         <ul class="pro__attribute">
@@ -48,20 +48,81 @@
                                             <li id='location'>Location: </li>
                                             <li id='type'>Type: </li>
                                             <li id='author'>Author: </li>
-                                            <li id='press'>Press: </li>
+                                            <li id='press'>Publisher: </li>
                                             <li id='page'>Page: </li>
                                             <li id='year'>Publish year: </li>
                                         </ul>
                                     </div>
-                                    <div class="addtocart-btn">
-                                         <a href="#" onclick="reserve()">RESERVE</a>
-                                    </div>
-                                    <div class="product__overview">
-                                        <p id='subject'>Description of the book.</p>
 
-                                    </div>
+                                    
                                 </div>
                             </div>
+                            <div class="col-lg-10 col-12" style="padding-top: 20px">
+                                <hr>
+                                <div class="product__overview">
+                                    <p id='subject' style="padding-top: 20px">Description of the book.</p>
+                                </div>
+                                <hr>
+                            </div>
+                            </br></br></br></br>                           
+                            <div class="col-lg-10 col-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3>All Copies</h3>
+                                    </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables">
+                                    <thead>
+                                        <tr>
+                                            <th>TITLE</th>                        
+                                            <th>BARCODE</th>
+                                            <th>LOCATION</th>
+                                            <th>OPERATION</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="odd gradeX">
+                                            <td>Deep Leearning</td>
+                                            <td>123-321</td>
+                                            <td>O12346</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-bookmark  fa-fw"></i> RESERVE</a>
+                                            </td> 
+                                            <!-- <td class="text-center">15</td>  -->                                           
+                                        </tr>
+                                        <tr class="odd gradeX">
+                                            <td>Deep Leearning</td>
+                                            <td>123-321</td>
+                                            <td>O12346</td>
+                                            <td>
+                                                 <a href="#"><i class="fa fa-bookmark  fa-fw"></i> RESERVE</a>
+                                            </td>                                          
+                                        </tr> 
+                                        <tr class="odd gradeX">
+                                            <td>Deep Leearning</td>
+                                            <td>123-321</td>
+                                            <td>O12346</td>
+                                            <td>
+                                                 <a href="#"><i class="fa fa-bookmark fa-fw"></i> RESERVE</a>
+                                            </td>                                          
+                                        </tr> 
+                                        <tr class="odd gradeX">
+                                            <td>Deep Leearning</td>
+                                            <td>123-321</td>
+                                            <td>O12346</td>
+                                            <td>
+                                                 <a href="#"><i class="fa fa-bookmark  fa-fw"></i> RESERVE</a>
+                                            </td>                                          
+                                        </tr>               
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                       
+                    </div>
+                    </div>
                         </div>
                     </div>
                 </div>
@@ -71,26 +132,16 @@
     </div>
 
 
+
     <script src="../cookie.js"></script>
     <script src="../socket.io.js"></script>
     <script src="js/vendor/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/plugins.js"></script>
     <script>
-        var href = location.href;
-        var auth_data = {};
-        var book = {};
-
-
-        auth_data.username = Cookies.get("username");
-        auth_data.session = Cookies.get("session");
-        auth_data.type = Cookies.get("type");
-        auth_data.cur = "reader";
-
         var socket = io("http://139.199.112.88:2761");
 
         function showBookDetail(data) {
-            book = data;
             if (data.figure != null) {
                 document.getElementById("imageContent").setAttribute("src", data.figure);
             }
@@ -137,52 +188,15 @@
                 var left = document.getElementById('total_num');
                 left.innerHTML = data.total_number;
             }
-
-        }
-
-        function reserve(){
-            var reserve_auth = auth_data;
-            reserve_auth.req = 'reserve';
-            socket.emit('sessionAuth',reserve_auth);
         }
 
         var isbn = Cookies.get("cur_book");
+        
         var data = {};
         data.isbn = isbn;
 
         socket.on("bookDetail", function (data) {
             showBookDetail(data.bookDetail);
-        });
-
-        socket.on("noSession", function (data) {
-            Cookies.remove('type');
-            window.alert('Login has expired, please login again!');
-            //noLogin();
-        });
-
-        socket.on('sessionSuccess',function(data){
-            if(data=='reserve'){
-                var item = {};
-                item.reader_id = auth_data.username;
-                item.isbn = book.isbn;
-                socket.emit('reserveBook',item);
-            }
-        });
-
-        socket.on('reserveOverflow',function(data){
-            window.alert('You can only reserve '+data+' books.');
-        });
-        socket.on('noneToReserve',function(){
-            window.alert('there\'s no book left.');
-        });
-        socket.on('reserveSuccess',function(){
-            window.alert('reserve success!');
-        });
-
-        socket.on("sessionFailed", function (data) {
-            Cookies.remove('type');
-            window.alert('Login has expired, please login again!');
-            //noLogin();
         });
 
         socket.emit("getBookDetail", data);
