@@ -148,6 +148,7 @@
 											<!-- 可以显示一本书的两张图片 -->
 										</div>
 										<div class="content">
+											<div style="height: 80%">
 											<h2><a href="single-product.html">Advanced Mathematics</br>(sixth edition,volume one)</a></h2>
 
 											<ul class="prize__box">
@@ -159,6 +160,7 @@
 												Higher Mathematics of the Department of Mathematics of Tongji University. It is revised according to the
 												latest "Basic Requirements for the Teaching of Basic Mathematics Courses for Engineering Undergraduate
 												Courses" for students of engineering majors in higher education institutions.</p>
+											</div>
 											<ul class="cart__action d-flex">
 												<li class="cart"><a href="#">want to read</a></li>
 												<li class="cart"><a href="advancedmaths.html">learn more</a></li>
@@ -196,13 +198,16 @@
 
 										</div>
 										<div class="content">
-											<h2><a href="single-product.html">A Mathematical Bridge</a></h2>
+											<div style="height: 80%">
+												<!-- 在所有content下面加一个这个div -->
+												<h2><a href="single-product.html">A Mathematical Bridge</a></h2>
 
-											<ul class="prize__box">
-												<li>5 items in stock</li>
-												<li class="old__prize">has borrowed 15 books</li>
-											</ul>
-											<p>some detials about this book</p>
+												<ul class="prize__box">
+													<li>5 items in stock</li>
+													<li class="old__prize">has borrowed 15 books</li>
+												</ul>
+												<p>some detials about this book</p>
+										    </div>
 											<ul class="cart__action d-flex">
 												<li class="cart"><a href="#">want to read</a></li>
 												<li class="cart"><a href="#">learn more</a></li>
@@ -234,6 +239,7 @@
 									</div>
 									<!-- End Single Product -->
 								</div>
+							</br></br></br>
 								<ul id="pageBar" class="wn__pagination">
 									<li class="active"><a href="#">1</a></li>
 									<li><a href="#">2</a></li>
@@ -419,11 +425,15 @@
 				//ul_buttons.appendChild(li_reserve);
 				ul_buttons.appendChild(li_detail);
 
+				var style = document.createElement('div');
+				style.setAttribute('style','height: 90%');
+
 				var div_content = document.createElement('div');
-				div_content.setAttribute('class', 'content');
-				div_content.appendChild(h1);
-				div_content.appendChild(ul_booknum);
-				div_content.appendChild(p);
+				div_content.setAttribute('class', 'content');//<div style="height: 80%">
+				style.appendChild(h1);
+				style.appendChild(ul_booknum);
+				style.appendChild(p);
+				div_content.appendChild(style);
 				div_content.appendChild(ul_buttons);
 
 				divFrame.appendChild(div_thumb);

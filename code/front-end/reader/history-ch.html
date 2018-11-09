@@ -3,10 +3,10 @@
 <head>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta content="" name="description" />
+    <meta content="" name="description" />
     <meta content="webthemez" name="author" />
     <title>Book History</title>
-	<!-- Bootstrap Styles-->
+    <!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
@@ -26,48 +26,10 @@
  <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
-                <a href="index-ch.html"><img src="images/logo/logo黑字.png" width = 190px height = 65px ></a>
+                <a href="index.html"><img src="images/logo/logo黑字.png" width = 190px height = 65px ></a>
                 <!-- <a class="navbar-brand" href="index.html"><img src="images/logo/logo黑字.png" width = 205px height = 60px ></a> -->     
             </div>
             <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>admin</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Oct.14.2018</em>
-                                    </span>
-                                </div>
-                                <div >The book you borrowed will expire in one day. </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>Librarian</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Oct.13.2018</em>
-                                    </span>
-                                </div>
-                                <div>Today, the library has a new collection of books.</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>所有邮件</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-messages -->
-                </li>
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
@@ -81,10 +43,8 @@
                                     <li><a href="#"><i class="fa fa-none fa-fw"></i>中文</a></li>                                 
                             </li> 
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 设置</a>
-                        </li>
                         <li class="divider"></li>
-                        <li><a href="index-ch.html" onclick="logOut()"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
+                        <li><a href="index.html" onclick="logOut()"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -113,13 +73,13 @@
                         </ul>
                     </li>      -->  
                     <li>
-                        <a href="change-password-ch.html"><i class="fa fa-edit"></i> 更改密码</a>
+                        <a href="change-password-ch.html"><i class="fa fa-edit"></i> Change Password</a>
                     </li>                                       
                     <li>
-                        <a  class="active-menu" href="history-ch.html"><i class="fa fa-table"></i> 历史</a>
+                        <a  class="active-menu" href="history-ch.html"><i class="fa fa-table"></i> History</a>
                     </li>  
                     <li>
-                        <a href="reserve-ch.html"><i class="fa fa-table"></i> 保留</a>
+                        <a href="reserve-ch.html"><i class="fa fa-table"></i> Reserve</a>
                     </li>                  
                 </ul>
 
@@ -128,12 +88,12 @@
         </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
-		    <div class="header"> 
+            <div class="header"> 
                         <h1 class="page-header">
-                            阅读历史 <small id='fine'>你读过的书</small>
-                        </h1>		
-		    </div>
-		
+                            阅读历史 <small id='fine'>您已读过的书</small>
+                        </h1>       
+            </div>
+        
             <div id="page-inner"> 
                
             <div class="row">
@@ -212,17 +172,17 @@
         socket.on("noSession", function (data) {
             window.alert("Login has expired, please login again!");
             Cookies.remove('type');
-            location.href = location.href.replace("history-ch.html","index-ch.html");
+            location.href = location.href.replace("history-ch.html","index.html");
         });
 
         socket.on("sessionFailed", function (data) {
             window.alert("User name type is inconsistent, please login again!");
             Cookies.remove('type');
-            location.href = location.href.replace("history-ch.html","index-ch.html");
+            location.href = location.href.replace("history-ch.html","index.html");
         });
         socket.on('showBorrowList',function(data){
             var totalFine = 0;
-                        var showList = []
+            var showList = []
             for(var i=0;i<data.length;i++){
                 var showItem = [];
                 showItem.push(data[i].book_name);
@@ -237,7 +197,7 @@
                     return_time = new Date(data[i].return_date);
                     return_time = return_time.getFullYear()+'-'+(return_time.getMonth()+1)+'-'+return_time.getDate();
                 }else{
-                    return_time = '<font color="#FF0000">尚未归还</font>';
+                    return_time = '<font color="#FF0000">not returned yet</font>';
                 }
                 showItem.push(return_time);
 
@@ -245,7 +205,6 @@
                 showList.push(showItem);
                 totalFine += data[i].fine;
             }
-
             var fineText = document.getElementById('fine');
             fineText.innerHTML='Total fine you have to pay: <font color="#FF0000">'+ totalFine+'</font> '
             $('#dataTables-example').dataTable({data:showList});

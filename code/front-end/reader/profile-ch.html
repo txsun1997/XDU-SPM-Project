@@ -3,16 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta content="" name="description" />
+    <meta content="" name="description" />
     <meta content="webthemez" name="author" />
     <title>Reader Profile</title>
-	<!-- Bootstrap Styles-->
+    <!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
-	
+    
     <link href="assets/css/select2.min.css" rel="stylesheet" >
-	<link href="assets/css/checkbox3.min.css" rel="stylesheet" >
+    <link href="assets/css/checkbox3.min.css" rel="stylesheet" >
         <!-- Custom Styles-->
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
      <!-- Google Fonts-->
@@ -25,48 +25,10 @@
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
-                <a href="index-ch.html"><img src="images/logo/logo黑字.png" width = 190px height = 65px ></a>
+                <a href="index.html"><img src="images/logo/logo黑字.png" width = 190px height = 65px ></a>
                 <!-- <a class="navbar-brand" href="index.html"><img src="images/logo/logo黑字.png" width = 205px height = 60px ></a> -->     
             </div>
             <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>admin</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Oct.14.2018</em>
-                                    </span>
-                                </div>
-                                <div>The book you borrowed will expire in one day. </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>Librarian</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Oct.13.2018</em>
-                                    </span>
-                                </div>
-                                <div>Today, the library has a new collection of books.</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>所有邮件</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-messages -->
-                </li>
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
@@ -79,12 +41,9 @@
                                     <!-- 瞎写的类，不知道有没有，留空用的 -->
                                     <li><a href="#"><i class="fa fa-none fa-fw"></i>中文</a></li>                                 
                             </li> 
-                        
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 设置</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="index-ch.html" onclick="logOut()"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
+                        <li><a href="index.html" onclick="logOut()"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -113,13 +72,13 @@
                         </ul>
                     </li>      -->  
                     <li>
-                        <a href="change-password-ch.html"><i class="fa fa-edit"></i> 改变密码</a>
+                        <a href="change-password-ch.html"><i class="fa fa-edit"></i> 更改密码</a>
                     </li>                                       
                     <li>
-                        <a href="history-ch.html"><i class="fa fa-table"></i> 历史</a>
+                        <a href="history-ch.html"><i class="fa fa-table"></i> 历史记录</a>
                     </li>
                     <li>
-                        <a href="reserve-ch.html"><i class="fa fa-table"></i> 保留书籍</a>
+                        <a href="reserve-ch.html"><i class="fa fa-table"></i> 预约书籍</a>
                     </li>                    
                 </ul>
 
@@ -128,13 +87,13 @@
         </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
-		  <div class="header"> 
+          <div class="header"> 
                         <h1 class="page-header">
-                             个人简介 <small>改变或查询您的信息</small>
+                             个人简介 <small>查询或改变您的信息</small>
                         </h1> 
-									
-		</div>
-		
+                                    
+        </div>
+        
             <div id="page-inner">                     
                     <div class="row">
                         <div class="col-xs-12">
@@ -159,7 +118,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="inputgender" class="col-sm-2 control-label">性别</label>
+                                            <label for="inputgender" class="col-sm-2 control-label">Gender</label>
                                             <div class="col-sm-6">
                                                  <div class="radio3 radio-check radio-inline">
                                                  <input type="radio" id="radio4" name="radio2" value="Male" checked="" onclick="return false;">
@@ -176,7 +135,7 @@
                                         </div>                                        
                                         </div>
                                         <div class="form-group">
-                                            <label for="inputemail" class="col-sm-2 control-label">邮件</label>
+                                            <label for="inputemail" class="col-sm-2 control-label">邮箱</label>
                                             <div class="col-sm-6">
                                                 <input type="email" class="form-control" id="inputemail" value="">
                                             </div>
@@ -201,8 +160,8 @@
                         </div>
                     </div>
                
-			<footer><p align="center">©2018 XDU-SPM-B2 Copyright</p></footer>
-			</div>
+            <footer><p align="center">©2018 XDU-SPM-B2 Copyright</p></footer>
+            </div>
              <!-- /. PAGE INNER  -->
             </div>
          <!-- /. PAGE WRAPPER  -->
@@ -215,12 +174,12 @@
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- Metis Menu Js -->
     <script src="assets/js/jquery.metisMenu.js"></script>
-	<script src="assets/js/select2.full.min.js"></script>
-	<script type="text/javascript">
-	$(document).ready(function() {
-	  $(".selectbox").select2();
-	});
-	</script>
+    <script src="assets/js/select2.full.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $(".selectbox").select2();
+    });
+    </script>
       <!-- Custom Js -->
     <script src="assets/js/custom-scripts.js"></script> 
     <script src="../cookie.js"></script>
@@ -289,8 +248,8 @@
         socket.emit('getReaderInfo',auth_data);      
         
     </script>
-	
-		
+    
+        
    
 </body>
 </html>
