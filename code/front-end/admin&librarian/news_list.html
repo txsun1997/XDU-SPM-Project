@@ -57,11 +57,11 @@
         function editItem(index) {
             Cookies.set("cur_news_title", items[index].title, { expires: 1 });
             $.jq_Panel({
-                title: "Edit Announcement",
+                title: "Edit News",
                 url: "edit-announcement.html",
                 top: 300,
-                iframeWidth: 650,
-                iframeHeight: 350,
+                iframeWidth: 950,
+                iframeHeight: 400,
             });
         }
 
@@ -170,8 +170,8 @@
 
                 $.jq_Panel({
                     title: "ADD Announcement",
-                    iframeWidth: 650,
-                    iframeHeight: 350,
+                    iframeWidth: 950,
+                    iframeHeight: 400,
                     url: "addAnnouncement.html"
                 });
 
