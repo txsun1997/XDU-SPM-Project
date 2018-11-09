@@ -45,7 +45,6 @@
                                         <h1>Infomation</h1>
                                         <ul class="pro__attribute">
                                             <li id='isbn'>ISBN: </li>
-                                            <li id='location'>Location: </li>
                                             <li id='type'>Type: </li>
                                             <li id='author'>Author: </li>
                                             <li id='press'>Publisher: </li>
@@ -81,40 +80,8 @@
                                             <th>OPERATION</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr class="odd gradeX">
-                                            <td>Deep Leearning</td>
-                                            <td>123-321</td>
-                                            <td>O12346</td>
-                                            <td>
-                                                <a href="#"><i class="fa fa-bookmark  fa-fw"></i> RESERVE</a>
-                                            </td> 
-                                            <!-- <td class="text-center">15</td>  -->                                           
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td>Deep Leearning</td>
-                                            <td>123-321</td>
-                                            <td>O12346</td>
-                                            <td>
-                                                 <a href="#"><i class="fa fa-bookmark  fa-fw"></i> RESERVE</a>
-                                            </td>                                          
-                                        </tr> 
-                                        <tr class="odd gradeX">
-                                            <td>Deep Leearning</td>
-                                            <td>123-321</td>
-                                            <td>O12346</td>
-                                            <td>
-                                                 <a href="#"><i class="fa fa-bookmark fa-fw"></i> RESERVE</a>
-                                            </td>                                          
-                                        </tr> 
-                                        <tr class="odd gradeX">
-                                            <td>Deep Leearning</td>
-                                            <td>123-321</td>
-                                            <td>O12346</td>
-                                            <td>
-                                                 <a href="#"><i class="fa fa-bookmark  fa-fw"></i> RESERVE</a>
-                                            </td>                                          
-                                        </tr>               
+                                    <tbody id="copy_list">
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -139,7 +106,15 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/plugins.js"></script>
     <script>
-        var socket = io("http://139.199.112.88:2761");
+        var href = location.href;
+        var auth_data = {};
+
+        auth_data.username = Cookies.get("username");
+        auth_data.session = Cookies.get("session");
+        auth_data.type = Cookies.get("type");
+        auth_data.cur = "reader";
+
+        var socket = io("http://localhost:2761");
 
         function showBookDetail(data) {
             if (data.figure != null) {
@@ -173,10 +148,6 @@
                 var isbn = document.getElementById('isbn');
                 isbn.innerHTML = '• ISBN: ' + data.isbn;
             }
-            if (data.location != null) {
-                var loc = document.getElementById('location');
-                loc.innerHTML = '• Location: ' + data.location;
-            }
             if (data.subject != null) {
                 document.getElementById('subject').innerHTML = data.subject;
             }
@@ -190,16 +161,153 @@
             }
         }
 
+        function showCopyList(data){
+            var book = data.book;
+            var borrowedList = data.borrowed;
+            var reservedList = data.reserved;
+            var availList = data.available;
+
+            var copyList = document.getElementById('copy_list');
+
+            for(var i=0;i<availList.length;i++){
+                var copy_item = document.createElement('tr');
+                copy_item.setAttribute('class','odd gradeX');
+
+                var td_name = document.createElement('td');
+                td_name.innerHTML = book.book_name;
+                copy_item.appendChild(td_name)
+
+                var td_barcode = document.createElement('td');
+                td_barcode.innerHTML = availList[i].bar_code;
+                copy_item.appendChild(td_barcode);
+
+                var td_location = document.createElement('td');
+                td_location.innerHTML = availList[i].location;
+                copy_item.appendChild(td_location);
+
+                var i_reserve = document.createElement('i');
+                i_reserve.setAttribute('class','fa fa-bookmark  fa-fw');
+                var a_reserve = document.createElement('a');
+                a_reserve.setAttribute('name',availList[i].bar_code);
+                a_reserve.setAttribute('onclick','reserveCopy(this.name)');
+                a_reserve.setAttribute('href','#');
+                a_reserve.innerHTML = 'RESERVE';
+                a_reserve.appendChild(i_reserve);
+                var td_reserve = document.createElement('td');
+                td_reserve.appendChild(a_reserve);
+                copy_item.appendChild(td_reserve);
+                copyList.appendChild(copy_item);
+            }
+            for(var i=0;i<reservedList.length;i++){
+                var copy_item = document.createElement('tr');
+                copy_item.setAttribute('class','odd gradeX');
+
+                var td_name = document.createElement('td');
+                td_name.innerHTML = book.book_name;
+                copy_item.appendChild(td_name)
+
+                var td_barcode = document.createElement('td');
+                td_barcode.innerHTML = reservedList[i].bar_code;
+                copy_item.appendChild(td_barcode);
+
+                var td_location = document.createElement('td');
+                td_location.innerHTML = reservedList[i].location;
+                copy_item.appendChild(td_location);
+
+                var td_reserve = document.createElement('td');
+                td_reserve.innerHTML = '<font color="#4876FF">reserved</font>';
+                copy_item.appendChild(td_reserve);
+                copyList.appendChild(copy_item);
+            }
+            for(var i=0;i<borrowedList.length;i++){
+                var copy_item = document.createElement('tr');
+                copy_item.setAttribute('class','odd gradeX');
+
+                var td_name = document.createElement('td');
+                td_name.innerHTML = book.book_name;
+                copy_item.appendChild(td_name)
+
+                var td_barcode = document.createElement('td');
+                td_barcode.innerHTML = borrowedList[i].bar_code;
+                copy_item.appendChild(td_barcode);
+
+                var td_location = document.createElement('td');
+                td_location.innerHTML = borrowedList[i].location;
+                copy_item.appendChild(td_location);
+
+                var td_reserve = document.createElement('td');
+                td_reserve.innerHTML = '<font color="#EE0000">borrowed</font>';
+                copy_item.appendChild(td_reserve);
+                copyList.appendChild(copy_item);
+                //window.alert(2);
+            }
+
+            /*
+                                    <tbody id="copy_list">
+                                        <tr class="odd gradeX">
+                                            <td>Deep Leearning</td>
+                                            <td>123-321</td>
+                                            <td>O12346</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-bookmark  fa-fw"></i> RESERVE</a>
+                                            </td> 
+                                            <!-- <td class="text-center">15</td>  -->                                           
+                                        </tr>
+
+            */
+        }
+
+        function reserveCopy(bar_code){
+            var reserve_auth = auth_data;
+            reserve_auth.req = {req:'reserve', bar_code:bar_code};
+            socket.emit('sessionAuth',reserve_auth);
+        }
+
         var isbn = Cookies.get("cur_book");
         
-        var data = {};
-        data.isbn = isbn;
-
-        socket.on("bookDetail", function (data) {
-            showBookDetail(data.bookDetail);
+        socket.on("showReserveDetail", function (data) {
+            //window.alert(JSON.stringify(data.book));
+            showBookDetail(data.book);
+            showCopyList(data);
         });
 
-        socket.emit("getBookDetail", data);
+        socket.on("noSession", function (data) {
+            Cookies.remove('type');
+            window.alert('Login has expired, please login again!');
+            //noLogin();
+        });
+
+        socket.on("sessionFailed", function (data) {
+            Cookies.remove('type');
+            window.alert('Login has expired, please login again!');
+            //noLogin();
+        });
+
+        socket.on('sessionSuccess',function(data){
+            if(data.req=='reserve'){
+                var item = {};
+                item.reader_id = auth_data.username;
+                item.isbn = isbn;
+                item.bar_code = data.bar_code;
+                socket.emit('reserveBook',item);
+            }
+        });
+
+        socket.on('reserveSuccess',function(data){  //location, bar_code
+            window.alert('Reserve success!\n book\'s id: '+data.bar_code+'\nlocation: '+data.location);
+            location.reload();
+        });
+
+        socket.on('reserveOverflow',function(data){
+            window.alert('You can only reserve '+data+' books.');
+        });
+
+        socket.on('noneToReserve',function(){
+            window.alert('This copy is not available.');
+        });
+
+
+        socket.emit("getReserveDetail", isbn);
 
     </script>
 
