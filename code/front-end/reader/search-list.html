@@ -75,8 +75,8 @@
 											<div class="switcher-options">
 												<div class="switcher-currency-trigger">
 													<div class="setting__menu">
-														<span><a id="accMenu" onclick="personConsole()">My Account</a></span>
-														<span><a id="accLog" onclick="signinServer()">Log Out</a></span>
+														<span><a id="accMenu" onclick="personConsole()">Profile</a></span>
+														<span><a id="accLog" onclick="signinServer()">Logout</a></span>
 													</div>
 												</div>
 											</div>
@@ -100,7 +100,7 @@
 							<form>
 								<div class="form-row">
 									<div class="col-12 col-md-9 mb-2 mb-md-0">
-										<input id="search_content" class="form-control form-control-lg">
+										<input id="search_content" class="form-control form-control-lg" placeholder="Search what you want to read...">
 									</div>
 									<div class="col-12 col-md-2">
 										<button type="button" class="btn btn-block btn-lg btn-primary" onclick="search()">Search</button>
@@ -147,8 +147,8 @@
 											<h2><a href="single-product.html">Advanced Mathematics</br>(sixth edition,volume one)</a></h2>
 
 											<ul class="prize__box">
-												<li>5 items in stock</li>
-												<li class="old__prize">has borrowed 15 books</li>
+												<li>Available: X</li>
+												<li style="font-size: smaller">Total: X</li>
 											</ul>
 											<p> The sixth edition of Higher Mathematics is a book published by the Higher Education Press in 2007. The
 												author is the Department of Mathematics of Tongji University.</br>The book is the sixth edition of the
@@ -262,7 +262,7 @@
 									<a href="index.html">
 										<img src="images/logo/logo黑字.png" width="150" height="50" alt="logo">
 									</a>
-									<p>Ideal books， is the key to wisdom。 -- Lev Tolstoy</p>
+									<p style="color: rgb(117, 117, 117)">Ideal books is the key to wisdom.    —— Lev Tolstoy</p>
 								</div>
 								<!-- <div class="footer__content">
 									<ul class="mainmenu d-flex justify-content-center">
@@ -380,21 +380,25 @@
 				var a1 = document.createElement('a');
 				a1.setAttribute('name', i);
 				a1.setAttribute('onclick', 'show_detail(this.name)');
+				a1.setAttribute('style', 'color: rgb(23, 90, 216)');
 				a1.innerHTML = item.book_name;
 				var h1 = document.createElement('h2');
+				h1.setAttribute('style', 'color: rgb(23, 90, 216)');
 				h1.appendChild(a1);
 
 				var li_instock = document.createElement('li');
-				li_instock.innerHTML = item.available_number + ' items in stock';
+				li_instock.setAttribute('style', 'color: rgb(238, 168, 39)')
+				li_instock.innerHTML = 'Available: ' + item.available_number;
 				var li_allbooks = document.createElement('li');
-				li_allbooks.setAttribute('class', 'old__prize');
-				li_allbooks.innerHTML = 'has all ' + item.total_number + ' book(s)';
+				li_allbooks.setAttribute('style', 'font-size: 18px; color: rgb(117, 117, 117); padding-left: 20px');
+				li_allbooks.innerHTML = 'Total: ' + item.total_number;
 				var ul_booknum = document.createElement('ul');
 				ul_booknum.setAttribute('class', 'prize__box');
 				ul_booknum.appendChild(li_instock);
 				ul_booknum.appendChild(li_allbooks);
 
 				var p = document.createElement('p');
+				p.setAttribute('style', 'font-size: 16px')
 				p.innerHTML = item.subject;
 
 				/*
@@ -579,8 +583,8 @@
 		socket.on('sessionSuccess', function (data) {
 
 			topMenu.innerHTML = auth_data.username;
-			accMenu.innerHTML = 'Console';
-			accLog.innerHTML = 'Log out';
+			accMenu.innerHTML = 'Profile';
+			accLog.innerHTML = 'Logout';
 			logFlag = true;
 		});
 		socket.on("sessionFailed", function (data) {

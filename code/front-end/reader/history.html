@@ -1,105 +1,67 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-      <meta charset="utf-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta content="" name="description" />
+    <meta content="" name="description" />
     <meta content="webthemez" name="author" />
     <title>Book History</title>
-	<!-- Bootstrap Styles-->
+    <!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
-     <!-- FontAwesome Styles-->
+    <!-- FontAwesome Styles-->
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
-     <!-- Morris Chart Styles-->
-   
-        <!-- Custom Styles-->
+    <!-- Morris Chart Styles-->
+
+    <!-- Custom Styles-->
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
-     <!-- Google Fonts-->
-     <!--
+    <!-- Google Fonts-->
+    <!--
         <link href='http://fonts.useso.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
      -->
-   
-     <!-- TABLE STYLES-->
+
+    <!-- TABLE STYLES-->
     <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
 </head>
+
 <body>
- <div id="wrapper">
+    <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
-                <a href="index.html"><img src="images/logo/logo黑字.png" width = 190px height = 65px ></a>
-                <!-- <a class="navbar-brand" href="index.html"><img src="images/logo/logo黑字.png" width = 205px height = 60px ></a> -->     
+                <a href="index.html"><img src="images/logo/logo黑字.png" width=190px height=65px></a>
+                <!-- <a class="navbar-brand" href="index.html"><img src="images/logo/logo黑字.png" width = 205px height = 60px ></a> -->
             </div>
             <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>admin</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Oct.14.2018</em>
-                                    </span>
-                                </div>
-                                <div >The book you borrowed will expire in one day. </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>Librarian</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Oct.13.2018</em>
-                                    </span>
-                                </div>
-                                <div>Today, the library has a new collection of books.</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-messages -->
-                </li>
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                         <li><a href="#"><i class="fa fa-user fa-fw"></i> Language</a>
-                             <li>                                  
-                                    <li><a href="#"><i class="fa fa-none fa-fw"></i>English</a></li>
-                                    <!-- 瞎写的类，不知道有没有，留空用的 -->
-                                    <li><a href="history-ch.html"><i class="fa fa-none fa-fw"></i>中文</a></li>                                 
-                            </li> 
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="index.html" onclick="logOut()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
+                        <li><a href="#" style="font-weight: 600"><i class="fa fa-user fa-fw"></i> Language</a>
+                        <li>
+                        <li><a href="#"><i class="fa fa-none fa-fw"></i>English</a></li>
+                        <!-- 瞎写的类，不知道有没有，留空用的 -->
+                        <li><a href="history-ch.html"><i class="fa fa-none fa-fw"></i>中文</a></li>
                 </li>
-                <!-- /.dropdown -->
+                </li>
+                <li class="divider"></li>
+                <li><a href="index.html" onclick="logOut()" style="font-weight: 600"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                </li>
+            </ul>
+            <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
             </ul>
         </nav>
         <!--/. NAV TOP  -->
-       <!--/. NAV TOP  -->
+        <!--/. NAV TOP  -->
         <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a  href="profile.html"><i class="fa fa-fw fa-file"></i> Profile</a>
+                        <a href="profile.html"><i class="fa fa-fw fa-file"></i> Profile</a>
                     </li>
                     <!-- <li>
                         <a href="change-password.html"><i class="fa fa-edit"></i> Change password<span class="fa arrow"></span></a>
@@ -111,143 +73,145 @@
                                 <a href="change-password.html">forget password</a>
                             </li>
                         </ul>
-                    </li>      -->  
+                    </li>      -->
                     <li>
                         <a href="change-password.html"><i class="fa fa-edit"></i> Change Password</a>
-                    </li>                                       
+                    </li>
                     <li>
-                        <a  class="active-menu" href="history.html"><i class="fa fa-table"></i> History</a>
-                    </li>  
+                        <a class="active-menu" href="history.html"><i class="fa fa-table"></i> History</a>
+                    </li>
                     <li>
                         <a href="reserve.html"><i class="fa fa-table"></i> Reserve</a>
-                    </li>                  
+                    </li>
                 </ul>
 
             </div>
 
         </nav>
         <!-- /. NAV SIDE  -->
-        <div id="page-wrapper" >
-		    <div class="header"> 
-                        <h1 class="page-header">
-                            Book History <small id='fine'>The books you have read</small>
-                        </h1>		
-		    </div>
-		
-            <div id="page-inner"> 
-               
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- Advanced Tables -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                             Book List
-                        </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                            <th>TITLE</th>                       
-                                            <th>BARCODE</th>
-                                            <th>BORROW TIME</th>
-                                            <th>RETURN TIME</th>
-                                            <th>PENALTY</th>                                               
-                                        </tr>
-                                    </thead>
-                                    <tbody id='list_body'>
-                                        
-                       
-                                    </tbody>
-                                </table>
+        <div id="page-wrapper">
+            <div class="header">
+                <h1 class="page-header">
+                    Borrow/Return History <small id='fine'>The books you have read</small>
+                </h1>
+            </div>
+
+            <div id="page-inner">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Advanced Tables -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Borrow List
                             </div>
-                            
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                        <thead>
+                                            <tr>
+                                                <th>TITLE</th>
+                                                <th>BARCODE</th>
+                                                <th>BORROW TIME</th>
+                                                <th>RETURN TIME</th>
+                                                <th>PENALTY</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id='list_body'>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
                         </div>
-                       
+                        <!--End Advanced Tables -->
+                        <footer>
+                            <p align="center">©2018 XDU-SPM-B2 Copyright</p>
+                        </footer>
                     </div>
-                    <!--End Advanced Tables -->
-                     <footer><p align="center">©2018 XDU-SPM-B2 Copyright</p></footer>
                 </div>
-            </div>
                 <!-- /. ROW  -->
-        </div>
-              
-    </div>
-             <!-- /. PAGE INNER  -->
             </div>
-         <!-- /. PAGE WRAPPER  -->
-     <!-- /. WRAPPER  -->
+
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+    <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
     <script src="assets/js/jquery-1.10.2.js"></script>
-      <!-- Bootstrap Js -->
+    <!-- Bootstrap Js -->
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- Metis Menu Js -->
     <script src="assets/js/jquery.metisMenu.js"></script>
-     <!-- DATA TABLE SCRIPTS -->
+    <!-- DATA TABLE SCRIPTS -->
     <script src="assets/js/dataTables/jquery.dataTables.js"></script>
     <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
-        <script>
-            $(document).ready(function () {
-                //$('#dataTables-example').dataTable();
-            });
+    <script>
+        $(document).ready(function () {
+            //$('#dataTables-example').dataTable();
+        });
     </script>
-         <!-- Custom Js -->
+    <!-- Custom Js -->
     <script src="assets/js/custom-scripts.js"></script>
     <script src="../cookie.js"></script>
     <script src="../socket.io.js"></script>
     <script type="text/javascript">
-        var auth_data={};
+        var auth_data = {};
         auth_data.username = Cookies.get("username");
         auth_data.session = Cookies.get("session");
         auth_data.type = Cookies.get("type");
-        auth_data.cur = "reader";  
+        auth_data.cur = "reader";
         var socket = io("http://139.199.112.88:2761");
         var list_body = document.getElementById('list_body');
-        function logOut(){
+        function logOut() {
             Cookies.remove('type');
-            socket.emit('logOut',auth_data);
+            socket.emit('logOut', auth_data);
         }
 
         socket.on("noSession", function (data) {
             window.alert("Login has expired, please login again!");
             Cookies.remove('type');
-            location.href = location.href.replace("history.html","index.html");
+            location.href = location.href.replace("history.html", "index.html");
         });
 
         socket.on("sessionFailed", function (data) {
             window.alert("User name type is inconsistent, please login again!");
             Cookies.remove('type');
-            location.href = location.href.replace("history.html","index.html");
+            location.href = location.href.replace("history.html", "index.html");
         });
-        socket.on('showBorrowList',function(data){
+        socket.on('showBorrowList', function (data) {
             var totalFine = 0;
             var showList = []
-            for(var i=0;i<data.length;i++){
+            for (var i = 0; i < data.length; i++) {
                 var showItem = [];
                 showItem.push(data[i].book_name);
                 showItem.push(data[i].bar_code);
 
                 var borrow_time = new Date(data[i].borrow_date);
-                borrow_time = borrow_time.getFullYear()+'-'+(borrow_time.getMonth()+1)+'-'+borrow_time.getDate();
+                borrow_time = borrow_time.getFullYear() + '-' + (borrow_time.getMonth() + 1) + '-' + borrow_time.getDate();
                 showItem.push(borrow_time);
 
                 var return_time = null;
-                if(data[i].return_date!=null){
+                if (data[i].return_date != null) {
                     return_time = new Date(data[i].return_date);
-                    return_time = return_time.getFullYear()+'-'+(return_time.getMonth()+1)+'-'+return_time.getDate();
-                }else{
+                    return_time = return_time.getFullYear() + '-' + (return_time.getMonth() + 1) + '-' + return_time.getDate();
+                } else {
                     return_time = '<font color="#FF0000">not returned yet</font>';
                 }
                 showItem.push(return_time);
 
-                showItem.push('<font color="#FF0000">'+data[i].fine+'</font>');
+                showItem.push('<font color="#FF0000">' + data[i].fine + '</font>');
                 showList.push(showItem);
                 totalFine += data[i].fine;
             }
             var fineText = document.getElementById('fine');
-            fineText.innerHTML='Total fine you have to pay: <font color="#FF0000">'+ totalFine+'</font> '
-            $('#dataTables-example').dataTable({data:showList});
+            fineText.innerHTML = 'Total fine you have to pay: <font color="#FF0000">' + totalFine + '</font> '
+            $('#dataTables-example').dataTable({ data: showList });
             /*
                                         <tr class="odd gradeX">
                                             <td>Deep Leearning</td>
@@ -261,11 +225,12 @@
         });
 
 
-        socket.emit('sessionAuth',auth_data);   
-        socket.emit('getBorrowList',auth_data.username);
-        
+        socket.emit('sessionAuth', auth_data);
+        socket.emit('getBorrowList', auth_data.username);
+
     </script>
-    
-   
+
+
 </body>
+
 </html>

@@ -189,7 +189,7 @@
 									<a href="index.html">
 										<img src="images/logo/logo黑字.png" width="150" height="50" alt="logo">
 									</a>
-									<p>Ideal books， is the key to wisdom。 -- Lev Tolstoy</p>
+									<p style="color: rgb(117, 117, 117)">Ideal books is the key to wisdom.    —— Lev Tolstoy</p>
 								</div>
 								<!-- <div class="footer__content">
 									<ul class="mainmenu d-flex justify-content-center">
@@ -292,17 +292,20 @@
 
 					var div_con = document.createElement('div');
 					div_con.setAttribute('class', 'content');
+					div_con.setAttribute('style', 'padding-top: 40px');
 
 					var h1 = document.createElement('h2');
 					h1.setAttribute('class', 'title');
 					h1.innerHTML = item.title;
 
-					var h2 = document.createElement('h4');
+					var h2 = document.createElement('h5');
 					h2.setAttribute('class', 'date');
+					h2.setAttribute('style', 'color: rgb(117, 117, 117)');
 					h2.innerHTML = item.date;
 
 					var p = document.createElement('p');
 					p.setAttribute('class', 'c');
+					p.setAttribute('style', 'font-size: 14px; padding-top: -10px; padding-bottom: -10px')
 					p.innerHTML = item.content;
 
 					var a = document.createElement('a');
@@ -423,8 +426,8 @@
 
 			socket.on('sessionSuccess', function (data) {
 				topMenu.innerHTML = auth_data.username;
-				accMenu.innerHTML = 'Console';
-				accLog.innerHTML = 'Log out';
+				accMenu.innerHTML = 'Profile';
+				accLog.innerHTML = 'Logout';
 				logFlag = true;
 			});
 

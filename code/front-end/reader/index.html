@@ -192,7 +192,7 @@
 									<a href="index.html">
 										<img src="images/logo/logo黑字.png" width="150" height="50" alt="logo">
 									</a>
-									<h4>Ideal books,  is the key to wisdom.    -- Lev Tolstoy</h4>
+									<p style="color: rgb(117, 117, 117)">Ideal books is the key to wisdom.    —— Lev Tolstoy</p>
 								</div>
 								<!-- <div class="footer__content">
 									<ul class="mainmenu d-flex justify-content-center">
@@ -293,7 +293,7 @@
 		socket.on('sessionSuccess', function () {
 			topMenu.innerHTML = auth_data.username;
 			accMenu.innerHTML = 'Profile';
-			accLog.innerHTML = 'Log out';
+			accLog.innerHTML = 'Logout';
 			logFlag = true;
 		});
 		socket.on("noSession", function (data) {
