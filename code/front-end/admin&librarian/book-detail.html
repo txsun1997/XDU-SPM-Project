@@ -45,7 +45,6 @@
                                         <h1>Infomation</h1>
                                         <ul class="pro__attribute">
                                             <li id='isbn'>ISBN: </li>
-                                            <li id='location'>Location: </li>
                                             <li id='type'>Type: </li>
                                             <li id='author'>Author: </li>
                                             <li id='press'>Publisher: </li>
@@ -91,15 +90,15 @@
             }
             if (data.author != null) {
                 var author = document.getElementById('author');
-                author.innerHTML = '• Author: ' + data.author;
+                author.innerHTML = '• Authors: ' + data.author;
             }
             if (data.type != null) {
                 var type = document.getElementById('type');
-                type.innerHTML = '• Type: ' + data.type;
+                type.innerHTML = '• Category: ' + data.type;
             }
             if (data.press != null) {
                 var press = document.getElementById('press');
-                press.innerHTML = '• Press: ' + data.press;
+                press.innerHTML = '• Publisher: ' + data.press;
             }
             if (data.page != null) {
                 var page = document.getElementById('page');
@@ -113,10 +112,7 @@
                 var isbn = document.getElementById('isbn');
                 isbn.innerHTML = '• ISBN: ' + data.isbn;
             }
-            if (data.location != null) {
-                var loc = document.getElementById('location');
-                loc.innerHTML = '• Location: ' + data.location;
-            }
+
             if (data.subject != null) {
                 document.getElementById('subject').innerHTML = data.subject;
             }
