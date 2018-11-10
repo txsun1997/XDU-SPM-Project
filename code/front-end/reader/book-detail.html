@@ -236,7 +236,7 @@
                 copy_item.appendChild(td_location);
 
                 var td_reserve = document.createElement('td');
-                td_reserve.innerHTML = '<font color="#EE0000">borrowed</font>';
+                td_reserve.innerHTML = '<font color="blue">BORROWED</font>';
                 copy_item.appendChild(td_reserve);
                 copyList.appendChild(copy_item);
                 //window.alert(2);
@@ -259,7 +259,7 @@
 
         function reserveCopy(bar_code){
             var reserve_auth = auth_data;
-            reserve_auth.req = {req:'reserve', bar_code:bar_code};
+            reserve_auth.req = {req:'reserve', bar_code:parseInt(bar_code)};
             socket.emit('sessionAuth',reserve_auth);
         }
 
