@@ -84,6 +84,11 @@
         data.title = Cookies.get("cur_news_title");
         data.librarian_id = Cookies.get("username");
         data.content = $("#content").val();
+        if($("#content").val()=="")
+        {
+            window.alert("Please input announcement content!");
+            return;
+        }
         socket.emit("editAnnouncement", data);
     }
 

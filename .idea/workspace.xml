@@ -1,0 +1,765 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="8d3f689a-0d49-4904-ab72-5eb7430f56fc" name="Default" comment="" />
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="editReader.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/editReader.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="109">
+              <caret line="103" column="44" lean-forward="false" selection-start-line="103" selection-start-column="44" selection-end-line="103" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="editLibrarian.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/editLibrarian.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="79">
+              <caret line="99" column="19" lean-forward="true" selection-start-line="99" selection-start-column="19" selection-end-line="99" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CAT&amp;loc.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/CAT&amp;loc.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="17" column="44" lean-forward="true" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="addLoc.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/addLoc.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="303">
+              <caret line="88" column="9" lean-forward="true" selection-start-line="83" selection-start-column="8" selection-end-line="88" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="addReader.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/addReader.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="101" column="9" lean-forward="true" selection-start-line="92" selection-start-column="8" selection-end-line="101" selection-end-column="9" />
+              <folding>
+                <marker date="1541868088542" expanded="true" signature="2805:2811" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="editloc.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/editloc.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4050">
+              <caret line="156" column="42" lean-forward="true" selection-start-line="156" selection-start-column="42" selection-end-line="156" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="addBook.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/addBook.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="41">
+              <caret line="144" column="30" lean-forward="true" selection-start-line="144" selection-start-column="30" selection-end-line="144" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="librarian-index.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/librarian-index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="131">
+              <caret line="112" column="0" lean-forward="true" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+              <folding>
+                <marker date="1541853140573" expanded="true" signature="5064:5094" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="editBook.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/editBook.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-870">
+              <caret line="148" column="0" lean-forward="true" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="addType.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/addType.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="93">
+              <caret line="78" column="0" lean-forward="true" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/code/front-end/reader&amp;login/PasswordRecovery.html" />
+        <option value="$PROJECT_DIR$/code/front-end/reader&amp;login/login.html" />
+        <option value="$PROJECT_DIR$/code/front-end/admin&amp;librarian/addType.html" />
+        <option value="$PROJECT_DIR$/code/front-end/admin&amp;librarian/addLoc.html" />
+        <option value="$PROJECT_DIR$/code/front-end/reader&amp;login/passwordRecover.html" />
+        <option value="$PROJECT_DIR$/code/front-end/admin&amp;librarian/admin-message.html" />
+        <option value="$PROJECT_DIR$/code/front-end/admin&amp;librarian/news_list.html" />
+        <option value="$PROJECT_DIR$/code/front-end/admin&amp;librarian/addAnnouncement.html" />
+        <option value="$PROJECT_DIR$/code/front-end/admin&amp;librarian/income_list.html" />
+        <option value="$PROJECT_DIR$/code/back-end/app.js" />
+        <option value="$PROJECT_DIR$/code/front-end/admin&amp;librarian/editReader.html" />
+        <option value="$PROJECT_DIR$/code/front-end/admin&amp;librarian/edit-announcement.html" />
+        <option value="$PROJECT_DIR$/code/front-end/admin&amp;librarian/editType.html" />
+        <option value="$PROJECT_DIR$/code/front-end/admin&amp;librarian/editloc.html" />
+        <option value="$PROJECT_DIR$/code/front-end/admin&amp;librarian/addBook.html" />
+        <option value="$PROJECT_DIR$/code/front-end/admin&amp;librarian/editBook.html" />
+        <option value="$PROJECT_DIR$/code/front-end/admin&amp;librarian/addReader.html" />
+        <option value="$PROJECT_DIR$/code/front-end/admin&amp;librarian/editLibrarian.html" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="193" />
+    <option name="width" value="1183" />
+    <option name="height" value="735" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="XDU-SPM-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XDU-SPM-Project" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XDU-SPM-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XDU-SPM-Project" type="462c0819:PsiDirectoryNode" />
+              <item name="code" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XDU-SPM-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XDU-SPM-Project" type="462c0819:PsiDirectoryNode" />
+              <item name="code" type="462c0819:PsiDirectoryNode" />
+              <item name="back-end" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XDU-SPM-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XDU-SPM-Project" type="462c0819:PsiDirectoryNode" />
+              <item name="code" type="462c0819:PsiDirectoryNode" />
+              <item name="front-end" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XDU-SPM-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XDU-SPM-Project" type="462c0819:PsiDirectoryNode" />
+              <item name="code" type="462c0819:PsiDirectoryNode" />
+              <item name="front-end" type="462c0819:PsiDirectoryNode" />
+              <item name="admin&amp;librarian" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XDU-SPM-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XDU-SPM-Project" type="462c0819:PsiDirectoryNode" />
+              <item name="code" type="462c0819:PsiDirectoryNode" />
+              <item name="front-end" type="462c0819:PsiDirectoryNode" />
+              <item name="admin-login" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XDU-SPM-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XDU-SPM-Project" type="462c0819:PsiDirectoryNode" />
+              <item name="code" type="462c0819:PsiDirectoryNode" />
+              <item name="front-end" type="462c0819:PsiDirectoryNode" />
+              <item name="reader&amp;login" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="nodejs_interpreter_path" value="G:/常用软件/nodejs/node" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8d3f689a-0d49-4904-ab72-5eb7430f56fc" name="Default" comment="" />
+      <created>1541059891800</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1541059891800</updated>
+      <workItem from="1541059893985" duration="2674000" />
+      <workItem from="1541066096777" duration="12656000" />
+      <workItem from="1541382804634" duration="1179000" />
+      <workItem from="1541575068447" duration="3629000" />
+      <workItem from="1541657998600" duration="10618000" />
+      <workItem from="1541675546935" duration="2374000" />
+      <workItem from="1541852628779" duration="9252000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="42382000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13616072" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13616072" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/edit-announcement.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2190">
+          <caret line="73" column="40" lean-forward="true" selection-start-line="73" selection-start-column="40" selection-end-line="73" selection-end-column="40" />
+          <folding>
+            <marker date="1541864356698" expanded="true" signature="3004:3219" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/reader&amp;login/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/income_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5280">
+          <caret line="176" column="35" lean-forward="true" selection-start-line="176" selection-start-column="35" selection-end-line="176" selection-end-column="35" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#label#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#input#1;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#1715#1721#0" expanded="false" />
+            <element signature="e#1723#1729#0" expanded="false" />
+            <element signature="e#1730#1736#0" expanded="false" />
+            <element signature="e#2054#2060#0" expanded="false" />
+            <element signature="e#2062#2068#0" expanded="false" />
+            <element signature="e#2069#2075#0" expanded="false" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <marker date="1541853140281" expanded="true" signature="2601:2612" ph="..." />
+            <marker date="1541853140281" expanded="true" signature="3200:3233" ph="..." />
+            <marker date="1541853140281" expanded="true" signature="3200:3263" ph="..." />
+            <marker date="1541853140281" expanded="true" signature="3200:3296" ph="..." />
+            <marker date="1541853140281" expanded="true" signature="3339:3372" ph="..." />
+            <marker date="1541853140281" expanded="true" signature="4153:7521" ph="..." />
+            <marker date="1541853140281" expanded="true" signature="4386:5577" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="4505:5569" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="4550:5557" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="4575:4666" ph="{&quot;text&quot;: 'Income'...}" />
+            <marker date="1541853140281" expanded="true" signature="4691:4747" ph="{&quot;categories&quot;: xdate...}" />
+            <marker date="1541853140281" expanded="true" signature="4772:5052" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="4801:4867" ph="{&quot;text&quot;: 'Income (¥)'...}" />
+            <marker date="1541853140281" expanded="true" signature="4900:5034" ph="[...]" />
+            <marker date="1541853140281" expanded="true" signature="4901:5033" ph="{&quot;color&quot;: '##808080'...}" />
+            <marker date="1541853140281" expanded="true" signature="5079:5135" ph="{&quot;valueSuffix&quot;: '¥'...}" />
+            <marker date="1541853140281" expanded="true" signature="5161:5336" ph="{&quot;layout&quot;: 'vertical'...}" />
+            <marker date="1541853140281" expanded="true" signature="5362:5543" ph="[...]" />
+            <marker date="1541853140281" expanded="true" signature="5363:5448" ph="{&quot;name&quot;: 'Fine'...}" />
+            <marker date="1541853140281" expanded="true" signature="5450:5542" ph="{&quot;name&quot;: 'Deposit '...}" />
+            <marker date="1541853140281" expanded="true" signature="5607:6024" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="6058:7104" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="6364:6450" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="6475:6562" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="7131:7288" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="7227:7282" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="7333:7510" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="7457:7504" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/back-end/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="29790">
+          <caret line="993" column="67" lean-forward="false" selection-start-line="993" selection-start-column="67" selection-end-line="993" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/addBook.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8040">
+          <caret line="268" column="37" lean-forward="false" selection-start-line="268" selection-start-column="37" selection-end-line="268" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/bar-code.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/income_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5730">
+          <caret line="191" column="8" lean-forward="false" selection-start-line="191" selection-start-column="8" selection-end-line="191" selection-end-column="8" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#label#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#input#1;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#1715#1721#0" expanded="false" />
+            <element signature="e#1723#1729#0" expanded="false" />
+            <element signature="e#1730#1736#0" expanded="false" />
+            <element signature="e#2054#2060#0" expanded="false" />
+            <element signature="e#2062#2068#0" expanded="false" />
+            <element signature="e#2069#2075#0" expanded="false" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <marker date="1541853140281" expanded="true" signature="2601:2612" ph="..." />
+            <marker date="1541853140281" expanded="true" signature="3200:3233" ph="..." />
+            <marker date="1541853140281" expanded="true" signature="3200:3263" ph="..." />
+            <marker date="1541853140281" expanded="true" signature="3200:3296" ph="..." />
+            <marker date="1541853140281" expanded="true" signature="3339:3372" ph="..." />
+            <marker date="1541853140281" expanded="true" signature="4153:7521" ph="..." />
+            <marker date="1541853140281" expanded="true" signature="4386:5577" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="4505:5569" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="4550:5557" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="4575:4666" ph="{&quot;text&quot;: 'Income'...}" />
+            <marker date="1541853140281" expanded="true" signature="4691:4747" ph="{&quot;categories&quot;: xdate...}" />
+            <marker date="1541853140281" expanded="true" signature="4772:5052" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="4801:4867" ph="{&quot;text&quot;: 'Income (¥)'...}" />
+            <marker date="1541853140281" expanded="true" signature="4900:5034" ph="[...]" />
+            <marker date="1541853140281" expanded="true" signature="4901:5033" ph="{&quot;color&quot;: '##808080'...}" />
+            <marker date="1541853140281" expanded="true" signature="5079:5135" ph="{&quot;valueSuffix&quot;: '¥'...}" />
+            <marker date="1541853140281" expanded="true" signature="5161:5336" ph="{&quot;layout&quot;: 'vertical'...}" />
+            <marker date="1541853140281" expanded="true" signature="5362:5543" ph="[...]" />
+            <marker date="1541853140281" expanded="true" signature="5363:5448" ph="{&quot;name&quot;: 'Fine'...}" />
+            <marker date="1541853140281" expanded="true" signature="5450:5542" ph="{&quot;name&quot;: 'Deposit '...}" />
+            <marker date="1541853140281" expanded="true" signature="5607:6024" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="6058:7104" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="6364:6450" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="6475:6562" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="7131:7288" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="7227:7282" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="7333:7510" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="7457:7504" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/reader/index-ch.html" />
+    <entry file="file://$PROJECT_DIR$/code/front-end/reader/index.html" />
+    <entry file="file://$PROJECT_DIR$/code/front-end/reader&amp;login/passwordRecover.html" />
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/addLoc.html" />
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/addType.html" />
+    <entry file="file://$PROJECT_DIR$/code/back-end/app.js" />
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/view-Announcement.html" />
+    <entry file="file://$PROJECT_DIR$/code/front-end/reader&amp;login/login.html" />
+    <entry file="file://$PROJECT_DIR$/code/front-end/reader/index-ch.html" />
+    <entry file="file://$PROJECT_DIR$/code/front-end/reader/index.html" />
+    <entry file="file://$PROJECT_DIR$/code/front-end/reader&amp;login/passwordRecover.html" />
+    <entry file="file://$PROJECT_DIR$/code/front-end/reader&amp;login/login.html" />
+    <entry file="file://$PROJECT_DIR$/code/front-end/reader/index-ch.html" />
+    <entry file="file://$PROJECT_DIR$/code/front-end/reader&amp;login/PasswordRecovery.html" />
+    <entry file="file://$PROJECT_DIR$/code/front-end/reader/index.html" />
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/bar-code.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa0.452/pqgrid.min.css" />
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/librarian-home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/admin-message.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3450">
+          <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/income_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2580">
+          <caret line="86" column="18" lean-forward="false" selection-start-line="86" selection-start-column="18" selection-end-line="86" selection-end-column="18" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#label#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#input#1;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#1715#1721#0" expanded="false" />
+            <element signature="e#1723#1729#0" expanded="false" />
+            <element signature="e#1730#1736#0" expanded="false" />
+            <element signature="e#2054#2060#0" expanded="false" />
+            <element signature="e#2062#2068#0" expanded="false" />
+            <element signature="e#2069#2075#0" expanded="false" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <marker date="1541853140281" expanded="true" signature="2601:2612" ph="..." />
+            <marker date="1541853140281" expanded="true" signature="3200:3233" ph="..." />
+            <marker date="1541853140281" expanded="true" signature="3200:3263" ph="..." />
+            <marker date="1541853140281" expanded="true" signature="3200:3296" ph="..." />
+            <marker date="1541853140281" expanded="true" signature="3339:3372" ph="..." />
+            <marker date="1541853140281" expanded="true" signature="4153:7521" ph="..." />
+            <marker date="1541853140281" expanded="true" signature="4386:5577" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="4505:5569" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="4550:5557" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="4575:4666" ph="{&quot;text&quot;: 'Income'...}" />
+            <marker date="1541853140281" expanded="true" signature="4691:4747" ph="{&quot;categories&quot;: xdate...}" />
+            <marker date="1541853140281" expanded="true" signature="4772:5052" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="4801:4867" ph="{&quot;text&quot;: 'Income (¥)'...}" />
+            <marker date="1541853140281" expanded="true" signature="4900:5034" ph="[...]" />
+            <marker date="1541853140281" expanded="true" signature="4901:5033" ph="{&quot;color&quot;: '##808080'...}" />
+            <marker date="1541853140281" expanded="true" signature="5079:5135" ph="{&quot;valueSuffix&quot;: '¥'...}" />
+            <marker date="1541853140281" expanded="true" signature="5161:5336" ph="{&quot;layout&quot;: 'vertical'...}" />
+            <marker date="1541853140281" expanded="true" signature="5362:5543" ph="[...]" />
+            <marker date="1541853140281" expanded="true" signature="5363:5448" ph="{&quot;name&quot;: 'Fine'...}" />
+            <marker date="1541853140281" expanded="true" signature="5450:5542" ph="{&quot;name&quot;: 'Deposit '...}" />
+            <marker date="1541853140281" expanded="true" signature="5607:6024" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="6058:7104" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="6364:6450" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="6475:6562" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="7131:7288" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="7227:7282" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="7333:7510" ph="{...}" />
+            <marker date="1541853140281" expanded="true" signature="7457:7504" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/view-Announcement.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/reader&amp;login/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-960">
+          <caret line="16" column="19" lean-forward="true" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/plusBook.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1080">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/back-end/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3270">
+          <caret line="544" column="11" lean-forward="true" selection-start-line="544" selection-start-column="11" selection-end-line="544" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/book-list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="264" column="41" lean-forward="true" selection-start-line="264" selection-start-column="41" selection-end-line="264" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/book-search.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-90">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin-login/AdminLogin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="15" lean-forward="true" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/reader-list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-913">
+          <caret line="67" column="36" lean-forward="false" selection-start-line="67" selection-start-column="36" selection-end-line="67" selection-end-column="36" />
+          <folding>
+            <marker date="1541853140634" expanded="true" signature="7034:7069" ph="{&quot;title&quot;: &quot;ADD READER&quot;...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/reader&amp;login/passwordRecover.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="30" column="16" lean-forward="true" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/lend-and-return.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="168" column="40" lean-forward="true" selection-start-line="168" selection-start-column="40" selection-end-line="168" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/news_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="173" column="36" lean-forward="false" selection-start-line="173" selection-start-column="36" selection-end-line="173" selection-end-column="36" />
+          <folding>
+            <marker date="1541853140628" expanded="true" signature="6266:6334" ph="{&quot;title&quot;: &quot;ADD Announcement&quot;...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/addAnnouncement.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="431">
+          <caret line="76" column="19" lean-forward="true" selection-start-line="75" selection-start-column="12" selection-end-line="76" selection-end-column="19" />
+          <folding>
+            <marker date="1541853140058" expanded="true" signature="2867:2943" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/edit-announcement.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="84" column="52" lean-forward="true" selection-start-line="84" selection-start-column="52" selection-end-line="84" selection-end-column="52" />
+          <folding>
+            <marker date="1541864356698" expanded="true" signature="3004:3219" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/editType.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="162" column="42" lean-forward="true" selection-start-line="162" selection-start-column="42" selection-end-line="162" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/addLoc.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="88" column="9" lean-forward="true" selection-start-line="83" selection-start-column="8" selection-end-line="88" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/CAT&amp;loc.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="17" column="44" lean-forward="true" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/editloc.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4050">
+          <caret line="156" column="42" lean-forward="true" selection-start-line="156" selection-start-column="42" selection-end-line="156" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/addBook.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="41">
+          <caret line="144" column="30" lean-forward="true" selection-start-line="144" selection-start-column="30" selection-end-line="144" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/editBook.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-870">
+          <caret line="148" column="0" lean-forward="true" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/addType.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="78" column="0" lean-forward="true" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/editReader.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="103" column="44" lean-forward="false" selection-start-line="103" selection-start-column="44" selection-end-line="103" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/addReader.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="101" column="9" lean-forward="true" selection-start-line="92" selection-start-column="8" selection-end-line="101" selection-end-column="9" />
+          <folding>
+            <marker date="1541868088542" expanded="true" signature="2805:2811" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/editLibrarian.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="79">
+          <caret line="99" column="19" lean-forward="true" selection-start-line="99" selection-start-column="19" selection-end-line="99" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/front-end/admin&amp;librarian/librarian-index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="112" column="0" lean-forward="true" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+          <folding>
+            <marker date="1541853140573" expanded="true" signature="5064:5094" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
