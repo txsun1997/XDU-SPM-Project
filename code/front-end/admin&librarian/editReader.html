@@ -101,7 +101,7 @@
         var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
         if($("#email").val()=="")
 		{
-            alert("Email address can be null!");
+            alert("Email address can't be null!");
             return;
 		}
         if(!myreg.test($("#email").val()))
@@ -124,6 +124,10 @@
             alert("Email address is invalid!");
             return;
         }
+		if(data.name == "" || data.phone == "" || data.email == "" ){
+			alert("Can not have null value.");
+			return;
+		}
 		socket.emit("editReaderRole", data);
 	}
 

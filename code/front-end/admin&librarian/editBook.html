@@ -128,7 +128,7 @@
                                 ISBN
                             </label>
                             <div class="am-u-sm-8 am-u-end">
-                                <input id="isbn" required="" maxlength="13" oninput="value=value.replace(/[^\d]/g,'')"
+                                <input id="isbn" readonly="readonly" required="" maxlength="13" oninput="value=value.replace(/[^\d]/g,'')"
                                     placeholder="Enter the ISBN" value="" name="book-ISBN" type="text">
                                 <small id="helpRole">Please enter the ISBN, e.g. 9780262035613.</small>
                             </div>
@@ -163,8 +163,8 @@
                                 Subject
                             </label>
                             <div class="am-u-sm-8 am-u-end">
-                                <input id="subject" required="" placeholder="Enter a description about the book" value=""
-                                    name="book-subject" type="text">
+                                <textarea id="subject" rows="12" required="" placeholder="Enter a description about the book" value=""
+                                    name="book-subject"></textarea>
                                 <small id="helpRole">Please briefly describe the book.</small>
                             </div>
                         </div>
@@ -221,7 +221,7 @@
                             </label>
                             <div class="am-u-sm-8 am-u-end">
                                 <form class="container" enctype="multipart/form-data" method="post" id='formBox' name="form">
-                                    <input onchange="file2base64()" type="file" id="chooseImage" name="file">
+                                    <input onchange="file2base64(event)" type="file" id="chooseImage" name="file">
                                     <!-- 保存用户自定义的背景图片 -->
                                     <img id="cropedBigImg" value='custom' alt="No pictures" data-address='' title="cover of book" />
                                 </form>
@@ -260,6 +260,19 @@
 
     function editBook() {
         var data = {};
+
+        if (picture == "") { alert("Please insert a picture."); return; }
+		if ($("#title").val() == "") { alert("Title is desired."); return; }
+		if ($("#price").val() == "") { alert("Price is desired."); return; }
+		if ($("#authors").val() == "") { alert("Author is desired."); return; }
+		if ($("#press").val() == "") { alert("Press is desired."); return; }
+		if ($("#number").val() == "") { alert("Number is desired."); return; }
+		if ($("#year").val() == "") { alert("Year is desired."); return; }
+		if ($("#subject").val() == "") { alert("Subject is desired."); return; }
+		if ($("#pages").val() == "") { alert("Pages is desired."); return; }
+		if (parseInt($("#number").val()) == 0) { alert("Number must larger than 0."); return; }
+		if ($("#typeSelect").find("option:selected").text() == "Select a Type") { alert("Please Select a Type."); return; }
+
         data.origin = isbn;
         data.book_name = $("#title").val();
         data.price = parseInt($("#price").val());
@@ -275,14 +288,21 @@
             location.href = location.href;
         }
         data.total_number = parseInt($("#number").val());
-
-
         data.figure = picture;
         socket.emit("editBook", data);
     }
 
     var picture = "";
-    function file2base64() {
+    function file2base64(e) {
+        var src = e.target || window.event.srcElement; //获取事件源，兼容chrome/IE
+		var filename = src.value;
+		var index = filename.substring(filename.lastIndexOf('.') + 1);
+
+		if(index != "jpeg" && index != "jpg" && index != "png" && index != "gif" && index != "bmp"){
+			alert("Only .jpeg .jpg .png .gif and .bmp file is supported.");
+			location.href = location.href;
+		};
+
         var file = document.getElementById("chooseImage").files[0];
         var reader = new FileReader();
         reader.readAsDataURL(file);
@@ -333,7 +353,7 @@
         }
 
         if (data.subject != null) {
-            $("#subject").attr("value", data.subject);
+            $("#subject").val( data.subject);
         }
 
         if (data.total_number != null) {

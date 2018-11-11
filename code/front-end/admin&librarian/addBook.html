@@ -150,7 +150,9 @@
 								Year
 							</label>
 							<div class="am-u-sm-8 am-u-end">
+
 								<input id="year" required="" minlength="4"  maxlength="4" oninput="value=value.replace(/[^\d]/g,'')" placeholder="Enter publication date"
+
 								 value="" name="publication-year" type="text">
 								<small id="helpRole">Please enter publication date (year), e.g. 2016.</small>
 							</div>
@@ -161,8 +163,8 @@
 								Subject
 							</label>
 							<div class="am-u-sm-8 am-u-end">
-								<input id="subject" required="" placeholder="Enter a description about the book" value="" name="book-subject"
-								 type="text">
+								<textarea id="subject" rows="12" required="" placeholder="Enter a description about the book" value="" name="book-subject"
+								 type="text"></textarea>
 								<small id="helpRole">Please briefly describe the book.</small>
 							</div>
 						</div>
@@ -230,7 +232,7 @@
 							</label>
 							<div class="am-u-sm-8 am-u-end">
 								<form class="container" enctype="multipart/form-data" method="post" id='formBox' name="form">
-									<input onchange="file2base64()" type="file" id="chooseImage" name="file">
+									<input onchange="file2base64(event)" type="file" id="chooseImage" name="file">
 									<!-- 保存用户自定义的背景图片 -->
 									<img id="cropedBigImg" value='custom' alt="No pictures" data-address='' title="cover of book" />
 								</form>
@@ -262,7 +264,17 @@
 	var socket = io("http://139.199.112.88:2761");
 	var picture = "";
 
-	function file2base64() {
+
+	function file2base64(e) {
+		var src = e.target || window.event.srcElement; //获取事件源，兼容chrome/IE
+		var filename = src.value;
+		var index = filename.substring(filename.lastIndexOf('.') + 1);
+
+		if (index != "jpeg" && index != "jpg" && index != "png" && index != "gif" && index != "bmp") {
+			alert("Only .jpeg .jpg .png .gif and .bmp file is supported.");
+			location.href = location.href;
+		};
+
 		var file = document.getElementById("chooseImage").files[0];
 		var reader = new FileReader();
 		reader.readAsDataURL(file);
@@ -270,6 +282,7 @@
 			picture = reader.result;
 		}
 	}
+
 
 	function getBase64(img) {
 		function getBase64Image(img, width, height) {//width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
@@ -313,7 +326,7 @@
 		Cookies.set("update", "true");
 	});
 
-	socket.on("existed",function(){
+	socket.on("existed", function () {
 		alert("The book associated with the ISBN has existed. ");
 		location.href = location.href;
 	})
@@ -323,7 +336,7 @@
 		$("#authors").attr("value", data.author);
 		$("#press").attr("value", data.press);
 		$("#year").attr("value", data.year);
-		$("#subject").attr("value", data.subject);
+		$("#subject").val(data.subject);
 		$("#pages").attr("value", data.pages);
 		$("#price").attr("value", data.price);
 		document.getElementById("cropedBigImg").setAttribute("src", data.figure);
