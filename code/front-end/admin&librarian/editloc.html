@@ -148,6 +148,12 @@
         var data = {};
         data.oldloc = Cookies.get("cur_loc");
         data.newloc = $("#loc_name").val();
+        var myreg = /^[1-9][\d-]*[0-9]$/;
+        if(!myreg.test($("#loc_name").val()))
+        {
+            alert('Please enter the correct location format.');
+            return;
+        }
         socket.emit("editlocation", data);
     }
 
