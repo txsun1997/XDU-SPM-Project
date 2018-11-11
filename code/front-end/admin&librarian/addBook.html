@@ -172,7 +172,7 @@
 								Pages
 							</label>
 							<div class="am-u-sm-8 am-u-end">
-								<input id="pages" required="" oninput="value=value.replace(/[^\d]/g,'')" placeholder="Enter the number of pages"
+								<input id="pages" required="" maxlength="5" oninput="value=value.replace(/[^\d]/g,'')" placeholder="Enter the number of pages"
 								 value="" name="book-pages" type="text">
 								<small id="helpRole">How many pages does the book have?</small>
 							</div>
@@ -194,7 +194,7 @@
 								Copies
 							</label>
 							<div class="am-u-sm-8 am-u-end">
-								<input id="number" required="" oninput="value=value.replace(/[^\d]/g,'')" placeholder="Enter the number of the publication"
+								<input id="number" required="" maxlength="2" oninput="value=value.replace(/[^\d]/g,'')" placeholder="Enter the number of the publication"
 								 value="" name="number-of-book" type="text">
 								<small id="helpRole">Please enter the number of the book.</small>
 							</div>
@@ -346,7 +346,7 @@
 		if ($("#year").val() == "") { alert("Year is desired."); return; }
 		if ($("#subject").val() == "") { alert("Subject is desired."); return; }
 		if ($("#pages").val() == "") { alert("Pages is desired."); return; }
-		if (parseInt($("#number").val()) == 0) { alert("Number must larger than 0."); return; }
+		if (parseInt($("#number").val()) == 0) { alert("Add at least 1 copy for book."); return; }
 		if ($("#typeSelect").find("option:selected").text() == "Select a Type") { alert("Please Select a Type."); return; }
 		if ($("#locationSelect").find("option:selected").text() == "Select a Location") { alert("Please Select a Location"); return; }
 		if ($("#isbn").val() == "") {
