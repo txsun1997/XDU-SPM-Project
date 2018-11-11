@@ -309,9 +309,14 @@
 	}
 
 	socket.on("addBookSuccess", function () {
-		window.alert("Add book success.");
+		alert("Add book success.");
 		Cookies.set("update", "true");
 	});
+
+	socket.on("existed",function(){
+		alert("The book associated with the ISBN has existed. ");
+		location.href = location.href;
+	})
 
 	socket.on("bookInfoOfDouban", function (data) {
 		$("#title").attr("value", data.title);
