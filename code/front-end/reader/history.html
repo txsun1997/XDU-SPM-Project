@@ -111,10 +111,10 @@
                                         <thead>
                                             <tr>
                                                 <th>TITLE</th>
-                                                <th>BARCODE</th>
+                                                <th>BOOK ID</th>
                                                 <th>BORROW TIME</th>
                                                 <th>RETURN TIME</th>
-                                                <th>PENALTY</th>
+                                                <th>FINE</th>
                                             </tr>
                                         </thead>
                                         <tbody id='list_body'>
@@ -210,7 +210,7 @@
                 totalFine += data[i].fine;
             }
             var fineText = document.getElementById('fine');
-            fineText.innerHTML = 'Currently fined for payment: <font color="#FF0000">' + totalFine + '</font> '
+            fineText.innerHTML = 'Total Fine Amount to Pay: <font color="#FF0000">' + totalFine + '</font> '
             $('#dataTables-example').dataTable({ data: showList });
             /*
                                         <tr class="odd gradeX">
