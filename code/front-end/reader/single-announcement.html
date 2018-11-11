@@ -82,7 +82,7 @@
         			<div class="col-lg-12 col-12">
         				<div class="wn__single__product">
         					<div class="row">
-        						
+        						<h5 id='date' style="font-weight: 300">date</h5>
         						<div class="col-lg-12 col-12">
         							<div class="product__info__main">
         								<h4 id='content' style="font-weight: 300"><center>Just a moment</center></h4>
@@ -118,6 +118,10 @@
             if (ann.content != null) {
                 var content = document.getElementById('content');
                 content.innerHTML = ann.content;
+            }
+            if (ann.date != null) {
+                var date = document.getElementById('date');
+                date.innerHTML = ann.date.toLocaleString().substr(0, 10);
             }
 
         }

@@ -163,8 +163,8 @@
                                 Subject
                             </label>
                             <div class="am-u-sm-8 am-u-end">
-                                <input id="subject" required="" placeholder="Enter a description about the book" value=""
-                                    name="book-subject" type="text">
+                                <textarea id="subject" rows="12" required="" placeholder="Enter a description about the book" value=""
+                                    name="book-subject"></textarea>
                                 <small id="helpRole">Please briefly describe the book.</small>
                             </div>
                         </div>
@@ -288,8 +288,6 @@
             location.href = location.href;
         }
         data.total_number = parseInt($("#number").val());
-
-
         data.figure = picture;
         socket.emit("editBook", data);
     }
@@ -355,7 +353,7 @@
         }
 
         if (data.subject != null) {
-            $("#subject").attr("value", data.subject);
+            $("#subject").val( data.subject);
         }
 
         if (data.total_number != null) {
