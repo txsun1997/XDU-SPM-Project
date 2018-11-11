@@ -74,22 +74,23 @@
 
 
 	socket.on("updateAdminPasswordSuccess", function () {
-		window.alert("Your password has been successfully updated.");
+		alert("Your password has been successfully updated.");
 	});
 
 	function updateAdminPassword() {
 		var data = {};
 		data.username = Cookies.get("username");
+		if ($("#doc-vld-pwd-1").val() == "" || $("#doc-vld-pwd-2").val() == "") {
+			alert("Can't have null value.");
+			return;
+		}
 		if ($("#doc-vld-pwd-1").val() == $("#doc-vld-pwd-2").val()) {
 			data.password = $("#doc-vld-pwd-1").val();
 			socket.emit("updateAdminPassword", data);
 		} else {
-			window.alert("Your new password and repeat password is not consistent.");
+			alert("Your new password and repeat password is not consistent.");
 		}
 	}
-
-
-
 
 </script>
 

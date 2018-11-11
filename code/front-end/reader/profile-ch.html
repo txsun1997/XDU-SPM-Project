@@ -118,7 +118,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="inputgender" class="col-sm-2 control-label">Gender</label>
+                                            <label for="inputgender" class="col-sm-2 control-label">性别</label>
                                             <div class="col-sm-6">
                                                  <div class="radio3 radio-check radio-inline">
                                                  <input type="radio" id="radio4" name="radio2" value="Male" checked="" onclick="return false;">
@@ -134,12 +134,20 @@
                                             </div>
                                         </div>                                        
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="inputtel" class="col-sm-2 control-label">电话</label>
+                                            <div class="col-sm-6">
+                                                <input type="tel" class="form-control" id="inputtel" readonly="readonly">
+                                            </div>
+                                        </div>
+
                                         <div class="form-group">
                                             <label for="inputemail" class="col-sm-2 control-label">邮箱</label>
                                             <div class="col-sm-6">
                                                 <input type="email" class="form-control" id="inputemail" value="">
                                             </div>
-                                        </div>                                
+                                        </div>                       
                                     
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
@@ -193,13 +201,26 @@
         }
         function save(){
 
-            updataInfo.reader_id = $('#inputID').val();
-            updataInfo.phone = $('#inputtel').val();
-            updataInfo.email = $('#inputemail').val();
+            var email_val = $('#inputemail').val();
 
-            var profile_auth = auth_data;
-            profile_auth.req = 'updateProfile';
-            socket.emit('sessionAuth',profile_auth);
+            if(email_val.length == 0) {
+                window.alert("邮箱不能为空！");
+                return;
+            } else {
+                var reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+.[a-zA-Z0-9_-]+$/;
+                var res = reg.test(email_val);
+                if(!res) {
+                    window.alert("邮箱的格式不正确!")
+                } else {
+                    updataInfo.reader_id = $('#inputID').val();
+                    updataInfo.phone = $('#inputtel').val();
+                    updataInfo.email = $('#inputemail').val();
+
+                    var profile_auth = auth_data;
+                    profile_auth.req = 'updateProfile';
+                    socket.emit('sessionAuth',profile_auth);
+                }
+            }
         }
         function reset(){
             socket.emit('getReaderInfo',auth_data);
@@ -234,7 +255,7 @@
             }
         });
         socket.on("updateReaderInfoSuccess", function () {
-            window.alert("Successfully Updated.");
+            window.alert("更新成功！");
         });
         
         socket.emit('sessionAuth',auth_data); 

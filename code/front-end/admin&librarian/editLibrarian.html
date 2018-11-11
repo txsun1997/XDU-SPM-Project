@@ -47,7 +47,8 @@
 								Phone
 							</label>
 							<div class="am-u-sm-8 am-u-end">
-								<input id="phone" required="" placeholder="Enter librarian's phone." value="" name="userPhone" type="text">
+								<input id="phone" required="" maxlength="11" placeholder="Enter librarian's phone." oninput="value=value.replace(/[^\d]/g,'')"
+									   value="" name="userPhone" type="text">
 							</div>
 						</div>
 						<div class="am-form-group">
@@ -94,6 +95,16 @@
 		else data.gender = "Female";
 		data.phone = $("#phone").val();
 		data.email = $("#email").val();
+        if ($("#phone").val().length!=11) {
+            alert("Phone is invalid!");
+            return;
+        }
+        var myreg2 = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        if(!myreg2.test($("#email").val()))
+        {
+            alert("Email address is invalid!");
+            return;
+        }
 		socket.emit("editLibrarianRole", data);
 	}
 

@@ -154,6 +154,17 @@
         var data = {};
         data.oldtype = Cookies.get("cur_type");
         data.newtype = $("#type_name").val();
+        if($("#type_name").val()=="")
+        {
+            alert('Type cannot be null');
+            return;
+        }
+        var myreg = /^[a-zA-Z]*$/;
+        if(!myreg.test($("#type_name").val()))
+        {
+            alert('Please enter the correct type format.');
+            return;
+        }
         socket.emit("editbookType", data);
     }
 
