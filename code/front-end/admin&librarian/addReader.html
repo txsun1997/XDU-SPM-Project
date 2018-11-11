@@ -43,15 +43,16 @@
 							</div>
 						</div>
 						<div class="am-form-group">
-							<label for="user-name" class="am-u-sm-3 am-form-label" style="text-align: right">
+							<label for="phone" class="am-u-sm-3 am-form-label" style="text-align: right">
 								Phone
 							</label>
 							<div class="am-u-sm-8 am-u-end">
-								<input id="phone" required="" placeholder="Enter reader's phone." value="" name="userPhone" type="text">
+								<input id="phone" required="" maxlength="11" placeholder="Enter reader's phone." oninput="value=value.replace(/[^\d]/g,'')"
+									   value="" name="userPhone" type="text">
 							</div>
 						</div>
 						<div class="am-form-group">
-							<label for="user-name" class="am-u-sm-3 am-form-label" style="text-align: right">
+							<label for="email" class="am-u-sm-3 am-form-label" style="text-align: right">
 								Email
 							</label>
 							<div class="am-u-sm-8 am-u-end">
@@ -60,7 +61,7 @@
 						</div>
 						<div class="am-form-group">
 							<div class="am-u-sm-9 am-u-sm-push-3">
-								<button onclick="addRole()" class="am-btn am-btn-success">ADD</button>
+								<button onclick="checkinput()" class="am-btn am-btn-success">ADD</button>
 							</div>
 						</div>
 					</form>
@@ -87,6 +88,20 @@
 		Cookies.set("update", "true");
 	});
 
+	function checkinput(){
+         //    /^[1][3,4,5,7,8][0-9]{9}$/
+        if ($("#phone").val().length!=11) {
+            alert("Phone is invalid!");
+            return;
+        }
+        var myreg2 = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        if(!myreg2.test($("#email").val()))
+        {
+            alert("Email address is invalid!");
+            return;
+        }
+        addRole();
+	}
 	function addRole() {
 		var data = {};
 		data.name = $("#roleName").val();

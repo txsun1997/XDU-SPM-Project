@@ -47,7 +47,7 @@
 								Phone
 							</label>
 							<div class="am-u-sm-8 am-u-end">
-								<input id="phone" readonly="readonly" required="" placeholder="Enter librarian's phone." value="" name="userPhone" type="text">
+								<input id="phone" readonly="readonly" required="" value="" name="userPhone" type="text">
 							</div>
 						</div>
 						<div class="am-form-group">
@@ -55,7 +55,7 @@
 								Email
 							</label>
 							<div class="am-u-sm-8 am-u-end">
-								<input id="email" required="" placeholder="Enter librarian's email." value="" name="userEmail" type="text">
+								<input id="email" onblur="checkemail()" required="" placeholder="Enter librarian's email." value="" name="userEmail" type="text">
 							</div>
 						</div>
 						<div class="am-form-group">
@@ -97,6 +97,19 @@
 	data.username = Cookies.get("cur_reader_id");
 	socket.emit("getReaderInfo", data);
 
+	function checkemail() {
+        var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        if($("#email").val()=="")
+		{
+            alert("Email address can be null!");
+            return;
+		}
+        if(!myreg.test($("#email").val()))
+        {
+            alert("Email address is invalid!");
+            return;
+        }
+    }
 	function editRole() {
 		var data = {};
 		data.reader_id = Cookies.get("cur_reader_id");
@@ -105,6 +118,12 @@
 		else data.gender = "Female";
 		data.phone = $("#phone").val();
 		data.email = $("#email").val();
+        var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        if(!myreg.test($("#email").val()))
+        {
+            alert("Email address is invalid!");
+            return;
+        }
 		socket.emit("editReaderRole", data);
 	}
 
