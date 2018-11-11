@@ -81,6 +81,11 @@
         var data = {};
         data.type_name = $("#type_name").val();
         var temp = $("#type_name").val();
+        if(temp=="")
+        {
+            alert('Type cannot be null');
+            return;
+        }
         var myreg = /^[a-zA-Z]*$/;
         if(!myreg.test(temp))
         {
