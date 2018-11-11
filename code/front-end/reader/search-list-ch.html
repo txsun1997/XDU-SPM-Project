@@ -307,8 +307,6 @@
 	<script type="text/javascript">
 		var href = location.href;
 		var auth_data = {};
-
-
 		auth_data.username = Cookies.get("username");
 		auth_data.session = Cookies.get("session");
 		auth_data.type = Cookies.get("type");
@@ -316,20 +314,15 @@
 		var accMenu = document.getElementById('accMenu');
 		var accLog = document.getElementById('accLog');
 		var topMenu = document.getElementById('topMenu');
-
 		var listView = document.getElementById('listView');
 		var pageBar = document.getElementById('pageBar');
-
 		var page_scale = 3;
 		var bookList = null;
 		var logFlag = false;
 		var pageNum = 0;
 		var lastPageBookNum = 0;
-
 		var socket = io("http://139.199.112.88:2761");
-
 		function showPage(page_index) {
-
 			var now_index = Cookies.get('now_index');
 			if (now_index == page_index)
 				return;
@@ -338,7 +331,6 @@
 				if (pageBar.childNodes[i].hasAttribute('class'))
 					pageBar.childNodes[i].removeAttribute('class');
 			}
-
 			pageBar.childNodes[page_index].setAttribute('class', 'active');
 			var temp_len = listView.childNodes.length;
 			for (var i = 0; i < temp_len; i++) {
@@ -349,22 +341,19 @@
 			var img_isbn = [];
 			if (end_index > bookList.length)
 				end_index = bookList.length;
-
 			var list_title = document.getElementById('list_title');
 			list_title.innerHTML = "Showing " + (begin_index + 1) + "–" + end_index + " of " + bookList.length + " results";
-
 			for (var i = begin_index; i < end_index; i++) {
-				//window.alert('hello');
 				var item = bookList[i];
+				if(item.subject.length>500){
+					item.subject = item.subject.substring(0,500)+'...';
+				}
 				img_isbn.push(item.isbn);
-
 				var divFrame = document.createElement('div');
 				divFrame.setAttribute('class', 'list__view mt--40');
-
 				var img_thumb = document.createElement('img');
 				img_thumb.setAttribute('alt', 'product images');
 				img_thumb.setAttribute('id', 'book' + (i - begin_index));
-
 				var a_thumb = document.createElement('a');
 				a_thumb.setAttribute('name', i);
 				a_thumb.setAttribute('class', 'first__img');
@@ -373,27 +362,35 @@
 				var div_thumb = document.createElement('div');
 				div_thumb.setAttribute('class', 'thumb');
 				div_thumb.appendChild(a_thumb);
-
 				var a1 = document.createElement('a');
 				a1.setAttribute('name', i);
 				a1.setAttribute('onclick', 'show_detail(this.name)');
+				a1.setAttribute('style', 'color: rgb(23, 90, 216)');
 				a1.innerHTML = item.book_name;
-				var h1 = document.createElement('h2');
-				h1.appendChild(a1);
 
+				p_author = document.createElement('p');
+				p_author.setAttribute('style',"font-size: 15px;color: #888888; padding-left: 0px; padding-top: 5px;margin-bottom: 0px; padding-bottom: 0px");
+				p_author.innerHTML = item.author;
+
+				var h1 = document.createElement('h2');///
+				h1.setAttribute('style', 'color: rgb(23, 90, 216)');
+				h1.appendChild(a1);
 				var li_instock = document.createElement('li');
-				li_instock.innerHTML = item.available_number + ' items in stock';
+				li_instock.setAttribute('style', 'color: rgb(238, 168, 39)')
+				li_instock.innerHTML = '可借阅: ' + item.available_number;
 				var li_allbooks = document.createElement('li');
-				li_allbooks.setAttribute('class', 'old__prize');
-				li_allbooks.innerHTML = 'has all ' + item.total_number + ' book(s)';
+				li_allbooks.setAttribute('style', 'font-size: 18px; color: rgb(117, 117, 117); padding-left: 20px');
+				li_allbooks.innerHTML = '总数: ' + item.total_number;
 				var ul_booknum = document.createElement('ul');
 				ul_booknum.setAttribute('class', 'prize__box');
+				ul_booknum.setAttribute('style', 'margin-top: 0px; padding-top: 10px;');
 				ul_booknum.appendChild(li_instock);
 				ul_booknum.appendChild(li_allbooks);
 
 				var p = document.createElement('p');
+				p.setAttribute('style', 'font-size: 16px')
 				p.innerHTML = item.subject;
-/*
+				/*
 				var a2 = document.createElement('a');
 				a2.setAttribute('name', i);
 				a2.setAttribute('onclick', 'reserve(this.name)');
@@ -405,10 +402,9 @@
 				var a3 = document.createElement('a');
 				a3.setAttribute('name', i);
 				//a3.setAttribute('id','test')
-				//window.alert(a3.val());
 				a3.setAttribute('onclick', 'show_detail(this.name)');
 				//a3.innerHTML = 'Learn more';
-				a3.innerHTML = 'Reserve'
+				a3.innerHTML = '预约';
 				var li_detail = document.createElement('li');
 				li_detail.setAttribute('class', 'cart');
 				li_detail.appendChild(a3);
@@ -416,54 +412,51 @@
 				ul_buttons.setAttribute('class', 'cart__action d-flex');
 				//ul_buttons.appendChild(li_reserve);
 				ul_buttons.appendChild(li_detail);
-
 				var style = document.createElement('div');
-				style.setAttribute('style','height: 90%');
-
+				style.setAttribute('style','height: 80%');
 				var div_content = document.createElement('div');
-				div_content.setAttribute('class', 'content');
+				div_content.setAttribute('class', 'content');//<div style="height: 80%">
 				style.appendChild(h1);
+				style.appendChild(p_author);
 				style.appendChild(ul_booknum);
+
 				style.appendChild(p);
 				div_content.appendChild(style);
-
 				div_content.appendChild(ul_buttons);
-
 				divFrame.appendChild(div_thumb);
 				divFrame.appendChild(div_content);
 				listView.appendChild(divFrame);
 			}
-
 			socket.emit('getPicture', img_isbn);
 			/*
 	        						<div class="list__view mt--40">
-	        							<div class="thumb">
-	        								<a class="first__img" href="#"><img src="images/product/3.jpg" alt="product images"></a>
-	        								
-	        							</div>
-	        							<div class="content">
-	        								<h2><a href="single-product.html">A Mathematical Bridge</a></h2>
-	        								
-	        								<ul class="prize__box">
-	        									<li>5 items in stock</li>
-	        									<li class="old__prize">has borrowed 15 books</li>
-	        								</ul>
-	        								<p>some detials about this book</p>
-	        								<ul class="cart__action d-flex">
-	        									<li class="cart"><a href="#">want to read</a></li>
-	        									<li class="cart"><a href="#">learn more</a></li>
-	        								</ul>
+										<div class="thumb">
+											<a class="first__img" href="#"><img src="images/product/3.jpg" alt="product images"></a>
 
-	        							</div>
-	        						</div>
+										</div>
+										<div class="content">
+											<div style="height: 80%">
+												<!-- 在所有content下面加一个这个div -->
+												<h2><a href="single-product.html">A Mathematical Bridge</a></h2>
+
+												<ul class="prize__box">
+													<li>5 items in stock</li>
+													<li class="old__prize">has borrowed 15 books</li>
+												</ul>
+												<p>some detials about this book</p>
+										    </div>
+											<ul class="cart__action d-flex">
+												<li class="cart"><a href="#">want to read</a></li>
+												<li class="cart"><a href="#">learn more</a></li>
+											</ul>
+
+										</div>
+									</div>
 			*/
-
-		}
-
+		}		
 		function showBooks(active_page) {
 			Cookies.remove('now_index');
 			//bookList = Cookies.getJSON('bookList');
-
 			var temp_len = pageBar.childNodes.length;
 			for (var i = 0; i < temp_len; i++) {
 				pageBar.removeChild(pageBar.childNodes[0]);
@@ -493,7 +486,6 @@
 			} else if (bookList == null) {
 				//window.alert(111);
 				temp_len = listView.childNodes.length;
-
 				for (var i = 0; i < temp_len; i++) {
 					listView.removeChild(listView.childNodes[0]);
 				}
@@ -502,15 +494,12 @@
 				for (var i = 0; i < temp_len; i++) {
 					listView.removeChild(listView.childNodes[0]);
 				}
-
 			}
 		}
-
 		function noLogin() {
 			topMenu.innerHTML = '账号信息';
 			accLog.innerHTML = '登录';
 			logFlag = false;
-
 			if (accMenu != null) {
 				var parent = accMenu.parentNode;
 				parent.removeChild(parent.childNodes[0]);
@@ -518,7 +507,6 @@
 				parent.removeChild(parent.childNodes[0]);
 			}
 		}
-
 		function personConsole() {
 			socket.emit('sessionAuth', auth_data);
 			if (logFlag == false) return;	//如果检查发现登陆失效，跳转失败退出
@@ -532,13 +520,11 @@
 				noLogin();
 			}
 		}
-
 		function search() {
 			data = $('#search_content').val();
 			if (data == null) data = '';
 			socket.emit('searchReaderBooks', data);
 		}
-
 		function initSearch(){
 			data = Cookies.get('search');
 			//window.alert(data);
@@ -546,11 +532,8 @@
 			//window.alert(data);
 			socket.emit('searchReaderBooks',data);
 		}
-
 		function show_detail(index) {
-
 			var item = bookList[index];
-
 			Cookies.set('cur_book', item.isbn, { expires: 1 });
 			var test = Cookies.get('cur_book');
 			window.open('book-detail.html');
@@ -563,20 +546,17 @@
 			});
 			*/
 		}
-
 		function reserve(index) {
 			Cookies.set('cur_index', index);
 			var reserve_auth = auth_data;
 			reserve_auth.req = 'reserve';
 			socket.emit('sessionAuth', reserve_auth);
 		}
-
 		socket.on("noSession", function (data) {
 			Cookies.remove('type');
 			window.alert('Login has expired, please login again!');
 			noLogin();
 		});
-
 		socket.on('sessionSuccess', function (data) {
 			topMenu.innerHTML = auth_data.username;
 			accMenu.innerHTML = 'Console';
@@ -590,17 +570,14 @@
 		});
 		socket.on('show_search', function (data) {
 			bookList = data;
-
 			showBooks(0);
 		});
 		socket.on('showPicture', function (pic) {
 			for (var i = 0; i < pic.length; i++) {
 				var imgFrame = document.getElementById('book' + i);
-
 				imgFrame.setAttribute('src', pic[i]);
 			}
 		});
-
 		if (auth_data.type == "reader") {
 			socket.emit("sessionAuth", auth_data);
 		} else {
@@ -609,7 +586,6 @@
 		//Cookies.remove('bookList');
 		initSearch();
 		showBooks(0);
-
 	</script>
 
 </body>

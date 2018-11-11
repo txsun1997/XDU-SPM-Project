@@ -161,7 +161,7 @@
 							<input readonly="readonly" id="press" required="" value="" name="book-press" type="text">
 					</form>
 
-					<h1 style="color: #0e90d2">Borrower Information <small> / 借阅人信息</small><small style="color: #ff0000" id="fineValue" ></small></h1>
+					<h1 style="color: #0e90d2">Borrower Information <small> / 借阅人信息</small></h1>
 					<hr>
 
 					<form class="am-form">
@@ -178,6 +178,9 @@
 							</label>
 							<input readonly="readonly" id="name" required="" value="" name="borrower-name" type="text">
 					</form>
+					<hr>
+					<h1 style="color: #ff0000" id="fineValue" ></h1>
+					<hr>
 				</div>
 
 				<script src="js/jquery-1.11.3.min.js"></script>
@@ -219,7 +222,7 @@
 
 	socket.on("readerInfoForReturn", function(data){
 		$("#phone").attr("value", data.reader_id);
-		document.getElementById("fineValue").innerHTML = "            " + "本书待还金额：" + data.fine.toString() + "元";
+		document.getElementById("fineValue").innerHTML = "Fine Value of This Book: " + data.fine.toString() + " yuan";
 		$("#name").attr("value", data.name);
 	});
 
