@@ -43,7 +43,7 @@
                                 Gender
                             </label>
                             <div class="am-u-sm-8 am-u-end">
-                                <input id="male"  type="radio" name="sex" value="male" checked> Male
+                                <input id="male" type="radio" name="sex" value="male" checked> Male
                                 <br />
                                 <input id="female" type="radio" name="sex" value="female"> Female
                             </div>
@@ -89,11 +89,26 @@
     auth_data.type = Cookies.get("type");
 
     socket.on("addLibrarianRoleSuccess", function (data) {
-        window.alert("Successfully add role.\nYour ID is "+data.librarian_id+"\n"+"Your password is 00010001.");
+        window.alert("Successfully add role.\nYour ID is " + data.librarian_id + "\n" + "Your password is 00010001.");
         Cookies.set("update", "true");
     });
 
     function addRole() {
+        if ($("#roleName").val() == "" || $("#phone").val() == "" || $("#email").val() == "") {
+            alert("Can't have null value.");
+            return;
+        }
+
+        if ($("#phone").val().length != 11) {
+            alert("Phone is invalid!");
+            return;
+        }
+        var myreg2 = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        if (!myreg2.test($("#email").val())) {
+            alert("Email address is invalid!");
+            return;
+        }
+
         var data = {};
         data.name = $("#roleName").val();
         if (document.getElementById("male").checked) data.gender = "Male";

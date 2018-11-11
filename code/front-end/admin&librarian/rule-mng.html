@@ -178,6 +178,16 @@
 
 	function editRule() {
 		var data = {};
+
+		if($("#period").val() == "" || $("#deposit").val() == "" || $("#maxnum").val() == "" || $("#reservation").val() == "" || $("#fine-value").val() == ""){
+			alert("Can't have null value.");
+			return;
+		}
+		if(parseInt($("#period").val()) == 0 || parseInt($("#reservation").val()) == 0){
+			alert("Can't be zero.");
+			return;
+		}
+
 		if ($("#period").val() != null) {
 			data.limit = parseInt($("#period").val());
 		}
