@@ -199,42 +199,32 @@
         socket.on('showReserveList', function (data) {
             //window.alert(JSON.stringify(data));
             table = $('#dataTables-example').DataTable();
+            //window.alert(JSON.stringify(data));
             for (var i = 0; i < data.length; i++) {
+                var showItem = [];
                 var reserve_time = new Date(data[i].reserve_time);
                 reserve_time = reserve_time.getFullYear() + '-' + (reserve_time.getMonth() + 1) + '-' + reserve_time.getDate() + ' ' + reserve_time.getHours() + ':' + reserve_time.getMinutes() + ':' + reserve_time.getSeconds();
 
-                var item = { isbn: data[i].isbn, index: i, time: reserve_time, status: data[i].status, bar_code: data[i].bar_code };
-                socket.emit('getReserveItem', item);
+                showItem.push(data[i].book_name);
+                showItem.push(data[i].author); 
+                showItem.push(data[i].press);
+                showItem.push(data[i].publish_year);
+                showItem.push(data[i].isbn);
+                showItem.push(data[i].bar_code);
+                showItem.push(reserve_time);
+                if (data[i].status == true) {
+                    btn = '<button name="' + data[i].isbn + '" onclick="cancelReserve(this.name)">Cancel</button>';
+                } else {
+                    btn = 'inValid';
+                }
+                showItem.push(btn);
+                table.row.add(showItem).draw();
+                
             }
-
-        });
-        socket.on('showReserveItem', function (data) {
-            var book = data.book;
-            var index = data.index;
-
-            var showItem = [];
-            showItem.push(book.book_name);
-
-            showItem.push(book.author);
-            showItem.push(book.press);
-
-            showItem.push(book.publish_year);
-            showItem.push(book.isbn);
-            showItem.push(data.bar_code)
-            showItem.push(data.time);
-
-            var btn = null;
-            if (data.status == true) {
-                btn = '<button name="' + book.isbn + '" onclick="cancelReserve(this.name)">Cancel</button>';
-            } else {
-                btn = 'inValid';
-            }
-
-            showItem.push(btn);
-            //window.alert(showItem);
-            table.row.add(showItem).draw();
             table.order([[7, 'asc'], [6, 'desc']]).draw();
+
         });
+
         socket.on('cancelSuccess', function (data) {
             window.alert('cancel success!');
             location.reload();

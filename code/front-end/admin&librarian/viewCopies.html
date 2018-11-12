@@ -108,6 +108,9 @@
             var location = document.createElement('td');
             location.innerHTML = item.location;
 
+            var br = document.createElement('td');
+            br.innerHTML = item.br;
+
             var status = document.createElement('td');
             var status_span = document.createElement('span');
             if(item.status == "available"){
@@ -150,6 +153,7 @@
 
             obj.appendChild(barcode);
             obj.appendChild(location);
+            obj.appendChild(br);
             obj.appendChild(status);
             obj.appendChild(detail);
 
