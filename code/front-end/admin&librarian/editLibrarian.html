@@ -99,6 +99,11 @@
             alert("Phone is invalid!");
             return;
         }
+        if(!(data.name).trim())
+		{
+            alert("Please input librarian's name!");
+            return;
+		}
         var myreg2 = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
         if(!myreg2.test($("#email").val()))
         {
