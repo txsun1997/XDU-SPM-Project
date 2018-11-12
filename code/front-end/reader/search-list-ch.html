@@ -554,7 +554,7 @@
 		}
 		socket.on("noSession", function (data) {
 			Cookies.remove('type');
-			window.alert('Login has expired, please login again!');
+			window.alert('登录已过期，请重新登录!');
 			noLogin();
 		});
 		socket.on('sessionSuccess', function (data) {
@@ -565,7 +565,7 @@
 		});
 		socket.on("sessionFailed", function (data) {
 			Cookies.remove('type');
-			window.alert('Login has expired, please login again!');
+			window.alert('登录已过期，请重新登录!');
 			noLogin();
 		});
 		socket.on('show_search', function (data) {
