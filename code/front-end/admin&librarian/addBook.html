@@ -270,7 +270,7 @@
 		var filename = src.value;
 		var index = filename.substring(filename.lastIndexOf('.') + 1);
 
-		if (index != "jpeg" && index != "jpg" && index != "png" && index != "gif" && index != "bmp") {
+		if (index.toLowerCase() != "jpeg" && index.toLowerCase() != "jpg" && index.toLowerCase() != "png" && index.toLowerCase() != "gif" && index.toLowerCase() != "bmp") {
 			alert("Only .jpeg .jpg .png .gif and .bmp file is supported.");
 			location.href = location.href;
 		};
