@@ -59,9 +59,6 @@
 												PUBLISHER
 											</th>
 											<th>
-												YEAR
-											</th>
-											<th>
 												CATEGORY
 											</th>
 											<th>
@@ -176,8 +173,6 @@
 			author.innerHTML = item.author;
 			var press = document.createElement('td');
 			press.innerHTML = item.press;
-			var year = document.createElement('td');
-			year.innerHTML = item.publish_year;
 			var type = document.createElement('td');
 			type.innerHTML = item.type;
 			var avail = document.createElement('td');
@@ -245,7 +240,6 @@
 			obj.appendChild(bookname);
 			obj.appendChild(author);
 			obj.appendChild(press);
-			obj.appendChild(year);
 			obj.appendChild(type);
 			obj.appendChild(avail);
 			obj.appendChild(isbn);
