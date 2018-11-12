@@ -200,10 +200,10 @@
                 window.alert("邮箱不能为空！");
                 return;
             } else {
-                var reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+.[a-zA-Z0-9_-]+$/;
+                var reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
                 var res = reg.test(email_val);
                 if(!res) {
-                    window.alert("邮箱的格式不正确!")
+                    window.alert("邮箱格式不正确!")
                 } else {
                     updataInfo.reader_id = $('#inputID').val();
                     updataInfo.phone = $('#inputtel').val();
@@ -219,7 +219,7 @@
             socket.emit('getReaderInfo',auth_data);
         }
         socket.on("noSession", function (data) {
-            window.alert("Login has expired, please login again!");
+            window.alert("登录已过期，请重新登录!");
             Cookies.remove('type');
             location.href = location.href.replace("profile-ch.html","index-ch.html");
         });
@@ -229,7 +229,7 @@
             }
         });
         socket.on("sessionFailed", function (data) {
-            window.alert("User name type is inconsistent, please login again!");
+            window.alert("登录已过期，请重新登录!");
             Cookies.remove('type');
             location.href = location.href.replace("profile-ch.html","index-ch.html");
         });

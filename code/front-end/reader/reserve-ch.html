@@ -180,13 +180,13 @@
             socket.emit('cancelReserve',data);
         }
         socket.on("noSession", function (data) {
-            window.alert("Login has expired, please login again!");
+            window.alert("登录已过期，请重新登录!");
             Cookies.remove('type');
             location.href = location.href.replace("reserve-ch.html","index-ch.html");
         });
 
         socket.on("sessionFailed", function (data) {
-            window.alert("User name type is inconsistent, please login again!");
+            window.alert("用户类型不一致，请重新登录!");
             Cookies.remove('type');
             location.href = location.href.replace("reserve-ch.html","index-ch.html");
         });
@@ -248,7 +248,7 @@
             table.order([[7, 'asc'],[6,'desc']]).draw();
         });
         socket.on('cancelSuccess',function(data){
-            window.alert('cancel success!');
+            window.alert('取消成功!');
             location.reload();
 
         });

@@ -170,13 +170,13 @@
         }
 
         socket.on("noSession", function (data) {
-            window.alert("Login has expired, please login again!");
+            window.alert("登录已过期，请重新登录!");
             Cookies.remove('type');
             location.href = location.href.replace("history-ch.html","index.html");
         });
 
         socket.on("sessionFailed", function (data) {
-            window.alert("User name type is inconsistent, please login again!");
+            window.alert("用户类型不一致，请重新登录!");
             Cookies.remove('type');
             location.href = location.href.replace("history-ch.html","index.html");
         });

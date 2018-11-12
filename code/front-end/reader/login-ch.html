@@ -74,10 +74,10 @@
 		}	
 
 		socket.on('sendFail',function(){
-			window.alert('wrong username or email address!');
+			window.alert('用户名或邮箱地址错误！');
 		});
 		socket.on('sendSuccess',function(){
-			window.alert('send success!');
+			window.alert('发送成功!');
 		});
 
 		socket.on("LoginSuccess", function (data) {
@@ -94,11 +94,11 @@
 		});
 
 		socket.on("noUser", function () {
-			window.alert("Unregistered User!");
+			window.alert("用户未注册!");
 		});
 
 		socket.on("wrongPassword", function () {
-			window.alert("Password Error!");
+			window.alert("密码错误!");
 		});
 
 
@@ -205,7 +205,7 @@
 
 												<div class="row form-group">
 													<div class="col-md-12">
-														<input type="submit" class="btn btn-primary" onclick="loginServer()" value="登陆">
+														<input type="submit" class="btn btn-primary" onclick="loginServer()" value="登录">
 													</div>
 												</div>
 											</form>	

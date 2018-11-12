@@ -200,7 +200,7 @@
         		window.alert("email can not be empty!");
         		return;
         	} else {
-        		var reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+.[a-zA-Z0-9_-]+$/;
+        		var reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
         		var res = reg.test(email_val);
         		if(!res) {
         			window.alert("please input the right email!")

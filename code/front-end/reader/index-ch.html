@@ -262,7 +262,7 @@
 		function search() {
 			var data = $('#search-content').val();
 			Cookies.set('search',data);
-			location.href = location.href.replace('index-ch.html', 'search-list.html');
+			location.href = location.href.replace('index-ch.html', 'search-list-ch.html');
 			//socket.emit('searchReaderBooks', data);
 		}
 
@@ -298,13 +298,13 @@
 		});
 		socket.on("noSession", function (data) {
 			Cookies.remove('type');
-			window.alert('Login has expired, please login again!');
+			window.alert('账号已过期，请重新登录!');
 			noLogin();
 		});
 
 		socket.on("sessionFailed", function (data) {
 			Cookies.remove('type');
-			window.alert('Login has expired, please login again!');
+			window.alert('登录已过期，请重新登录!');
 			noLogin();
 		});
 
