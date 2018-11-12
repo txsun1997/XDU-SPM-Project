@@ -5836,15 +5836,17 @@ a.checkout__title {
   margin-left: 10px;
   padding: 0 10px; }
 .list__view {
-  display: flex; }
+  display: flex;
+  margin-left: 110px; }
   .list__view .thumb {
     flex-basis: 30%;
     overflow: hidden;
-    position: relative; }
+    position: relative;
+    margin-right: -70px; }
     .list__view .thumb a {
       display: block; }
       .list__view .thumb a img {
-        width: 100%; }
+        width: 70%; }
       .list__view .thumb a.second__img {
         left: 0;
         opacity: 0;
