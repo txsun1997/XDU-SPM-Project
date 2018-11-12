@@ -49,16 +49,16 @@
                             </div>
                         </div>
                         <div class="am-form-group">
-                            <label for="user-name" class="am-u-sm-3 am-form-label" style="text-align: right">
+                            <label for="phone" class="am-u-sm-3 am-form-label" style="text-align: right">
                                 Phone
                             </label>
                             <div class="am-u-sm-8 am-u-end">
-                                <input id="phone" required="" placeholder="Enter librarian's phone." value="" name="userPhone"
-                                    type="text">
+                                <input id="phone" required="" maxlength="11" placeholder="Enter librarian's phone." oninput="value=value.replace(/[^\d]/g,'')"
+                                       value="" name="userPhone" type="text">
                             </div>
                         </div>
                         <div class="am-form-group">
-                            <label for="user-name" class="am-u-sm-3 am-form-label" style="text-align: right">
+                            <label for="email" class="am-u-sm-3 am-form-label" style="text-align: right">
                                 Email
                             </label>
                             <div class="am-u-sm-8 am-u-end">
@@ -94,8 +94,8 @@
     });
 
     function addRole() {
-        if ($("#roleName").val() == "" || $("#phone").val() == "" || $("#email").val() == "") {
-            alert("Can't have null value.");
+        if (!($("#roleName").val()).trim()) {
+            alert("Please input librarian's name!");
             return;
         }
 
