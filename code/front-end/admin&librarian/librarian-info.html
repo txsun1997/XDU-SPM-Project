@@ -43,10 +43,10 @@
 		<!-- content start -->
 		<div class="admin-content">
 			<div class="admin-content-body">
-					<div class="am-cf am-padding" style="padding-top: 70px">
-							<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" style="font-size: 25px">Personal Information</strong>
-								/ 个人信息</div>
-						</div>
+				<div class="am-cf am-padding" style="padding-top: 70px">
+					<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" style="font-size: 25px">Personal Information</strong>
+						/ 个人信息</div>
+				</div>
 				<div class="am-g">
 					<form class="am-form am-form-horizontal" style="margin-left: -300px;margin-top: 10px;" method="post" style="padding-top:30px;"
 					 data-am-validator>
@@ -130,10 +130,25 @@
 		});
 
 		function updateLibrarianInfo() {
+			if ($("#phone").val().length != 11) {
+				alert("Phone is invalid!");
+				return;
+			}
+			var myreg2 = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+			if (!myreg2.test($("#email").val())) {
+				alert("Email address is invalid!");
+				return;
+			}
+
 			var data = {};
 			data.librarian_id = $("#account").val();
 			data.phone = $("#phone").val();
 			data.email = $("#email").val();
+			if (data.librarian_id == "" || data.phone == "" || data.email == "") {
+				alert("Can not have null value.");
+				return;
+			}
+
 			socket.emit("updateLibrarianInfo", data);
 		}
 	</script>
