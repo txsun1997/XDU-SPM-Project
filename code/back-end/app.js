@@ -105,10 +105,10 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 							dbase.collection('reader').find({ "reader_id": doc1[i].reader_id }).toArray(function (err2, doc2) {
 								email_data.email = doc2[0].email;
 								server.send({
-									text: "The book " + email_data.book_name + " has overdued. Please return your book, or you will be fined 1 cent per day.",       //邮件内容
+									text: "The book " + email_data.book_name + " has expired. Please return your book, or you will be fined 1 cent per day.",       //邮件内容
 									from: "cjiang_5@stu.xidian.edu.cn",        //谁发送的
 									to: email_data.email,       //发送给谁的
-									subject: "receiveAlert"          //邮件主题
+									subject: "overdueNotice "          //邮件主题
 								}, function (err, message) {
 									console.log(err || message);
 								});
@@ -118,6 +118,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				});
 			});
 		});
+
 
 		//author: wanglei, usage: login part for user.
 		socket.on('login', function (data) {
@@ -1019,13 +1020,16 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 														dbase.collection('copies').updateOne({ bar_code: parseInt(data.bar_code) }, { $set: { status: 'reserved' } });
 														dbase.collection("reader").updateOne({ reader_id: data.reader_id }, { $set: { borrowNum: doc1.length + doc6.length + 1 } });
 														dbase.collection('books').updateOne({ isbn: data.isbn }, { $set: { available_number: availList.length - 1 } });
-														dbase.collection('reserve').insertOne({ reader_id: data.reader_id, isbn: data.isbn, reserve_time: ms_time, bar_code: parseInt(data.bar_code), status: true }, function (Err, res) {
-															dbase.collection('copies').find({ bar_code: data.bar_code }).toArray(function (err7, doc7) {
-																if (doc7.length == 0) return;
-																var copyInfo = { location: doc7[0].location, bar_code: parseInt(data.bar_code) };
-																socket.emit("reserveSuccess", copyInfo);
+														dbase.collection('books').find({ isbn: data.isbn }).toArray(function (err8, doc8) {
+															dbase.collection('reserve').insertOne({ reader_id: data.reader_id, isbn: data.isbn, reserve_time: ms_time, bar_code: parseInt(data.bar_code), status: true, book_name: doc8[0].book_name, author: doc8[0].author, press: doc8[0].press, publish_year: doc8[0].publish_year }, function (Err, res) {
+																dbase.collection('copies').find({ bar_code: data.bar_code }).toArray(function (err7, doc7) {
+																	if (doc7.length == 0) return;
+																	var copyInfo = { location: doc7[0].location, bar_code: parseInt(data.bar_code) };
+																	socket.emit("reserveSuccess", copyInfo);
+																});
 															});
 														});
+
 													} else {
 														dbase.collection('copies').updateOne({ bar_code: parseInt(availList[i].bar_code) }, { $set: { status: 'available' } });
 													}
@@ -1054,21 +1058,12 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 			dbase.collection("config").find({ "varname": "config" }).toArray(function (err, config) {
 				dbase.collection('reserve').updateMany({ reader_id: reader_id, reserve_time: { $lt: ms_time - config[0].reserve * 60 * 60000 } }, { $set: { status: false } }, function (err, doc) {
 					dbase.collection('reserve').find({ reader_id: reader_id }).toArray(function (err1, doc1) {
-						doc1 = doc1.sort(function (a, b) {
-							return a.reserve_time < b.reserve_time;
-						});
 						socket.emit('showReserveList', doc1);
 					});
 				});
 			});
 		});
 
-		socket.on('getReserveItem', function (data) {
-			dbase.collection("books").find({ isbn: data.isbn }).toArray(function (err, doc) {
-				delete doc[0].figure;
-				socket.emit('showReserveItem', { book: doc[0], index: data.index, time: data.time, status: data.status, bar_code: data.bar_code });
-			});
-		});
 
 		socket.on('cancelReserve', function (data) {
 			data.status = true;
