@@ -109,17 +109,18 @@
             location.innerHTML = item.location;
 
             var br = document.createElement('td');
-            br.innerHTML = item.br;
+            br.setAttribute("id", item.bar_code.toString());
+            br.innerHTML = "-";
 
             var status = document.createElement('td');
             var status_span = document.createElement('span');
-            if(item.status == "available"){
+            if (item.status == "available") {
                 status_span.setAttribute('class', 'am-badge am-badge-success');
             }
-            if(item.status == "reserved"){
+            if (item.status == "reserved") {
                 status_span.setAttribute('class', 'am-badge am-badge-danger');
             }
-            if(item.status == 'borrowed'){
+            if (item.status == 'borrowed') {
                 status_span.setAttribute('class', 'am-badge am-badge-secondary')
             }
             status_span.innerHTML = item.status;
@@ -169,8 +170,21 @@
             }
             for (var i = 0; i < data.copy_list.length; i++) {
                 addCopyItem(data.copy_list[i], i);
+                if (data.copy_list[i].status == "reserved") {
+                    socket.emit("getCopyReserve", data.copy_list[i].bar_code);
+                } else if (data.copy_list[i].status == "borrowed") {
+                    socket.emit("getCopyBorrow", data.copy_list[i].bar_code);
+                }
             }
         });
+
+        socket.on("copyReserve", function (data) {
+            document.getElementById(data.bar_code).innerHTML = data.person;
+        });
+
+        socket.on("copyBorrow", function (data) {
+            document.getElementById(data.bar_code).innerHTML = data.person;
+        })
 
         setInterval(function () {
             if (Cookies.get("copyUpdate") == "true") {
