@@ -35,6 +35,9 @@
                                                 Location
                                             </th>
                                             <th>
+                                                Borrower/Reserver
+                                            </th>
+                                            <th>
                                                 Status
                                             </th>
                                             <th>
@@ -106,8 +109,18 @@
             location.innerHTML = item.location;
 
             var status = document.createElement('td');
-            status.innerHTML = item.status;
-
+            var status_span = document.createElement('span');
+            if(item.status == "available"){
+                status_span.setAttribute('class', 'am-badge am-badge-success');
+            }
+            if(item.status == "reserved"){
+                status_span.setAttribute('class', 'am-badge am-badge-danger');
+            }
+            if(item.status == 'borrowed'){
+                status_span.setAttribute('class', 'am-badge am-badge-secondary')
+            }
+            status_span.innerHTML = item.status;
+            status.appendChild(status_span);
 
             var btnDelete = document.createElement('button');
             btnDelete.innerHTML = 'BARCODE';
