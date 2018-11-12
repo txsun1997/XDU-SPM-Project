@@ -262,11 +262,11 @@
         var data = {};
 
         if (picture == "") { alert("Please insert a picture."); return; }
-		if ($("#title").val() == "") { alert("Title is desired."); return; }
+		if (!($("#title").val()).trim()) { alert("Title is desired."); return; }
 		if ($("#price").val() == "") { alert("Price is desired."); return; }
-		if ($("#authors").val() == "") { alert("Author is desired."); return; }
-		if ($("#press").val() == "") { alert("Press is desired."); return; }
-		if ($("#number").val() == "") { alert("Number is desired."); return; }
+		if (!($("#authors").val()).trim()) { alert("Author is desired."); return; }
+		if (!($("#press").val()).trim()) { alert("Publisher is desired."); return; }
+		if ($("#number").val() == "") { alert("Copies Number is desired."); return; }
 		if ($("#year").val() == "") { alert("Year is desired."); return; }
 		if ($("#subject").val() == "") { alert("Subject is desired."); return; }
 		if ($("#pages").val() == "") { alert("Pages is desired."); return; }
