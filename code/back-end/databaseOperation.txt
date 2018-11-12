@@ -1,0 +1,61 @@
+//进入数据库命令行交互
+mongo 
+
+//用数据库Bibliosoft，没有会自动创建
+use Bibliosoft
+
+//建表
+db.createCollection("admin")
+db.createCollection("restorePassword")
+
+//删表
+db.getCollection("config").drop()
+
+//查表
+db.getCollection("books").find();
+
+//插值
+db.getCollection("accounts").insert({"username":"admin", "password": "admin", "type": "admin"})
+
+db.getCollection("location").insert({location: "1-01-01"})
+db.getCollection("location").insert({location: "1-01-02"})
+
+db.getCollection("type").insert({type: "Music"});
+db.getCollection("type").insert({type: "Art"});
+db.getCollection("type").insert({type: "Science"});
+
+db.getCollection("globalVar").insert({var_name:"bar_code", "bar_code": 7563287654293});
+db.getCollection("globalVar").insert({var_name:"librarian", "librarian":  1000020});
+
+db.getCollection("config").insert({varname:"config", "security":300, "limit": 30, "exceed": 1, "maxnum": 3, "reserve": 2});
+
+//板
+db.getCollection("accounts").drop()
+db.getCollection("admin").drop()
+db.getCollection("librarian").drop()
+db.getCollection("reader").drop()
+db.getCollection("books").drop()
+db.getCollection("copies").drop()
+db.getCollection("borrows").drop()
+db.getCollection("reserve").drop()
+db.getCollection("session").drop()
+db.getCollection("librarianOperation").drop()
+db.getCollection("income").drop()
+db.getCollection("news").drop()
+db.getCollection("restorePassword").drop()
+
+db.createCollection("accounts")
+db.createCollection("admin")
+db.createCollection("librarian")
+db.createCollection("reader")
+db.createCollection("books")
+db.createCollection("copies")
+db.createCollection("borrows")
+db.createCollection("reserve")
+db.createCollection("session")
+db.createCollection("librarianOperation")
+db.createCollection("income")
+db.createCollection("news")
+db.createCollection("restorePassword")
+
+db.getCollection("accounts").insert({"username":"admin", "password": "admin", "type": "admin"})
