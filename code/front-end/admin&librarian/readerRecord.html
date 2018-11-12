@@ -52,6 +52,9 @@
 											<th>
 												FINE VALUE
 											</th>
+											<th>
+												STATUS
+											</th>
 										</tr>
 
 									</thead>
@@ -109,12 +112,28 @@
 			var fine = document.createElement('td');
 			fine.innerHTML = item.fine;
 
+			var bstatus=document.createElement('td');
+			if(item.fine>0) {
+                var status_span=document.createElement('span');
+                if (item.status == true) {
+                    status_span.setAttribute("class", "am-badge am-badge-success");
+                    status_span.innerHTML="PAYED";
+                }
+                else {
+                    status_span.setAttribute("class", "am-badge am-badge-danger");
+                    status_span.innerHTML = "UNPAYED";
+                }
+                bstatus.appendChild(status_span);
+            }
+            else {
+                bstatus.innerHTML = "-";
+                 }
 			obj.appendChild(book_name);
 			obj.appendChild(bar_code);
 			obj.appendChild(btime);
 			obj.appendChild(rtime);
 			obj.appendChild(fine);
-
+            obj.appendChild(bstatus);
 			var parent = document.getElementById('tUser');
 			parent.appendChild(obj);
 		}
@@ -134,7 +153,7 @@
 			}
 			var number = 0;
 			for (var i = 0; i < data.length; i++) {
-				if (data[i].status = false)
+				if (data[i].status == false)
 					number = number + data[i].fine;
 			}
 

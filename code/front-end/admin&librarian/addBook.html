@@ -270,7 +270,7 @@
 		var filename = src.value;
 		var index = filename.substring(filename.lastIndexOf('.') + 1);
 
-		if (index != "jpeg" && index != "jpg" && index != "png" && index != "gif" && index != "bmp") {
+		if (index.toLowerCase() != "jpeg" && index.toLowerCase() != "jpg" && index.toLowerCase() != "png" && index.toLowerCase() != "gif" && index.toLowerCase() != "bmp") {
 			alert("Only .jpeg .jpg .png .gif and .bmp file is supported.");
 			location.href = location.href;
 		};
@@ -351,11 +351,11 @@
 	function printBarcode() {
 		var data = {};
 		if (picture == "") { alert("Please insert a picture."); return; }
-		if ($("#title").val() == "") { alert("Title is desired."); return; }
+		if (!($("#title").val()).trim()) { alert("Title is desired."); return; }
 		if ($("#price").val() == "") { alert("Price is desired."); return; }
-		if ($("#authors").val() == "") { alert("Author is desired."); return; }
-		if ($("#press").val() == "") { alert("Press is desired."); return; }
-		if ($("#number").val() == "") { alert("Number is desired."); return; }
+		if (!($("#authors").val()).trim()) { alert("Author is desired."); return; }
+		if (!($("#press").val()).trim()) { alert("Publisher is desired."); return; }
+		if ($("#number").val() == "") { alert("Copies Number is desired."); return; }
 		if ($("#year").val() == "") { alert("Year is desired."); return; }
 		if ($("#subject").val() == "") { alert("Subject is desired."); return; }
 		if ($("#pages").val() == "") { alert("Pages is desired."); return; }

@@ -68,11 +68,11 @@
         var data = {};
         data.title = $("#title").val();
         data.content = $("#content").val();
-        if ($("#title").val() == "") {
+        if (!($("#title").val()).trim()) {
             window.alert("Please input announcement title!");
             return;
         }
-        if ($("#content").val() == "") {
+        if (!($("#content").val()).trim()) {
             window.alert("Please input announcement content!");
             return;
         }
