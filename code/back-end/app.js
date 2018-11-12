@@ -33,10 +33,44 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 	dbase = db.db("Bibliosoft");
 	console.log("Required database has been successfully accessed.");
 
+	function checkAndUpdate(res, i, length) {
+		if (i == length) return 0;
+		var index = 0;
+		var p1 = dbase.collection('reserve').updateOne({ bar_code: res[i].bar_code, status: true }, { $set: { status: false } });
+		var p2 = p1.then(dbase.collection('books').find({ isbn: res[i].isbn }).toArray(function (err1, res1) {
+			test.equal(null, err1);
+			if (res1.length == 0) return;
+			var p3 = dbase.collection('books').updateOne({ isbn: res[i].isbn }, { $set: { available_number: res1[0].available_number + 1 } });
+			var p4 = p3.then(dbase.collection('copies').updateOne({ bar_code: res[i].bar_code }, { $set: { status: "available" } }));
+			var p5 = p4.then(dbase.collection('reader').find({ reader_id: res[i].reader_id }).toArray(function (err2, res2) {
+				test.equal(null, err2);
+				if (res2.length == 0) return;
+				var p6 = dbase.collection('reader').updateOne({ reader_id: res[i].reader_id }, { $set: { borrowNum: res2[0].borrowNum - 1 } });
+				p6.then(checkAndUpdate(res, i + 1, length));
+			}));
+		}));
+	}
+
+	setInterval(function () {
+		var cur_time = new Date();
+		var ms_time = cur_time.getTime();
+		dbase.collection('config').find({ varname: 'config' }).toArray(function (err0, doc0) {
+			test.equal(null, err0);
+			var reserve = doc0[0].reserve;
+			dbase.collection('reserve').find({ status: true, reserve_time: { $lt: ms_time - 60000 * reserve * 60 } }).toArray(function (err, res) {
+				test.equal(null, err);
+				if (res.length == 0) return;
+				checkAndUpdate(res, 0, res.length);
+			});
+		});
+	}, 60000);
+
+
+
 	var email = require("emailjs");
 	var server = email.server.connect({
 		user: "cjiang_5@stu.xidian.edu.cn",      // 你的QQ用户
-		password: "",           // 注意，不是QQ密码，而是刚才生成的授权码
+		password: "m@",           // 注意，不是QQ密码，而是刚才生成的授权码
 		host: "stumail.xidian.edu.cn",         // 主机，不改
 		ssl: false                 // 使用ssl
 	});
@@ -264,12 +298,14 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					auth_data.password = "12345678";
 					auth_data.type = "reader";
 					dbase.collection("accounts").insertOne(auth_data);
-					var auth_data1 = {};
-					auth_data1.date = new Date();
-					auth_data1.type = "deposit";
-					auth_data1.value = 300;
-					auth_data1.reader_id = data.reader_id;
-					dbase.collection("income").insertOne(auth_data1);
+					dbase.collection("config").find({ "varname": "config" }).toArray(function (err, doc1) {
+						var auth_data1 = {};
+						auth_data1.date = new Date();
+						auth_data1.type = "deposit";
+						auth_data1.value = doc1[0].security;
+						auth_data1.reader_id = data.reader_id;
+						dbase.collection("income").insertOne(auth_data1);
+					});
 				});
 			});
 		});
@@ -456,6 +492,11 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				test.equal(null, err);
 				var copy_list = {};
 				copy_list.copy_list = res;
+				for (var i = 0; i < copy_list.copy_list.length; i++) {
+					if (copy_list.copy_list[i].status == "borrowed") {
+
+					}
+				}
 				socket.emit("copyList", copy_list);
 			});
 		});
@@ -1042,7 +1083,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 							dbase.collection('copies').updateOne({ bar_code: parseInt(data.bar_code) }, { $set: { status: 'available' } });
 						}
 						dbase.collection('reader').find({ reader_id: data.reader_id }).toArray(function (err3, doc3) {
-							dbase.collection('reader').updateOne({ reader_id: data.reader_id }, { $set: { borrowNum: doc3[0].borrowNum + res.result.nModified } }, function (err4, res4) {
+							dbase.collection('reader').updateOne({ reader_id: data.reader_id }, { $set: { borrowNum: doc3[0].borrowNum - res.result.nModified } }, function (err4, res4) {
 								socket.emit('cancelSuccess');
 							});
 						});
@@ -1204,14 +1245,14 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 			var type = data.type;
 			var cursor;
 			if (data.origin) {
-				cursor = dbase.collection("income").find({}).sort({ "date": 1 });
+				cursor = dbase.collection("income").find({}).sort({ "date": -1 });
 			}
 			else {
 				var start = data.start;
 				var end = data.end;
 				var start_date = new Date(start.replace(/-/, "/"));
 				var end_date = new Date(end.replace(/-/, "/"));
-				cursor = dbase.collection("income").find({ "date": { $gte: start_date, $lte: end_date } }).sort({ "date": 1 });
+				cursor = dbase.collection("income").find({ "date": { $gte: start_date, $lte: end_date } }).sort({ "date": -1 });
 			}
 			cursor.toArray(function (err, doc) {
 				var retdata = {};
@@ -1451,6 +1492,40 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					var result = {};
 					result.scr = doc[0].security;
 					socket.emit("security", result);
+				}
+			});
+		});
+
+		socket.on("getCopyBorrow", function (data) {
+			dbase.collection("borrows").find({ bar_code: data, status: false }).toArray(function (err, doc) {
+				test.equal(null, err);
+				if (doc.length != 0) {
+					var result = {};
+					dbase.collection("reader").find({ reader_id: doc[0].reader_id }).toArray(function (err1, res1) {
+						test.equal(null, err1);
+						if (res1.length != 0) {
+							result.person = res1[0].name;
+							result.bar_code = data;
+							socket.emit("copyBorrow", result);
+						}
+					});
+				}
+			});
+		});
+
+		socket.on("getCopyReserve", function (data) {
+			dbase.collection("reserve").find({ bar_code: data, status: true }).toArray(function (err, doc) {
+				test.equal(null, err);
+				if (doc.length != 0) {
+					var result = {};
+					dbase.collection("reader").find({ reader_id: doc[0].reader_id }).toArray(function (err1, res1) {
+						test.equal(null, err1);
+						if (res1.length != 0) {
+							result.person = res1[0].name;
+							result.bar_code = data;
+							socket.emit("copyReserve", result);
+						}
+					});
 				}
 			});
 		});
