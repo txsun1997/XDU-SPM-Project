@@ -96,64 +96,79 @@
 					<form class="am-form am-form-horizontal" style="padding-top: 10px;">
 						<div class="am-form-group">
 							<label for="fine-value" class="am-u-sm-3 am-form-label">
-								Book Fine Value
+								Book Fine Value: 
 							</label>
-							<div class="am-u-sm-7 am-u-end">
+							<div class="am-u-sm-3">
 								<input id="fine-value" required="" onKeyUp="amount(this)" onBlur="overFormat(this)" value="" name="fine-value"
 								 type="text">
-								<small id="helpRole">You can set/modify book fine value (default is 1 yuan per day).</small>
+								<small id="helpRole">default is 1 yuan per day.</small>
 							</div>
+							<label for="fine-value" class="am-u-sm-3 am-form-label am-u-end" style="text-align: left">
+								yuan
+							</label>
 						</div>
 						<div class="am-form-group">
 							<label for="period" class="am-u-sm-3 am-form-label">
-								Book Return Period
+								Book Return Period: 
 							</label>
-							<div class="am-u-sm-7 am-u-end">
+							<div class="am-u-sm-3 am-u-end">
 								<input id="period" required="" maxlength="3" oninput="value=value.replace(/[^\d]/g,'')" value="" name="period"
 								 type="text">
-								<small id="helpRole">You can set/modify book return period, the unit is day (default: 30 days).</small>
+								<small id="helpRole">default: 30 days.</small>
 							</div>
-
-							<div class="am-form-group">
-								<label for="deposit" class="am-u-sm-3 am-form-label">
-									Security Deposit
-								</label>
-								<div class="am-u-sm-7 am-u-end">
-									<input id="deposit" required="" onKeyUp="amount(this)" onBlur="overFormat(this)" value="" name="deposit" type="text">
-									<small id="helpRole">You can set/modify reader security deposit (default is 300 yuan).</small>
-								</div>
+							<label for="fine-value" class="am-u-sm-3 am-form-label am-u-end" style="text-align: left">
+								days
+							</label>
+						</div>
+						<div class="am-form-group">
+							<label for="deposit" class="am-u-sm-3 am-form-label">
+								Security Deposit: 
+							</label>
+							<div class="am-u-sm-3 am-u-end">
+								<input id="deposit" required="" onKeyUp="amount(this)" onBlur="overFormat(this)" value="" name="deposit" type="text">
+								<small id="helpRole">default is 300 yuan.</small>
 							</div>
+							<label for="deposit" class="am-u-sm-3 am-form-label am-u-end" style="text-align: left">
+								yuan
+							</label>
+						</div>
 
-							<div class="am-form-group">
-								<label for="maxnum" class="am-u-sm-3 am-form-label">
-									Max Number of Books
-								</label>
-								<div class="am-u-sm-7 am-u-end">
-									<input id="maxnum" required="" maxlength="1" oninput="value=value.replace(/[^\d]/g,'')" value="" name="maxnum"
-									 type="text">
-									<small id="helpRole">Maximum number of books can be keep (default is 3).</small>
-								</div>
+						<div class="am-form-group">
+							<label for="maxnum" class="am-u-sm-3 am-form-label">
+								Max Number of Books: 
+							</label>
+							<div class="am-u-sm-3 am-u-end">
+								<input id="maxnum" required="" maxlength="1" oninput="value=value.replace(/[^\d]/g,'')" value="" name="maxnum"
+								 type="text">
+								<small id="helpRole">default is 3.</small>
 							</div>
+							<label for="deposit" class="am-u-sm-3 am-form-label am-u-end" style="text-align: left">
+								books
+							</label>
+						</div>
 
-							<div class="am-form-group">
-								<label for="deposit" class="am-u-sm-3 am-form-label">
-									Reservation Hours
-								</label>
-								<div class="am-u-sm-7 am-u-end">
-									<input id="reservation" required="" onKeyUp="amount(this)" onBlur="overFormat(this)" value="" name="reservation"
-									 type="text">
-									<small id="helpRole">You can set/modify reader reservation time (default is 2 hours).</small>
-								</div>
+						<div class="am-form-group">
+							<label for="deposit" class="am-u-sm-3 am-form-label">
+								Reservation Hours: 
+							</label>
+							<div class="am-u-sm-3 am-u-end">
+								<input id="reservation" required="" onKeyUp="amount(this)" onBlur="overFormat(this)" value="" name="reservation"
+								 type="text">
+								<small id="helpRole">default is 2 hours.</small>
 							</div>
+							<label for="deposit" class="am-u-sm-3 am-form-label am-u-end" style="text-align: left">
+								hours
+							</label>
+						</div>
 
 
-							<script src="js/jquery-1.11.3.min.js"></script>
+						<script src="js/jquery-1.11.3.min.js"></script>
 
-							<div class="am-form-group">
-								<div class="am-u-sm-9 am-u-sm-push-3">
-									<button onclick="editRule()" class="am-btn am-btn-success">UPDATE</button>
-								</div>
+						<div class="am-form-group">
+							<div class="am-u-sm-9 am-u-sm-push-3">
+								<button onclick="editRule()" class="am-btn am-btn-success">UPDATE</button>
 							</div>
+						</div>
 					</form>
 				</div>
 			</div>
@@ -178,6 +193,16 @@
 
 	function editRule() {
 		var data = {};
+
+		if ($("#period").val() == "" || $("#deposit").val() == "" || $("#maxnum").val() == "" || $("#reservation").val() == "" || $("#fine-value").val() == "") {
+			alert("Can't have null value.");
+			return;
+		}
+		if (parseInt($("#period").val()) == 0 || parseInt($("#reservation").val()) == 0) {
+			alert("Can't be zero.");
+			return;
+		}
+
 		if ($("#period").val() != null) {
 			data.limit = parseInt($("#period").val());
 		}

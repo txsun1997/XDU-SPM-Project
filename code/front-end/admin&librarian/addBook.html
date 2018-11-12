@@ -150,7 +150,9 @@
 								Year
 							</label>
 							<div class="am-u-sm-8 am-u-end">
-								<input id="year" required="" minlength="4"  oninput="value=value.replace(/[^\d]/g,'')" placeholder="Enter publication date"
+
+								<input id="year" required="" minlength="4"  maxlength="4" oninput="value=value.replace(/[^\d]/g,'')" placeholder="Enter publication date"
+
 								 value="" name="publication-year" type="text">
 								<small id="helpRole">Please enter publication date (year), e.g. 2016.</small>
 							</div>
@@ -161,8 +163,8 @@
 								Subject
 							</label>
 							<div class="am-u-sm-8 am-u-end">
-								<input id="subject" required="" placeholder="Enter a description about the book" value="" name="book-subject"
-								 type="text">
+								<textarea id="subject" rows="12" required="" placeholder="Enter a description about the book" value="" name="book-subject"
+								 type="text"></textarea>
 								<small id="helpRole">Please briefly describe the book.</small>
 							</div>
 						</div>
@@ -172,7 +174,7 @@
 								Pages
 							</label>
 							<div class="am-u-sm-8 am-u-end">
-								<input id="pages" required="" oninput="value=value.replace(/[^\d]/g,'')" placeholder="Enter the number of pages"
+								<input id="pages" required="" maxlength="5" oninput="value=value.replace(/[^\d]/g,'')" placeholder="Enter the number of pages"
 								 value="" name="book-pages" type="text">
 								<small id="helpRole">How many pages does the book have?</small>
 							</div>
@@ -194,7 +196,7 @@
 								Copies
 							</label>
 							<div class="am-u-sm-8 am-u-end">
-								<input id="number" required="" oninput="value=value.replace(/[^\d]/g,'')" placeholder="Enter the number of the publication"
+								<input id="number" required="" maxlength="2" oninput="value=value.replace(/[^\d]/g,'')" placeholder="Enter the number of the publication"
 								 value="" name="number-of-book" type="text">
 								<small id="helpRole">Please enter the number of the book.</small>
 							</div>
@@ -230,7 +232,7 @@
 							</label>
 							<div class="am-u-sm-8 am-u-end">
 								<form class="container" enctype="multipart/form-data" method="post" id='formBox' name="form">
-									<input onchange="file2base64()" type="file" id="chooseImage" name="file">
+									<input onchange="file2base64(event)" type="file" id="chooseImage" name="file">
 									<!-- 保存用户自定义的背景图片 -->
 									<img id="cropedBigImg" value='custom' alt="No pictures" data-address='' title="cover of book" />
 								</form>
@@ -262,7 +264,17 @@
 	var socket = io("http://139.199.112.88:2761");
 	var picture = "";
 
-	function file2base64() {
+
+	function file2base64(e) {
+		var src = e.target || window.event.srcElement; //获取事件源，兼容chrome/IE
+		var filename = src.value;
+		var index = filename.substring(filename.lastIndexOf('.') + 1);
+
+		if (index != "jpeg" && index != "jpg" && index != "png" && index != "gif" && index != "bmp") {
+			alert("Only .jpeg .jpg .png .gif and .bmp file is supported.");
+			location.href = location.href;
+		};
+
 		var file = document.getElementById("chooseImage").files[0];
 		var reader = new FileReader();
 		reader.readAsDataURL(file);
@@ -270,6 +282,7 @@
 			picture = reader.result;
 		}
 	}
+
 
 	function getBase64(img) {
 		function getBase64Image(img, width, height) {//width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
@@ -309,16 +322,21 @@
 	}
 
 	socket.on("addBookSuccess", function () {
-		window.alert("Add book success.");
+		alert("Add book success.");
 		Cookies.set("update", "true");
 	});
+
+	socket.on("existed", function () {
+		alert("The book associated with the ISBN has existed. ");
+		location.href = location.href;
+	})
 
 	socket.on("bookInfoOfDouban", function (data) {
 		$("#title").attr("value", data.title);
 		$("#authors").attr("value", data.author);
 		$("#press").attr("value", data.press);
 		$("#year").attr("value", data.year);
-		$("#subject").attr("value", data.subject);
+		$("#subject").val(data.subject);
 		$("#pages").attr("value", data.pages);
 		$("#price").attr("value", data.price);
 		document.getElementById("cropedBigImg").setAttribute("src", data.figure);
@@ -341,7 +359,7 @@
 		if ($("#year").val() == "") { alert("Year is desired."); return; }
 		if ($("#subject").val() == "") { alert("Subject is desired."); return; }
 		if ($("#pages").val() == "") { alert("Pages is desired."); return; }
-		if (parseInt($("#number").val()) == 0) { alert("Number must larger than 0."); return; }
+		if (parseInt($("#number").val()) == 0) { alert("Add at least 1 copy for book."); return; }
 		if ($("#typeSelect").find("option:selected").text() == "Select a Type") { alert("Please Select a Type."); return; }
 		if ($("#locationSelect").find("option:selected").text() == "Select a Location") { alert("Please Select a Location"); return; }
 		if ($("#isbn").val() == "") {

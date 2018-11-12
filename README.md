@@ -76,7 +76,7 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [x] 删除操作前加询问框（WL, WQX, JC）
 - [ ] 进行空值和错误值测试
 - [ ] 邮件发送的问题再改进一下（特别是163邮箱），用西电邮箱是可以接收到的（YTH）
-- [ ] 部署（WL）
+- [x] 部署（WL）
 - [ ] 对照需求ppt测试（STX, WL, JC, YTH）
 - [ ] 测试一下哪些浏览器被支持（YTH）
 - [x] 空值搜索显示全部结果
@@ -99,8 +99,8 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [x] 主页展示书的功能（HAM, WQX）
 - [x] 页码问题（WQX, HAM）
 - [x] 主页公告无法点击（WQX, HAM）
-- [ ] 预约功能调整（WQX, HAM, JC）
-- [ ] 修复罚金异常问题
+- [x] 预约功能调整（WQX, HAM, JC）
+- [x] 修复罚金异常问题
 
 ### Admin
 - [x] 删除原来的搜索librarian，调整为一个搜索框，可以根据账号、姓名、电话来检索，支持子串搜索

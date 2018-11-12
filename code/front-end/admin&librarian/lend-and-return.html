@@ -178,6 +178,9 @@
 							</label>
 							<input readonly="readonly" id="name" required="" value="" name="borrower-name" type="text">
 					</form>
+					<hr>
+					<h1 style="color: #ff0000" id="fineValue" ></h1>
+					<hr>
 				</div>
 
 				<script src="js/jquery-1.11.3.min.js"></script>
@@ -219,6 +222,7 @@
 
 	socket.on("readerInfoForReturn", function(data){
 		$("#phone").attr("value", data.reader_id);
+		document.getElementById("fineValue").innerHTML = "Fine Value of This Book: " + data.fine.toString() + " yuan";
 		$("#name").attr("value", data.name);
 	});
 
