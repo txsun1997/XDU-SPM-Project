@@ -70,7 +70,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 	var email = require("emailjs");
 	var server = email.server.connect({
 		user: "cjiang_5@stu.xidian.edu.cn",      // 你的QQ用户
-		password: "m@",           // 注意，不是QQ密码，而是刚才生成的授权码
+		password: "",           // 注意，不是QQ密码，而是刚才生成的授权码
 		host: "stumail.xidian.edu.cn",         // 主机，不改
 		ssl: false                 // 使用ssl
 	});
@@ -105,10 +105,10 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 							dbase.collection('reader').find({ "reader_id": doc1[i].reader_id }).toArray(function (err2, doc2) {
 								email_data.email = doc2[0].email;
 								server.send({
-									text: "The book " + email_data.book_name + " has expired. Please return your book, or you will be fined 1 cent per day.",       //邮件内容
+									text: "The book " + email_data.book_name + " has expired. Please return your book in time, or you will be fined every day.",       //邮件内容
 									from: "cjiang_5@stu.xidian.edu.cn",        //谁发送的
 									to: email_data.email,       //发送给谁的
-									subject: "overdueNotice "          //邮件主题
+									subject: "Bibliosoft: Overdue Notice." 
 								}, function (err, message) {
 									console.log(err || message);
 								});
