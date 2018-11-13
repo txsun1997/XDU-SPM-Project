@@ -290,16 +290,17 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				var addresult = {};
 				data.reader_id = data.phone;
 				data.borrowNum = 0;
-				dbase.collection("reader").insertOne(data, function (err, res) {
-					test.equal(null, err);
-					addresult.reader_id = data.reader_id;
-					socket.emit("addReaderRoleSuccess", addresult);
-					var auth_data = {};
-					auth_data.username = data.reader_id;
-					auth_data.password = "12345678";
-					auth_data.type = "reader";
-					dbase.collection("accounts").insertOne(auth_data);
-					dbase.collection("config").find({ "varname": "config" }).toArray(function (err, doc1) {
+				dbase.collection("config").find({ "varname": "config" }).toArray(function (err, doc1) {
+					data.security = doc1[0].security;
+					dbase.collection("reader").insertOne(data, function (err, res) {
+						test.equal(null, err);
+						addresult.reader_id = data.reader_id;
+						socket.emit("addReaderRoleSuccess", addresult);
+						var auth_data = {};
+						auth_data.username = data.reader_id;
+						auth_data.password = "12345678";
+						auth_data.type = "reader";
+						dbase.collection("accounts").insertOne(auth_data);
 						var auth_data1 = {};
 						auth_data1.date = new Date();
 						auth_data1.type = "deposit";
@@ -428,7 +429,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 			});
 		});
 
-	
+
 
 		socket.on("updateReaderInfo", function (data) {
 			dbase.collection("reader").updateOne({ "reader_id": data.reader_id }, { $set: { "email": data.email } });
@@ -562,21 +563,23 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					socket.emit("deleteReaderSuccess");
 					return;
 				}
-				if(doc[0].borrowNum != 0){
+				if (doc[0].borrowNum != 0) {
 					socket.emit("notAllReturned");
 					return;
 				}
-				dbase.collection("reader").deleteOne({ "reader_id": data.reader_id }, function (err, res) {
-					test.equal(null, err);
-					socket.emit("deleteReaderSuccess");
-				});
 				dbase.collection("accounts").deleteOne({ "username": data.reader_id });
-				var auth_data1 = {};
-				auth_data1.date = new Date();
-				auth_data1.type = "deposit";
-				auth_data1.value = -300;
-				auth_data1.reader_id = data.reader_id;
-				dbase.collection("income").insertOne(auth_data1);
+				dbase.collection("reader").find({ "reader_id": data.reader_id }).toArray(function (err, res) {
+					var auth_data1 = {};
+					auth_data1.date = new Date();
+					auth_data1.type = "deposit";
+					auth_data1.value = (-1) * res[0].security;
+					auth_data1.reader_id = data.reader_id;
+					dbase.collection("income").insertOne(auth_data1);
+					dbase.collection("reader").deleteOne({ "reader_id": data.reader_id }, function (err, res) {
+						test.equal(null, err);
+						socket.emit("deleteReaderSuccess");
+					});
+				});
 			});
 		});
 
@@ -1261,7 +1264,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				retdata.incomelist = doc;
 				socket.emit("incomeList", retdata);// Return the detail information of all income between two dates;
 				//Following part return the information for drawing.
-				if(doc.length == 0)return;
+				if (doc.length == 0) return;
 				var fine = [];
 				var deposit = [];
 				var xdate = [];
