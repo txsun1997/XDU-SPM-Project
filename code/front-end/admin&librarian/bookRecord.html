@@ -17,7 +17,7 @@
 		<div class="admin-content">
 			<div class="admin-content-body">
 				<div class="am-cf am-padding">
-					<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" style="font-size: 25px">Operation History</strong> / 操作历史</div>
+					<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" style="font-size: 25px">Delete History</strong> / 删除历史</div>
 				</div>
 				<div class="container" style="padding: 10px 10px 0px 10px">
 					<div class="am-g" style="margin-top: -30px;">
@@ -103,11 +103,11 @@
 			//operation.innerHTML = item.operation;
 
 			var operation_span = document.createElement('span');
-			if (item.operation == "Delete") {
-				operation_span.setAttribute("class", "am-badge am-badge-danger");
+			if (item.operation == "Lost") {
+				operation_span.setAttribute("class", "am-badge");
 			}
-			if (item.operation == "Edit") {
-				operation_span.setAttribute("class", "am-badge am-badge-success");
+			if (item.operation == "Damage") {
+				operation_span.setAttribute("class", "am-badge am-badge-danger");
 			}
 			operation_span.innerHTML = item.operation;
 			operation.appendChild(operation_span);
