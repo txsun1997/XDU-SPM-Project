@@ -105,10 +105,13 @@
 
 			var operation_span = document.createElement('span');
 			if (item.operation == "Lost") {
-				operation_span.setAttribute("class", "am-badge");
+				operation_span.setAttribute("class", "am-badge am-badge-warning");
 			}
 			if (item.operation == "Damage") {
 				operation_span.setAttribute("class", "am-badge am-badge-danger");
+			}
+			if (item.operation == "OffShelf") {
+				operation_span.setAttribute("class", "am-badge");
 			}
 			operation_span.innerHTML = item.operation;
 			operation.appendChild(operation_span);

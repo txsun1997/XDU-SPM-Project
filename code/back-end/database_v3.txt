@@ -7,7 +7,7 @@ copies(bar_code, location(undetermined), isbn, status) #status包括available, bor
 borrows(reader_id, book_name, isbn, bar_code, lend_librarian_id, return_librarian_id, borrow_date, return_date, fine, status)#status 表示还了没，取值true表示还了
 reserve(reader_id, bar_code, isbn, reserve_time, status)
 session(username, session, type)
-librarianOperation(operation, book_name, time, librarian_id, isbn, bar_code(若是删除或编辑整本书，则为0代表所有))#operation包括Lost, Damage等等
+librarianOperation(operation, book_name, time, librarian_id, isbn, bar_code(若是删除或编辑整本书，则为0代表所有))#operation包括Lost, Damage, OffShelf等等
 config(varname:"config",security, limit, exceed, maxnum, reserve)
 location(location)
 type(type)
