@@ -92,9 +92,10 @@
 	<!--<![endif]-->
 	<script type="text/javascript" src="myplugs/js/plugs.js"></script>
 	<script src="../cookie.js"></script>>
+	<script src="../ipconfig.js"></script>
 	<script>
 
-		var socket = io("http://139.199.112.88:2761");
+		var socket = io(ip);
 
 		function detail(index) {
 			var books = Cookies.getJSON('bookList');

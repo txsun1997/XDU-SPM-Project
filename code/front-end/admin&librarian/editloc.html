@@ -135,8 +135,9 @@
 <script src="../cookie.js"></script>
 <script src="../socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="../ipconfig.js"></script>
 <script>
-    var socket = io("http://139.199.112.88:2761");
+    var socket = io(ip);
     var curloc =  Cookies.get("cur_loc");
     $("#loc_name").attr("value",curloc);
     socket.on("editlocationSuccess", function () {

@@ -74,8 +74,9 @@
     <script src="js/vendor/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/plugins.js"></script>
+    <script src="../ipconfig.js"></script>
     <script>
-        var socket = io("http://139.199.112.88:2761");
+        var socket = io(ip);
 
         function showBookDetail(data) {
             if (data.figure != null) {
