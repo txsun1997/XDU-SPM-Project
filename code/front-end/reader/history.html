@@ -160,13 +160,14 @@
     <script src="assets/js/custom-scripts.js"></script>
     <script src="../cookie.js"></script>
     <script src="../socket.io.js"></script>
+    <script src="../ipconfig.js"></script>
     <script type="text/javascript">
         var auth_data = {};
         auth_data.username = Cookies.get("username");
         auth_data.session = Cookies.get("session");
         auth_data.type = Cookies.get("type");
         auth_data.cur = "reader";
-        var socket = io("http://139.199.112.88:2761");
+        var socket = io(ip);
         var list_body = document.getElementById('list_body');
         function logOut() {
             Cookies.remove('type');

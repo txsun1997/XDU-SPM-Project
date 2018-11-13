@@ -179,6 +179,7 @@
     <script src="assets/js/custom-scripts.js"></script> 
     <script src="../cookie.js"></script>
     <script src="../socket.io.js"></script>
+    <script src="../ipconfig.js"></script>
     <script>
         var auth_data={};
         auth_data.username = Cookies.get("username");
@@ -187,7 +188,7 @@
         auth_data.cur = "reader";
         var updataInfo={};
         
-        var socket = io("http://139.199.112.88:2761");
+        var socket = io(ip);
         function logOut(){
             Cookies.remove('type');
             socket.emit('logOut',auth_data);

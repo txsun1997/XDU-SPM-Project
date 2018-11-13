@@ -99,8 +99,9 @@
 <script type="text/javascript" src="js/H-ui.admin.js"></script>
 <script type="text/javascript" src="js/hcharts/Highcharts/5.0.6/js/highcharts.js"></script>
 <script type="text/javascript" src="js/hcharts/Highcharts/5.0.6/js/modules/exporting.js"></script>
+<script src="../ipconfig.js"></script>
 <script type="text/javascript">
-    var socket = io("http://139.199.112.88:2761");
+    var socket = io(ip);
     var items = [];
     var senddata={};
     senddata.type="Day";

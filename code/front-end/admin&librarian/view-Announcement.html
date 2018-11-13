@@ -55,9 +55,10 @@
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <!--<![endif]-->
 <script type="text/javascript" src="myplugs/js/plugs.js"></script>
+<script src="../ipconfig.js"></script>
 <script>
 
-    var socket = io("http://139.199.112.88:2761");
+    var socket = io(ip);
     document.getElementById("title").innerText="公告标题";
     document.getElementById("date").innerText="  2018.10.24";
     document.getElementById("content").innerText="公告内容";

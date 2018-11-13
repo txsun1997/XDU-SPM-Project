@@ -94,10 +94,11 @@
 	<script src="js/jquery-1.11.3.min.js"></script>
 	<!--<![endif]-->
 	<script type="text/javascript" src="myplugs/js/plugs.js"></script>
+	<script src="../ipconfig.js"></script>
 
 
 	<script>
-		var socket = io("http://139.199.112.88:2761");
+		var socket = io(ip);
 		var items = [];
 		var librarians;
 		Cookies.set("update", "false");
