@@ -145,7 +145,7 @@
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
                                                 <button type="button" onclick="save()" class="btn btn-default">保存</button>
-                                                <button type="button" onclick="reset()" class="btn btn-default">重置</button>
+                                                <button type="button" onclick="var female=false;if(document.getElementById('radio6').checked==true) female=true; reset(); if(female) document.getElementById('radio6').checked=true;" class="btn btn-default">重置</button>
                                             </div>
                                            
                                         </div>
@@ -188,15 +188,13 @@
         auth_data.cur = "reader";
         var updataInfo={};
         
-        var socket = io(ip);
+        var socket = io("http://139.199.112.88:2761");
         function logOut(){
             Cookies.remove('type');
             socket.emit('logOut',auth_data);
         }
         function save(){
-
             var email_val = $('#inputemail').val();
-
             if(email_val.length == 0) {
                 window.alert("邮箱不能为空！");
                 return;
@@ -209,16 +207,13 @@
                     updataInfo.reader_id = $('#inputID').val();
                     updataInfo.phone = $('#inputtel').val();
                     updataInfo.email = $('#inputemail').val();
-
                     var profile_auth = auth_data;
                     profile_auth.req = 'updateProfile';
                     socket.emit('sessionAuth',profile_auth);
                 }
             }
         }
-        function reset(){
-            socket.emit('getReaderInfo',auth_data);
-        }
+
         socket.on("noSession", function (data) {
             window.alert("登录已过期，请重新登录!");
             Cookies.remove('type');

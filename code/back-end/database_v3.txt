@@ -1,7 +1,7 @@
 accounts(username, password, type)
 admin(admin_id, name, gender, phone, email)
 librarian(librarian_id, name, gender, phone, email)
-reader(reader_id, name, gender, email, phone, borrowNum) #borrowNum代表预约和借了几本书
+reader(reader_id, name, gender, email, phone, borrowNum, security) #borrowNum代表预约和借了几本书, security代表保证金多少
 books(isbn, book_name, author, press, publish_year, subject, figure, type, available_number, total_number, page)
 copies(bar_code, location(undetermined), isbn, status) #status包括available, borrowed, reserved
 borrows(reader_id, book_name, isbn, bar_code, lend_librarian_id, return_librarian_id, borrow_date, return_date, fine, status)#status 表示还了没，取值true表示还了
