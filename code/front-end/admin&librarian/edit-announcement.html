@@ -57,8 +57,9 @@
 <script src="../cookie.js"></script>
 <script src="../socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="../ipconfig.js"></script>
 <script>
-    var socket = io("http://139.199.112.88:2761");
+    var socket = io(ip);
     var auth_data = {};
     auth_data.username = Cookies.get("username");
     auth_data.session = Cookies.get("session");

@@ -305,6 +305,7 @@
 	<script src="js/active.js"></script>
 	<script src="../cookie.js"></script>
 	<script src="../socket.io.js"></script>
+	<script src="../ipconfig.js"></script>
 	<!--<![endif]-->
 	<script type="text/javascript" src="myplugs/js/plugs.js"></script>
 
@@ -325,7 +326,7 @@
 		var logFlag = false;
 		var pageNum = 0;
 		var lastPageBookNum = 0;
-		var socket = io("http://139.199.112.88:2761");
+		var socket = io(ip);
 		function showPage(page_index) {
 			var now_index = Cookies.get('now_index');
 			if (now_index == page_index)

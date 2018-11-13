@@ -86,9 +86,10 @@
 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	<!--<![endif]-->
 	<script type="text/javascript" src="myplugs/js/plugs.js"></script>
+	<script src="../ipconfig.js"></script>
 	<script>
 
-		var socket = io("http://139.199.112.88:2761");
+		var socket = io(ip);
 
 		data = {};
 		data.reader_id = Cookies.get("cur_reader_id");
