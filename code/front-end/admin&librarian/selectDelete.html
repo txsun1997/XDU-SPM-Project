@@ -49,7 +49,7 @@
                                                 Status
                                             </th>
                                             <th>
-                                                Operation
+                                                Delete
                                             </th>
                                         </tr>
                                     </thead>
@@ -147,19 +147,39 @@
             isbn.innerHTML = item.isbn;
 
             var status = document.createElement('td');
-            status.innerHTML = item.status;
+            var status_span = document.createElement('span');
+            if (item.status == "available") {
+                status_span.setAttribute('class', 'am-badge am-badge-success');
+            }
+            if (item.status == "reserved") {
+                status_span.setAttribute('class', 'am-badge am-badge-danger');
+            }
+            if (item.status == 'borrowed') {
+                status_span.setAttribute('class', 'am-badge am-badge-secondary')
+            }
+            status_span.innerHTML = item.status;
+            status.appendChild(status_span);
+            //status.innerHTML = item.status;
 
-            var btnDelete = document.createElement('button');
-            btnDelete.innerHTML = 'DELETE';
-            btnDelete.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only');
-            btnDelete.setAttribute('id', i);
-            btnDelete.setAttribute('onclick', 'deleteCopy(this.id)');
-            btnDelete.setAttribute('type', 'button');
+            var btnLost = document.createElement('button');
+            btnLost.innerHTML = 'Lost';
+            btnLost.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-secondary am-hide-sm-only');
+            btnLost.setAttribute('id', i);
+            btnLost.setAttribute('onclick', 'lostCopy(this.id)');
+            btnLost.setAttribute('type', 'button');
+
+            var btnDamage = document.createElement('button');
+            btnDamage.innerHTML = 'Damage';
+            btnDamage.setAttribute('class', 'am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only');
+            btnDamage.setAttribute('id', i);
+            btnDamage.setAttribute('onclick', 'damageCopy(this.id)');
+            btnDamage.setAttribute('type', 'button');
 
             var div1 = document.createElement('div');
             div1.setAttribute('class', 'am-btn-group am-btn-group-xs');
 
-            div1.appendChild(btnDelete);
+            div1.appendChild(btnLost);
+            div1.appendChild(btnDamage);
 
             var div2 = document.createElement('div');
             div2.setAttribute('class', 'am-btn-toolbar');
