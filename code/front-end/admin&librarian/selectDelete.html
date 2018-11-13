@@ -111,25 +111,37 @@
         });
 
         function delAll() {
-            var del = confirm("Confirm to delete?");
+            var del = confirm("Confirm to offshelf all?");
             if (del == true) {
                 var username = Cookies.get("username");
                 data = {};
-                data.operation = "Delete";
+                data.operation = "OffShelf";
                 data.bar_code = "ALL";
                 data.isbn = isbn;
                 data.librarian_id = username;
                 socket.emit("deleteBook", data);
-
             }
         }
 
-        function deleteCopy(index) {
-            var del = confirm("Confirm to delete?");
+        function lostCopy(index) {
+            var del = confirm("Confirm to lost?");
             if (del == true) {
                 var username = Cookies.get("username");
                 data = {};
-                data.operation = "Delete";
+                data.operation = "Lost";
+                data.bar_code = copies[index].bar_code;
+                data.isbn = isbn;
+                data.librarian_id = username;
+                socket.emit("deleteCopy", data);
+            }
+        }
+
+        function damageCopy(index) {
+            var del = confirm("Confirm to damage?");
+            if (del == true) {
+                var username = Cookies.get("username");
+                data = {};
+                data.operation = "Damage";
                 data.bar_code = copies[index].bar_code;
                 data.isbn = isbn;
                 data.librarian_id = username;
