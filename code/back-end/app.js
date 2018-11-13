@@ -70,7 +70,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 	var email = require("emailjs");
 	var server = email.server.connect({
 		user: "cjiang_5@stu.xidian.edu.cn",      // 你的QQ用户
-		password: "",           // 注意，不是QQ密码，而是刚才生成的授权码
+		password: "m@",           // 注意，不是QQ密码，而是刚才生成的授权码
 		host: "stumail.xidian.edu.cn",         // 主机，不改
 		ssl: false                 // 使用ssl
 	});
@@ -108,7 +108,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 									text: "The book " + email_data.book_name + " has expired. Please return your book in time, or you will be fined every day.",       //邮件内容
 									from: "cjiang_5@stu.xidian.edu.cn",        //谁发送的
 									to: email_data.email,       //发送给谁的
-									subject: "Bibliosoft: Overdue Notice." 
+									subject: "Bibliosoft: Overdue Notice."
 								}, function (err, message) {
 									console.log(err || message);
 								});
@@ -1238,9 +1238,10 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 
 		socket.on("viewincome", function (data) {
 			var type = data.type;
-			var cursor;
+			var cursor, cursor2;
 			if (data.origin) {
 				cursor = dbase.collection("income").find({}).sort({ "date": -1 });
+				cursor2 = dbase.collection("income").find({}).sort({ "date": 1 });
 			}
 			else {
 				var start = data.start;
@@ -1248,13 +1249,15 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				var start_date = new Date(start.replace(/-/, "/"));
 				var end_date = new Date(end.replace(/-/, "/"));
 				cursor = dbase.collection("income").find({ "date": { $gte: start_date, $lte: end_date } }).sort({ "date": -1 });
+				cursor2 = dbase.collection("income").find({ "date": { $gte: start_date, $lte: end_date } }).sort({ "date": 1 });
 			}
 			cursor.toArray(function (err, doc) {
 				var retdata = {};
 				retdata.incomelist = doc;
 				socket.emit("incomeList", retdata);// Return the detail information of all income between two dates;
 				//Following part return the information for drawing.
-
+			});
+			cursor2.toArray(function (err, doc) {
 				var fine = [];
 				var deposit = [];
 				var xdate = [];
