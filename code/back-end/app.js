@@ -428,10 +428,13 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 			});
 		});
 
+	
+
 		socket.on("updateReaderInfo", function (data) {
-			dbase.collection("reader").updateOne({ "reader_id": data.reader_id }, { $set: { "phone": data.phone, "email": data.email } });
+			dbase.collection("reader").updateOne({ "reader_id": data.reader_id }, { $set: { "email": data.email } });
 			socket.emit("updateReaderInfoSuccess");
 		});
+
 
 		socket.on("getBookList", function (data) {
 			dbase.collection("books").find({})
@@ -553,12 +556,15 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 		});
 
 		socket.on("deleteReader", function (data) {
-			dbase.collection("borrows").find({ "reader_id": data.reader_id }).toArray(function (err, doc) {
-				for (var i = 0; i < doc.length; i++) {
-					if (doc[i].status == false) {
-						socket.emit("notAllReturned");
-						return;
-					}
+			dbase.collection("reader").find({ reader_id: data.reader_id }).toArray(function (err1, doc) {
+				test.equal(null, err1);
+				if (doc.length == 0) {
+					socket.emit("deleteReaderSuccess");
+					return;
+				}
+				if(doc[0].borrowNum != 0){
+					socket.emit("notAllReturned");
+					return;
 				}
 				dbase.collection("reader").deleteOne({ "reader_id": data.reader_id }, function (err, res) {
 					test.equal(null, err);
@@ -1238,10 +1244,9 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 
 		socket.on("viewincome", function (data) {
 			var type = data.type;
-			var cursor, cursor2;
+			var cursor;
 			if (data.origin) {
 				cursor = dbase.collection("income").find({}).sort({ "date": -1 });
-				cursor2 = dbase.collection("income").find({}).sort({ "date": 1 });
 			}
 			else {
 				var start = data.start;
@@ -1249,15 +1254,14 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				var start_date = new Date(start.replace(/-/, "/"));
 				var end_date = new Date(end.replace(/-/, "/"));
 				cursor = dbase.collection("income").find({ "date": { $gte: start_date, $lte: end_date } }).sort({ "date": -1 });
-				cursor2 = dbase.collection("income").find({ "date": { $gte: start_date, $lte: end_date } }).sort({ "date": 1 });
 			}
 			cursor.toArray(function (err, doc) {
+				test.equal(null, err);
 				var retdata = {};
 				retdata.incomelist = doc;
 				socket.emit("incomeList", retdata);// Return the detail information of all income between two dates;
 				//Following part return the information for drawing.
-			});
-			cursor2.toArray(function (err, doc) {
+				if(doc.length == 0)return;
 				var fine = [];
 				var deposit = [];
 				var xdate = [];
@@ -1343,6 +1347,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				socket.emit("incomepicture", ret);
 			});
 		});
+
 
 		socket.on('passwordrecovery', function (data) {
 			var auth_cursor = dbase.collection("librarian").find({ "librarian_id": data.username });
