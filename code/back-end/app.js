@@ -65,7 +65,42 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 		});
 	}, 60000);
 
+	var schedule = require("node-schedule");
 
+	// 设置每天8点检查逾期信息
+	var rule = new schedule.RecurrenceRule();
+	rule.dayOfWeek = [0, new schedule.Range(1, 6)];
+	rule.hour = 8;
+	rule.minute = 0;
+
+	var j = schedule.scheduleJob(rule, function () {
+		dbase.collection('config').find({ varname: 'config' }).toArray(function (err0, doc0) {
+			var limit = doc0[0].limit;
+			var cur_time = new Date();
+			var ms_time = cur_time.getTime();
+			dbase.collection('borrows').find({ status: false }).toArray(function (err1, doc1) {
+				for (var i = 0; i < doc1.length; i++) {
+					borrow_time = doc1[i].borrow_date.getTime();
+					// 如果当前时间减去租借时间大于限定时间，则发送警告邮件
+					if (ms_time - borrow_time > limit * 10 * 1000) {
+						var email_data = {};
+						email_data.book_name = doc1[i].book_name;
+						dbase.collection('reader').find({ "reader_id": doc1[i].reader_id }).toArray(function (err2, doc2) {
+							email_data.email = doc2[0].email;
+							server.send({
+								text: "The book " + email_data.book_name + " has expired. Please return your book in time, or you will be fined every day.",       //邮件内容
+								from: "cjiang_5@stu.xidian.edu.cn",        //谁发送的
+								to: email_data.email,       //发送给谁的
+								subject: "Bibliosoft: Overdue Notice."
+							}, function (err, message) {
+								console.log(err || message);
+							});
+						});
+					}
+				}
+			});
+		});
+	});
 
 	var email = require("emailjs");
 	var server = email.server.connect({
@@ -79,45 +114,6 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 	io.on('connection', function (socket) {
 		console.log("The client and server has been successfully connected.");
 		//The scope which all bussiness defined in. start------------------------------------------------------------
-
-
-		// 导入node-schedule模块
-		var schedule = require("node-schedule");
-
-		// 设置每天8点检查逾期信息
-		var rule = new schedule.RecurrenceRule();
-		rule.dayOfWeek = [0, new schedule.Range(1, 6)];
-		rule.hour = 8;
-		rule.minute = 0;
-
-		var j = schedule.scheduleJob(rule, function () {
-			dbase.collection('config').find({ varname: 'config' }).toArray(function (err0, doc0) {
-				var limit = doc0[0].limit;
-				var cur_time = new Date();
-				var ms_time = cur_time.getTime();
-				dbase.collection('borrows').find({ status: true }).toArray(function (err1, doc1) {
-					for (var i = 0; i < doc1.length; i++) {
-						borrow_time = doc1[i].borrow_date.getTime();
-						// 如果当前时间减去租借时间大于限定时间，则发送警告邮件
-						if (ms_time - borrow_time > limit * 24 * 60 * 60 * 1000) {
-							var email_data = {};
-							email_data.book_name = doc1[i].book_name;
-							dbase.collection('reader').find({ "reader_id": doc1[i].reader_id }).toArray(function (err2, doc2) {
-								email_data.email = doc2[0].email;
-								server.send({
-									text: "The book " + email_data.book_name + " has expired. Please return your book in time, or you will be fined every day.",       //邮件内容
-									from: "cjiang_5@stu.xidian.edu.cn",        //谁发送的
-									to: email_data.email,       //发送给谁的
-									subject: "Bibliosoft: Overdue Notice."
-								}, function (err, message) {
-									console.log(err || message);
-								});
-							});
-						}
-					}
-				});
-			});
-		});
 
 
 		//author: wanglei, usage: login part for user.
@@ -618,7 +614,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 								var cur = new Date();
 								var interval = cur.getTime() - res[0].borrow_date.getTime();
 								if (interval > res2[0].limit * 86400000) {
-									var fine = (interval / 86400000 - res2[0].limit) * res2[0].exceed;
+									var fine = (Math.ceil(interval / 86400000) - res2[0].limit) * res2[0].exceed;
 								} else {
 									var fine = 0;
 								}
@@ -761,7 +757,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					var cur = new Date();
 					var interval = cur.getTime() - res[0].borrow_date.getTime();
 					if (interval > res2[0].limit * 86400000) {
-						var fine = (interval / 86400000 - res2[0].limit) * res2[0].exceed;
+						var fine = (Math.ceil(interval / 86400000) - res2[0].limit) * res2[0].exceed;
 						var auth_data1 = {};
 						auth_data1.date = new Date();
 						auth_data1.type = "fine";
@@ -788,7 +784,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 						if (reader[i].status == false) {
 							var interval = cur.getTime() - reader[i].borrow_date.getTime();
 							if (interval > res[0].limit * 86400000) {
-								reader[i].fine = (interval / 86400000 - res[0].limit) * res[0].exceed;
+								reader[i].fine = (Math.ceil(interval / 86400000) - res[0].limit) * res[0].exceed;
 							} else {
 								reader[i].fine = 0;
 							}
@@ -1247,9 +1243,10 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 
 		socket.on("viewincome", function (data) {
 			var type = data.type;
-			var cursor;
+			var cursor, cursor2;
 			if (data.origin) {
 				cursor = dbase.collection("income").find({}).sort({ "date": -1 });
+				cursor2 = dbase.collection("income").find({}).sort({ "date": 1 });
 			}
 			else {
 				var start = data.start;
@@ -1257,13 +1254,16 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				var start_date = new Date(start.replace(/-/, "/"));
 				var end_date = new Date(end.replace(/-/, "/"));
 				cursor = dbase.collection("income").find({ "date": { $gte: start_date, $lte: end_date } }).sort({ "date": -1 });
+				cursor2 = dbase.collection("income").find({ "date": { $gte: start_date, $lte: end_date } }).sort({ "date": 1 });
 			}
 			cursor.toArray(function (err, doc) {
-				test.equal(null, err);
 				var retdata = {};
 				retdata.incomelist = doc;
+				if (doc.length == 0) return;
 				socket.emit("incomeList", retdata);// Return the detail information of all income between two dates;
 				//Following part return the information for drawing.
+			});
+			cursor2.toArray(function (err, doc) {
 				if (doc.length == 0) return;
 				var fine = [];
 				var deposit = [];
@@ -1350,7 +1350,6 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				socket.emit("incomepicture", ret);
 			});
 		});
-
 
 		socket.on('passwordrecovery', function (data) {
 			var auth_cursor = dbase.collection("librarian").find({ "librarian_id": data.username });
