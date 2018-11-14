@@ -65,7 +65,42 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 		});
 	}, 60000);
 
+	var schedule = require("node-schedule");
 
+	// 设置每天8点检查逾期信息
+	var rule = new schedule.RecurrenceRule();
+	rule.dayOfWeek = [0, new schedule.Range(1, 6)];
+	rule.hour = 8;
+	rule.minute = 0;
+
+	var j = schedule.scheduleJob(rule, function () {
+		dbase.collection('config').find({ varname: 'config' }).toArray(function (err0, doc0) {
+			var limit = doc0[0].limit;
+			var cur_time = new Date();
+			var ms_time = cur_time.getTime();
+			dbase.collection('borrows').find({ status: false }).toArray(function (err1, doc1) {
+				for (var i = 0; i < doc1.length; i++) {
+					borrow_time = doc1[i].borrow_date.getTime();
+					// 如果当前时间减去租借时间大于限定时间，则发送警告邮件
+					if (ms_time - borrow_time > limit * 10 * 1000) {
+						var email_data = {};
+						email_data.book_name = doc1[i].book_name;
+						dbase.collection('reader').find({ "reader_id": doc1[i].reader_id }).toArray(function (err2, doc2) {
+							email_data.email = doc2[0].email;
+							server.send({
+								text: "The book " + email_data.book_name + " has expired. Please return your book in time, or you will be fined every day.",       //邮件内容
+								from: "cjiang_5@stu.xidian.edu.cn",        //谁发送的
+								to: email_data.email,       //发送给谁的
+								subject: "Bibliosoft: Overdue Notice."
+							}, function (err, message) {
+								console.log(err || message);
+							});
+						});
+					}
+				}
+			});
+		});
+	});
 
 	var email = require("emailjs");
 	var server = email.server.connect({
@@ -79,45 +114,6 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 	io.on('connection', function (socket) {
 		console.log("The client and server has been successfully connected.");
 		//The scope which all bussiness defined in. start------------------------------------------------------------
-
-
-		// 导入node-schedule模块
-		var schedule = require("node-schedule");
-
-		// 设置每天8点检查逾期信息
-		var rule = new schedule.RecurrenceRule();
-		rule.dayOfWeek = [0, new schedule.Range(1, 6)];
-		rule.hour = 8;
-		rule.minute = 0;
-
-		var j = schedule.scheduleJob(rule, function () {
-			dbase.collection('config').find({ varname: 'config' }).toArray(function (err0, doc0) {
-				var limit = doc0[0].limit;
-				var cur_time = new Date();
-				var ms_time = cur_time.getTime();
-				dbase.collection('borrows').find({ status: true }).toArray(function (err1, doc1) {
-					for (var i = 0; i < doc1.length; i++) {
-						borrow_time = doc1[i].borrow_date.getTime();
-						// 如果当前时间减去租借时间大于限定时间，则发送警告邮件
-						if (ms_time - borrow_time > limit * 24 * 60 * 60 * 1000) {
-							var email_data = {};
-							email_data.book_name = doc1[i].book_name;
-							dbase.collection('reader').find({ "reader_id": doc1[i].reader_id }).toArray(function (err2, doc2) {
-								email_data.email = doc2[0].email;
-								server.send({
-									text: "The book " + email_data.book_name + " has expired. Please return your book in time, or you will be fined every day.",       //邮件内容
-									from: "cjiang_5@stu.xidian.edu.cn",        //谁发送的
-									to: email_data.email,       //发送给谁的
-									subject: "Bibliosoft: Overdue Notice."
-								}, function (err, message) {
-									console.log(err || message);
-								});
-							});
-						}
-					}
-				});
-			});
-		});
 
 
 		//author: wanglei, usage: login part for user.
