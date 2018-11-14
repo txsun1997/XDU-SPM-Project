@@ -1247,9 +1247,10 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 
 		socket.on("viewincome", function (data) {
 			var type = data.type;
-			var cursor;
+			var cursor, cursor2;
 			if (data.origin) {
 				cursor = dbase.collection("income").find({}).sort({ "date": -1 });
+				cursor2 = dbase.collection("income").find({}).sort({ "date": 1 });
 			}
 			else {
 				var start = data.start;
@@ -1257,13 +1258,16 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				var start_date = new Date(start.replace(/-/, "/"));
 				var end_date = new Date(end.replace(/-/, "/"));
 				cursor = dbase.collection("income").find({ "date": { $gte: start_date, $lte: end_date } }).sort({ "date": -1 });
+				cursor2 = dbase.collection("income").find({ "date": { $gte: start_date, $lte: end_date } }).sort({ "date": 1 });
 			}
 			cursor.toArray(function (err, doc) {
-				test.equal(null, err);
 				var retdata = {};
 				retdata.incomelist = doc;
+				if (doc.length == 0) return;
 				socket.emit("incomeList", retdata);// Return the detail information of all income between two dates;
 				//Following part return the information for drawing.
+			});
+			cursor2.toArray(function (err, doc) {
 				if (doc.length == 0) return;
 				var fine = [];
 				var deposit = [];
@@ -1350,7 +1354,6 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 				socket.emit("incomepicture", ret);
 			});
 		});
-
 
 		socket.on('passwordrecovery', function (data) {
 			var auth_cursor = dbase.collection("librarian").find({ "librarian_id": data.username });
