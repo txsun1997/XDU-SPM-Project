@@ -618,7 +618,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 								var cur = new Date();
 								var interval = cur.getTime() - res[0].borrow_date.getTime();
 								if (interval > res2[0].limit * 86400000) {
-									var fine = (interval / 86400000 - res2[0].limit) * res2[0].exceed;
+									var fine = (Math.ceil(interval / 86400000) - res2[0].limit) * res2[0].exceed;
 								} else {
 									var fine = 0;
 								}
@@ -761,7 +761,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 					var cur = new Date();
 					var interval = cur.getTime() - res[0].borrow_date.getTime();
 					if (interval > res2[0].limit * 86400000) {
-						var fine = (interval / 86400000 - res2[0].limit) * res2[0].exceed;
+						var fine = (Math.ceil(interval / 86400000) - res2[0].limit) * res2[0].exceed;
 						var auth_data1 = {};
 						auth_data1.date = new Date();
 						auth_data1.type = "fine";
@@ -788,7 +788,7 @@ MongoClient.connect(url, { 'useNewUrlParser': true }, function (err, db) {
 						if (reader[i].status == false) {
 							var interval = cur.getTime() - reader[i].borrow_date.getTime();
 							if (interval > res[0].limit * 86400000) {
-								reader[i].fine = (interval / 86400000 - res[0].limit) * res[0].exceed;
+								reader[i].fine = (Math.ceil(interval / 86400000) - res[0].limit) * res[0].exceed;
 							} else {
 								reader[i].fine = 0;
 							}
