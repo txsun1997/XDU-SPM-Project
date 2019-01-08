@@ -1,6 +1,10 @@
 # XDU-SPM-Project
 The _Software Project Organization And Management_ course project at Xidian University.
 
+## 项目地址
+
+http://tristone.wang/reader/index.html
+
 ## 要求
 * Web-based Project (B/S Architecture)
 * Complete in 7 Weeks
@@ -11,6 +15,8 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 百度云盘：https://pan.baidu.com/s/1OwO0cqv4kAs1Sdc-sQVKUw
 
 提取密码：bes3
+
+----
 
 # Backlog
 
@@ -107,8 +113,6 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 - [x] 重做一个登录界面，只能通过地址访问（STX）
 - [x] Message有高亮显示未读消息数目（STX, WL）
 - [x] 添加/编辑/删除后自动刷新列表（WL）
-
-----
 
 ## Release 3
 
