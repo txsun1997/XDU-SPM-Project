@@ -5,6 +5,12 @@ The _Software Project Organization And Management_ course project at Xidian Univ
 
 http://tristone.wang/reader/index.html
 
+示例图片：
+
+![img1](https://github.com/txsun1997/XDU-SPM-Project/blob/master/index.png)
+
+![img2](https://github.com/txsun1997/XDU-SPM-Project/blob/master/booklist.png)
+
 ## 要求
 * Web-based Project (B/S Architecture)
 * Complete in 7 Weeks
@@ -73,17 +79,17 @@ http://tristone.wang/reader/index.html
 
 ### DOC
 - [x] Lab 1&2
-- [ ] Lab 3&4
-- [ ] User Manual（STX）
-- [ ] Readme（WL）
-- [ ] Vedio（LISH）
+- [x] Lab 3&4
+- [x] User Manual（STX）
+- [x] Readme（WL）
+- [x] Vedio（LISH）
 
 ### ALL
 - [x] 删除操作前加询问框（WL, WQX, JC）
-- [ ] 进行空值和错误值测试
+- [x] 进行空值和错误值测试
 - [ ] 邮件发送的问题再改进一下（特别是163邮箱），用西电邮箱是可以接收到的（YTH）
 - [x] 部署（WL）
-- [ ] 对照需求ppt测试（STX, WL, JC, YTH）
+- [x] 对照需求ppt测试（STX, WL, JC, YTH）
 - [ ] 测试一下哪些浏览器被支持（YTH）
 - [x] 空值搜索显示全部结果
 
